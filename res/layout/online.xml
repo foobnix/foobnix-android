@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" android:layout_height="match_parent"
+	android:orientation="vertical">
+
+	<LinearLayout android:layout_width="match_parent"
+		android:typeface="monospace" android:id="@+id/linearLayout1"
+		android:layout_height="wrap_content" android:orientation="horizontal"
+		android:focusable="true" android:focusableInTouchMode="true">
+
+
+		<TextView android:text="" android:id="@+id/onlineNowPlaying"
+			android:layout_width="fill_parent" android:layout_weight="1"
+			android:layout_height="wrap_content"></TextView>
+
+		<Button android:id="@+id/onlinePaste" android:text=" Paste "
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:layout_weight="0"></Button>
+
+	</LinearLayout>
+
+	<LinearLayout android:layout_width="match_parent"
+		android:typeface="monospace" android:id="@+id/linearLayout1"
+		android:layout_height="wrap_content" android:orientation="horizontal"
+		android:focusable="true" android:focusableInTouchMode="true">
+
+		<Spinner android:id="@+id/onlineSpinner" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_weight="0">
+		</Spinner>
+
+		<EditText android:text="" android:id="@+id/onlineEditText"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:layout_weight="1"></EditText>
+
+		<Button android:id="@+id/onlineSearch" android:text="Search"
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:layout_weight="0"></Button>
+
+	</LinearLayout>
+
+	<ListView android:orientation="horizontal"
+		android:layout_height="0dip" android:layout_width="fill_parent"
+		android:layout_weight="1" android:id="@+id/onlineListView">
+	</ListView>
+</LinearLayout>

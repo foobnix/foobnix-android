@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" android:layout_height="match_parent"
+	android:orientation="vertical" android:gravity="center_horizontal">
+
+
+	<ScrollView android:layout_height="wrap_content"
+		android:layout_width="match_parent" android:id="@+id/scrollView1">
+
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:orientation="vertical" android:gravity="center_horizontal">
+
+			<ImageView android:layout_height="fill_parent" android:id="@+id/aboutImage"
+				android:layout_width="fill_parent" android:scaleType="center"
+				android:adjustViewBounds="true">
+				</ImageView>
+
+
+			<TextView android:text="" android:id="@+id/aboutArtistTitle"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:textStyle="bold" android:textSize="20sp"></TextView>
+
+			<TextView android:text="" android:id="@+id/aboutArtistBio"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:textSize="20sp"></TextView>
+		</LinearLayout>
+
+	</ScrollView>
+</LinearLayout>

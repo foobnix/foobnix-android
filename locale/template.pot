@@ -1,0 +1,119 @@
+# Translations template for PROJECT.
+# Copyright (C) 2011 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2011-06-06 14:46+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.0dev\n"
+
+msgctxt "app_name"
+msgid "Foobnix Music Player"
+msgstr ""
+
+msgctxt "Action"
+msgid "Action"
+msgstr ""
+
+msgctxt "Delete"
+msgid "Delete"
+msgstr ""
+
+msgctxt "Delete_All"
+msgid "Delete All"
+msgstr ""
+
+msgctxt "Add"
+msgid "Add"
+msgstr ""
+
+msgctxt "Added"
+msgid "Added"
+msgstr ""
+
+msgctxt "Play"
+msgid "Play"
+msgstr ""
+
+msgctxt "Folders_Online"
+msgid "Folders-Online"
+msgstr ""
+
+msgctxt "Player_List"
+msgid "Player List"
+msgstr ""
+
+msgctxt "Downloads"
+msgid "Downloads"
+msgstr ""
+
+msgctxt "Download"
+msgid "Download"
+msgstr ""
+
+msgctxt "Download_All"
+msgid "Download All"
+msgstr ""
+
+msgctxt "Song_Info"
+msgid "Song Info"
+msgstr ""
+
+msgctxt "Settings"
+msgid "Settings"
+msgstr ""
+
+msgctxt "Clean_Playlist"
+msgid "Clean Playlist"
+msgstr ""
+
+msgctxt "Player_List_Action"
+msgid "Player List Action"
+msgstr ""
+
+msgctxt "Network_not_available"
+msgid "Network not available"
+msgstr ""
+
+msgctxt "Media_Resources"
+msgid "Media Resources"
+msgstr ""
+
+msgctxt "Folders"
+msgid "Folders"
+msgstr ""
+
+msgctxt "Online"
+msgid "Online"
+msgstr ""
+
+msgctxt "Folder_Action"
+msgid "Folder Action"
+msgstr ""
+
+msgctxt "Create_Folder"
+msgid "Create Folder"
+msgstr ""
+
+msgctxt "Append"
+msgid "Append"
+msgstr ""
+
+msgctxt "Append_All"
+msgid "Append All"
+msgstr ""
+
+msgctxt "Set_Download_To"
+msgid "Set Download To"
+msgstr ""
+

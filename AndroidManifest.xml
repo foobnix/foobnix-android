@@ -1,21 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.foobnix"
-      android:versionCode="1"
-      android:versionName="1.0">
+      android:versionCode="15"
+      android:versionName="1.5">
+	
+	
+	<instrumentation android:targetPackage="com.foobnix" android:name="android.test.InstrumentationTestRunner" />
 
-
-    <application android:label="@string/app_name" android:icon="@drawable/foobnix">
+    <application android:label="@string/app_name" android:icon="@drawable/foobnix" android:name=".engine.FoobnixApplication" >
         
-        <activity android:name=".navigation.NavigationActivity" android:screenOrientation="portrait">
+        <activity android:name=".ui.activity.FoobnixActivity" android:screenOrientation="portrait">
         	<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PlayerActivity"  android:screenOrientation="portrait">
         
-        </activity>
-
+        <activity android:name=".ui.activity.FolderActivity"  android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.pref.LastFmPreferences" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.pref.VkPreferences" android:screenOrientation="portrait" />
+        
+        <activity android:name=".ui.activity.pref.PlayerPreferences" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.VkCheckActivity"  />
+        <activity android:name=".ui.activity.InfoActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.MediaActivity"  />
+        <activity android:name=".ui.activity.OnlineActivity"  />
+        <activity android:name=".ui.activity.DMActitivy" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.info.LyricActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.info.MoreActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.info.AboutArtistActivity" android:screenOrientation="portrait" />
+        
+        <service android:name=".service.FoobnixService"></service>
+        <service android:name=".service.DMService"></service>
+        
+        <receiver android:name="DemoBR" >
+        	<intent-filter>
+        		<action android:name="MY_ACTION"/>
+        	</intent-filter>
+        </receiver>
+                
+        
+	<uses-library android:name="android.test.runner" />
     </application>
+    <supports-screens />
+    
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="8"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+	<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
 </manifest>

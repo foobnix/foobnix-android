@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="horizontal" android:layout_height="wrap_content"
-	android:layout_width="wrap_content">
-	<TextView android:text=" " android:id="@+id/playerCursor"
-		android:layout_height="wrap_content" 
-		android:layout_width="wrap_content" android:textSize="16sp">
-		</TextView>
-	<TextView android:text="1 - Song" android:id="@+id/playerText"
+	android:layout_height="match_parent" android:layout_width="match_parent"
+	android:orientation="horizontal" android:id="@+id/pItemLayout">
+	<TextView android:text="" android:id="@+id/pItemNum"
+		android:layout_height="match_parent" android:layout_width="wrap_content"
+		android:textSize="14sp" android:textStyle="bold"
+		android:gravity="center_vertical" android:paddingRight="5sp">
+	</TextView>
+	<LinearLayout android:layout_height="match_parent"
+		android:orientation="vertical" android:layout_width="wrap_content"
+		android:id="@+id/linearLayout2" android:layout_weight="1" android:gravity="center_vertical">
+
+		<TextView android:text="Title" android:id="@+id/pItemTitle"
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:textStyle="bold" android:textSize="20sp"
+			android:scrollHorizontally="true" />
+
+		<TextView android:text="Artist" android:id="@+id/pItemArtist" 
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:scrollHorizontally="true" />
+	</LinearLayout>
+	
+	<LinearLayout android:layout_height="match_parent"
+		android:orientation="vertical" android:layout_width="wrap_content" android:gravity="center_vertical|right"
+		android:id="@+id/linearLayout2" android:layout_weight="0" android:paddingLeft="5sp">
+
+	<TextView android:text="00:00" android:id="@+id/pItemTime"
 		android:layout_height="wrap_content" android:layout_width="wrap_content"
-		android:textSize="16sp">
-		</TextView>
+		android:gravity="center_vertical|right">
+	</TextView>
+	
+	<TextView android:text="online" android:id="@+id/pItemState"
+		android:layout_height="wrap_content" android:layout_width="wrap_content"
+		android:gravity="center_vertical|right" android:textSize="12sp" android:textColor="#CC0000">
+	</TextView>
+	
+	
+	</LinearLayout>
+	
 </LinearLayout>

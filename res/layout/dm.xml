@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" android:layout_height="match_parent"
+	android:orientation="vertical">
+	
+		<LinearLayout android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1" android:layout_width="match_parent"
+		android:orientation="horizontal">
+		
+		<TextView android:text="Save To: " android:textStyle="bold"
+			android:id="@+id/dmTxtTo" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_weight="0"></TextView>
+
+		<TextView android:text="" android:id="@+id/dmDownloadTo"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_weight="1" android:scrollHorizontally="true"></TextView>
+
+		<Button android:text="Choose ..." android:id="@+id/dmChoose"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+	</LinearLayout>
+	
+	<LinearLayout android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1" android:layout_width="match_parent">
+		<TextView android:text="Now: " android:textStyle="bold"
+			android:id="@+id/dmTxtStat" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_weight="0"></TextView>
+
+		<TextView android:text="Madonna - Frozen" android:id="@+id/dmSongTitle"
+			android:layout_weight="1" android:layout_width="wrap_content"
+			android:layout_height="wrap_content"></TextView>
+		<Button android:text="Download" android:id="@+id/dmDowload"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+	</LinearLayout>
+
+	<LinearLayout android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1" android:layout_width="match_parent"
+		android:orientation="horizontal">
+		<TextView android:text="Stat: " android:textStyle="bold"
+			android:id="@+id/dmTxtStat" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_weight="0"></TextView>
+
+		<TextView android:text="" android:id="@+id/dmInfo"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_weight="1" android:scrollHorizontally="true"></TextView>
+
+		<Button android:text=" Refresh  " android:id="@+id/dmRefresh"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+	</LinearLayout>
+	
+
+
+	<ListView android:orientation="horizontal"
+		android:layout_height="0dip" android:layout_width="fill_parent"
+		android:layout_weight="1" android:id="@+id/dmList">
+	</ListView>
+
+
+</LinearLayout>

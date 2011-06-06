@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, FoobnixActivity!</string>
-    <string name="app_name">Foobnix Player</string>
+	<string name="app_name">Foobnix Music Player</string>
+    <string name="Action">Action</string>
+    <string name="Delete">Delete</string>
+    <string name="Delete_All">Delete All</string>
+    <string name="Add">Add</string>
+    <string name="Added">Added</string>
+    <string name="Play">Play</string>    
+    <string name="Folders_Online">Folders-Online</string>    
+    <string name="Player_List">Player List</string>
+    <string name="Downloads">Downloads</string>
+    <string name="Download">Download</string>
+    <string name="Download_All">Download All</string>
+    <string name="Song_Info">Song Info</string>
+    <string name="Settings">Settings</string>
+    <string name="Clean_Playlist">Clean Playlist</string>
+    <string name="Player_List_Action">Player List Action</string>
+    <string name="Network_not_available">Network not available</string>
+    <string name="Media_Resources">Media Resources</string>
+    <string name="Folders">Folders</string>
+    <string name="Online">Online</string>
+    <string name="Folder_Action">Folder Action</string>
+    <string name="Create_Folder">Create Folder</string>
+    <string name="Append">Append</string>
+    <string name="Append_All">Append All</string>
+    <string name="Set_Download_To">Set Download To</string>
+    
 </resources>
