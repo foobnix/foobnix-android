@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +37,6 @@ import com.foobnix.model.FModelBuilder;
 
 public class FolderUtil {
 	public final static String ROOT_PATH = Environment.getExternalStorageDirectory().getPath();
-	private final static List<String> SUPPORTED_EXT = Arrays.asList(".mp3", ".flac");
 
 	public static boolean createParentDir(String path, String name) {
 		File file = new File(path);
@@ -227,7 +225,7 @@ public class FolderUtil {
 	}
 
 	private static boolean isSupportedExt(String name) {
-		for (String ext : SUPPORTED_EXT) {
+		for (String ext : C.get().supportedExts) {
 			if (name.endsWith(ext)) {
 				return true;
 			}

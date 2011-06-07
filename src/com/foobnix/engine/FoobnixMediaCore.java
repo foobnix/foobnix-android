@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.foobnix.R;
 import com.foobnix.broadcast.BroadCastManager;
 import com.foobnix.broadcast.model.UIBroadcast;
+import com.foobnix.engine.media.EnginesManager;
 import com.foobnix.exception.VKAuthorizationException;
 import com.foobnix.exception.VKSongNotFoundException;
 import com.foobnix.model.FModel;
@@ -45,7 +46,7 @@ import com.foobnix.util.TimeUtil;
 
 public class FoobnixMediaCore {
 
-	private MediaPlayerImpl player;
+	private EnginesManager engineManager;
 	private PlayListController playListController;
 	private BroadCastManager broadCastManager;
 	private LastFmService lastFmService;
@@ -62,7 +63,9 @@ public class FoobnixMediaCore {
 		this.app = ((FoobnixApplication) context);
 		playListController = app.getPlayListManager().getPlayListController();
 		lastFmService = app.getLastFmService();
-		player = new MediaPlayerImpl(this);
+
+		engineManager = new EnginesManager();
+
 		notification = app.getNotification();
 		broadCastManager = new BroadCastManager(context);
 		wifiLocker = new WifiLocker(context);
@@ -88,29 +91,24 @@ public class FoobnixMediaCore {
 		playFModel(nextFModel);
 	}
 
-	public void playPause() {
-		if (player.isPlaying()) {
-			pause();
-		} else {
-			start();
-		}
-	}
-
 	public void onLastActivateWithMessage() {
 		alarmSleepService.onLastActivation();
 	}
 
 	public void playAtPos(int pos) {
 		FModel model = playListController.getAtPos(pos);
-		if(model!=null){
+		if (model != null) {
 			playFModel(model);
 		}
 	}
 
 	public void playFModel(FModel model) {
-		if (model == null) {
-			player.stop();
-			return;
+		LOG.d(model.getPath());
+
+		try {
+			engineManager.playModel(model);
+		} catch (Exception e) {
+			LOG.e("error playing", e);
 		}
 
 		model.setScrobbled(false);
@@ -133,17 +131,15 @@ public class FoobnixMediaCore {
 			return;
 		}
 
-		player.play(model);
-
 		if (model.getType() != TYPE.ONLINE) {
-			model.setTime(TimeUtil.durationToString(player.getDuration()));
+			model.setTime(TimeUtil.durationToString(engineManager.getDuration()));
 		}
 		if (model.getType() == TYPE.ONLINE) {
 			if (model.getPath().startsWith("http")) {
 				int size = SongUtil.getRemoteSize(model.getPath());
 				model.setSize(String.format("%.1fM", SongUtil.getMB(size)));
 			} else {
-				player.setBuffering(100);
+				// engineManager.setBuffering(100);
 				model.setSize(FolderUtil.getSizeMb(new File(model.getPath())));
 			}
 		}
@@ -158,14 +154,6 @@ public class FoobnixMediaCore {
 
 	}
 
-	public void setPlayer(MediaPlayerImpl player) {
-		this.player = player;
-	}
-
-	public MediaPlayerImpl getPlayer() {
-		return player;
-	}
-
 	public void playPrev() {
 		FModel FModel = playListController.getPrevFModel();
 		playFModel(FModel);
@@ -174,12 +162,11 @@ public class FoobnixMediaCore {
 	private void shortTimer() {
 		FModel model = app.getNowPlayingSong();
 
-		if (!FModelBuilder.Empty().equals(model) && player != null) {
-			app.setPlaying(player.isPlaying());
+		if (!FModelBuilder.Empty().equals(model)) {
+			app.setPlaying(engineManager.isPlaying());
 
-			UIBroadcast stat = new UIBroadcast(model, player.getCurrentPosition(), player.getDuration(),
-			        player.isPlaying(), player.getBuffering(), app.getPlayListManager().getAll().size());
-
+			UIBroadcast stat = new UIBroadcast(model, engineManager.getCurrentPosition(), engineManager.getDuration(),
+			        engineManager.isPlaying(), engineManager.getBuffering(), app.getPlayListManager().getAll().size());
 			broadCastManager.sendNowPlaying(stat);
 
 		}
@@ -188,7 +175,7 @@ public class FoobnixMediaCore {
 	public void longTimer() {
 		FModel model = app.getNowPlayingSong();
 
-		alarmSleepService.checkSleepAlarm(player.isPlaying());
+		alarmSleepService.checkSleepAlarm(engineManager.isPlaying());
 
 		if (app.getNowPlayingSong().getType() == TYPE.ONLINE || !app.isDownloadFinished()) {
 			wifiLocker.acqire();
@@ -198,7 +185,7 @@ public class FoobnixMediaCore {
 
 		lastFmService.updateNowPlaying(model);
 
-		if (!model.isScrobbled() && player.getCurrentPosition() > player.getDuration() * 0.85) {
+		if (!model.isScrobbled() && engineManager.getCurrentPosition() > engineManager.getDuration() * 0.85) {
 			lastFmService.scrobble(model);
 			model.setScrobbled(true);
 		}
@@ -226,13 +213,13 @@ public class FoobnixMediaCore {
 	public void pause() {
 		handler.removeCallbacks(shortTask);
 		handler.removeCallbacks(longTask);
-		player.pause();
+		engineManager.pause();
 		shortTimer();
 
 	}
 
 	public void start() {
-		player.start();
+		// start();
 		handler.post(shortTask);
 		handler.postDelayed(longTask, 15000);
 
@@ -240,8 +227,7 @@ public class FoobnixMediaCore {
 
 	public void stop() {
 		pause();
-		player.stop();
-		player.reset();
+		engineManager.stop();
 	}
 
 	/**
@@ -256,6 +242,16 @@ public class FoobnixMediaCore {
 			LOG.d("Desactivate timer");
 			handler.removeCallbacks(shortTask);
 		}
+
+	}
+
+	public void playPause() {
+		engineManager.playPause();
+
+	}
+
+	public void seekTo(Integer msec) {
+		engineManager.seekTo(msec);
 
 	}
 

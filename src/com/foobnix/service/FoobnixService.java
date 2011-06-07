@@ -67,7 +67,7 @@ public class FoobnixService extends Service {
 
 		switch (mode) {
 		case START:
-			mediaCore.getPlayer().start();
+			mediaCore.start();
 			break;
 
 		case PAUSE:
@@ -96,7 +96,7 @@ public class FoobnixService extends Service {
 
 		case SEEK:
 			Integer msec = (Integer) intent.getExtras().getSerializable(SERVICE_ACTION.SEEK.toString());
-			mediaCore.getPlayer().seekTo(msec);
+			mediaCore.seekTo(msec);
 			break;
 
 		case PLAY:

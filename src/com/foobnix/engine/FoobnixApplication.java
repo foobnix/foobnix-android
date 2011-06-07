@@ -43,6 +43,7 @@ import de.umass.lastfm.Caller;
 import de.umass.lastfm.cache.MemoryCache;
 
 public class FoobnixApplication extends Application {
+
 	private List<FModel> onlineItems = new ArrayList<FModel>();
 	private final List<FModel> downloadItems = Collections.synchronizedList(new ArrayList<FModel>());
 	private PlayListManager playListManager;
@@ -173,6 +174,4 @@ public class FoobnixApplication extends Application {
 	public AlarmSleepService getAlarmSleepService() {
 		return alarmSleepService;
 	}
-
-
 }
