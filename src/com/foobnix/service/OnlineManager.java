@@ -27,6 +27,7 @@ import android.content.Context;
 
 import com.foobnix.exception.VKAuthorizationException;
 import com.foobnix.model.FModel;
+import com.foobnix.model.FModelBuilder;
 import com.foobnix.model.VKSong;
 import com.foobnix.ui.activity.OnlineActivity.SEARCH_BY;
 import com.foobnix.util.Conf;
@@ -50,7 +51,7 @@ public class OnlineManager {
 		MusicHelper helper = new MusicHelper(Artist.getTopAlbums(artist, apiKey)) {
 			@Override
 			public FModel getModel(MusicEntry entry) {
-				return FModel.Folder(entry.getName()).addSearchBy(SEARCH_BY.TRACKS_BY_ALBUM).addArtist(artist)
+				return FModelBuilder.Folder(entry.getName()).addSearchBy(SEARCH_BY.TRACKS_BY_ALBUM).addArtist(artist)
 				        .addAlbum(entry.getName());
 			}
 		};
@@ -61,7 +62,7 @@ public class OnlineManager {
 		MusicHelper helper = new MusicHelper(Artist.getSimilar(artist, apiKey)) {
 			@Override
 			public FModel getModel(MusicEntry entry) {
-				return FModel.Folder(entry.getName()).addSearchBy(SEARCH_BY.TRACKS_BY_ARTIST)
+				return FModelBuilder.Folder(entry.getName()).addSearchBy(SEARCH_BY.TRACKS_BY_ARTIST)
 				        .addArtist(entry.getName()).addParent(artist);
 			}
 		};
@@ -72,7 +73,8 @@ public class OnlineManager {
 		MusicHelper helper = new MusicHelper(Tag.search(tag, apiKey)) {
 			@Override
 			public FModel getModel(MusicEntry entry) {
-				return FModel.Folder(entry.getName()).addTag(entry.getName()).addSearchBy(SEARCH_BY.TRACKS_BY_TAG)
+				return FModelBuilder.Folder(entry.getName()).addTag(entry.getName())
+				        .addSearchBy(SEARCH_BY.TRACKS_BY_TAG)
 				        .addParent(tag);
 			}
 		};
@@ -84,7 +86,7 @@ public class OnlineManager {
 		List<FModel> results = new ArrayList<FModel>();
 		List<VKSong> searchAll = VKService.searchAll(q, context);
 		for (VKSong model : searchAll) {
-			results.add(new FModel(model));
+			results.add(FModelBuilder.CreateFromVK(model));
 		}
 		return results;
 	}
@@ -93,7 +95,7 @@ public class OnlineManager {
 		MusicHelper helper = new MusicHelper(Artist.getTopTracks(artist, apiKey)) {
 			@Override
 			public FModel getModel(MusicEntry entry) {
-				return FModel.File(entry.getName()).addArtist(artist);
+				return FModelBuilder.CreateFromText(artist, entry.getName());
 			}
 		};
 		return helper.getFModels();
@@ -103,12 +105,13 @@ public class OnlineManager {
 		MusicHelper helper = new MusicHelper(Tag.getTopTracks(tag, apiKey)) {
 			@Override
 			public FModel getModel(MusicEntry entry) {
-				return FModel.File(entry.getName()).addSearchBy(SEARCH_BY.TRACKS_BY_TAG).addTag(entry.getName())
-				        .addParent(tag).addArtist(((Track) entry).getArtist()).addTitle(entry.getName());
+				return FModelBuilder.CreateFromText(((Track) entry).getArtist(), entry.getName())
+				        .addSearchBy(SEARCH_BY.TRACKS_BY_TAG).addTag(entry.getName()).addParent(tag)
+				        .addTitle(entry.getName());
 			}
 			@Override
 			public FModel getParent() {
-				return FModel.Parent(SEARCH_BY.TAGS_BY_TAG).addTag(tag);
+				return FModelBuilder.Parent(SEARCH_BY.TAGS_BY_TAG).addTag(tag);
 			}
 		};
 		return helper.getFModels();
@@ -122,12 +125,12 @@ public class OnlineManager {
 		MusicHelper helper = new MusicHelper(Playlist.fetchAlbumPlaylist(info.getId(), apiKey).getTracks()) {
 			@Override
 			public FModel getModel(MusicEntry entry) {
-				return FModel.File(entry.getName()).addArtist(artist).addAlbum(album).addTitle(entry.getName());
+				return FModelBuilder.CreateFromText(artist, entry.getName()).addAlbum(album).addTitle(entry.getName());
 			}
 
 			@Override
 			public FModel getParent() {
-				return FModel.Parent(SEARCH_BY.ALBUMS_BY_ARTIST).addArtist(artist).addAlbum(album);
+				return FModelBuilder.Parent(SEARCH_BY.ALBUMS_BY_ARTIST).addArtist(artist).addAlbum(album);
 			}
 		};
 		return helper.getFModels();
@@ -142,8 +145,12 @@ public class OnlineManager {
 
 		public List<FModel> getFModels() {
 			List<FModel> results = new ArrayList<FModel>();
+			int num = 1;
 			for (MusicEntry model : musicEntris) {
-				results.add(getModel(model));
+				FModel fmodel = getModel(model);
+				fmodel.setTrackNum(num);
+				results.add(fmodel);
+				num++;
 			}
 			if (getParent() != null) {
 				results.add(0, getParent());

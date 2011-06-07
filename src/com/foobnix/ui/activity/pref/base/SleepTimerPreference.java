@@ -32,7 +32,7 @@ public class SleepTimerPreference {
 	public ListPreference Builder(PreferenceActivity activity, final FoobnixApplication app) {
 
 		sleep = new ListPreference(activity);
-		sleep.setTitle("Sleep Timer");
+		sleep.setTitle("Stop Timer");
 		sleep.setEntries(new String[] { "Disable", "15 mins", "30 mins", "45 mins", "60 mins", "75 mins",
 		        "90 mins",
 		        "105 mins", "120 mins" });
@@ -61,7 +61,7 @@ public class SleepTimerPreference {
 		if (C.get().sleepMins[0] <= 0) {
 			sleep.setSummary("Disabled");
 		} else {
-			sleep.setSummary(String.format("Auto sleep in %s mins", C.get().sleepMins[0]));
+			sleep.setSummary(String.format("Stop from last activity in %s mins", C.get().sleepMins[0]));
 		}
 	}
 

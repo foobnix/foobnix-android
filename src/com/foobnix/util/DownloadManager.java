@@ -26,24 +26,30 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
+
 import android.content.Context;
+import android.os.Environment;
+import android.os.StatFs;
 
 import com.foobnix.exception.VKAuthorizationException;
 import com.foobnix.exception.VKSongNotFoundException;
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.DOWNLOAD_STATUS;
+import com.foobnix.model.FModelBuilder;
 import com.foobnix.service.VKService;
+import com.foobnix.ui.activity.DMActitivy.DOWNLOAD_FORMAT_BY;
 
-public class DMHelper {
+public class DownloadManager {
 
-	public static String getDownloadPath(Context context) {
+	public static String getBaseDownloadFolder(Context context) {
 		File dir = new File(Conf.getDownloadTo(context));
 		if (!dir.exists()) {
 			dir.mkdirs();
 		}
 		return dir.getPath();
 	}
-
 
 	public static void downloadFModel(Context context, FModel item) throws VKAuthorizationException,
 	        VKSongNotFoundException {
@@ -54,19 +60,62 @@ public class DMHelper {
 
 	public static void download(Context context, FModel item) {
 		try {
+			item.setStatus(FModel.DOWNLOAD_STATUS.ACTIVE);
 			downloadProccess(context, item);
 		} catch (IOException e) {
 			item.setStatus(DOWNLOAD_STATUS.FAIL);
 		}
 	}
 
-	public static String getDownloadPath(Context context, String text) {
-		return getDownloadPath(context) + "/" + text + ".mp3";
+	public static String getFModelDownloadFolder(Context context, FModel item) {
+		if (C.get().downloadFormat == DOWNLOAD_FORMAT_BY.SIMPLE) {
+			return getBaseDownloadFolder(context);
+		} else {
+			String path = getBaseDownloadFolder(context) + "/";
+
+			if (StringUtils.isNotEmpty(item.getTag())) {
+				path += item.getTag() + "/";
+			}
+
+			if (StringUtils.isNotEmpty(item.getArtist())) {
+				path += item.getArtist() + "/";
+			}
+
+			if (StringUtils.isNotEmpty(item.getAlbum())) {
+				path += item.getAlbum() + "/";
+			}
+
+			File folder = new File(path);
+			if (!folder.exists()) {
+				folder.mkdirs();
+			}
+			return path;
+
+		}
+
+	}
+	public static String getFMoldelDownloadFile(Context context, FModel item) {
+		String forlder = getFModelDownloadFolder(context, item);
+		String text = FilenameUtils.normalizeNoEndSeparator(item.getText());
+		String name = String.format("%s - %s.mp3", ((FModelBuilder) item).getNomilizedTrackNum(), text);
+		return new File(forlder, name).getPath();
+
 	}
 
 	public static void downloadProccess(Context context, FModel item) throws IOException {
+
+		int remote = SongUtil.getRemoteSize(item.getPath());
+
+		StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
+		double available = (double) stat.getAvailableBlocks() * (double) stat.getBlockSize();
+
+		if (remote > available) {
+			item.setStatus(FModel.DOWNLOAD_STATUS.FAIL);
+			return;
+		}
+
 		item.setStatus(FModel.DOWNLOAD_STATUS.ACTIVE);
-		item.setDownloadTo(getDownloadPath(context, item.getText()));
+		item.setDownloadTo(getFMoldelDownloadFile(context, item));
 
 		LOG.d("begin download ", item.getDownloadTo(), item.getText(), item.getPath());
 

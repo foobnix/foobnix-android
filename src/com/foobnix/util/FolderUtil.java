@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -35,6 +34,7 @@ import org.apache.commons.lang.StringUtils;
 import android.os.Environment;
 
 import com.foobnix.model.FModel;
+import com.foobnix.model.FModelBuilder;
 
 public class FolderUtil {
 	public final static String ROOT_PATH = Environment.getExternalStorageDirectory().getPath();
@@ -117,8 +117,8 @@ public class FolderUtil {
 		for (File file : listFiles) {
 			String fileName = file.getName();
 			String cutName = fileName.substring(0, fileName.length() - 4);
-			FModel navItem = FModel//
-			        .File(cutName)//
+			FModel navItem = FModelBuilder//
+			        .CreateFromText(cutName)//
 			        .addPath(file.getPath())//
 			        .addExt(getExt(fileName))//
 			        .addSize(getSizeMb(file));
@@ -136,14 +136,14 @@ public class FolderUtil {
 		String parent = new File(path).getParent();
 
 		if (parent.startsWith(ROOT_PATH)) {
-			result.add(FModel.Folder("..").addPath(parent));
+			result.add(FModelBuilder.Folder("..").addPath(parent));
 		}
 
 		File file = new File(path);
 
 		if (file.isFile()) {
-			FModel navItem = FModel//
-			        .File(file.getName())//
+			FModel navItem = FModelBuilder//
+			        .CreateFromText(file.getName())//
 			        .addPath(file.getPath())//
 			        .addExt(getExt(file.getName()))//
 			        .addSize(getSizeMb(file));
@@ -191,8 +191,8 @@ public class FolderUtil {
 
 			if (current.isFile()) {
 				String cutName = fileName.substring(0, fileName.length() - 4);
-				FModel navItem = FModel//
-				        .File(cutName)//
+				FModel navItem = FModelBuilder//
+				        .CreateFromText(cutName)//
 				        .addPath(current.getPath())//
 				        .addExt(getExt(fileName))//
 				        .addSize(getSizeMb(new File(current.getParent(), fileName)));
@@ -200,22 +200,10 @@ public class FolderUtil {
 				result.add(navItem);
 
 			} else {
-				result.add(FModel.Folder(fileName).addPath(current.getPath()));
+				result.add(FModelBuilder.Folder(fileName).addPath(current.getPath()));
 			}
 		}
-		Collections.sort(result, new Comparator<FModel>() {
-			@Override
-			public int compare(FModel object1, FModel object2) {
-				// directory > file
-				if (!object1.isFile() && object2.isFile()) {
-					return -1;
-					// file < directory
-				} else if (object1.isFile() && !object2.isFile()) {
-					return 1;
-				}
-				return object1.getPath().compareTo(object2.getPath());
-			}
-		});
+		Collections.sort(result, new FileComparator());
 		return result;
 	}
 

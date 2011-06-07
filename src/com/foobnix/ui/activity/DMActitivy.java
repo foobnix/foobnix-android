@@ -19,11 +19,13 @@
  * THE SOFTWARE. */
 package com.foobnix.ui.activity;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -32,8 +34,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,11 +47,38 @@ import com.foobnix.engine.PlayListManager;
 import com.foobnix.model.FModel;
 import com.foobnix.ui.adapter.DMAdapter;
 import com.foobnix.ui.widget.RunnableDialog;
+import com.foobnix.util.C;
 import com.foobnix.util.Conf;
 import com.foobnix.util.FolderUtil;
 import com.foobnix.util.SongUtil;
 
 public class DMActitivy extends FoobnixMenuActivity {
+
+	public enum DOWNLOAD_FORMAT_BY {
+		SIMPLE(R.string.To_Artist_Tilte, 0), //
+		COMPLEX(R.string.To_Artist_Artist_Tilte, 1); //
+		
+		private final int textId;
+		private final int pos;
+
+		private DOWNLOAD_FORMAT_BY(int textId, int pos) {
+			this.textId = textId;
+			this.pos = pos;
+		}
+
+		public int getPos() {
+			return pos;
+		}
+		public String getText(Context context) {
+			if (textId == -1) {
+				return "";
+			}
+			return context.getString(textId);
+		}
+		
+	};
+
+	private Spinner spinner;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -66,6 +97,30 @@ public class DMActitivy extends FoobnixMenuActivity {
 			text.setText(FModel.getText());
 		}
 
+		spinner = (Spinner) findViewById(R.id.saveFormatSpinner);
+
+		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item,
+		        getAllSearchByValues());
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(adapter);
+		spinner.post(new Runnable() {
+			@Override
+			public void run() {
+				spinner.setSelection(C.get().downloadFormat.getPos());
+			}
+		});
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
+				C.get().downloadFormat = DOWNLOAD_FORMAT_BY.values()[pos];
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+			
+		});
+
+
 		dmAdapter = new DMAdapter(this, app.getDowloadList());
 
 		ListView list = (ListView) findViewById(R.id.dmList);
@@ -83,6 +138,23 @@ public class DMActitivy extends FoobnixMenuActivity {
 
 		Button refresh = (Button) findViewById(R.id.dmRefresh);
 		refresh.setOnClickListener(onRefresh);
+	}
+
+	private String[] getAllSearchByValues() {
+		List<String> result = new ArrayList<String>();
+		for (DOWNLOAD_FORMAT_BY ITEM : DOWNLOAD_FORMAT_BY.values()) {
+			result.add(ITEM.getText(DMActitivy.this));
+		}
+		return result.toArray(new String[] {});
+	}
+
+	private DOWNLOAD_FORMAT_BY getByText(String text) {
+		for (DOWNLOAD_FORMAT_BY ITEM : DOWNLOAD_FORMAT_BY.values()) {
+			if (ITEM.getText(DMActitivy.this).equalsIgnoreCase(text)) {
+				return ITEM;
+			}
+		}
+		return DOWNLOAD_FORMAT_BY.SIMPLE;
 	}
 
 	View.OnClickListener onRefresh = new View.OnClickListener() {
@@ -112,7 +184,7 @@ public class DMActitivy extends FoobnixMenuActivity {
 
 	@Override
 	protected void actionDialog(final FModel item) {
-		new RunnableDialog(DMActitivy.this, "Download Manager Action")//
+		new RunnableDialog(DMActitivy.this, getString(R.string.Download_Manager_Action))//
 
 		        .Action(getString(R.string.Clean_Playlist), new Runnable() {
 
@@ -228,7 +300,7 @@ public class DMActitivy extends FoobnixMenuActivity {
 
 	@Override
 	public String getActivityTitle() {
-		return "Download Manager";
+		return getString(R.string.Download_Manager);
 	}
 
 	@Override

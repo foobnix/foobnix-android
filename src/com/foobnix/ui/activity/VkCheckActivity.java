@@ -80,7 +80,7 @@ public class VkCheckActivity extends FoobnixMenuActivity {
 				if (m.matches()) {
 					String token = m.group(1);
 					C.get().vkontakteToken = token;
-					ToastLong("Vkontakte SUCCESS");
+					ToastLong(R.string.Success);
 					finish();
 					return true;
 				} else {
@@ -100,12 +100,11 @@ public class VkCheckActivity extends FoobnixMenuActivity {
 
 	@Override
 	protected void actionDialog(FModel item) {
-
 	}
 
 	@Override
 	public String getActivityTitle() {
-		return "Authorization (require for music search)";
+		return getString(R.string.Authorization_VKontakte_require_for_music_search);
 	}
 
 	@Override

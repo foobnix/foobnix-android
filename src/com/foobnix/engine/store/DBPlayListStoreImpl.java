@@ -32,6 +32,7 @@ import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
 import com.foobnix.model.FModel;
+import com.foobnix.model.FModelBuilder;
 import com.foobnix.util.LOG;
 
 public class DBPlayListStoreImpl implements PlayListStore {
@@ -55,13 +56,13 @@ public class DBPlayListStoreImpl implements PlayListStore {
 		this.insertStmt = this.db.compileStatement(INSERT);
 	}
 
-	public long insert(FModel FModel) {
-		LOG.d("insert " + FModel);
-		this.insertStmt.bindLong(1, FModel.getUUID());
-		this.insertStmt.bindString(2, valueOrEmpty(FModel.getText()));
-		this.insertStmt.bindString(3, valueOrEmpty(FModel.getPath()));
-		this.insertStmt.bindString(4, valueOrEmpty(FModel.getTime()));
-		this.insertStmt.bindString(5, valueOrEmpty(FModel.getType().name()));
+	public long insert(FModel model) {
+		LOG.d("insert " + model);
+		this.insertStmt.bindLong(1, model.hashCode());
+		this.insertStmt.bindString(2, valueOrEmpty(model.getText()));
+		this.insertStmt.bindString(3, valueOrEmpty(model.getPath()));
+		this.insertStmt.bindString(4, valueOrEmpty(model.getTime()));
+		this.insertStmt.bindString(5, valueOrEmpty(model.getType().name()));
 		return this.insertStmt.executeInsert();
 	}
 
@@ -90,7 +91,7 @@ public class DBPlayListStoreImpl implements PlayListStore {
 				String name = cursor.getString(1);
 				String path = cursor.getString(2);
 				String time = cursor.getString(3);
-				list.add(FModel.File(name).addPath(path).addTime(time));
+				list.add(FModelBuilder.CreateFromText(name).addPath(path).addTime(time));
 			} while (cursor.moveToNext());
 		}
 		if (cursor != null && !cursor.isClosed()) {

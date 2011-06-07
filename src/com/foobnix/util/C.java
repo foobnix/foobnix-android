@@ -24,6 +24,7 @@ import java.io.Serializable;
 import android.content.Context;
 
 import com.foobnix.service.MODE;
+import com.foobnix.ui.activity.DMActitivy.DOWNLOAD_FORMAT_BY;
 
 /**
  * All Fobonix Configuration Settings
@@ -41,6 +42,8 @@ public class C implements Serializable {
 	public String lastFmUser = "";
 	public String lastFmPass = "";
 	public boolean lastFmEnable = false;
+
+	public DOWNLOAD_FORMAT_BY downloadFormat = DOWNLOAD_FORMAT_BY.COMPLEX;
 
 	public String vkDefLogin = "";
 	public String vkDefPass = "";

@@ -20,6 +20,7 @@
 package com.foobnix.ui.activity;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -43,6 +44,7 @@ import com.foobnix.ui.adapter.FolderAdapter;
 import com.foobnix.ui.widget.CommandString;
 import com.foobnix.ui.widget.Dialogs;
 import com.foobnix.ui.widget.RunnableDialog;
+import com.foobnix.util.FileComparator;
 import com.foobnix.util.FolderUtil;
 import com.foobnix.util.KEY;
 import com.foobnix.util.PrefUtil;
@@ -139,6 +141,9 @@ public class FolderActivity extends FoobnixMenuActivity {
 					        addAll(new File(item.getPath()).getParent());
 				        } else {
 					        List<FModel> models = FolderUtil.getAllFilesRecursive(item.getPath());
+
+					        Collections.sort(models, new FileComparator());
+
 					        app.getPlayListManager().addAll(models);
 				        }
 

@@ -101,6 +101,7 @@ public class LastFmService {
 	public void updateNowPlaying(FModel model) {
 		LOG.d(enable, model, "!!!");
 		if (model == null) {
+			LOG.d("Update now playing null model");
 			return;
 		}
 		if (enable && lfmSession != null) {
@@ -110,6 +111,8 @@ public class LastFmService {
 			} catch (Exception e) {
 				LOG.e("Last.FM Inner now playing " + model, e);
 			}
+		} else {
+			LOG.d("Update now playing disable");
 		}
 	}
 

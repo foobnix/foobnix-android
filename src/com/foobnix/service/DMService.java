@@ -31,7 +31,7 @@ import com.foobnix.exception.VKAuthorizationException;
 import com.foobnix.exception.VKSongNotFoundException;
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.DOWNLOAD_STATUS;
-import com.foobnix.util.DMHelper;
+import com.foobnix.util.DownloadManager;
 import com.foobnix.util.LOG;
 
 public class DMService extends Service {
@@ -62,6 +62,11 @@ public class DMService extends Service {
 		switch (DM_ACTION.valueOf(action)) {
 		case ADD:
 			FModel item = (FModel) intent.getExtras().getSerializable(DM_ACTION.ADD.name());
+
+			if (item.getText().equals("..")) {
+				return;
+			}
+
 			app.getDowloadList().add(item);
 
 			LOG.d("STATUS", dTask.getStatus());
@@ -105,7 +110,7 @@ public class DMService extends Service {
 			FModel item = iterator.next();
 			if (item.getStatus() == FModel.DOWNLOAD_STATUS.NEW) {
 				try {
-					DMHelper.downloadFModel(getApplicationContext(), item);
+					DownloadManager.downloadFModel(getApplicationContext(), item);
 				} catch (VKSongNotFoundException e) {
 					item.setStatus(DOWNLOAD_STATUS.FAIL);
 				} catch (VKAuthorizationException e) {

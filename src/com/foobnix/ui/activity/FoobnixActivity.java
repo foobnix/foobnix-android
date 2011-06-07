@@ -21,9 +21,6 @@ package com.foobnix.ui.activity;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,6 +39,7 @@ import com.foobnix.broadcast.action.UIBrodcastAction;
 import com.foobnix.engine.FServiceHelper;
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.TYPE;
+import com.foobnix.model.FModelBuilder;
 import com.foobnix.ui.widget.RunnableDialog;
 import com.foobnix.util.C;
 import com.foobnix.util.Conf;
@@ -77,12 +75,8 @@ public class FoobnixActivity extends FoobnixMenuActivity {
 		foobnixUIUpdater = new FoobnixUIUpdater(this, app);
 		songLineUpdater = new SongLineUpdater(playListAdapter, playlistView);
 
-		if (app.getNowPlayingSong().equals(FModel.Empty())) {
+		if (app.getNowPlayingSong().equals(FModelBuilder.Empty())) {
 			app.getNotification().displayNotifcation(getActivityTitle(), C.get().sleepMins);
-		}
-
-		if (StringUtils.isEmpty(C.get().vkontakteToken) && app.isOnline()) {
-			startActivity(new Intent(this, VkCheckActivity.class));
 		}
 
 		LOG.d("ON FoobnixActivity Create");
@@ -230,7 +224,7 @@ public class FoobnixActivity extends FoobnixMenuActivity {
 
 	@Override
 	public String getActivityTitle() {
-		return String.format("Foobnix Player %s", Conf.getFoobnixVersion(FoobnixActivity.this));
+		return String.format(getString(R.string.app_name) + " %s", Conf.getFoobnixVersion(FoobnixActivity.this));
 	}
 
 	public Class<?> activityClazz() {

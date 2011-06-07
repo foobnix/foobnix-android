@@ -39,6 +39,7 @@ import com.foobnix.model.FModel;
 import com.foobnix.ui.activity.FoobnixMenuActivity;
 import com.foobnix.util.C;
 import com.foobnix.util.Conf;
+import com.foobnix.util.LOG;
 
 import de.umass.lastfm.Artist;
 import de.umass.lastfm.ImageSize;
@@ -61,6 +62,7 @@ public class AboutArtistActivity extends FoobnixMenuActivity {
 		if (StringUtils.isNotEmpty(C.get().lastFmUser)) {
 			user = C.get().lastFmUser;
 		}
+		try {
 		Artist info = Artist.getInfo(song.getArtist(), Locale.getDefault(), user, Conf.LAST_FM_API_KEY);
 		if (info != null) {
 			String wikiText = info.getWikiText();
@@ -69,6 +71,10 @@ public class AboutArtistActivity extends FoobnixMenuActivity {
 			image.setImageBitmap(fetchImage(imageURL));
 			title.setText(song.getText());
 			bio.setText(wikiText);
+		}
+		} catch (Exception e) {
+			LOG.e("Info error", e);
+			ToastShort("Erorr, try again a bit later");
 		}
 
 	}

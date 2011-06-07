@@ -62,6 +62,13 @@ public class SongUtil {
 		return len;
 	}
 
+	public static String getNumWithZero(int num) {
+		if (num < 10) {
+			return "0" + num;
+		}
+		return "" + num;
+	}
+
 	public static double getMB(double bytes) {
 		return (double) bytes / MB;
 	}
@@ -112,10 +119,17 @@ public class SongUtil {
 			model.setArtist(artist);
 		}
 	}
-
 	public static void updateType(List<FModel> models, TYPE type) {
 		for (FModel model : models) {
 			model.setType(type);
+		}
+	}
+
+	public static void updatePositions(List<FModel> models) {
+		int pos = 0;
+		for (FModel model : models) {
+			model.setPosition(pos);
+			pos++;
 		}
 	}
 

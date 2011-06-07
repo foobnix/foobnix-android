@@ -20,13 +20,8 @@
 package com.foobnix.model;
 
 import java.io.Serializable;
-import java.util.Random;
-
-import org.apache.commons.lang.StringUtils;
 
 import com.foobnix.ui.activity.OnlineActivity.SEARCH_BY;
-import com.foobnix.util.SongUtil;
-import com.foobnix.util.TimeUtil;
 
 public class FModel implements Serializable {
 	private static final long serialVersionUID = 277665175970179591L;
@@ -58,116 +53,17 @@ public class FModel implements Serializable {
 	private String time;
 	private String size;
 	private String image;
-	private int UUID;
+	private int trackNum;
 
 	private int position;
 	private int percent;
 	private boolean isScrobbled;
 
-	public static FModel Empty() {
-		return FModel.File("").addArtist("").addTitle("").addUUID(Integer.MIN_VALUE);
-	}
-
-	public static FModel Parent(SEARCH_BY searchBy) {
-		return FModel.Folder("..").addSearchBy(searchBy);
-	}
-
-	public static FModel File(String text) {
-		String artist = SongUtil.getArtist(text);
-		String title = SongUtil.getTitle(text);
-		return new FModel(text).addIsFile(true).addArtist(artist).addTitle(title);
-	}
-
-	public static FModel Search(String text, SEARCH_BY by) {
-		return new FModel(text).addIsFile(true).addArtist(text).addTitle(text).addTag(text).addAlbum(text)
-		        .addSearchBy(by);
-	}
-
-	public static FModel Folder(String text) {
-		return new FModel(text).addIsFile(false);
-	}
-
-	public FModel addParent(String parent) {
-		this.parent = parent;
-		return this;
-	}
-
-	public FModel addType(TYPE type) {
-		this.type = type;
-		return this;
-	}
-
-	public FModel addUUID(int uuid) {
-		this.UUID = uuid;
-		return this;
-	}
-
-	public FModel addArtist(String artist) {
-		this.artist = artist;
-		return this;
-	}
-
-	public FModel addTag(String tag) {
-		this.tag = tag;
-		return this;
-	}
-
-	public FModel addSearchBy(SEARCH_BY by) {
-		this.searchBy = by;
-		return this;
-	}
-
-	public FModel addAlbum(String album) {
-		this.album = album;
-		return this;
-	}
-
-	public FModel addTitle(String title) {
-		this.title = title;
-		return this;
-	}
-
-	public FModel addIsFile(boolean isFile) {
-		this.isFile = isFile;
-		return this;
-	}
-
-	public FModel addPath(String path) {
-		this.path = path;
-		return this;
-	}
-
-	public FModel addExt(String ext) {
-		this.ext = ext;
-		return this;
-	}
-
-	public FModel addSize(String size) {
-		this.size = size;
-		return this;
-	}
-
-	public FModel addTime(String time) {
-		this.time = time;
-		return this;
-	}
-
 	public FModel() {
-
 	}
 
-	private FModel(String text) {
+	protected FModel(String text) {
 		this.text = text;
-		this.UUID = new Random().nextInt();
-	}
-
-	public FModel(VKSong song) {
-		this.isFile = true;
-		this.artist = song.getArtist();
-		this.title = song.getTitle();
-		this.time = TimeUtil.durationSecToString(song.getDuration());
-		this.path = song.getUrl();
-		this.UUID = new Random().nextInt();
 	}
 
 	public DOWNLOAD_STATUS getStatus() {
@@ -211,9 +107,6 @@ public class FModel implements Serializable {
 	}
 
 	public String getText() {
-		if (StringUtils.isNotEmpty(artist) && StringUtils.isNotEmpty(title)) {
-			return String.format("%s - %s", artist, title);
-		}
 		return text;
 	}
 
@@ -299,15 +192,7 @@ public class FModel implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return UUID;
-	}
-
-	public void setUUID(int uuid) {
-		this.UUID = uuid;
-	}
-
-	public int getUUID() {
-		return UUID;
+		return new StringBuilder(getText()).append(getPath()).toString().hashCode();
 	}
 
 	public void setTag(String tag) {
@@ -355,5 +240,13 @@ public class FModel implements Serializable {
 		return new StringBuilder().append("FModel Text:").append(text).append(" Artist: ").append(artist)
 		        .append(" Title: ").append(title).append(" Path: ").append(path).toString();
 	}
+
+	public void setTrackNum(int trackNum) {
+	    this.trackNum = trackNum;
+    }
+
+	public int getTrackNum() {
+	    return trackNum;
+    }
 
 }

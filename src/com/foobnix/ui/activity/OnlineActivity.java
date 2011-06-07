@@ -47,39 +47,46 @@ import com.foobnix.engine.PlayListManager;
 import com.foobnix.exception.VKAuthorizationException;
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.TYPE;
+import com.foobnix.model.FModelBuilder;
 import com.foobnix.service.OnlineManager;
 import com.foobnix.ui.adapter.FolderAdapter;
 import com.foobnix.ui.widget.RunnableDialog;
+import com.foobnix.util.C;
 import com.foobnix.util.LOG;
 import com.foobnix.util.SongUtil;
 
 public class OnlineActivity extends FoobnixMenuActivity {
 	public enum SEARCH_BY {
-		TRACKS_BY_ARTIST("Tracks", true), //
-		ALBUMS_BY_ARTIST("Albums", true), //
-		SIMILAR_ARTIST_BY_ARTIST("Similar", true), //
-		TAGS_BY_TAG("Tags", true), //
-		ALL_AUDIO("Audio", true), //
+		TRACKS_BY_ARTIST(R.string.Tracks, true), //
+		ALBUMS_BY_ARTIST(R.string.Albums, true), //
+		SIMILAR_ARTIST_BY_ARTIST(R.string.Similar, true), //
+		TAGS_BY_TAG(R.string.Tags, true), //
+		ALL_AUDIO(R.string.Audio, true), //
 		// unvisible items
-		TRACKS_BY_ALBUM("", false), //
-		TRACKS_BY_TAG("", false); //
+		TRACKS_BY_ALBUM(-1, false), //
+		TRACKS_BY_TAG(-1, false); //
 
-		private final String text;
+		private final int textId;
 		private final boolean display;
 
-		private SEARCH_BY(String text, boolean display) {
-			this.text = text;
+		private SEARCH_BY(int textId, boolean display) {
+			this.textId = textId;
 			this.display = display;
 		}
 
-		public String getText() {
-			return text;
+		public String getText(Context context) {
+			if(textId == -1){
+				return "";
+			}
+			
+			return context.getString(textId);
 		}
 
 		public boolean isDisplay() {
 			return display;
 		}
 	};
+
 
 	private EditText editText;
 	private Spinner spinner;
@@ -122,6 +129,10 @@ public class OnlineActivity extends FoobnixMenuActivity {
 
 		search.setOnClickListener(onSearch);
 
+		if (StringUtils.isEmpty(C.get().vkontakteToken) && app.isOnline()) {
+			startActivity(new Intent(this, VkCheckActivity.class));
+		}
+
 	}
 
 	View.OnClickListener onPaste = new View.OnClickListener() {
@@ -139,7 +150,7 @@ public class OnlineActivity extends FoobnixMenuActivity {
 
 	private void checkForEmpy(List<FModel> items) {
 		if (items.isEmpty()) {
-			items.add(FModel.File("Your search did not match any results").addArtist(""));
+			items.add(FModelBuilder.CreateFromText(getString(R.string.Your_search_did_not_match_any_results)).addArtist(""));
 		}
 
 	}
@@ -149,7 +160,7 @@ public class OnlineActivity extends FoobnixMenuActivity {
 		public void onClick(View v) {
 
 			if (!app.isOnline()) {
-				ToastLong("Network not available");
+				ToastLong(getString(R.string.Network_not_available));
 				return;
 			}
 
@@ -159,7 +170,7 @@ public class OnlineActivity extends FoobnixMenuActivity {
 					ask = StringUtils.capitalize(ask);
 					List<FModel> items = new ArrayList<FModel>();
 					SEARCH_BY searchBy = getByText((String) spinner.getSelectedItem());
-					updateByTypes(FModel.Search(ask, searchBy));
+					updateByTypes(FModelBuilder.Search(ask, searchBy));
 				}
 
 				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -233,6 +244,7 @@ public class OnlineActivity extends FoobnixMenuActivity {
 			break;
 		}
 		SongUtil.updateType(items, TYPE.ONLINE);
+		SongUtil.updatePositions(items);
 		checkForEmpy(items);
 		updateList(items);
 
@@ -240,9 +252,9 @@ public class OnlineActivity extends FoobnixMenuActivity {
 
 	@Override
 	protected void actionDialog(final FModel item) {
-		new RunnableDialog(OnlineActivity.this, "Online Action")//
+		new RunnableDialog(OnlineActivity.this, getString(R.string.Online_Action))//
 
-		        .Action("Clean Playlist", new Runnable() {
+		        .Action(getString(R.string.Clean_Playlist), new Runnable() {
 
 			        @Override
 			        public void run() {
@@ -250,14 +262,14 @@ public class OnlineActivity extends FoobnixMenuActivity {
 			        }
 		        }, item == null)//
 
-		        .Action("Play", new Runnable() {
+		        .Action(getString(R.string.Play), new Runnable() {
 			        @Override
 			        public void run() {
 				        FServiceHelper.getInstance().play(getApplicationContext(), item);
 			        }
 		        }, item != null && item.isFile())//
 
-		        .Action("Append", new Runnable() {
+		        .Action(getString(R.string.Append), new Runnable() {
 			        @Override
 			        public void run() {
 				        PlayListManager manager = app.getPlayListManager();
@@ -270,7 +282,7 @@ public class OnlineActivity extends FoobnixMenuActivity {
 			        }
 		        }, item != null)//
 
-		        .Action("Append All", new Runnable() {
+		        .Action(getString(R.string.Append_All), new Runnable() {
 			        @Override
 			        public void run() {
 				        List<FModel> items = navAdapter.getItems();
@@ -283,14 +295,14 @@ public class OnlineActivity extends FoobnixMenuActivity {
 
 		        })//
 
-		        .Action("Download", new Runnable() {
+		        .Action(getString(R.string.Download), new Runnable() {
 			        @Override
 			        public void run() {
 				        app.addToDownload(item);
 			        }
-		        }, item != null)//
+		        }, item != null && item.isFile())//
 
-		        .Action("Download All", new Runnable() {
+		        .Action(getString(R.string.Download_All), new Runnable() {
 			        @Override
 			        public void run() {
 				        List<FModel> items = navAdapter.getItems();
@@ -298,7 +310,7 @@ public class OnlineActivity extends FoobnixMenuActivity {
 					        app.addToDownload(current);
 				        }
 			        }
-		        }).show();
+		        }, item != null && item.isFile()).show();
 
 	}
 
@@ -320,7 +332,7 @@ public class OnlineActivity extends FoobnixMenuActivity {
 		List<String> result = new ArrayList<String>();
 		for (SEARCH_BY ITEM : SEARCH_BY.values()) {
 			if (ITEM.isDisplay()) {
-				result.add(ITEM.getText());
+				result.add(ITEM.getText(OnlineActivity.this));
 			}
 		}
 		return result.toArray(new String[] {});
@@ -328,7 +340,7 @@ public class OnlineActivity extends FoobnixMenuActivity {
 
 	private SEARCH_BY getByText(String text) {
 		for (SEARCH_BY ITEM : SEARCH_BY.values()) {
-			if (ITEM.getText().equalsIgnoreCase(text)) {
+			if (ITEM.getText(OnlineActivity.this).equalsIgnoreCase(text)) {
 				return ITEM;
 			}
 		}

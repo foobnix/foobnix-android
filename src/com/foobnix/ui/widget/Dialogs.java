@@ -24,19 +24,21 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.widget.EditText;
 
+import com.foobnix.R;
+
 public class Dialogs {
 
 	public static void showCreateFolder(final Context context, final CommandString okCommand) {
 		final EditText name = new EditText(context);
 		final AlertDialog createDialog = new AlertDialog.Builder(context)//
 		        .setView(name)//
-		        .setTitle("Create Folder")//
-		        .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+		        .setTitle(R.string.Create_Folder)//
+		        .setPositiveButton(R.string.Create, new DialogInterface.OnClickListener() {
 			        public void onClick(DialogInterface dialog, int whichButton) {
-					        okCommand.run(name.getText().toString());
+				        okCommand.run(name.getText().toString());
 			        }
 		        })//
-		        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		        .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
 			        public void onClick(DialogInterface dialog, int whichButton) {
 				        dialog.cancel();
 			        }

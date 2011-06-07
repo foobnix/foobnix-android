@@ -32,6 +32,7 @@ import android.telephony.TelephonyManager;
 
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.DOWNLOAD_STATUS;
+import com.foobnix.model.FModelBuilder;
 import com.foobnix.service.AlarmSleepService;
 import com.foobnix.service.FoobnixNotification;
 import com.foobnix.service.LastFmService;
@@ -45,7 +46,7 @@ public class FoobnixApplication extends Application {
 	private List<FModel> onlineItems = new ArrayList<FModel>();
 	private final List<FModel> downloadItems = Collections.synchronizedList(new ArrayList<FModel>());
 	private PlayListManager playListManager;
-	private FModel nowPlayingSong = FModel.Empty();
+	private FModel nowPlayingSong = FModelBuilder.Empty();
 	private LastFmService lastFmService;
 	private AlarmSleepService alarmSleepService;
 	private FoobnixNotification notification;

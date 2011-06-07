@@ -47,7 +47,7 @@ import com.foobnix.exception.VKSongNotFoundException;
 import com.foobnix.model.FModel;
 import com.foobnix.model.VKSong;
 import com.foobnix.util.C;
-import com.foobnix.util.DMHelper;
+import com.foobnix.util.DownloadManager;
 import com.foobnix.util.JSONHelper;
 import com.foobnix.util.LOG;
 import com.foobnix.util.TimeUtil;
@@ -72,7 +72,7 @@ public class VKService {
 
 		if (StringUtils.isEmpty(model.getPath()) || model.getPath().equals("null")) {
 
-			String downloadPath = DMHelper.getDownloadPath(context, model.getText());
+			String downloadPath = DownloadManager.getFMoldelDownloadFile(context, model);
 			if (new File(downloadPath).exists()) {
 				LOG.d("Take path from dm folder");
 				model.setPath(downloadPath);
@@ -92,6 +92,7 @@ public class VKService {
 	public static VKSong search(String text, Context context) throws VKAuthorizationException {
 		LOG.d("Search FModel by text", text);
 		List<VKSong> list = searchAll(text, context);
+
 		Map<String, Integer> bestTimes = new HashMap<String, Integer>();
 
 		int maxCount = 0;

@@ -40,6 +40,10 @@ public abstract class FoobnixCommonActivity extends Activity {
 	public void ToastLong(String msg) {
 		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 	}
+
+	public void ToastLong(int msgId) {
+		Toast.makeText(this, msgId, Toast.LENGTH_LONG).show();
+	}
 	
 	
 }

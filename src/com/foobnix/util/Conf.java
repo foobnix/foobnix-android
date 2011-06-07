@@ -24,6 +24,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
 
+import com.foobnix.R;
 
 public class Conf {
 	public final static String FOOBNIX_PREFS = "FOOBNIX_PREFS";
@@ -32,16 +33,17 @@ public class Conf {
 	public final static String LAST_FM_API_SECRET = "800adaf46e237805a4ec2a81404b3ff2";
 	public final static String VK_APP_ID = "2234333";
 	public final static String VK_SECRET = "0kCUFX5mK3McLmkxPHHB";
-	
+
 	public static String getDownloadTo(Context context) {
 		String def = Environment.getExternalStorageDirectory().getPath() + "/Music/Downloads";
 		return PrefUtil.get(context, KEY.DOWNLOAD_TO, def);
 	}
 
-	public static String getFoobnixVersion(Context context){
+	public static String getFoobnixVersion(Context context) {
 		try {
 			PackageInfo info = context.getPackageManager().getPackageInfo("com.foobnix", 0);
-			return String.format("Version: %s Code: %s", info.versionName, info.versionCode);
+			return String.format("%s: %s %s: %s", context.getString(R.string.Version), info.versionName,
+			        context.getString(R.string.Code), info.versionCode);
 		} catch (NameNotFoundException e) {
 			LOG.e("version", e);
 			return "version undefined";
