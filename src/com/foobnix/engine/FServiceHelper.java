@@ -56,6 +56,13 @@ public class FServiceHelper {
 		context.startService(service);
 	}
 
+	public void playAtPos(Context context, int pos) {
+		Intent service = new Intent(context, FoobnixService.class);
+		service.setAction(SERVICE_ACTION.PLAY_POSITION.toString());
+		service.putExtra(SERVICE_ACTION.KEY.toString(), pos);
+		context.startService(service);
+	}
+
 	public void pause(Context context) {
 		Intent service = new Intent(context, FoobnixService.class);
 		service.setAction(SERVICE_ACTION.PAUSE.toString());

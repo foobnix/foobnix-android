@@ -25,10 +25,8 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -212,41 +210,6 @@ public class FolderActivity extends FoobnixMenuActivity {
 		app.getPlayListManager().addAll(list);
 		Toast.makeText(FolderActivity.this, "Append All items", Toast.LENGTH_SHORT).show();
 
-		// Thread currentThread = new Thread(new AppendAllThread(path));
-		// currentThread.start();
-
-	}
-
-	class AppendAllThread implements Runnable {
-		private String path;
-		ProgressDialog dialog = ProgressDialog.show(FolderActivity.this, "", "Loading. Please wait...", true, false);
-
-		public AppendAllThread(String path) {
-			this.path = path;
-		}
-
-		@Override
-		public void run() {
-			List<FModel> childItems = FolderUtil.getNavItemsByPath(path);
-
-			for (FModel item : childItems) {
-				if (item.isFile()) {
-					PlayListManager manager = app.getPlayListManager();
-					manager.add(item);
-				}
-			}
-			threadHandler.sendEmptyMessage(0);
-
-			dialog.dismiss();
-		}
-
-		private Handler threadHandler = new Handler() {
-			public void handleMessage(android.os.Message msg) {
-				dialog.dismiss();
-
-				Toast.makeText(FolderActivity.this, String.format("Added %s files", "many"), Toast.LENGTH_SHORT).show();
-			}
-		};
 
 	}
 

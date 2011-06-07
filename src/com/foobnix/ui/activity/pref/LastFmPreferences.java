@@ -28,6 +28,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceScreen;
 
+import com.foobnix.R;
 import com.foobnix.util.C;
 
 public class LastFmPreferences extends PrefMenuActivity {
@@ -39,15 +40,15 @@ public class LastFmPreferences extends PrefMenuActivity {
 
 	private PreferenceScreen createPreferenceHierarchy() {
 		PreferenceScreen root = getPreferenceManager().createPreferenceScreen(this);
-		root.setTitle("Last.fm Settings");
+		root.setTitle(R.string.Last_Fm_Scrobbler);
 
 		final CheckBoxPreference enable = new CheckBoxPreference(this);
-		enable.setTitle("Enable Scrobbler");
+		enable.setTitle(R.string.Enable_Scrobbler);
 		enable.setKey("enable");
 		root.addPreference(enable);
 
 		final EditTextPreference login = new EditTextPreference(this);
-		login.setTitle("Login");
+		login.setTitle(R.string.Login);
 		login.setKey("login");
 		root.addPreference(login);
 		login.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -60,7 +61,7 @@ public class LastFmPreferences extends PrefMenuActivity {
 		});
 
 		final EditTextPreference pass = new EditTextPreference(this);
-		pass.setTitle("Password");
+		pass.setTitle(R.string.Password);
 		pass.setKey("pass");
 		root.addPreference(pass);
 
@@ -80,11 +81,11 @@ public class LastFmPreferences extends PrefMenuActivity {
 				C.get().lastFmEnable = enable.isChecked();
 				
 				if (!enable.isChecked()) {
-					enable.setSummary("Disabled");
+					enable.setSummary(R.string.Disable);
 					return false;
 				}
 				if (StringUtils.isEmpty(login.getText()) || StringUtils.isEmpty(pass.getText())) {
-					enable.setSummary("Login or password is empty");
+					enable.setSummary(R.string.Login_or_password_is_empty);
 					return false;
 				}
 
@@ -94,9 +95,9 @@ public class LastFmPreferences extends PrefMenuActivity {
 				boolean connect = app.getLastFmService().checkConnectionAuthorization();
 
 				if (connect) {
-					enable.setSummary("Success " + login.getText());
+					enable.setSummary(getString(R.string.Success) + " " + login.getText());
 				} else {
-					enable.setSummary("Fail " + login.getText());
+					enable.setSummary(getString(R.string.Fail) + " " + login.getText());
 				}
 				return false;
 			}

@@ -31,7 +31,7 @@ import com.foobnix.util.LOG;
 
 public class FoobnixService extends Service {
 	public enum SERVICE_ACTION {
-		PLAY, PLAY_STATE, PAUSE, PLAY_PAUSE, START, SEEK, NEXT, PREV, RANDOM, KEY, NULL, WAIT, PLAY_FIRST, STOP, IS_ACTIVATE_SHORT_TIMER;
+		PLAY, PLAY_STATE, PAUSE, PLAY_PAUSE, START, SEEK, NEXT, PREV, RANDOM, KEY, NULL, WAIT, PLAY_FIRST, STOP, IS_ACTIVATE_SHORT_TIMER, PLAY_POSITION;
 	}
 
 	private FoobnixMediaCore mediaCore;
@@ -103,6 +103,12 @@ public class FoobnixService extends Service {
 			FModel model = (FModel) intent.getExtras().getSerializable(SERVICE_ACTION.KEY.toString());
 			mediaCore.playFModel(model);
 			break;
+
+		case PLAY_POSITION:
+			int pos = intent.getExtras().getInt(SERVICE_ACTION.KEY.toString());
+			mediaCore.playAtPos(pos);
+			break;
+
 		case IS_ACTIVATE_SHORT_TIMER:
 			boolean isActivate = intent.getExtras().getBoolean(SERVICE_ACTION.IS_ACTIVATE_SHORT_TIMER.name());
 			mediaCore.activateShortTimer(isActivate);

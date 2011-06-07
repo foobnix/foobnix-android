@@ -168,7 +168,6 @@ public class OnlineActivity extends FoobnixMenuActivity {
 			try {
 				if (StringUtils.isNotEmpty(ask)) {
 					ask = StringUtils.capitalize(ask);
-					List<FModel> items = new ArrayList<FModel>();
 					SEARCH_BY searchBy = getByText((String) spinner.getSelectedItem());
 					updateByTypes(FModelBuilder.Search(ask, searchBy));
 				}
@@ -196,7 +195,8 @@ public class OnlineActivity extends FoobnixMenuActivity {
 			if (item.isFile()) {
 				PlayListManager manager = app.getPlayListManager();
 				manager.add(item);
-				Toast.makeText(OnlineActivity.this, "Added: " + item.getText(), Toast.LENGTH_SHORT).show();
+				Toast.makeText(OnlineActivity.this, getString(R.string.Added) + ": " + item.getText(),
+				        Toast.LENGTH_SHORT).show();
 			} else {
 				list.setSelection(0);
 				updateByTypes(item);

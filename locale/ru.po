@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2011-06-07 10:05+0300\n"
+"POT-Creation-Date: 2011-06-07 13:21+0300\n"
 "PO-Revision-Date: 2011-06-06 14:00+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ru <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr "Добавить"
 
 msgctxt "Added"
 msgid "Added"
-msgstr ""
+msgstr "Добавлено"
 
 msgctxt "Play"
 msgid "Play"
@@ -217,6 +217,10 @@ msgctxt "Enable"
 msgid "Enable"
 msgstr "Включено"
 
+msgctxt "Enable_Scrobbler"
+msgid "Enable Scrobbler"
+msgstr "Включить скробблер"
+
 msgctxt "Services"
 msgid "Services"
 msgstr "Сервисы"
@@ -245,7 +249,6 @@ msgctxt "VKontakte_Authorization"
 msgid "VKontakte Authorization"
 msgstr "Авторизация ВКонтакте"
 
-
 msgctxt "Functional"
 msgid "Functional"
 msgstr "Функционал"
@@ -253,7 +256,6 @@ msgstr "Функционал"
 msgctxt "Other"
 msgid "Other"
 msgstr "Другое"
-
 
 msgctxt "Site"
 msgid "Site"
@@ -279,7 +281,7 @@ msgctxt "Stop_Timer"
 msgid "Stop Timer"
 msgstr "Таймер остановки"
 
-
+#, c-format
 msgctxt "Stop_from_last_activity_in_mins"
 msgid "Stop from last activity in %s mins"
 msgstr "Остановится через %s минут"
@@ -317,6 +319,10 @@ msgid "You can start with Menu -&gt; Folders-Online"
 msgstr "Вы можете начать с Меню -&gt; Папки-Онлайн"
 
 msgctxt "Success_please_recheck_if_expired"
-msgid "Success (please recheck if expire)"
+msgid "Success (please recheck if expired)"
 msgstr "Успешно (обновите если требуется)"
+
+msgctxt "Login_or_password_is_empty"
+msgid "Login or password is empty"
+msgstr "Логин или пароль пустой"
 

@@ -58,6 +58,7 @@
     
     <string name="Fail">Fail</string>
     <string name="Enable">Enable</string>
+    <string name="Enable_Scrobbler">Enable Scrobbler</string>
     <string name="Services">Services</string>
     <string name="Login">Login</string>
     <string name="Password">Password</string>
@@ -90,6 +91,8 @@
     <string name="Authorization_VKontakte_require_for_music_search">Authorization VKontakte (require for music search)</string>
     <string name="Player_Info_Line">You can start with Menu -> Folders-Online</string>
     <string name="Success_please_recheck_if_expired">Success (please recheck if expired)</string>
+    <string name="Login_or_password_is_empty">Login or password is empty</string>
+    
     
     
     

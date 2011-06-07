@@ -43,6 +43,14 @@ public class PlayListController {
 		list.remove(model);
 	}
 
+	public FModel getAtPos(int pos){
+		if (pos > list.size()) {
+			return null;
+		}
+		active = pos;
+		return getItem();
+	}
+
 	public void addAll(List<FModel> FModels) {
 		list.addAll(FModels);
 	}
@@ -99,9 +107,9 @@ public class PlayListController {
 		return list;
 	}
 
-	public void setActive(FModel FModel) {
+	public void setActive(FModel model) {
 		for (int i = 0; i < list.size(); i++) {
-			if (FModel.equals(list.get(i))) {
+			if (model.equals(list.get(i))) {
 				active = i;
 				return;
 			}

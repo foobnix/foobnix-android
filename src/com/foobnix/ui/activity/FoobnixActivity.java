@@ -139,8 +139,7 @@ public class FoobnixActivity extends FoobnixMenuActivity {
 	OnItemClickListener onItemClick = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> adapterView, View v, int pos, long id) {
-			FModel FModel = (FModel) adapterView.getItemAtPosition(pos);
-			FServiceHelper.getInstance().play(getApplicationContext(), FModel);
+			FServiceHelper.getInstance().playAtPos(getApplicationContext(), pos);
 		}
 	};
 

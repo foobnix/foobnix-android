@@ -100,6 +100,13 @@ public class FoobnixMediaCore {
 		alarmSleepService.onLastActivation();
 	}
 
+	public void playAtPos(int pos) {
+		FModel model = playListController.getAtPos(pos);
+		if(model!=null){
+			playFModel(model);
+		}
+	}
+
 	public void playFModel(FModel model) {
 		if (model == null) {
 			player.stop();
@@ -147,7 +154,6 @@ public class FoobnixMediaCore {
 		handler.postDelayed(longTask, 15000);
 
 		notification.displayNotifcation(model.getText());
-		playListController.setActive(model);
 		broadCastManager.sendNewFModel(model);
 
 	}
