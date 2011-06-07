@@ -5,8 +5,5 @@
 	<WebView android:id="@+id/webView1" android:layout_width="fill_parent"
 		android:layout_height="fill_parent" android:layout_weight="1"></WebView>
 
-	<Button android:text="Default Login-Password" android:id="@+id/webDefault" android:layout_width="match_parent" android:layout_height="wrap_content"></Button>
-	<!-- 
-	<Button android:text="Close Browser" android:id="@+id/webClose" android:layout_width="match_parent" android:layout_height="wrap_content"></Button>
- -->
+	<Button android:text="@string/Default_Login_and_Password" android:id="@+id/webDefault" android:layout_width="match_parent" android:layout_height="wrap_content"></Button>
 </LinearLayout>

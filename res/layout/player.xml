@@ -39,7 +39,7 @@
 			android:layout_width="wrap_content" android:layout_weight="0"
 			android:layout_height="wrap_content" android:gravity="center_vertical"></TextView>
 	</LinearLayout>
-	<TextView android:text="Menu->Folders to add songs to the Player List"
+	<TextView android:text="@string/Player_Info_Line"
 		android:id="@+id/palyerInfoLine" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:layout_weight="0"
 		android:scrollHorizontally="true"></TextView>

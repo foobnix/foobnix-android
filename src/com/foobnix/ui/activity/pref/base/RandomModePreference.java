@@ -24,6 +24,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 
+import com.foobnix.R;
 import com.foobnix.util.C;
 
 public class RandomModePreference {
@@ -52,9 +53,9 @@ public class RandomModePreference {
 
 	private void updateRandomTitle() {
 		if (C.get().isRandom) {
-			random.setTitle("Random On");
+			random.setTitle(R.string.Random_On);
 		} else {
-			random.setTitle("Random Off");
+			random.setTitle(R.string.Random_Off);
 		}
 	}
 

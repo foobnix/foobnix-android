@@ -13,7 +13,7 @@
 			android:layout_width="fill_parent" android:layout_weight="1"
 			android:layout_height="wrap_content"></TextView>
 
-		<Button android:id="@+id/onlinePaste" android:text=" Paste "
+		<Button android:id="@+id/onlinePaste" android:text="@string/Paste"
 			android:layout_height="wrap_content" android:layout_width="wrap_content"
 			android:layout_weight="0"></Button>
 
@@ -32,7 +32,7 @@
 			android:layout_width="fill_parent" android:layout_height="wrap_content"
 			android:layout_weight="1"></EditText>
 
-		<Button android:id="@+id/onlineSearch" android:text="Search"
+		<Button android:id="@+id/onlineSearch" android:text="@string/Search"
 			android:layout_height="wrap_content" android:layout_width="wrap_content"
 			android:layout_weight="0"></Button>
 

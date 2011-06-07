@@ -31,10 +31,11 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 
+import com.foobnix.R;
 import com.foobnix.ui.activity.VkCheckActivity;
 import com.foobnix.ui.activity.pref.base.NotificationIconPreference;
 import com.foobnix.ui.activity.pref.base.RandomModePreference;
-import com.foobnix.ui.activity.pref.base.SleepTimerPreference;
+import com.foobnix.ui.activity.pref.base.StopTimerPreference;
 import com.foobnix.util.C;
 import com.foobnix.util.Conf;
 
@@ -58,68 +59,68 @@ public class PlayerPreferences extends PrefMenuActivity {
 
 	private PreferenceScreen createPreferenceHierarchy() {
 		root = getPreferenceManager().createPreferenceScreen(this);
-		root.setTitle("Foobnix Settings");
+		root.setTitle(R.string.Foobnix_Settings);
 
 		// Base services
 		PreferenceCategory category = new PreferenceCategory(this);
-		category.setTitle("Services");
+		category.setTitle(R.string.Services);
 		root.addPreference(category);
 
 		PreferenceScreen lastFm = getPreferenceManager().createPreferenceScreen(this);
-		lastFm.setTitle("Last.Fm Scrobbler");
+		lastFm.setTitle(R.string.Last_Fm_Scrobbler);
 		category.addPreference(lastFm);
 
 		if (C.get().lastFmEnable) {
 			if (app.getLastFmService().isConnectedAndEnable()) {
-				lastFm.setSummary("Enabled for " + C.get().lastFmUser);
+				lastFm.setSummary(getString(R.string.Enable) + " " + C.get().lastFmUser);
 			} else {
-				lastFm.setSummary("Failed for " + C.get().lastFmUser);
+				lastFm.setSummary(getString(R.string.Fail) + " " + C.get().lastFmUser);
 			}
 		} else {
-			lastFm.setSummary("Disabled");
+			lastFm.setSummary(R.string.Disable);
 		}
 
 		lastFm.setOnPreferenceClickListener(onLastfm);
 
 		PreferenceScreen vk = getPreferenceManager().createPreferenceScreen(this);
-		vk.setTitle("VKontakte Authorization");
+		vk.setTitle(R.string.VKontakte_Authorization);
 		vk.setOnPreferenceClickListener(onVK);
 		if (StringUtils.isNotEmpty(C.get().vkontakteToken)) {
-			vk.setSummary("Success (please recheck if expired)");
+			vk.setSummary(R.string.Success_please_recheck_if_expired);
 		} else {
-			vk.setSummary("Not configured");
+			vk.setSummary(R.string.Disable);
 		}
 		category.addPreference(vk);
 
 		// Config
 		PreferenceCategory config = new PreferenceCategory(this);
-		config.setTitle("Configs");
+		config.setTitle(R.string.Functional);
 		root.addPreference(config);
 
 		// config.addPreference(new AlarmPreference().Builder(this, app));
 		config.addPreference(new NotificationIconPreference().Builder(this, app));
-		config.addPreference(new SleepTimerPreference().Builder(this, app));
+		config.addPreference(new StopTimerPreference().Builder(this, app));
 		config.addPreference(new RandomModePreference().Builder(this));
 
 		// Other
 		PreferenceCategory other = new PreferenceCategory(this);
-		other.setTitle("Other");
+		other.setTitle(R.string.Other);
 		root.addPreference(other);
 
 		PreferenceScreen version = getPreferenceManager().createPreferenceScreen(this);
-		version.setTitle("Foobnix Player");
+		version.setTitle(R.string.app_name);
 		version.setSummary(Conf.getFoobnixVersion(getApplicationContext()));
 		other.addPreference(version);
 
 		PreferenceScreen web = getPreferenceManager().createPreferenceScreen(this);
-		web.setTitle("Web Site");
+		web.setTitle(R.string.Site);
 
-		web.setSummary("Visit http://android.foobnix.com");
+		web.setSummary("http://android.foobnix.com");
 		web.setOnPreferenceClickListener(onWeb);
 		other.addPreference(web);
 
 		PreferenceScreen about = getPreferenceManager().createPreferenceScreen(this);
-		about.setTitle("About");
+		about.setTitle(R.string.About);
 		about.setSummary("Ivan Ivanenko <ivan.ivanenko@gmail.com>");
 		other.addPreference(about);
 		return root;

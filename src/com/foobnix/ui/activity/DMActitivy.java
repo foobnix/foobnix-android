@@ -45,6 +45,7 @@ import com.foobnix.R;
 import com.foobnix.engine.FServiceHelper;
 import com.foobnix.engine.PlayListManager;
 import com.foobnix.model.FModel;
+import com.foobnix.model.FModel.DOWNLOAD_STATUS;
 import com.foobnix.ui.adapter.DMAdapter;
 import com.foobnix.ui.widget.RunnableDialog;
 import com.foobnix.util.C;
@@ -57,7 +58,7 @@ public class DMActitivy extends FoobnixMenuActivity {
 	public enum DOWNLOAD_FORMAT_BY {
 		SIMPLE(R.string.To_Artist_Tilte, 0), //
 		COMPLEX(R.string.To_Artist_Artist_Tilte, 1); //
-		
+
 		private final int textId;
 		private final int pos;
 
@@ -69,13 +70,14 @@ public class DMActitivy extends FoobnixMenuActivity {
 		public int getPos() {
 			return pos;
 		}
+
 		public String getText(Context context) {
 			if (textId == -1) {
 				return "";
 			}
 			return context.getString(textId);
 		}
-		
+
 	};
 
 	private Spinner spinner;
@@ -114,20 +116,21 @@ public class DMActitivy extends FoobnixMenuActivity {
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
 				C.get().downloadFormat = DOWNLOAD_FORMAT_BY.values()[pos];
 			}
+
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
 			}
-			
-		});
 
+		});
 
 		dmAdapter = new DMAdapter(this, app.getDowloadList());
 
-		ListView list = (ListView) findViewById(R.id.dmList);
+		list = (ListView) findViewById(R.id.dmList);
 		list.setOnItemLongClickListener(onDialog);
 		list.setOnItemClickListener(onClick);
-
 		list.setAdapter(dmAdapter);
+		list.setSelection(getDownloadingSongPosition());
+
 		info.setText(getInfoLine());
 
 		TextView downloadTo = (TextView) findViewById(R.id.dmDownloadTo);
@@ -138,6 +141,17 @@ public class DMActitivy extends FoobnixMenuActivity {
 
 		Button refresh = (Button) findViewById(R.id.dmRefresh);
 		refresh.setOnClickListener(onRefresh);
+	}
+
+	public int getDownloadingSongPosition() {
+		int pos = 0;
+		for (FModel model : app.getDowloadList()) {
+			if (model.getStatus() == DOWNLOAD_STATUS.ACTIVE) {
+				return pos - 1;
+			}
+			pos++;
+		}
+		return pos;
 	}
 
 	private String[] getAllSearchByValues() {
@@ -158,7 +172,6 @@ public class DMActitivy extends FoobnixMenuActivity {
 	}
 
 	View.OnClickListener onRefresh = new View.OnClickListener() {
-
 		@Override
 		public void onClick(View v) {
 			finish();
@@ -297,6 +310,8 @@ public class DMActitivy extends FoobnixMenuActivity {
 	};
 
 	private DMAdapter dmAdapter;
+
+	private ListView list;
 
 	@Override
 	public String getActivityTitle() {

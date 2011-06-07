@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2011-06-06 14:46+0300\n"
+"POT-Creation-Date: 2011-06-07 10:05+0300\n"
 "PO-Revision-Date: 2011-06-06 14:00+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ru <LL@li.org>\n"
@@ -20,8 +20,8 @@ msgstr ""
 "Generated-By: Babel 1.0dev\n"
 
 msgctxt "app_name"
-msgid "Foobnix Music Player"
-msgstr "Foobnix музыкальный проигрыватель"
+msgid "Foobnix Player"
+msgstr "Foobnix плеер"
 
 msgctxt "Action"
 msgid "Action"
@@ -45,7 +45,7 @@ msgstr ""
 
 msgctxt "Play"
 msgid "Play"
-msgstr ""
+msgstr "Играть"
 
 msgctxt "Folders_Online"
 msgid "Folders-Online"
@@ -61,11 +61,11 @@ msgstr "Закачки"
 
 msgctxt "Download"
 msgid "Download"
-msgstr "Закачки"
+msgstr "Cкачать"
 
 msgctxt "Download_All"
 msgid "Download All"
-msgstr "Закачки"
+msgstr "Скачать все"
 
 msgctxt "Song_Info"
 msgid "Song Info"
@@ -81,7 +81,7 @@ msgstr "Очистить плейлист"
 
 msgctxt "Player_List_Action"
 msgid "Player List Action"
-msgstr "Дейсвие на плейлисте"
+msgstr "Действие на плейлисте"
 
 msgctxt "Network_not_available"
 msgid "Network not available"
@@ -97,11 +97,11 @@ msgstr "Папки"
 
 msgctxt "Online"
 msgid "Online"
-msgstr "Папки-Онлайн"
+msgstr "Онлайн"
 
 msgctxt "Folder_Action"
 msgid "Folder Action"
-msgstr "Дейские на папке"
+msgstr "Действие на папке"
 
 msgctxt "Create_Folder"
 msgid "Create Folder"
@@ -117,5 +117,206 @@ msgstr "Добавить все"
 
 msgctxt "Set_Download_To"
 msgid "Set Download To"
-msgstr "Скачать сюда"
+msgstr "Скачивать в"
+
+msgctxt "Default_Login_and_Password"
+msgid "Default Login and Password"
+msgstr "Логин и пароль по умолчанию"
+
+#. dm manager
+msgctxt "Download_Manager"
+msgid "Download Manager"
+msgstr "Менеджер закачек"
+
+msgctxt "Save_To:_"
+msgid "Save To:"
+msgstr "Сохранять в:"
+
+msgctxt "Choose_..."
+msgid "Choose ..."
+msgstr "Выбрать ..."
+
+msgctxt "Now:_"
+msgid "Now:"
+msgstr "Текущая: "
+
+msgctxt "_Refresh_"
+msgid "Refresh"
+msgstr "Обновить"
+
+msgctxt "Stat:_"
+msgid "Stat:"
+msgstr "Статистика:"
+
+#. Online
+msgctxt "Tracks"
+msgid "Tracks"
+msgstr "Песни"
+
+msgctxt "Albums"
+msgid "Albums"
+msgstr "Альбомы"
+
+msgctxt "Similar"
+msgid "Similar"
+msgstr "Похожие"
+
+msgctxt "Tags"
+msgid "Tags"
+msgstr "Теги"
+
+msgctxt "Audio"
+msgid "Audio"
+msgstr "Музыка"
+
+msgctxt "Search"
+msgid "Search"
+msgstr "Поиск"
+
+msgctxt "Paste"
+msgid "Paste"
+msgstr "Вставить"
+
+msgctxt "Online_Action"
+msgid "Online Action"
+msgstr "Онлайн действие"
+
+msgctxt "Your_search_did_not_match_any_results"
+msgid "Your search did not match any results"
+msgstr "По вашему запросу ничего не найдено"
+
+msgctxt "Version"
+msgid "Version"
+msgstr "Версия"
+
+msgctxt "Code"
+msgid "Code"
+msgstr "Код"
+
+msgctxt "Create"
+msgid "Create"
+msgstr "Создать"
+
+msgctxt "Cancel"
+msgid "Cancel"
+msgstr "Отменить"
+
+msgctxt "Success"
+msgid "Success"
+msgstr "Успешно"
+
+msgctxt "Format:_"
+msgid "Format:"
+msgstr "Формат:"
+
+msgctxt "Fail"
+msgid "Fail"
+msgstr "Неудачно"
+
+msgctxt "Enable"
+msgid "Enable"
+msgstr "Включено"
+
+msgctxt "Services"
+msgid "Services"
+msgstr "Сервисы"
+
+msgctxt "Login"
+msgid "Login"
+msgstr "Логин"
+
+msgctxt "Password"
+msgid "Password"
+msgstr "Пароль"
+
+msgctxt "Foobnix_Settings"
+msgid "Foobnix Settings"
+msgstr "Наспройки Foobnix"
+
+msgctxt "Last_Fm_Scrobbler"
+msgid "Last.FM Scrobbler"
+msgstr "Last.FM скробблер"
+
+msgctxt "Disable"
+msgid "Disable"
+msgstr "Выключено"
+
+msgctxt "VKontakte_Authorization"
+msgid "VKontakte Authorization"
+msgstr "Авторизация ВКонтакте"
+
+
+msgctxt "Functional"
+msgid "Functional"
+msgstr "Функционал"
+
+msgctxt "Other"
+msgid "Other"
+msgstr "Другое"
+
+
+msgctxt "Site"
+msgid "Site"
+msgstr "Сайт"
+
+msgctxt "About"
+msgid "About"
+msgstr "Автор"
+
+msgctxt "Random_On"
+msgid "Random On"
+msgstr "Случайно Вкл"
+
+msgctxt "Random_Off"
+msgid "Random Off"
+msgstr "Случайно Выкл"
+
+msgctxt "Notification_Icon"
+msgid "Notification Icon"
+msgstr "Значок уведомления"
+
+msgctxt "Stop_Timer"
+msgid "Stop Timer"
+msgstr "Таймер остановки"
+
+
+msgctxt "Stop_from_last_activity_in_mins"
+msgid "Stop from last activity in %s mins"
+msgstr "Остановится через %s минут"
+
+msgctxt "To_Artist_Tilte"
+msgid "[to]/Artist - Title"
+msgstr ""
+
+msgctxt "To_Artist_Artist_Tilte"
+msgid "[to]/[Artist]/Artist - Title"
+msgstr ""
+
+msgctxt "Download_Manager_Action"
+msgid "Download Manager Action"
+msgstr "Действие в менеджере закачек"
+
+msgctxt "Please_Refresh_Vkontakte_Settings"
+msgid "Please Refresh Vkontakte Settings"
+msgstr "Пожалуйста обновите настроки ВКонтакте"
+
+msgctxt "Network_not_available_cant_play_online_song"
+msgid "Network not available, cant play online song"
+msgstr "Сеть не доступна, невозжожно проиграть песню"
+
+msgctxt "Song_not_found_in_the_Internet_cantt_play"
+msgid "Song not found in the Internet, cantt play"
+msgstr "Песня не найдена в Интернете, невозможно проиграть"
+
+msgctxt "Authorization_VKontakte_require_for_music_search"
+msgid "Authorization VKontakte (require for music search)"
+msgstr "Авторизация ВКонтакте (требуется для поиска музыки)"
+
+msgctxt "Player_Info_Line"
+msgid "You can start with Menu -&gt; Folders-Online"
+msgstr "Вы можете начать с Меню -&gt; Папки-Онлайн"
+
+msgctxt "Success_please_recheck_if_expired"
+msgid "Success (please recheck if expire)"
+msgstr "Успешно (обновите если требуется)"
 

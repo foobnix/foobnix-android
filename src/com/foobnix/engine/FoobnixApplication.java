@@ -107,6 +107,7 @@ public class FoobnixApplication extends Application {
 		return true;
 	}
 
+
 	public void playOnAppend() {
 		if (!isPlaying()) {
 			FServiceHelper.getInstance().playFirst(this);

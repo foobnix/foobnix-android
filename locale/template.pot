@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2011-06-06 14:46+0300\n"
+"POT-Creation-Date: 2011-06-07 10:05+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Generated-By: Babel 1.0dev\n"
 
 msgctxt "app_name"
-msgid "Foobnix Music Player"
+msgid "Foobnix Player"
 msgstr ""
 
 msgctxt "Action"
@@ -115,5 +115,204 @@ msgstr ""
 
 msgctxt "Set_Download_To"
 msgid "Set Download To"
+msgstr ""
+
+msgctxt "Default_Login_and_Password"
+msgid "Default Login and Password"
+msgstr ""
+
+#. dm manager
+msgctxt "Download_Manager"
+msgid "Download Manager"
+msgstr ""
+
+msgctxt "Save_To:_"
+msgid "Save To:"
+msgstr ""
+
+msgctxt "Choose_..."
+msgid "Choose ..."
+msgstr ""
+
+msgctxt "Now:_"
+msgid "Now:"
+msgstr ""
+
+msgctxt "_Refresh_"
+msgid "Refresh"
+msgstr ""
+
+msgctxt "Stat:_"
+msgid "Stat:"
+msgstr ""
+
+#. Online
+msgctxt "Tracks"
+msgid "Tracks"
+msgstr ""
+
+msgctxt "Albums"
+msgid "Albums"
+msgstr ""
+
+msgctxt "Similar"
+msgid "Similar"
+msgstr ""
+
+msgctxt "Tags"
+msgid "Tags"
+msgstr ""
+
+msgctxt "Audio"
+msgid "Audio"
+msgstr ""
+
+msgctxt "Search"
+msgid "Search"
+msgstr ""
+
+msgctxt "Paste"
+msgid "Paste"
+msgstr ""
+
+msgctxt "Online_Action"
+msgid "Online Action"
+msgstr ""
+
+msgctxt "Your_search_did_not_match_any_results"
+msgid "Your search did not match any results"
+msgstr ""
+
+msgctxt "Version"
+msgid "Version"
+msgstr ""
+
+msgctxt "Code"
+msgid "Code"
+msgstr ""
+
+msgctxt "Create"
+msgid "Create"
+msgstr ""
+
+msgctxt "Cancel"
+msgid "Cancel"
+msgstr ""
+
+msgctxt "Success"
+msgid "Success"
+msgstr ""
+
+msgctxt "Format:_"
+msgid "Format:"
+msgstr ""
+
+msgctxt "Fail"
+msgid "Fail"
+msgstr ""
+
+msgctxt "Enable"
+msgid "Enable"
+msgstr ""
+
+msgctxt "Services"
+msgid "Services"
+msgstr ""
+
+msgctxt "Login"
+msgid "Login"
+msgstr ""
+
+msgctxt "Password"
+msgid "Password"
+msgstr ""
+
+msgctxt "Foobnix_Settings"
+msgid "Foobnix Settings"
+msgstr ""
+
+msgctxt "Last_Fm_Scrobbler"
+msgid "Last.FM Scrobbler"
+msgstr ""
+
+msgctxt "Disable"
+msgid "Disable"
+msgstr ""
+
+msgctxt "VKontakte_Authorization"
+msgid "VKontakte Authorization"
+msgstr ""
+
+msgctxt "Functional"
+msgid "Functional"
+msgstr ""
+
+msgctxt "Other"
+msgid "Other"
+msgstr ""
+
+msgctxt "Site"
+msgid "Site"
+msgstr ""
+
+msgctxt "About"
+msgid "About"
+msgstr ""
+
+msgctxt "Random_On"
+msgid "Random On"
+msgstr ""
+
+msgctxt "Random_Off"
+msgid "Random Off"
+msgstr ""
+
+msgctxt "Notification_Icon"
+msgid "Notification Icon"
+msgstr ""
+
+msgctxt "Stop_Timer"
+msgid "Stop Timer"
+msgstr ""
+
+#, c-format
+msgctxt "Stop_from_last_activity_in_mins"
+msgid "Stop from last activity in %s mins"
+msgstr ""
+
+msgctxt "To_Artist_Tilte"
+msgid "[to]/Artist - Title"
+msgstr ""
+
+msgctxt "To_Artist_Artist_Tilte"
+msgid "[to]/[Artist]/Artist - Title"
+msgstr ""
+
+msgctxt "Download_Manager_Action"
+msgid "Download Manager Action"
+msgstr ""
+
+msgctxt "Please_Refresh_Vkontakte_Settings"
+msgid "Please Refresh Vkontakte Settings"
+msgstr ""
+
+msgctxt "Network_not_available_cant_play_online_song"
+msgid "Network not available, cant play online song"
+msgstr ""
+
+msgctxt "Song_not_found_in_the_Internet_cantt_play"
+msgid "Song not found in the Internet, cantt play"
+msgstr ""
+
+msgctxt "Authorization_VKontakte_require_for_music_search"
+msgid "Authorization VKontakte (require for music search)"
+msgstr ""
+
+msgctxt "Player_Info_Line"
+msgid "You can start with Menu -&gt; Folders-Online"
+msgstr ""
+
+msgctxt "Success_please_recheck_if_expired"
+msgid "Success (please recheck if expired)"
 msgstr ""
 

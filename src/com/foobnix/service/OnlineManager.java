@@ -106,8 +106,7 @@ public class OnlineManager {
 			@Override
 			public FModel getModel(MusicEntry entry) {
 				return FModelBuilder.CreateFromText(((Track) entry).getArtist(), entry.getName())
-				        .addSearchBy(SEARCH_BY.TRACKS_BY_TAG).addTag(entry.getName()).addParent(tag)
-				        .addTitle(entry.getName());
+				        .addSearchBy(SEARCH_BY.TRACKS_BY_TAG).addTag(entry.getName()).addParent(tag);
 			}
 			@Override
 			public FModel getParent() {

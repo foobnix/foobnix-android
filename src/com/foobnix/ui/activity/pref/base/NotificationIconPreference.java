@@ -24,6 +24,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 
+import com.foobnix.R;
 import com.foobnix.engine.FoobnixApplication;
 import com.foobnix.service.MODE;
 import com.foobnix.util.C;
@@ -31,7 +32,7 @@ import com.foobnix.util.C;
 public class NotificationIconPreference {
 	public ListPreference Builder(PreferenceActivity activity, final FoobnixApplication app) {
 		final ListPreference trayIcon = new ListPreference(activity);
-		trayIcon.setTitle("Notification Icon");
+		trayIcon.setTitle(R.string.Notification_Icon);
 
 		trayIcon.setEntries(MODE.AUTO_CANCEL.textValues());
 		trayIcon.setEntryValues(MODE.AUTO_CANCEL.nameValues());
