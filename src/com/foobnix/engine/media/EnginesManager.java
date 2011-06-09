@@ -19,7 +19,10 @@
  * THE SOFTWARE. */
 package com.foobnix.engine.media;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.foobnix.model.FModel;
+import com.foobnix.util.LOG;
 
 public class EnginesManager implements MediaEngine {
 
@@ -27,9 +30,9 @@ public class EnginesManager implements MediaEngine {
 	private final MediaEngine loseless;
 	private MediaEngine instanse;
 
-	public EnginesManager() {
-		mediaPlayer = new MediaPlayerEngine();
-		loseless = new AndLessMediaEngine();
+	public EnginesManager(MediaObserver observer) {
+		mediaPlayer = new MediaPlayerEngine(observer);
+		loseless = new AndLessMediaEngine(observer);
 		setInstanse(mediaPlayer);
 	}
 
@@ -39,7 +42,6 @@ public class EnginesManager implements MediaEngine {
 		} else {
 			play();
 		}
-
 	}
 
 	public void playModel(FModel model) throws Exception {
@@ -49,19 +51,22 @@ public class EnginesManager implements MediaEngine {
 		instanse.stop();
 
 		String path = model.getPath();
+		if (StringUtils.isEmpty(path)) {
+			LOG.d("path is empth", model);
+			return;
+		}
 
-		for (String ext : mediaPlayer.supportedExts()) {
+		boolean find = false;
+		for (String ext : loseless.supportedExts()) {
 			if (path.toLowerCase().endsWith(ext)) {
-				setInstanse(mediaPlayer);
+				find = true;
+				setInstanse(loseless);
 				break;
 			}
 		}
 
-		for (String ext : loseless.supportedExts()) {
-			if (path.toLowerCase().endsWith(ext)) {
-				setInstanse(loseless);
-				break;
-			}
+		if(!find){
+			setInstanse(mediaPlayer);
 		}
 
 		instanse.play(path);

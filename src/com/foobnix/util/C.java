@@ -42,7 +42,7 @@ public class C implements Serializable {
 	public String lastFmUser = "";
 	public String lastFmPass = "";
 	public boolean lastFmEnable = false;
-	public String supportedExts[] = new String[] { "mp3", "flac", "ape", "wav" };
+	public String supportedExts[] = new String[] { "mp3", "flac", "ape", "ogg" };
 
 	public DOWNLOAD_FORMAT_BY downloadFormat = DOWNLOAD_FORMAT_BY.COMPLEX;
 

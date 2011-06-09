@@ -23,7 +23,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.foobnix.ui.activity.OnlineActivity.SEARCH_BY;
-import com.foobnix.util.KEY;
 import com.foobnix.util.SongUtil;
 import com.foobnix.util.TimeUtil;
 
@@ -52,7 +51,7 @@ public class FModelBuilder extends FModel {
 		}
 
 		int index = text.indexOf("-");
-		String artist = KEY.UNDEFINED_VALUE.toString();
+		String artist = "artist";
 		String title = text;
 
 		if (index > 1) {

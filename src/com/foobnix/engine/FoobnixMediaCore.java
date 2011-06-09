@@ -29,6 +29,7 @@ import com.foobnix.R;
 import com.foobnix.broadcast.BroadCastManager;
 import com.foobnix.broadcast.model.UIBroadcast;
 import com.foobnix.engine.media.EnginesManager;
+import com.foobnix.engine.media.MediaObserver;
 import com.foobnix.exception.VKAuthorizationException;
 import com.foobnix.exception.VKSongNotFoundException;
 import com.foobnix.model.FModel;
@@ -64,7 +65,7 @@ public class FoobnixMediaCore {
 		playListController = app.getPlayListManager().getPlayListController();
 		lastFmService = app.getLastFmService();
 
-		engineManager = new EnginesManager();
+		engineManager = new EnginesManager(mediaObserver);
 
 		notification = app.getNotification();
 		broadCastManager = new BroadCastManager(context);
@@ -72,6 +73,18 @@ public class FoobnixMediaCore {
 		alarmSleepService = app.getAlarmSleepService();
 		handler = new Handler();
 	}
+
+	MediaObserver mediaObserver = new MediaObserver() {
+
+		@Override
+		public void onError() {
+		}
+
+		@Override
+		public void onComlete() {
+			playNext();
+		}
+	};
 
 	public void playNext() {
 		if (C.get().isRandom) {
@@ -103,13 +116,11 @@ public class FoobnixMediaCore {
 	}
 
 	public void playFModel(FModel model) {
+		if (model == null) {
+			return;
+		}
 		LOG.d(model.getPath());
 
-		try {
-			engineManager.playModel(model);
-		} catch (Exception e) {
-			LOG.e("error playing", e);
-		}
 
 		model.setScrobbled(false);
 		app.setNowPlayingSong(model);
@@ -144,13 +155,21 @@ public class FoobnixMediaCore {
 			}
 		}
 
+		try {
+			engineManager.playModel(model);
+		} catch (Exception e) {
+			LOG.e("error playing", e);
+		}
+
 		if (isActivate) {
 			handler.post(shortTask);
 		}
 		handler.postDelayed(longTask, 15000);
 
 		notification.displayNotifcation(model.getText());
+
 		broadCastManager.sendNewFModel(model);
+
 
 	}
 
@@ -164,10 +183,11 @@ public class FoobnixMediaCore {
 
 		if (!FModelBuilder.Empty().equals(model)) {
 			app.setPlaying(engineManager.isPlaying());
-
+			
 			UIBroadcast stat = new UIBroadcast(model, engineManager.getCurrentPosition(), engineManager.getDuration(),
 			        engineManager.isPlaying(), engineManager.getBuffering(), app.getPlayListManager().getAll().size());
 			broadCastManager.sendNowPlaying(stat);
+
 
 		}
 	}

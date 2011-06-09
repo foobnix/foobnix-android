@@ -21,6 +21,7 @@ package com.foobnix.engine.media;
 
 import java.io.IOException;
 
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnBufferingUpdateListener;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -34,7 +35,7 @@ public class MediaPlayerEngine implements MediaEngine {
 	private int buffering;
 	private boolean isError;
 
-	public MediaPlayerEngine() {
+	public MediaPlayerEngine(final MediaObserver mediaObserver) {
 		mediaPlayer = new MediaPlayer();
 
 		mediaPlayer.setOnBufferingUpdateListener(new OnBufferingUpdateListener() {
@@ -47,7 +48,7 @@ public class MediaPlayerEngine implements MediaEngine {
 		mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
 			@Override
 			public void onPrepared(MediaPlayer mp) {
-				mp.start();
+				mediaPlayer.start();
 
 			}
 		});
@@ -55,27 +56,31 @@ public class MediaPlayerEngine implements MediaEngine {
 		mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
 			@Override
 			public void onCompletion(MediaPlayer mp) {
+				mediaObserver.onComlete();
 			}
 		});
 		mediaPlayer.setOnErrorListener(new OnErrorListener() {
 			@Override
 			public boolean onError(MediaPlayer mp, int what, int extra) {
+				mediaObserver.onError();
 				isError = true;
 				buffering = -1;
 				// false do not execute onComplete
-				return false;
+				return true;
 			}
 		});
 	}
 
 	@Override
 	public void play(String path) throws IllegalArgumentException, IllegalStateException, IOException {
-		LOG.d("Media Player paying");
+		LOG.d("Media Player paying", path);
 		buffering = 0;
 		mediaPlayer.stop();
 		mediaPlayer.reset();
 		mediaPlayer.setDataSource(path);
-		mediaPlayer.prepare();
+		mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+		mediaPlayer.prepareAsync();
+		// mediaPlayer.prepare();
 	}
 
 	@Override
@@ -101,9 +106,9 @@ public class MediaPlayerEngine implements MediaEngine {
 	}
 
 	@Override
-    public String[] supportedExts() {
+	public String[] supportedExts() {
 		return new String[] { "mp3" };
-    }
+	}
 
 	@Override
 	public int getDuration() {

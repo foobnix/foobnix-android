@@ -34,6 +34,7 @@ import com.foobnix.engine.FoobnixApplication;
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.TYPE;
 import com.foobnix.util.IntentHelper;
+import com.foobnix.util.LOG;
 import com.foobnix.util.TimeUtil;
 
 public class FoobnixUIUpdater extends BroadcastReceiver {
@@ -63,6 +64,8 @@ public class FoobnixUIUpdater extends BroadcastReceiver {
 			return;
 		}
 		FModel model = stat.getModel();
+
+		LOG.d("stat.getDuration()", stat.getDuration());
 
 		currentTime.setText(TimeUtil.durationToString(stat.getPosition()));
 		totalTime.setText(TimeUtil.durationToString(stat.getDuration()));
