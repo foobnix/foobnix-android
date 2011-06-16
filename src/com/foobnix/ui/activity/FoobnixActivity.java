@@ -21,6 +21,7 @@ package com.foobnix.ui.activity;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -113,6 +114,7 @@ public class FoobnixActivity extends FoobnixMenuActivity {
 		unregisterReceiver(foobnixUIUpdater);
 		unregisterReceiver(songLineUpdater);
 		FServiceHelper.getInstance().activateShortTimer(FoobnixActivity.this, false);
+		finish();
 	}
 
 	View.OnClickListener onPrev = new View.OnClickListener() {
@@ -132,7 +134,12 @@ public class FoobnixActivity extends FoobnixMenuActivity {
 	View.OnClickListener onPlayPause = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			FServiceHelper.getInstance().playPause(getApplicationContext());
+			if (app.isEmptyPlaylist() && app.getNowPlayingSong().equals(FModelBuilder.Empty())) {
+				FoobnixActivity.this.finish();
+				startActivity(new Intent(FoobnixActivity.this, MediaActivity.class));
+			} else {
+				FServiceHelper.getInstance().playPause(getApplicationContext());
+			}
 		}
 	};
 

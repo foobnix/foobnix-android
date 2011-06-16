@@ -95,6 +95,15 @@ public class FoobnixMediaCore {
 		}
 	}
 
+	public void play() {
+		engineManager.play();
+		app.setPlaying(true);
+		handler.post(shortTask);
+		handler.postDelayed(longTask, 15000);
+		notification.displayNotifcation(true);
+
+	}
+
 	public void playFirst() {
 		playFModel(playListController.getItem());
 	}
@@ -119,6 +128,7 @@ public class FoobnixMediaCore {
 		if (model == null) {
 			return;
 		}
+		pause();
 		LOG.d(model.getPath());
 
 
@@ -166,10 +176,11 @@ public class FoobnixMediaCore {
 		}
 		handler.postDelayed(longTask, 15000);
 
-		notification.displayNotifcation(model.getText());
 
 		broadCastManager.sendNewFModel(model);
-
+		app.setPlaying(true);
+		notification.setPlaying(true);
+		notification.displayNotifcation(model.getText());
 
 	}
 
@@ -234,20 +245,21 @@ public class FoobnixMediaCore {
 		handler.removeCallbacks(shortTask);
 		handler.removeCallbacks(longTask);
 		engineManager.pause();
+		app.setPlaying(false);
 		shortTimer();
+		notification.displayNotifcation(false);
 
 	}
 
-	public void start() {
-		// start();
-		handler.post(shortTask);
-		handler.postDelayed(longTask, 15000);
 
+	public void justStop() {
+		engineManager.stop();
 	}
 
 	public void stop() {
 		pause();
 		engineManager.stop();
+		notification.displayNotifcation(false);
 	}
 
 	/**
@@ -266,8 +278,13 @@ public class FoobnixMediaCore {
 	}
 
 	public void playPause() {
-		engineManager.playPause();
-
+		if (app.getNowPlayingSong().equals(FModelBuilder.Empty())) {
+			playFirst();
+		} else {
+			engineManager.playPause();
+			notification.displayNotifcation(!app.isPlaying());
+			app.setPlaying(!app.isPlaying());
+		}
 	}
 
 	public void seekTo(Integer msec) {

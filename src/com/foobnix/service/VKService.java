@@ -19,7 +19,6 @@
  * THE SOFTWARE. */
 package com.foobnix.service;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +46,6 @@ import com.foobnix.exception.VKSongNotFoundException;
 import com.foobnix.model.FModel;
 import com.foobnix.model.VKSong;
 import com.foobnix.util.C;
-import com.foobnix.util.DownloadManager;
 import com.foobnix.util.JSONHelper;
 import com.foobnix.util.LOG;
 import com.foobnix.util.TimeUtil;
@@ -57,7 +55,7 @@ public class VKService {
 
 	public static void updateDMPathPath(FModel item, Context context) throws VKAuthorizationException,
 	        VKSongNotFoundException {
-		if (StringUtils.isEmpty(item.getPath()) || item.getPath().equals("null")) {
+		if (StringUtils.isEmpty(item.getPath())) {
 			VKSong search = VKService.search(item.getText(), context);
 			if (search != null) {
 				item.setPath(search.getUrl());
@@ -70,14 +68,14 @@ public class VKService {
 	public static void updateFModelPath(FModel model, Context context) throws VKAuthorizationException,
 	        VKSongNotFoundException {
 
-		if (StringUtils.isEmpty(model.getPath()) || model.getPath().equals("null")) {
+		if (StringUtils.isEmpty(model.getPath())) {
 
-			String downloadPath = DownloadManager.getFMoldelDownloadFile(context, model);
-			if (new File(downloadPath).exists()) {
-				LOG.d("Take path from dm folder");
-				model.setPath(downloadPath);
-				return;
-			}
+			/*
+			 * String downloadPath =
+			 * DownloadManager.getFMoldelDownloadFile(context, model); if (new
+			 * File(downloadPath).exists()) { LOG.d("Take path from dm folder");
+			 * model.setPath(downloadPath); return; }
+			 */
 
 			VKSong search = null;
 			search = VKService.search(model.getText(), context);
@@ -173,7 +171,7 @@ public class VKService {
 		}
 
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

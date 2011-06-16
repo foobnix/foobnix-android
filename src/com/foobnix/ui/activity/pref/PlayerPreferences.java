@@ -32,6 +32,9 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 
 import com.foobnix.R;
+import com.foobnix.service.DMService;
+import com.foobnix.service.FoobnixService;
+import com.foobnix.service.MODE;
 import com.foobnix.ui.activity.VkCheckActivity;
 import com.foobnix.ui.activity.pref.base.NotificationIconPreference;
 import com.foobnix.ui.activity.pref.base.RandomModePreference;
@@ -123,9 +126,27 @@ public class PlayerPreferences extends PrefMenuActivity {
 		about.setTitle(R.string.About);
 		about.setSummary("Ivan Ivanenko <ivan.ivanenko@gmail.com>");
 		other.addPreference(about);
+
+		PreferenceScreen exit = getPreferenceManager().createPreferenceScreen(this);
+		exit.setTitle(R.string.Exit);
+		exit.setOnPreferenceClickListener(onExit);
+		other.addPreference(exit);
+
 		return root;
 
 	}
+
+	OnPreferenceClickListener onExit = new OnPreferenceClickListener() {
+
+		@Override
+		public boolean onPreferenceClick(Preference preference) {
+			stopService(new Intent(PlayerPreferences.this, FoobnixService.class));
+			stopService(new Intent(PlayerPreferences.this, DMService.class));
+			app.getNotification().displayNotifcation(MODE.HIDE);
+			finish();
+			return true;
+		}
+	};
 
 	OnPreferenceClickListener onWeb = new OnPreferenceClickListener() {
 

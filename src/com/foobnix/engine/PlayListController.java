@@ -81,8 +81,12 @@ public class PlayListController {
 
 
 	public FModel getRandomFModel() {
-		active = random.nextInt(list.size());
+		if (!list.isEmpty()) {
+			active = random.nextInt(list.size());
+		}
+
 		return getItem();
+
 	}
 
 	public FModel getPrevFModel() {

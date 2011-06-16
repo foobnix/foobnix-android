@@ -49,6 +49,12 @@ public class DMService extends Service {
 	}
 
 	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		app.cleanDMList();
+	}
+
+	@Override
 	public void onStart(Intent intent, int startId) {
 		super.onStart(intent, startId);
 

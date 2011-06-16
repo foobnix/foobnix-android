@@ -21,14 +21,13 @@ package com.foobnix.engine;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.telephony.PhoneStateListener;
-import android.telephony.TelephonyManager;
 
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.DOWNLOAD_STATUS;
@@ -67,26 +66,19 @@ public class FoobnixApplication extends Application {
 
 		Caller.getInstance().setCache(new MemoryCache());
 		C.get().load(this);
-
-		TelephonyManager tmgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-		tmgr.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
 	}
 
-	private PhoneStateListener phoneStateListener = new PhoneStateListener() {
-		private boolean needResume;
-
-		@Override
-		public void onCallStateChanged(int state, String incomingNumber) {
-			if (state == TelephonyManager.CALL_STATE_RINGING || state == TelephonyManager.CALL_STATE_OFFHOOK) {
-				needResume = isPlaying;
-				FServiceHelper.getInstance().pause(FoobnixApplication.this);
-			} else if (state == TelephonyManager.CALL_STATE_IDLE) {
-				if (needResume) {
-					FServiceHelper.getInstance().playPause(FoobnixApplication.this);
-				}
+	public void cleanDMList() {
+		Iterator<FModel> iterator = getDowloadList().iterator();
+		while (iterator.hasNext()) {
+			FModel item = iterator.next();
+			if (item.getStatus() != FModel.DOWNLOAD_STATUS.ACTIVE) {
+				iterator.remove();
 			}
 		}
-	};
+	}
+
+
 
 	public boolean isOnline() {
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -108,10 +100,13 @@ public class FoobnixApplication extends Application {
 		return true;
 	}
 
+	public boolean isEmptyPlaylist() {
+		return playListManager.getAll().isEmpty();
+	}
 
 	public void playOnAppend() {
 		if (!isPlaying()) {
-			FServiceHelper.getInstance().playFirst(this);
+			FServiceHelper.getInstance().play(this);
 		}
 	}
 

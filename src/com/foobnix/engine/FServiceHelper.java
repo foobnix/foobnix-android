@@ -75,6 +75,12 @@ public class FServiceHelper {
 		context.startService(service);
 	}
 
+	public void play(Context context) {
+		Intent service = new Intent(context, FoobnixService.class);
+		service.setAction(SERVICE_ACTION.PLAY_STATE.toString());
+		context.startService(service);
+	}
+
 	public void seekTo(Context context, int value) {
 		Intent service = new Intent(context, FoobnixService.class);
 		service.setAction(SERVICE_ACTION.SEEK.toString());
@@ -101,11 +107,6 @@ public class FServiceHelper {
 		context.startService(service);
 	}
 
-	public void playFirst(Context context) {
-		Intent service = new Intent(context, FoobnixService.class);
-		service.setAction(SERVICE_ACTION.PLAY_FIRST.toString());
-		context.startService(service);
-	}
 
 	public void random(Context context) {
 		Intent service = new Intent(context, FoobnixService.class);

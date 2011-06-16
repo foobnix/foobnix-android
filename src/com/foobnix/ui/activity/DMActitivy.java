@@ -20,7 +20,6 @@
 package com.foobnix.ui.activity;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -251,13 +250,7 @@ public class DMActitivy extends FoobnixMenuActivity {
 		        .Action(getString(R.string.Delete_All), new Runnable() {
 			        @Override
 			        public void run() {
-				        Iterator<FModel> iterator = app.getDowloadList().iterator();
-				        while (iterator.hasNext()) {
-					        FModel item = iterator.next();
-					        if (item.getStatus() != FModel.DOWNLOAD_STATUS.ACTIVE) {
-						        iterator.remove();
-					        }
-				        }
+				        app.cleanDMList();
 				        finish();
 				        startActivity(new Intent(DMActitivy.this, DMActitivy.class));
 			        }

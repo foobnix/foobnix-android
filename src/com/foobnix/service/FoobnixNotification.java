@@ -36,6 +36,7 @@ public class FoobnixNotification {
 	private NotificationManager notificationManager;
 	private String msg;
 	private int[] sleepMS;
+	private boolean isPlaying;
 
 	public FoobnixNotification(Context context) {
 		this.context = context;
@@ -45,6 +46,11 @@ public class FoobnixNotification {
 	}
 
 	public void displayNotifcation() {
+		displayNotifcation(this.msg, this.sleepMS);
+	}
+
+	public void displayNotifcation(boolean playing) {
+		this.isPlaying = playing;
 		displayNotifcation(this.msg, this.sleepMS);
 	}
 
@@ -60,6 +66,10 @@ public class FoobnixNotification {
 		displayNotifcation(msg, sleepMS, C.get().notificationMode);
 	}
 
+	public void displayNotifcation(MODE mode) {
+		displayNotifcation(this.msg, this.sleepMS, mode);
+	}
+
 	public void displayNotifcation(String msg, int[] sleepMS, MODE mode) {
 		this.msg = msg;
 		this.sleepMS = sleepMS;
@@ -69,7 +79,13 @@ public class FoobnixNotification {
 			notificationManager.cancelAll();
 			return;
 		}
-		Notification notification = new Notification(R.drawable.foobnix, msg, System.currentTimeMillis());
+
+		int image = R.drawable.foobnix_pause;
+		if (isPlaying) {
+			image = R.drawable.foobnix;
+		}
+		
+		Notification notification = new Notification(image, msg, System.currentTimeMillis());
 
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0, new Intent(context, FoobnixActivity.class),
 		        0);
@@ -115,6 +131,10 @@ public class FoobnixNotification {
 		return MODE.AUTO_CANCEL;
 	}
 
+	public void cancelAll() {
+		notificationManager.cancelAll();
+	}
+
 	public void updateTryIcon(MODE mode) {
 		notificationManager.cancelAll();
 		displayNotifcation(msg, sleepMS, mode);
@@ -124,5 +144,13 @@ public class FoobnixNotification {
 		notificationManager.cancelAll();
 		displayNotifcation();
 	}
+
+	public void setPlaying(boolean isPlaying) {
+	    this.isPlaying = isPlaying;
+    }
+
+	public boolean isPlaying() {
+	    return isPlaying;
+    }
 
 }

@@ -66,7 +66,7 @@ public class AlarmSleepService {
 
 		// alarm at time
 		if (h == C.get().alarmHM[0] && m == C.get().alarmHM[1]) {
-			FServiceHelper.getInstance().playFirst(context);
+			FServiceHelper.getInstance().play(context);
 			LOG.d("Send alarm");
 		}
 
