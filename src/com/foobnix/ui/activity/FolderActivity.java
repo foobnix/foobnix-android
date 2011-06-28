@@ -68,6 +68,7 @@ public class FolderActivity extends FoobnixMenuActivity {
 
 		list.setAdapter(navAdapter);
 
+		onAcitvateMenuImages(this);
 	}
 
 	OnItemClickListener onClick = new OnItemClickListener() {
@@ -148,6 +149,30 @@ public class FolderActivity extends FoobnixMenuActivity {
 				        app.playOnAppend();
 				        showPlayer();
 			        }
+		        })//
+
+		        .Action(getString(R.string.Set_As_Playlist), new Runnable() {
+			        @Override
+			        public void run() {
+				        cleanPlayList();
+
+				        if (item == null) {
+					        List<FModel> models = FolderUtil.getAllFilesRecursive(navAdapter.getCurrentPath());
+					        app.getPlayListManager().addAll(models);
+				        } else if (item.isFile()) {
+					        addAll(new File(item.getPath()).getParent());
+				        } else {
+					        List<FModel> models = FolderUtil.getAllFilesRecursive(item.getPath());
+
+					        Collections.sort(models, new FileComparator());
+
+					        app.getPlayListManager().addAll(models);
+				        }
+
+				        app.playOnAppend();
+				        showPlayer();
+			        }
+
 		        })//
 
 		        .Action(getString(R.string.Delete), new Runnable() {

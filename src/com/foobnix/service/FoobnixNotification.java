@@ -75,6 +75,7 @@ public class FoobnixNotification {
 		this.sleepMS = sleepMS;
 
 
+
 		if (mode == MODE.HIDE) {
 			notificationManager.cancelAll();
 			return;
@@ -92,7 +93,7 @@ public class FoobnixNotification {
 
 		String title = "Foobnix";
 
-		if (sleepMS[0] > 0 && sleepMS[1] > 0) {
+		if (sleepMS != null && (sleepMS[0] > 0 && sleepMS[1] > 0)) {
 			title += String.format(" | S %s", TimeUtil.getTimeFormated(sleepMS));
 		}
 		if (C.get().alarmHM[0] >= 0) {

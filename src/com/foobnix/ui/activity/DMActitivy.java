@@ -140,6 +140,8 @@ public class DMActitivy extends FoobnixMenuActivity {
 
 		Button refresh = (Button) findViewById(R.id.dmRefresh);
 		refresh.setOnClickListener(onRefresh);
+
+		onAcitvateMenuImages(this);
 	}
 
 	public int getDownloadingSongPosition() {

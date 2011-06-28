@@ -77,6 +77,7 @@ public class AboutArtistActivity extends FoobnixMenuActivity {
 			ToastShort("Erorr, try again a bit later");
 		}
 
+		onAcitvateMenuImages(this);
 	}
 
 	private Bitmap fetchImage(String urlstr) {

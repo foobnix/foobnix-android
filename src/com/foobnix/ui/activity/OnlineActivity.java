@@ -133,6 +133,7 @@ public class OnlineActivity extends FoobnixMenuActivity {
 			startActivity(new Intent(this, VkCheckActivity.class));
 		}
 
+		onAcitvateMenuImages(this);
 	}
 
 	View.OnClickListener onPaste = new View.OnClickListener() {
@@ -285,6 +286,19 @@ public class OnlineActivity extends FoobnixMenuActivity {
 		        .Action(getString(R.string.Append_All), new Runnable() {
 			        @Override
 			        public void run() {
+				        List<FModel> items = navAdapter.getItems();
+				        SongUtil.removeFolders(items);
+				        app.getPlayListManager().addAll(items);
+				        app.playOnAppend();
+				        showPlayer();
+			        }
+
+		        })//
+
+		        .Action(getString(R.string.Set_As_Playlist), new Runnable() {
+			        @Override
+			        public void run() {
+				        cleanPlayList();
 				        List<FModel> items = navAdapter.getItems();
 				        SongUtil.removeFolders(items);
 				        app.getPlayListManager().addAll(items);

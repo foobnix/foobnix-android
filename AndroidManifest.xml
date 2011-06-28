@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.foobnix"
-      android:versionCode="18"
-      android:versionName="1.6">
+      android:versionCode="23"
+      android:versionName="1.7">
 	
 	
 	<instrumentation android:targetPackage="com.foobnix" android:name="android.test.InstrumentationTestRunner" />
@@ -32,13 +32,6 @@
         
         <service android:name=".service.FoobnixService"></service>
         <service android:name=".service.DMService"></service>
-        
-        <receiver android:name="DemoBR" >
-        	<intent-filter>
-        		<action android:name="MY_ACTION"/>
-        	</intent-filter>
-        </receiver>
-                
         
 	<uses-library android:name="android.test.runner" />
     </application>

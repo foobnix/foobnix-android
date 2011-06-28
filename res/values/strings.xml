@@ -24,6 +24,7 @@
     <string name="Create_Folder">Create Folder</string>
     <string name="Append">Append</string>
     <string name="Append_All">Append All</string>
+    <string name="Set_As_Playlist">Set As Playlist</string>
     <string name="Set_Download_To">Set Download To</string>
     <string name="Default_Login_and_Password">Default Login and Password</string>
     
@@ -42,6 +43,7 @@
     <string name="Tags">Tags</string>
     <string name="Audio">Audio</string>
     <string name="Search">Search</string>
+    <string name="Exit">Exit</string>
     <string name="Paste">Paste</string>
     <string name="Online_Action">Online Action</string>
     <string name="Your_search_did_not_match_any_results">Your search did not match any results</string>

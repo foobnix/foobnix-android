@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="app_name">Foobnix плеер</string>
+  <string name="Action">Действие</string>
+  <string name="Delete">Удалить</string>
+  <string name="Delete_All">Удалить все</string>
+  <string name="Add">Добавить</string>
+  <string name="Added">Добавлено</string>
+  <string name="Play">Играть</string>
+  <string name="Folders_Online">Папки-Онлайн</string>
+  <string name="Player_List">Плеер</string>
+  <string name="Downloads">Закачки</string>
+  <string name="Download">Cкачать</string>
+  <string name="Download_All">Скачать все</string>
+  <string name="Song_Info">Информация</string>
+  <string name="Settings">Настройки</string>
+  <string name="Clean_Playlist">Очистить плейлист</string>
+  <string name="Player_List_Action">Действие на плейлисте</string>
+  <string name="Network_not_available">Сеть не доступна</string>
+  <string name="Media_Resources">Медиа ресурсы</string>
+  <string name="Folders">Папки</string>
+  <string name="Exit">Выход</string>
+  <string name="Online">Онлайн</string>
+  <string name="Folder_Action">Действие на папке</string>
+  <string name="Create_Folder">Создать папку</string>
+  <string name="Append">Добавить</string>
+  <string name="Append_All">Добавить все</string>
+  <string name="Set_As_Playlist">Установить как плейлист</string>
+  <string name="Set_Download_To">Скачивать в</string>
+  <string name="Default_Login_and_Password">Логин и пароль по умолчанию</string>
+  <string name="Download_Manager">Менеджер закачек</string>
+  <string-array name="Save_To">
+    <item>Сохранять в:</item>
+  </string-array>
+  <string name="Choose_...">Выбрать ...</string>
+  <string-array name="Now">
+    <item>"Текущая: "</item>
+  </string-array>
+  <string name="_Refresh_">Обновить</string>
+  <string-array name="Stat">
+    <item>Статистика:</item>
+  </string-array>
+  <string name="Tracks">Песни</string>
+  <string name="Albums">Альбомы</string>
+  <string name="Similar">Похожие</string>
+  <string name="Tags">Теги</string>
+  <string name="Audio">Музыка</string>
+  <string name="Search">Поиск</string>
+  <string name="Paste">Вставить</string>
+  <string name="Online_Action">Онлайн действие</string>
+  <string name="Your_search_did_not_match_any_results">По вашему запросу ничего не найдено</string>
+  <string name="Version">Версия</string>
+  <string name="Code">Код</string>
+  <string name="Create">Создать</string>
+  <string name="Cancel">Отменить</string>
+  <string name="Success">Успешно</string>
+  <string-array name="Format">
+    <item>Формат:</item>
+  </string-array>
+  <string name="Fail">Неудачно</string>
+  <string name="Enable">Включено</string>
+  <string name="Enable_Scrobbler">Включить скробблер</string>
+  <string name="Services">Сервисы</string>
+  <string name="Login">Логин</string>
+  <string name="Password">Пароль</string>
+  <string name="Foobnix_Settings">Наспройки Foobnix</string>
+  <string name="Last_Fm_Scrobbler">Last.FM скробблер</string>
+  <string name="Disable">Выключено</string>
+  <string name="VKontakte_Authorization">Авторизация ВКонтакте</string>
+  <string name="Functional">Функционал</string>
+  <string name="Other">Другое</string>
+  <string name="Site">Сайт</string>
+  <string name="About">Автор</string>
+  <string name="Random_On">Случайно Вкл</string>
+  <string name="Random_Off">Случайно Выкл</string>
+  <string name="Notification_Icon">Значок уведомления</string>
+  <string name="Stop_Timer">Таймер остановки</string>
+  <string name="Stop_from_last_activity_in_mins">Остановится через %s минут</string>
+  <string name="Download_Manager_Action">Действие в менеджере закачек</string>
+  <string name="Please_Refresh_Vkontakte_Settings">Пожалуйста обновите настроки ВКонтакте</string>
+  <string name="Network_not_available_cant_play_online_song">Сеть не доступна, невозжожно проиграть песню</string>
+  <string name="Song_not_found_in_the_Internet_cantt_play">Песня не найдена в Интернете, невозможно проиграть</string>
+  <string name="Authorization_VKontakte_require_for_music_search">Авторизация ВКонтакте (требуется для поиска музыки)</string>
+  <string name="Player_Info_Line">Вы можете начать с Меню -&gt; Папки-Онлайн</string>
+  <string name="Success_please_recheck_if_expired">Успешно (обновите если требуется)</string>
+  <string name="Login_or_password_is_empty">Логин или пароль пустой</string>
+</resources>

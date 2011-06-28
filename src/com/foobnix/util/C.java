@@ -27,7 +27,7 @@ import com.foobnix.service.MODE;
 import com.foobnix.ui.activity.DMActitivy.DOWNLOAD_FORMAT_BY;
 
 /**
- * All Fobonix Configuration Settings
+ * All Foobnix Configuration Settings
  */
 public class C implements Serializable {
 
@@ -64,3 +64,13 @@ public class C implements Serializable {
 		new ConfigLoader().save(context, instanse, FILE_NAME);
 	}
 }
+/*
+ * interface Settings { String SLEEP_MINS = "sleep_mins"; String ALARM_HM =
+ * "alarm_hm"; }
+ * 
+ * public class SettingsUtil { public static SharedPreferences get(Context
+ * context) { PreferenceManager.setDefaultValues(this, R.xml.prefs, true);
+ * 
+ * return context.getSharedPreferences("prefs", Context.MODE_PRIVATE); } }
+ */
+// get(this).get(Settings.SLEEP_MINS)

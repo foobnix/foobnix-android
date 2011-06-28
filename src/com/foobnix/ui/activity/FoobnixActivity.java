@@ -27,7 +27,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -64,13 +64,13 @@ public class FoobnixActivity extends FoobnixMenuActivity {
 		playlistView.setOnItemClickListener(onItemClick);
 		playlistView.setOnItemLongClickListener(onDialog);
 
-		Button playPause = (Button) findViewById(R.id.button_play_pause);
+		ImageButton playPause = (ImageButton) findViewById(R.id.button_play_pause);
 		playPause.setOnClickListener(onPlayPause);
 
-		Button next = (Button) findViewById(R.id.button_next);
+		ImageButton next = (ImageButton) findViewById(R.id.button_next);
 		next.setOnClickListener(onNext);
 
-		Button prev = (Button) findViewById(R.id.button_prev);
+		ImageButton prev = (ImageButton) findViewById(R.id.button_prev);
 		prev.setOnClickListener(onPrev);
 
 		foobnixUIUpdater = new FoobnixUIUpdater(this, app);
@@ -81,6 +81,7 @@ public class FoobnixActivity extends FoobnixMenuActivity {
 		}
 
 		LOG.d("ON FoobnixActivity Create");
+		onAcitvateMenuImages(this);
 	}
 
 	@Override

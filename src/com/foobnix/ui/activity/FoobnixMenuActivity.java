@@ -19,11 +19,15 @@
  * THE SOFTWARE. */
 package com.foobnix.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ListView;
 
 import com.foobnix.R;
@@ -56,6 +60,46 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 		playListManager = app.getPlayListManager();
 		playListAdapter = new PlayListAdapter(this, R.id.listview_playlist, playListManager.getAll());
 		app.getAlarmSleepService().onLastActivation();
+
+	}
+
+	public void onAcitvateMenuImages(Context contex) {
+		new ButtonImageBindActivity(contex, R.id.imageAdd, MediaActivity.class);
+		new ButtonImageBindActivity(contex, R.id.imagePlayer, FoobnixActivity.class);
+		new ButtonImageBindActivity(contex, R.id.imageDownload, DMActitivy.class);
+		new ButtonImageBindActivity(contex, R.id.imageInfo, InfoActivity.class);
+		new ButtonImageBindActivity(contex, R.id.imageSettins, PlayerPreferences.class);
+
+	}
+
+	class ButtonImageBindActivity {
+		public ButtonImageBindActivity(final Context context, int buttonId, final Class activityClazz) {
+			View view = (View) findViewById(buttonId);
+			if (view == null) {
+				return;
+			}
+			view.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					finish();
+					startActivity(new Intent(context.getApplicationContext(), activityClazz));
+				}
+			});
+			view.setOnTouchListener(new View.OnTouchListener() {
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					if (MotionEvent.ACTION_DOWN == event.getAction()) {
+						v.setBackgroundColor(Color.GRAY);
+						LOG.d("on image down");
+					} else if (MotionEvent.ACTION_UP == event.getAction()) {
+						v.setBackgroundColor(Color.TRANSPARENT);
+					}
+					return false;
+				}
+
+			});
+		}
 	}
 
 	@Override
@@ -91,7 +135,6 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 		}
 	}
 
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -122,7 +165,7 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	public void openActivity(Class<?> clazz) {
 		LOG.d(activityClazz(), clazz);
 		if (activityClazz() != clazz) {
@@ -130,7 +173,7 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 			startActivity(new Intent(this, clazz));
 		}
 	}
-	
+
 	public PlayListAdapter getPlayListAdapter() {
 		return playListAdapter;
 	}

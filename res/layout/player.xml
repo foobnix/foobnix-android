@@ -11,18 +11,27 @@
 	<LinearLayout android:layout_width="match_parent"
 		android:typeface="monospace" android:id="@+id/linearLayout1"
 		android:layout_height="wrap_content">
-		<Button android:id="@+id/button_prev" android:typeface="monospace"
+		<ImageView android:layout_width="wrap_content"
+		 android:layout_height="wrap_content"
+		android:src="@android:drawable/ic_menu_add" android:id="@+id/imageAdd"/>
+		<ImageButton android:id="@+id/button_prev" android:typeface="monospace"
+			android:src="@android:drawable/ic_media_rew"
 			android:textSize="20sp" android:textStyle="bold" android:text="≪"
 			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:layout_weight="1"></Button>
-		<Button android:id="@+id/button_play_pause" android:typeface="monospace"
+			android:layout_weight="1"/>
+		<ImageButton android:id="@+id/button_play_pause" android:typeface="monospace"
+			android:src="@android:drawable/ic_media_play"
 			android:textSize="20sp" android:textStyle="bold" android:text=">"
 			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:layout_weight="1"></Button>
-		<Button android:id="@+id/button_next" android:typeface="monospace"
+			android:layout_weight="1"/>
+		<ImageButton android:id="@+id/button_next" android:typeface="monospace"
 			android:textSize="20sp" android:textStyle="bold" android:text="≫"
+			android:src="@android:drawable/ic_media_ff"
 			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:layout_weight="1"></Button>
+			android:layout_weight="1"/>
+		<ImageView android:layout_width="wrap_content"
+		 android:layout_height="wrap_content"
+		android:src="@android:drawable/ic_menu_info_details" android:id="@+id/imageInfo"/>
 	</LinearLayout>
 	<LinearLayout android:layout_width="match_parent"
 		android:typeface="monospace" android:id="@+id/linearLayout2"
@@ -32,15 +41,10 @@
 			android:layout_weight="0" android:gravity="center_vertical"></TextView>
 		<SeekBar android:id="@+id/playerSeekBar"
 			android:layout_height="wrap_content" android:layout_width="match_parent"
-			android:thumb="@drawable/none"			
-			android:paddingLeft="3px" android:paddingRight="3px"
-			android:layout_weight="1" android:gravity="center_vertical"></SeekBar>
+			android:thumb="@drawable/none" android:paddingLeft="3px"
+			android:paddingRight="3px" android:layout_weight="1" android:gravity="center_vertical"></SeekBar>
 		<TextView android:text="00:00" android:id="@+id/playerTrackTime"
 			android:layout_width="wrap_content" android:layout_weight="0"
 			android:layout_height="wrap_content" android:gravity="center_vertical"></TextView>
 	</LinearLayout>
-	<TextView android:text="@string/Player_Info_Line"
-		android:id="@+id/palyerInfoLine" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_weight="0"
-		android:scrollHorizontally="true"></TextView>
 </LinearLayout>

@@ -23,7 +23,7 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -41,9 +41,9 @@ public class FoobnixUIUpdater extends BroadcastReceiver {
 
 	private TextView currentTime;
 	private TextView totalTime;
-	private TextView infoLine;
+	// private TextView infoLine;
 	private SeekBar seekBar;
-	private Button playPause;
+	private ImageButton playPause;
 	private Activity action;
 	private FoobnixApplication app;
 
@@ -53,8 +53,8 @@ public class FoobnixUIUpdater extends BroadcastReceiver {
 		currentTime = (TextView) action.findViewById(R.id.playerActiveTimer);
 		totalTime = (TextView) action.findViewById(R.id.playerTrackTime);
 		seekBar = ((SeekBar) action.findViewById(R.id.playerSeekBar));
-		infoLine = (TextView) action.findViewById(R.id.palyerInfoLine);
-		playPause = (Button) action.findViewById(R.id.button_play_pause);
+		// infoLine = (TextView) action.findViewById(R.id.palyerInfoLine);
+		playPause = (ImageButton) action.findViewById(R.id.button_play_pause);
 	}
 
 	@Override
@@ -73,20 +73,23 @@ public class FoobnixUIUpdater extends BroadcastReceiver {
 		seekBar.setMax(stat.getDuration());
 		seekBar.setProgress(stat.getPosition());
 
-		action.setTitle(String.format("%s/%s %s", model.getPosition() + 1, stat.getPlaylistLen(), model.getText()));
-		infoLine.setText(infoLineStatus(stat));
+		// infoLine.setText(infoLineStatus(stat));
+		action.setTitle(infoLineStatus(stat));
 
 		if (stat.isPlaying()) {
-			playPause.setText("||");
+			playPause.setImageResource(android.R.drawable.ic_media_pause);
+			// playPause.setText("||");
 		} else {
-			playPause.setText(">");
+			playPause.setImageResource(android.R.drawable.ic_media_play);
+			// playPause.setText(">");
 		}
 	}
 
 	public String infoLineStatus(UIBroadcast stat) {
 		FModel model = stat.getModel();
+		String pos = String.format("%s/%s", model.getPosition() + 1, stat.getPlaylistLen());
 		if (model.getType() == TYPE.LOCAL) {
-			return String.format("LOCAL | %s | %s | %s", model.getExt(), model.getSize(), model.getTitle());
+			return String.format("%s SDcard|%s|%s|%s", pos, model.getExt(), model.getSize(), model.getTitle());
 		}
 
 		if (model.getType() == TYPE.ONLINE) {
@@ -94,7 +97,8 @@ public class FoobnixUIUpdater extends BroadcastReceiver {
 			if (stat.getBuffering() == -1) {
 				buffer = "Erorr";
 			}
-			return String.format("ONLINE | Buffer: %s | %s | %s", buffer, model.getSize(), stat
+			return String
+			        .format("%s Online|Buffer: %s|%s|%s", pos, buffer, model.getSize(), stat
 			        .getModel().getTitle());
 		}
 
