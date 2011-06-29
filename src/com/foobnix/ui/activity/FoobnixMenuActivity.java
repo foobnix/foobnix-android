@@ -24,7 +24,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,6 +33,7 @@ import com.foobnix.R;
 import com.foobnix.engine.FoobnixApplication;
 import com.foobnix.engine.PlayListManager;
 import com.foobnix.model.FModel;
+import com.foobnix.ui.activity.info.AboutArtistActivity;
 import com.foobnix.ui.activity.pref.PlayerPreferences;
 import com.foobnix.ui.adapter.PlayListAdapter;
 import com.foobnix.util.C;
@@ -44,6 +44,7 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 	protected PlayListManager playListManager;
 	protected ListView playlistView;
 	protected FoobnixApplication app;
+	protected View menuLyaout;
 
 	private void onMoreAction() {
 		actionDialog(null);
@@ -61,19 +62,46 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 		playListAdapter = new PlayListAdapter(this, R.id.listview_playlist, playListManager.getAll());
 		app.getAlarmSleepService().onLastActivation();
 
+		LOG.d("On create Menu Activity");
+
+	}
+
+	public void hideShowMenu() {
+		if (app.isShowMenu()) {
+			menuLyaout.setVisibility(View.VISIBLE);
+		} else {
+			menuLyaout.setVisibility(View.GONE);
+		}
+		app.setShowMenu(!app.isShowMenu());
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		hideShowMenu();
+		return false;
 	}
 
 	public void onAcitvateMenuImages(Context contex) {
 		new ButtonImageBindActivity(contex, R.id.imageAdd, MediaActivity.class);
+		new ButtonImageBindActivity(contex, R.id.imageAddNav, MediaActivity.class);
 		new ButtonImageBindActivity(contex, R.id.imagePlayer, FoobnixActivity.class);
 		new ButtonImageBindActivity(contex, R.id.imageDownload, DMActitivy.class);
-		new ButtonImageBindActivity(contex, R.id.imageInfo, InfoActivity.class);
-		new ButtonImageBindActivity(contex, R.id.imageSettins, PlayerPreferences.class);
+		new ButtonImageBindActivity(contex, R.id.imageInfo, AboutArtistActivity.class);
+		new ButtonImageBindActivity(contex, R.id.imageSettins, PlayerPreferences.class, false);
+		new ButtonImageBindActivity(contex, R.id.imageMore, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				onMoreAction();
+			}
+		});
+
+		menuLyaout = (View) findViewById(R.id.buttons_override);
 
 	}
 
 	class ButtonImageBindActivity {
-		public ButtonImageBindActivity(final Context context, int buttonId, final Class activityClazz) {
+		public ButtonImageBindActivity(final Context context, int buttonId, final Class activityClazz,
+		        final boolean isFinish) {
 			View view = (View) findViewById(buttonId);
 			if (view == null) {
 				return;
@@ -81,10 +109,43 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 			view.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					finish();
+					if (isFinish) {
+						LOG.d("Finish this activity");
+						finish();
+					}
 					startActivity(new Intent(context.getApplicationContext(), activityClazz));
 				}
 			});
+			view.setOnTouchListener(new View.OnTouchListener() {
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					if (MotionEvent.ACTION_DOWN == event.getAction()) {
+						v.setBackgroundColor(Color.GRAY);
+						LOG.d("on image down");
+					} else if (MotionEvent.ACTION_UP == event.getAction()) {
+						v.setBackgroundColor(Color.TRANSPARENT);
+					}
+					return false;
+				}
+
+			});
+		}
+
+		public ButtonImageBindActivity(final Context context, int buttonId, final Class activityClazz) {
+			this(context, buttonId, activityClazz, true);
+		}
+
+		public ButtonImageBindActivity(final Context context, int buttonId, final View.OnClickListener onClickLisner) {
+			View view = (View) findViewById(buttonId);
+
+			view.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					onClickLisner.onClick(v);
+				}
+			});
+
 			view.setOnTouchListener(new View.OnTouchListener() {
 
 				@Override
@@ -108,13 +169,12 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 		app.getAlarmSleepService().onLastActivation();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.player_menu, menu);
-		return true;
-	}
+	/*
+	 * @Override public boolean onCreateOptionsMenu(Menu menu) {
+	 * super.onCreateOptionsMenu(menu); MenuInflater inflater =
+	 * getMenuInflater(); inflater.inflate(R.menu.player_menu, menu); return
+	 * true; }
+	 */
 
 	@Override
 	protected void onDestroy() {
@@ -143,7 +203,6 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 			onMoreAction();
 			return true;
 		case R.id.playerSettingsMenu:
-			finish();
 			startActivity(new Intent(this, PlayerPreferences.class));
 			return true;
 		case R.id.playerDowload:

@@ -51,6 +51,7 @@ public class FoobnixApplication extends Application {
 	private AlarmSleepService alarmSleepService;
 	private FoobnixNotification notification;
 	private boolean isPlaying = false;
+	private boolean isShowMenu = true;
 
 	@Override
 	public void onCreate() {
@@ -170,4 +171,12 @@ public class FoobnixApplication extends Application {
 	public AlarmSleepService getAlarmSleepService() {
 		return alarmSleepService;
 	}
+
+	public void setShowMenu(boolean isShowMenu) {
+	    this.isShowMenu = isShowMenu;
+    }
+
+	public boolean isShowMenu() {
+	    return isShowMenu;
+    }
 }

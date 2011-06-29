@@ -50,6 +50,7 @@ public class FoobnixActivity extends FoobnixMenuActivity {
 	private FoobnixUIUpdater foobnixUIUpdater;
 	private SongLineUpdater songLineUpdater;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -80,15 +81,24 @@ public class FoobnixActivity extends FoobnixMenuActivity {
 			app.getNotification().displayNotifcation(getActivityTitle(), C.get().sleepMins);
 		}
 
+		View menu = (View) findViewById(R.id.imageShowMenu);
+		menu.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				hideShowMenu();
+			}
+		});
+
 		LOG.d("ON FoobnixActivity Create");
 		onAcitvateMenuImages(this);
 	}
+
 
 	@Override
 	protected void onStart() {
 		super.onStart();
 		LOG.d("On Start");
-
 
 		final FModel stat = app.getNowPlayingSong();
 
@@ -115,7 +125,6 @@ public class FoobnixActivity extends FoobnixMenuActivity {
 		unregisterReceiver(foobnixUIUpdater);
 		unregisterReceiver(songLineUpdater);
 		FServiceHelper.getInstance().activateShortTimer(FoobnixActivity.this, false);
-		finish();
 	}
 
 	View.OnClickListener onPrev = new View.OnClickListener() {
