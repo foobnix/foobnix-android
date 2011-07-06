@@ -125,6 +125,7 @@ public class FoobnixActivity extends FoobnixMenuActivity {
 		unregisterReceiver(foobnixUIUpdater);
 		unregisterReceiver(songLineUpdater);
 		FServiceHelper.getInstance().activateShortTimer(FoobnixActivity.this, false);
+		finish();
 	}
 
 	View.OnClickListener onPrev = new View.OnClickListener() {
@@ -146,7 +147,7 @@ public class FoobnixActivity extends FoobnixMenuActivity {
 		public void onClick(View v) {
 			if (app.isEmptyPlaylist() && app.getNowPlayingSong().equals(FModelBuilder.Empty())) {
 				FoobnixActivity.this.finish();
-				startActivity(new Intent(FoobnixActivity.this, MediaActivity.class));
+				startActivity(new Intent(FoobnixActivity.this, OnlineActivity.class));
 			} else {
 				FServiceHelper.getInstance().playPause(getApplicationContext());
 			}

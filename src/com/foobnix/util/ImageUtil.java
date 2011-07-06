@@ -17,40 +17,35 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.engine;
+package com.foobnix.util;
 
-import android.content.Context;
-import android.net.wifi.WifiManager;
-import android.net.wifi.WifiManager.WifiLock;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-import com.foobnix.util.LOG;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
-public class WifiLocker {
+public class ImageUtil {
 
-	private final WifiLock wifiLock;
-	private final WifiManager wifiManager;
-
-	public WifiLocker(Context context) {
-		wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-		wifiLock = wifiManager.createWifiLock("FOOBNIX");
-	}
-
-	public void acqire() {
-		if (!wifiLock.isHeld()) {
-			wifiLock.acquire();
-			LOG.d("Wifi LOCK");
+	public static Bitmap fetchImage(String urlstr) {
+		try {
+			URL url = new URL(urlstr);
+			HttpURLConnection c = (HttpURLConnection) url.openConnection();
+			c.setDoInput(true);
+			c.connect();
+			InputStream is = c.getInputStream();
+			Bitmap img;
+			img = BitmapFactory.decodeStream(is);
+			return img;
+		} catch (MalformedURLException e) {
+			LOG.e(e);
+		} catch (IOException e) {
+			LOG.e(e);
 		}
-	}
-
-	public void release() {
-		if (wifiLock.isHeld()) {
-			wifiLock.release();
-			LOG.d("Wifi RELEASE");
-		}
-	}
-
-	public WifiManager getWifiManager() {
-		return wifiManager;
+		return null;
 	}
 
 }

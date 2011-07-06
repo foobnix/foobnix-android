@@ -19,17 +19,10 @@
  * THE SOFTWARE. */
 package com.foobnix.ui.activity.info;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,6 +32,7 @@ import com.foobnix.model.FModel;
 import com.foobnix.ui.activity.FoobnixMenuActivity;
 import com.foobnix.util.C;
 import com.foobnix.util.Conf;
+import com.foobnix.util.ImageUtil;
 import com.foobnix.util.LOG;
 
 import de.umass.lastfm.Artist;
@@ -67,8 +61,7 @@ public class AboutArtistActivity extends FoobnixMenuActivity {
 		if (info != null) {
 			String wikiText = info.getWikiText();
 			String imageURL = info.getImageURL(ImageSize.EXTRALARGE);
-
-			image.setImageBitmap(fetchImage(imageURL));
+				image.setImageBitmap(ImageUtil.fetchImage(imageURL));
 			title.setText(song.getText());
 			bio.setText(wikiText);
 		}
@@ -80,24 +73,6 @@ public class AboutArtistActivity extends FoobnixMenuActivity {
 		onAcitvateMenuImages(this);
 	}
 
-	private Bitmap fetchImage(String urlstr) {
-		try {
-			URL url = new URL(urlstr);
-
-			HttpURLConnection c = (HttpURLConnection) url.openConnection();
-			c.setDoInput(true);
-			c.connect();
-			InputStream is = c.getInputStream();
-			Bitmap img;
-			img = BitmapFactory.decodeStream(is);
-			return img;
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 	@Override
 	public String getActivityTitle() {

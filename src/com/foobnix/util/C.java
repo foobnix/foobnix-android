@@ -37,6 +37,7 @@ public class C implements Serializable {
 	public int[] sleepMins = { 30, 0 };
 	public int[] alarmHM = { -1, -1 };
 	public boolean isRandom = false;
+	public boolean isBackground = true;
 	public MODE notificationMode = MODE.NO_CLEAR;
 	public String vkontakteToken = "";
 	public String lastFmUser = "";

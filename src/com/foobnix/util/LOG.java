@@ -33,6 +33,10 @@ public class LOG {
 		Log.d(TAG, result.toString());
 	}
 
+	public static void e(Throwable th) {
+		e("ERROR", th);
+	}
+
 	public static void e(String message, Throwable th) {
 		Log.e(TAG, message, th);
 		th.printStackTrace();

@@ -51,7 +51,8 @@ public class FoobnixApplication extends Application {
 	private AlarmSleepService alarmSleepService;
 	private FoobnixNotification notification;
 	private boolean isPlaying = false;
-	private boolean isShowMenu = true;
+	private boolean isShowMenu = false;
+	private ApplicationCache cache = new ApplicationCache();
 
 	@Override
 	public void onCreate() {
@@ -178,5 +179,13 @@ public class FoobnixApplication extends Application {
 
 	public boolean isShowMenu() {
 	    return isShowMenu;
+    }
+
+	public void setCache(ApplicationCache cache) {
+	    this.cache = cache;
+    }
+
+	public ApplicationCache getCache() {
+	    return cache;
     }
 }

@@ -36,6 +36,7 @@ import com.foobnix.service.DMService;
 import com.foobnix.service.FoobnixService;
 import com.foobnix.service.MODE;
 import com.foobnix.ui.activity.VkCheckActivity;
+import com.foobnix.ui.activity.pref.base.BgImagePreferences;
 import com.foobnix.ui.activity.pref.base.NotificationIconPreference;
 import com.foobnix.ui.activity.pref.base.RandomModePreference;
 import com.foobnix.ui.activity.pref.base.StopTimerPreference;
@@ -104,6 +105,7 @@ public class PlayerPreferences extends PrefMenuActivity {
 		config.addPreference(new NotificationIconPreference().Builder(this, app));
 		config.addPreference(new StopTimerPreference().Builder(this, app));
 		config.addPreference(new RandomModePreference().Builder(this));
+		config.addPreference(new BgImagePreferences().Builder(this));
 
 		// Other
 		PreferenceCategory other = new PreferenceCategory(this);

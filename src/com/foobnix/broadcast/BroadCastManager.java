@@ -38,6 +38,16 @@ public class BroadCastManager {
 
 	}
 
+	public void sendBgImage(String url) {
+		if (url == null) {
+			return;
+		}
+		Intent intent = new Intent();
+		intent.setAction(BgImageBroadcast.class.getName());
+		intent.putExtra(BgImageBroadcast.KEY, url);
+		context.sendBroadcast(intent);
+	}
+
 	public void sendNowPlaying(UIBroadcast stat) {
 		if (stat == null) {
 			return;

@@ -4,24 +4,81 @@
 	android:id="@+id/menuLinearLayout" android:layout_height="wrap_content"
 	android:gravity="center_vertical">
 
-	<ImageView android:layout_width="wrap_content"
-		android:layout_weight="1" android:layout_height="wrap_content"
-		android:src="@android:drawable/ic_menu_more" android:id="@+id/imageMore" />
+	<LinearLayout android:layout_height="wrap_content"
+		android:layout_weight="1" android:orientation="vertical"
+		android:layout_width="wrap_content" android:id="@+id/imageMore"
+		android:gravity="center_horizontal">
 
-	<ImageView android:layout_width="wrap_content"
-		android:layout_weight="1" android:layout_height="wrap_content"
-		android:src="@android:drawable/ic_menu_add" android:id="@+id/imageAdd" />
-	<ImageView android:layout_width="wrap_content"
-		android:layout_weight="1" android:layout_height="wrap_content"
-		android:src="@android:drawable/ic_menu_agenda" android:id="@+id/imagePlayer" />
-	<ImageView android:layout_width="wrap_content"
-		android:layout_weight="1" android:layout_height="wrap_content"
-		android:src="@android:drawable/ic_menu_save" android:id="@+id/imageDownload" />
-	<ImageView android:layout_width="wrap_content"
-		android:layout_weight="1" android:layout_height="wrap_content"
-		android:src="@android:drawable/ic_menu_info_details" android:id="@+id/imageInfo" />
-	<ImageView android:layout_width="wrap_content"
-		android:layout_weight="1" android:layout_height="wrap_content"
-		android:src="@android:drawable/ic_menu_preferences" android:id="@+id/imageSettins" />
+		<ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:src="@android:drawable/ic_menu_more"  />
+
+		<TextView android:text="Action" android:id="@+id/textView1"
+			android:gravity="center_horizontal" android:layout_width="wrap_content"
+			android:layout_height="wrap_content"></TextView>
+
+	</LinearLayout>
+
+
+	<LinearLayout android:layout_height="wrap_content"
+		android:layout_weight="1" android:orientation="vertical"
+		android:layout_width="wrap_content" android:id="@+id/imagePlayer" 
+		android:gravity="center_horizontal">
+		<ImageView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:src="@android:drawable/ic_menu_agenda"
+			/>
+
+		<TextView android:text="Player" android:id="@+id/textView1"
+			android:gravity="center_horizontal" android:layout_width="wrap_content"
+			android:layout_height="wrap_content"></TextView>
+
+	</LinearLayout>
+
+	<LinearLayout android:layout_height="wrap_content"
+		android:layout_weight="1" android:orientation="vertical"
+		android:layout_width="wrap_content"  android:id="@+id/imageDownload"
+		android:gravity="center_horizontal">
+
+		<ImageView android:layout_width="wrap_content"
+			android:layout_weight="1" android:layout_height="wrap_content"
+			android:src="@android:drawable/ic_menu_save" />
+
+
+		<TextView android:text="Download" android:id="@+id/textView1"
+			android:gravity="center_horizontal" android:layout_width="wrap_content"
+			android:layout_height="wrap_content"></TextView>
+
+	</LinearLayout>
+
+	<LinearLayout android:layout_height="wrap_content"
+		android:layout_weight="1" android:orientation="vertical"
+		android:layout_width="wrap_content" android:id="@+id/imageInfo" 
+		android:gravity="center_horizontal">
+
+		<ImageView android:layout_width="wrap_content"
+			android:layout_weight="1" android:layout_height="wrap_content"
+			android:src="@android:drawable/ic_menu_info_details" />
+
+		<TextView android:text="Info" android:id="@+id/textView1"
+			android:gravity="center_horizontal" android:layout_width="wrap_content"
+			android:layout_height="wrap_content"></TextView>
+
+	</LinearLayout>
+
+	<LinearLayout android:layout_height="wrap_content"
+		android:layout_weight="1" android:orientation="vertical"
+		android:layout_width="wrap_content" android:id="@+id/imageSettins"
+		android:gravity="center_horizontal">
+
+		<ImageView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:src="@android:drawable/ic_menu_preferences"
+			 />
+		<TextView android:text="Settings" android:id="@+id/textView1"
+			android:gravity="center_horizontal" android:layout_width="wrap_content"
+			android:layout_height="wrap_content"></TextView>
+
+	</LinearLayout>
+
+
+
 
 </LinearLayout>

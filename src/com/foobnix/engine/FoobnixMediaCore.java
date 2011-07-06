@@ -20,8 +20,13 @@
 package com.foobnix.engine;
 
 import java.io.File;
+import java.util.Locale;
+
+import org.apache.commons.lang.StringUtils;
 
 import android.content.Context;
+import android.os.AsyncTask;
+import android.os.AsyncTask.Status;
 import android.os.Handler;
 import android.widget.Toast;
 
@@ -40,10 +45,16 @@ import com.foobnix.service.FoobnixNotification;
 import com.foobnix.service.LastFmService;
 import com.foobnix.service.VKService;
 import com.foobnix.util.C;
+import com.foobnix.util.Conf;
 import com.foobnix.util.FolderUtil;
 import com.foobnix.util.LOG;
 import com.foobnix.util.SongUtil;
 import com.foobnix.util.TimeUtil;
+
+import de.umass.lastfm.Album;
+import de.umass.lastfm.Artist;
+import de.umass.lastfm.ImageSize;
+import de.umass.lastfm.Track;
 
 public class FoobnixMediaCore {
 
@@ -124,26 +135,25 @@ public class FoobnixMediaCore {
 		}
 	}
 
-	public void playFModel(FModel model) {
-		if (model == null) {
+	public void playFModel(final FModel song) {
+		if (song == null) {
 			return;
 		}
 		pause();
-		LOG.d(model.getPath());
+		LOG.d(song.getPath());
 
+		song.setScrobbled(false);
+		app.setNowPlayingSong(song);
 
-		model.setScrobbled(false);
-		app.setNowPlayingSong(model);
-
-		UIBroadcast stat = new UIBroadcast(model, 0, 0, false, 0, app.getPlayListManager().getAll().size());
+		UIBroadcast stat = new UIBroadcast(song, 0, 0, false, 0, app.getPlayListManager().getAll().size());
 		broadCastManager.sendNowPlaying(stat);
 
 		try {
-			if (model.getType() == TYPE.ONLINE && !app.isOnline()) {
+			if (song.getType() == TYPE.ONLINE && !app.isOnline()) {
 				Toast.makeText(context, R.string.Network_not_available_cant_play_online_song, Toast.LENGTH_LONG).show();
 				return;
 			}
-			VKService.updateFModelPath(model, context);
+			VKService.updateFModelPath(song, context);
 		} catch (VKSongNotFoundException e) {
 			Toast.makeText(context, R.string.Song_not_found_in_the_Internet_cantt_play, Toast.LENGTH_LONG).show();
 			return;
@@ -152,21 +162,21 @@ public class FoobnixMediaCore {
 			return;
 		}
 
-		if (model.getType() != TYPE.ONLINE) {
-			model.setTime(TimeUtil.durationToString(engineManager.getDuration()));
+		if (song.getType() != TYPE.ONLINE) {
+			song.setTime(TimeUtil.durationToString(engineManager.getDuration()));
 		}
-		if (model.getType() == TYPE.ONLINE) {
-			if (model.getPath().startsWith("http")) {
-				int size = SongUtil.getRemoteSize(model.getPath());
-				model.setSize(String.format("%.1fM", SongUtil.getMB(size)));
+		if (song.getType() == TYPE.ONLINE) {
+			if (song.getPath().startsWith("http")) {
+				int size = SongUtil.getRemoteSize(song.getPath());
+				song.setSize(String.format("%.1fM", SongUtil.getMB(size)));
 			} else {
 				// engineManager.setBuffering(100);
-				model.setSize(FolderUtil.getSizeMb(new File(model.getPath())));
+				song.setSize(FolderUtil.getSizeMb(new File(song.getPath())));
 			}
 		}
 
 		try {
-			engineManager.playModel(model);
+			engineManager.playModel(song);
 		} catch (Exception e) {
 			LOG.e("error playing", e);
 		}
@@ -176,12 +186,17 @@ public class FoobnixMediaCore {
 		}
 		handler.postDelayed(longTask, 15000);
 
-
-		broadCastManager.sendNewFModel(model);
+		broadCastManager.sendNewFModel(song);
 		app.setPlaying(true);
 		notification.setPlaying(true);
-		notification.displayNotifcation(model.getText());
+		notification.displayNotifcation(song.getText());
 
+		if (async == null || async.getStatus() == Status.FINISHED) {
+			if (wifiLocker.getWifiManager().isWifiEnabled()) {
+				async = new BgAsync();
+				async.execute();
+			}
+		}
 	}
 
 	public void playPrev() {
@@ -194,11 +209,10 @@ public class FoobnixMediaCore {
 
 		if (!FModelBuilder.Empty().equals(model)) {
 			app.setPlaying(engineManager.isPlaying());
-			
+
 			UIBroadcast stat = new UIBroadcast(model, engineManager.getCurrentPosition(), engineManager.getDuration(),
 			        engineManager.isPlaying(), engineManager.getBuffering(), app.getPlayListManager().getAll().size());
 			broadCastManager.sendNowPlaying(stat);
-
 
 		}
 	}
@@ -241,6 +255,8 @@ public class FoobnixMediaCore {
 		}
 	};
 
+	private BgAsync async;
+
 	public void pause() {
 		handler.removeCallbacks(shortTask);
 		handler.removeCallbacks(longTask);
@@ -250,7 +266,6 @@ public class FoobnixMediaCore {
 		notification.displayNotifcation(false);
 
 	}
-
 
 	public void justStop() {
 		engineManager.stop();
@@ -292,4 +307,40 @@ public class FoobnixMediaCore {
 
 	}
 
+	class BgAsync extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			if (!C.get().isBackground) {
+				return null;
+			}
+			FModel song = app.getNowPlayingSong();
+			String user = "l_user_";
+
+			if (StringUtils.isNotEmpty(C.get().lastFmUser)) {
+				user = C.get().lastFmUser;
+			}
+			LOG.d("Disc cover for", song.getArtist(), song.getTitle());
+			Track track = Track.getInfo(song.getArtist(), song.getTitle(), Conf.LAST_FM_API_KEY);
+			if (track != null) {
+				String albumStr = track.getAlbumMbid();
+				Album album = Album.getInfo(song.getArtist(), albumStr, Conf.LAST_FM_API_KEY);
+				if (album != null) {
+					String url = album.getImageURL(ImageSize.MEGA);
+					if (StringUtils.isNotEmpty(url)) {
+						broadCastManager.sendBgImage(url);
+						return null;
+					}
+				}
+			}
+
+			Artist info = Artist.getInfo(song.getArtist(), Locale.getDefault(), user, Conf.LAST_FM_API_KEY);
+			if (info != null) {
+				String imageURL = info.getImageURL(ImageSize.MEGA);
+				broadCastManager.sendBgImage(imageURL);
+
+			}
+			return null;
+		}
+	};
 }

@@ -17,40 +17,31 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.engine;
+package com.foobnix.ui.widget;
 
-import android.content.Context;
-import android.net.wifi.WifiManager;
-import android.net.wifi.WifiManager.WifiLock;
+import android.graphics.Color;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.foobnix.util.LOG;
 
-public class WifiLocker {
+public class ImageBackgroundDecorator {
 
-	private final WifiLock wifiLock;
-	private final WifiManager wifiManager;
+	public static void backgroundOnTouch(View view) {
+		view.setOnTouchListener(new View.OnTouchListener() {
 
-	public WifiLocker(Context context) {
-		wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-		wifiLock = wifiManager.createWifiLock("FOOBNIX");
-	}
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if (MotionEvent.ACTION_DOWN == event.getAction()) {
+					v.setBackgroundColor(Color.GRAY);
+					LOG.d("on image down");
+				} else if (MotionEvent.ACTION_UP == event.getAction()) {
+					v.setBackgroundColor(Color.TRANSPARENT);
+				}
+				return false;
+			}
 
-	public void acqire() {
-		if (!wifiLock.isHeld()) {
-			wifiLock.acquire();
-			LOG.d("Wifi LOCK");
-		}
-	}
-
-	public void release() {
-		if (wifiLock.isHeld()) {
-			wifiLock.release();
-			LOG.d("Wifi RELEASE");
-		}
-	}
-
-	public WifiManager getWifiManager() {
-		return wifiManager;
+		});
 	}
 
 }

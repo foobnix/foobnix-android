@@ -24,21 +24,20 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.foobnix.R;
 import com.foobnix.engine.FServiceHelper;
@@ -50,6 +49,7 @@ import com.foobnix.model.FModel.TYPE;
 import com.foobnix.model.FModelBuilder;
 import com.foobnix.service.OnlineManager;
 import com.foobnix.ui.adapter.FolderAdapter;
+import com.foobnix.ui.widget.ImageBackgroundDecorator;
 import com.foobnix.ui.widget.RunnableDialog;
 import com.foobnix.util.C;
 import com.foobnix.util.LOG;
@@ -75,10 +75,10 @@ public class OnlineActivity extends FoobnixMenuActivity {
 		}
 
 		public String getText(Context context) {
-			if(textId == -1){
+			if (textId == -1) {
 				return "";
 			}
-			
+
 			return context.getString(textId);
 		}
 
@@ -87,15 +87,14 @@ public class OnlineActivity extends FoobnixMenuActivity {
 		}
 	};
 
-
 	private EditText editText;
-	private Spinner spinner;
 	private FolderAdapter navAdapter;
 	private OnlineManager onlineManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.online);
 
 		navAdapter = new FolderAdapter(this, new ArrayList<FModel>());
@@ -110,24 +109,24 @@ public class OnlineActivity extends FoobnixMenuActivity {
 		FoobnixApplication app = (FoobnixApplication) getApplication();
 		navAdapter.update(app.getOnlineItems());
 
-		spinner = (Spinner) findViewById(R.id.onlineSpinner);
+		textSpinner = (TextView) findViewById(R.id.textSpinner);
+		textSpinner.setText(SEARCH_BY.TRACKS_BY_ARTIST.getText(this));
 
-		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item,
-		        getAllSearchByValues());
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinner.setAdapter(adapter);
+		textSpinner.setOnClickListener(onSearchChoose);
 
 		editText = (EditText) findViewById(R.id.onlineEditText);
 
-		Button search = (Button) findViewById(R.id.onlineSearch);
-
-		Button paste = (Button) findViewById(R.id.onlinePaste);
-		paste.setOnClickListener(onPaste);
-
-		TextView current = (TextView) findViewById(R.id.onlineNowPlaying);
-		current.setText(app.getNowPlayingSong().getText());
-
+		View search = (View) findViewById(R.id.onlineSearch);
 		search.setOnClickListener(onSearch);
+		search.setOnLongClickListener(new View.OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View v) {
+				paste();
+				return false;
+			}
+		});
+		ImageBackgroundDecorator.backgroundOnTouch(search);
 
 		if (StringUtils.isEmpty(C.get().vkontakteToken) && app.isOnline()) {
 			startActivity(new Intent(this, VkCheckActivity.class));
@@ -136,22 +135,37 @@ public class OnlineActivity extends FoobnixMenuActivity {
 		onAcitvateMenuImages(this);
 	}
 
-	View.OnClickListener onPaste = new View.OnClickListener() {
+	View.OnClickListener onSearchChoose = new View.OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
-			String artist = app.getNowPlayingSong().getArtist();
-			if (StringUtils.isNotEmpty(artist)) {
-				editText.setText(artist);
-			} else {
-				editText.setText(app.getNowPlayingSong().getText());
-			}
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(OnlineActivity.this);
+			builder.setTitle("Search By");
+			builder.setItems(getAllSearchByValues(), new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int item) {
+					textSpinner.setText(getAllSearchByValues()[item]);
+					dialog.cancel();
+				}
+			});
+			builder.show();
+
 		}
 	};
 
+	private void paste() {
+		String artist = app.getNowPlayingSong().getArtist();
+		if (StringUtils.isNotEmpty(artist)) {
+			editText.setText(artist);
+		} else {
+			editText.setText(app.getNowPlayingSong().getText());
+		}
+	}
+
 	private void checkForEmpy(List<FModel> items) {
 		if (items.isEmpty()) {
-			items.add(FModelBuilder.CreateFromText(getString(R.string.Your_search_did_not_match_any_results)).addArtist(""));
+			items.add(FModelBuilder.CreateFromText(getString(R.string.Your_search_did_not_match_any_results))
+			        .addArtist(""));
 		}
 
 	}
@@ -168,8 +182,10 @@ public class OnlineActivity extends FoobnixMenuActivity {
 			String ask = editText.getText().toString();
 			try {
 				if (StringUtils.isNotEmpty(ask)) {
-					ask = StringUtils.capitalize(ask);
-					SEARCH_BY searchBy = getByText((String) spinner.getSelectedItem());
+					ask = StringUtils.capitalize(ask.trim());
+					// SEARCH_BY searchBy = getByText((String)
+					// spinner.getSelectedItem());
+					SEARCH_BY searchBy = getByText((String) textSpinner.getText());
 					updateByTypes(FModelBuilder.Search(ask, searchBy));
 				}
 
@@ -189,15 +205,20 @@ public class OnlineActivity extends FoobnixMenuActivity {
 			final FModel item = (FModel) adapter.getItemAtPosition(pos);
 
 			if (item.getType() != TYPE.ONLINE) {
-				Toast.makeText(OnlineActivity.this, item.getText(), Toast.LENGTH_SHORT).show();
+				// Toast.makeText(OnlineActivity.this, item.getText(),
+				// Toast.LENGTH_SHORT).show();
+				// FServiceHelper.getInstance().play(getApplicationContext(),
+				// item);
 				return;
 			}
 
 			if (item.isFile()) {
-				PlayListManager manager = app.getPlayListManager();
-				manager.add(item);
-				Toast.makeText(OnlineActivity.this, getString(R.string.Added) + ": " + item.getText(),
-				        Toast.LENGTH_SHORT).show();
+				// PlayListManager manager = app.getPlayListManager();
+				// manager.add(item);
+				// Toast.makeText(OnlineActivity.this, getString(R.string.Added)
+				// + ": " + item.getText(),
+				// Toast.LENGTH_SHORT).show();
+				FServiceHelper.getInstance().play(getApplicationContext(), item);
 			} else {
 				list.setSelection(0);
 				updateByTypes(item);
@@ -255,13 +276,13 @@ public class OnlineActivity extends FoobnixMenuActivity {
 	protected void actionDialog(final FModel item) {
 		new RunnableDialog(OnlineActivity.this, getString(R.string.Online_Action))//
 
-		        .Action(getString(R.string.Clean_Playlist), new Runnable() {
-
+		        .Action(String.format("%s: %s", getString(R.string.Paste), app.getNowPlayingSong().getArtist()),
+		                new Runnable() {
 			        @Override
 			        public void run() {
-				        cleanPlayList();
+				        paste();
 			        }
-		        }, item == null)//
+		        }, StringUtils.isNotEmpty(app.getNowPlayingSong().getArtist()))//
 
 		        .Action(getString(R.string.Play), new Runnable() {
 			        @Override
@@ -341,6 +362,7 @@ public class OnlineActivity extends FoobnixMenuActivity {
 		}
 	};
 	private ListView list;
+	private TextView textSpinner;
 
 	private String[] getAllSearchByValues() {
 		List<String> result = new ArrayList<String>();

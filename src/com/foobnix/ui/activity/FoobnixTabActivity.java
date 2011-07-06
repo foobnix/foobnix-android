@@ -24,6 +24,7 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.TabHost;
 
 import com.foobnix.engine.FoobnixApplication;
@@ -38,6 +39,7 @@ public class FoobnixTabActivity extends TabActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		app = (FoobnixApplication) getApplication();
 		res = getResources();
 		tabHost = getTabHost();
@@ -46,6 +48,12 @@ public class FoobnixTabActivity extends TabActivity {
 	public TabHost.TabSpec createTab(String tag, String title, int imgId, Class<? extends Activity> clazz) {
 		Intent intent = new Intent(this, clazz);
 		return tabHost.newTabSpec(tag).setIndicator(title, res.getDrawable(imgId)).setContent(intent);
+
+	}
+
+	public TabHost.TabSpec createTab(String tag, String title, Class<? extends Activity> clazz) {
+		Intent intent = new Intent(this, clazz);
+		return tabHost.newTabSpec(tag).setIndicator(title).setContent(intent);
 
 	}
 		

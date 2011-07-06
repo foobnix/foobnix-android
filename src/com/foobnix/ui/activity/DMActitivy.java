@@ -192,7 +192,7 @@ public class DMActitivy extends FoobnixMenuActivity {
 	View.OnClickListener onChoose = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			startActivity(new Intent(DMActitivy.this, MediaActivity.class));
+			startActivity(new Intent(DMActitivy.this, OnlineActivity.class));
 		}
 	};
 

@@ -31,7 +31,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.foobnix.R;
@@ -91,7 +90,9 @@ public class PlayListAdapter extends ArrayAdapter<FModel> {
 		if (view == null) {
 			return;
 		}
-		LinearLayout txtView = (LinearLayout) view.findViewById(R.id.pItemLayout);
+		TextView txtView = (TextView) view.findViewById(R.id.pItemNum);
+		// LinearLayout txtView = (LinearLayout)
+		// view.findViewById(R.id.pItemLayout);
 
 		if (active) {
 			txtView.setBackgroundColor(Color.DKGRAY);

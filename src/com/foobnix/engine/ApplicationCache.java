@@ -19,38 +19,19 @@
  * THE SOFTWARE. */
 package com.foobnix.engine;
 
-import android.content.Context;
-import android.net.wifi.WifiManager;
-import android.net.wifi.WifiManager.WifiLock;
+import android.graphics.Bitmap;
 
-import com.foobnix.util.LOG;
+public class ApplicationCache {
+	private Bitmap discCover;
 
-public class WifiLocker {
+	public void setDiscCover(Bitmap discCover) {
+	    this.discCover = discCover;
+    }
 
-	private final WifiLock wifiLock;
-	private final WifiManager wifiManager;
+	public Bitmap getDiscCover() {
+	    return discCover;
+    }
 
-	public WifiLocker(Context context) {
-		wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-		wifiLock = wifiManager.createWifiLock("FOOBNIX");
-	}
-
-	public void acqire() {
-		if (!wifiLock.isHeld()) {
-			wifiLock.acquire();
-			LOG.d("Wifi LOCK");
-		}
-	}
-
-	public void release() {
-		if (wifiLock.isHeld()) {
-			wifiLock.release();
-			LOG.d("Wifi RELEASE");
-		}
-	}
-
-	public WifiManager getWifiManager() {
-		return wifiManager;
-	}
+	
 
 }

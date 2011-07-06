@@ -21,6 +21,7 @@ package com.foobnix.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,6 +31,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.foobnix.R;
+import com.foobnix.broadcast.BgImageBroadcast;
 import com.foobnix.engine.FoobnixApplication;
 import com.foobnix.engine.PlayListManager;
 import com.foobnix.model.FModel;
@@ -45,6 +47,7 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 	protected ListView playlistView;
 	protected FoobnixApplication app;
 	protected View menuLyaout;
+	private BgImageBroadcast bgImageBroadcast;
 
 	private void onMoreAction() {
 		actionDialog(null);
@@ -67,12 +70,16 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 	}
 
 	public void hideShowMenu() {
+		app.setShowMenu(!app.isShowMenu());
+		displayImageMenu();
+	}
+
+	private void displayImageMenu() {
 		if (app.isShowMenu()) {
 			menuLyaout.setVisibility(View.VISIBLE);
 		} else {
 			menuLyaout.setVisibility(View.GONE);
 		}
-		app.setShowMenu(!app.isShowMenu());
 	}
 
 	@Override
@@ -82,12 +89,17 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 	}
 
 	public void onAcitvateMenuImages(Context contex) {
-		new ButtonImageBindActivity(contex, R.id.imageAdd, MediaActivity.class);
-		new ButtonImageBindActivity(contex, R.id.imageAddNav, MediaActivity.class);
+		// new ButtonImageBindActivity(contex, R.id.imageAdd,
+		// MediaActivity.class);
+
+		new ButtonImageBindActivity(contex, R.id.folderActivity, FolderActivity.class);
+		new ButtonImageBindActivity(contex, R.id.onlineActivity, OnlineActivity.class);
+
+		new ButtonImageBindActivity(contex, R.id.imageAddNav, FolderActivity.class);
 		new ButtonImageBindActivity(contex, R.id.imagePlayer, FoobnixActivity.class);
 		new ButtonImageBindActivity(contex, R.id.imageDownload, DMActitivy.class);
 		new ButtonImageBindActivity(contex, R.id.imageInfo, AboutArtistActivity.class);
-		new ButtonImageBindActivity(contex, R.id.imageSettins, PlayerPreferences.class, false);
+		new ButtonImageBindActivity(contex, R.id.imageSettins, PlayerPreferences.class);
 		new ButtonImageBindActivity(contex, R.id.imageMore, new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -97,6 +109,27 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 
 		menuLyaout = (View) findViewById(R.id.buttons_override);
 
+		bgImageBroadcast = new BgImageBroadcast(this);
+		registerReceiver(bgImageBroadcast, new IntentFilter(BgImageBroadcast.class.getName()));
+		LOG.d("MENU onAcitvateMenuImages");
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		if (bgImageBroadcast != null) {
+			bgImageBroadcast.drawBackgound(app.getCache().getDiscCover());
+		} else {
+			bgImageBroadcast = new BgImageBroadcast(this);
+			registerReceiver(bgImageBroadcast, new IntentFilter(BgImageBroadcast.class.getName()));
+		}
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		unregisterReceiver(bgImageBroadcast);
+		LOG.d("MENU stop");
 	}
 
 	class ButtonImageBindActivity {
@@ -183,7 +216,6 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 	}
 
 	protected void showPlayer() {
-		finish();
 		startActivity(new Intent(this, FoobnixActivity.class));
 	}
 
@@ -211,7 +243,7 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 			return true;
 		case R.id.playerMedia:
 			finish();
-			startActivity(new Intent(this, MediaActivity.class));
+			startActivity(new Intent(this, OnlineActivity.class));
 			return true;
 		case R.id.playerInfo:
 			finish();

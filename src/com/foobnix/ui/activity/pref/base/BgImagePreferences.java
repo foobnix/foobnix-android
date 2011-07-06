@@ -17,22 +17,46 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.ui.activity;
+package com.foobnix.ui.activity.pref.base;
 
-import android.os.Bundle;
+import android.preference.CheckBoxPreference;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceActivity;
 
-import com.foobnix.R;
+import com.foobnix.util.C;
 
-public class MediaActivity extends FoobnixTabActivity {
+public class BgImagePreferences {
 
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setTitle(R.string.Media_Resources);
-		tabHost.addTab(createTab("folder", getString(R.string.Folders), android.R.drawable.ic_menu_directions,
-		        FolderActivity.class));
-		tabHost.addTab(createTab("online", getString(R.string.Online), android.R.drawable.ic_menu_search,
-		        OnlineActivity.class));
-		// tabHost.setCurrentTab(0);
+	private CheckBoxPreference enable;
+
+	public CheckBoxPreference Builder(PreferenceActivity activity) {
+		enable = new CheckBoxPreference(activity);
+
+		enable.setOnPreferenceClickListener(onRandom);
+		enable.setChecked(C.get().isBackground);
+
+		updateRandomTitle();
+		return enable;
+
+	}
+
+	OnPreferenceClickListener onRandom = new OnPreferenceClickListener() {
+		@Override
+		public boolean onPreferenceClick(Preference preference) {
+			C.get().isBackground = !C.get().isBackground;
+			updateRandomTitle();
+			return false;
+		}
+
+	};
+
+	private void updateRandomTitle() {
+		if (C.get().isBackground) {
+			enable.setTitle("Background ON");
+		} else {
+			enable.setTitle("Background OFF");
+		}
 	}
 
 }

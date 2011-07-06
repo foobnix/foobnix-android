@@ -28,6 +28,7 @@ import org.apache.commons.lang.StringUtils;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -56,6 +57,7 @@ public class FolderActivity extends FoobnixMenuActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.nav);
 		setTitle("Navigation");
 
@@ -77,10 +79,12 @@ public class FolderActivity extends FoobnixMenuActivity {
 		public void onItemClick(AdapterView<?> adapter, View arg1, int pos, long arg3) {
 			final FModel item = (FModel) adapter.getItemAtPosition(pos);
 			if (item.isFile()) {
-				PlayListManager manager = app.getPlayListManager();
-				manager.add(item);
-				Toast.makeText(FolderActivity.this, getString(R.string.Added) + ": " + item.getText(),
-				        Toast.LENGTH_SHORT).show();
+				// PlayListManager manager = app.getPlayListManager();
+				// manager.add(item);
+				// Toast.makeText(FolderActivity.this, getString(R.string.Added)
+				// + ": " + item.getText(),
+				// Toast.LENGTH_SHORT).show();
+				FServiceHelper.getInstance().play(getApplicationContext(), item);
 			} else {
 				list.setSelection(0);
 				String path = item.getPath();
@@ -103,14 +107,6 @@ public class FolderActivity extends FoobnixMenuActivity {
 		}
 
 		new RunnableDialog(FolderActivity.this, getString(R.string.Folder_Action))//
-
-		        .Action(getString(R.string.Clean_Playlist), new Runnable() {
-
-			        @Override
-			        public void run() {
-				        cleanPlayList();
-			        }
-		        }, item == null)//
 
 		        .Action(getString(R.string.Play), new Runnable() {
 			        @Override
@@ -180,7 +176,7 @@ public class FolderActivity extends FoobnixMenuActivity {
 			        public void run() {
 				        FolderUtil.deleteFiles(item.getPath());
 				        finish();
-				        startActivity(new Intent(FolderActivity.this, MediaActivity.class));
+				        startActivity(new Intent(FolderActivity.this, OnlineActivity.class));
 			        }
 		        }, item != null)//
 
@@ -200,7 +196,7 @@ public class FolderActivity extends FoobnixMenuActivity {
 							        ToastShort("Can't crate dir " + value);
 						        } else {
 							        finish();
-							        startActivity(new Intent(FolderActivity.this, MediaActivity.class));
+							        startActivity(new Intent(FolderActivity.this, OnlineActivity.class));
 						        }
 					        }
 				        });
