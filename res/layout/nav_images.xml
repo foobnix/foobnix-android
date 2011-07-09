@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent" android:typeface="monospace"
 	android:id="@+id/menuLinearLayout" android:layout_height="wrap_content"
-	android:gravity="center_vertical">
+	android:gravity="center_vertical" >
 
 	<LinearLayout android:layout_height="wrap_content"
 		android:layout_weight="1" android:orientation="vertical"
@@ -12,7 +12,7 @@
 		<ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:src="@android:drawable/ic_menu_more"  />
 
-		<TextView android:text="Action" android:id="@+id/textView1"
+		<TextView android:text="@string/Action" android:id="@+id/textView1"
 			android:gravity="center_horizontal" android:layout_width="wrap_content"
 			android:layout_height="wrap_content"></TextView>
 
@@ -27,7 +27,7 @@
 			android:layout_height="wrap_content" android:src="@android:drawable/ic_menu_agenda"
 			/>
 
-		<TextView android:text="Player" android:id="@+id/textView1"
+		<TextView android:text="@string/Player" android:id="@+id/textView1"
 			android:gravity="center_horizontal" android:layout_width="wrap_content"
 			android:layout_height="wrap_content"></TextView>
 
@@ -43,7 +43,7 @@
 			android:src="@android:drawable/ic_menu_save" />
 
 
-		<TextView android:text="Download" android:id="@+id/textView1"
+		<TextView android:text="@string/Download" android:id="@+id/textView1"
 			android:gravity="center_horizontal" android:layout_width="wrap_content"
 			android:layout_height="wrap_content"></TextView>
 
@@ -58,7 +58,7 @@
 			android:layout_weight="1" android:layout_height="wrap_content"
 			android:src="@android:drawable/ic_menu_info_details" />
 
-		<TextView android:text="Info" android:id="@+id/textView1"
+		<TextView android:text="@string/Info" android:id="@+id/textView1"
 			android:gravity="center_horizontal" android:layout_width="wrap_content"
 			android:layout_height="wrap_content"></TextView>
 
@@ -72,7 +72,7 @@
 		<ImageView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:src="@android:drawable/ic_menu_preferences"
 			 />
-		<TextView android:text="Settings" android:id="@+id/textView1"
+		<TextView android:text="@string/Settings" android:id="@+id/textView1"
 			android:gravity="center_horizontal" android:layout_width="wrap_content"
 			android:layout_height="wrap_content"></TextView>
 

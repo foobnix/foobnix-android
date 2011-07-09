@@ -2,6 +2,8 @@
 <resources>
   <string name="app_name">Foobnix плеер</string>
   <string name="Action">Действие</string>
+  <string name="Player">Плеер</string>
+  <string name="Info">Инфо</string>
   <string name="Delete">Удалить</string>
   <string name="Delete_All">Удалить все</string>
   <string name="Add">Добавить</string>
@@ -29,6 +31,8 @@
   <string name="Set_Download_To">Скачивать в</string>
   <string name="Default_Login_and_Password">Логин и пароль по умолчанию</string>
   <string name="Download_Manager">Менеджер закачек</string>
+	<string name="Background_On">Фон обложка Вкл.</string>
+  <string name="Background_Off">Фон обложка Выкл.</string>
   <string-array name="Save_To">
     <item>Сохранять в:</item>
   </string-array>

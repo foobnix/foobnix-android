@@ -75,6 +75,9 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 	}
 
 	private void displayImageMenu() {
+		if (menuLyaout == null) {
+			return;
+		}
 		if (app.isShowMenu()) {
 			menuLyaout.setVisibility(View.VISIBLE);
 		} else {
@@ -112,23 +115,26 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 		bgImageBroadcast = new BgImageBroadcast(this);
 		registerReceiver(bgImageBroadcast, new IntentFilter(BgImageBroadcast.class.getName()));
 		LOG.d("MENU onAcitvateMenuImages");
+		displayImageMenu();
+
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
-		if (bgImageBroadcast != null) {
-			bgImageBroadcast.drawBackgound(app.getCache().getDiscCover());
-		} else {
-			bgImageBroadcast = new BgImageBroadcast(this);
-			registerReceiver(bgImageBroadcast, new IntentFilter(BgImageBroadcast.class.getName()));
-		}
+
+		bgImageBroadcast = new BgImageBroadcast(this);
+		registerReceiver(bgImageBroadcast, new IntentFilter(BgImageBroadcast.class.getName()));
+		bgImageBroadcast.drawBackgound(app.getCache().getDiscCover());
+
 	}
 
 	@Override
 	protected void onStop() {
 		super.onStop();
-		unregisterReceiver(bgImageBroadcast);
+		if (bgImageBroadcast != null) {
+			unregisterReceiver(bgImageBroadcast);
+		}
 		LOG.d("MENU stop");
 	}
 

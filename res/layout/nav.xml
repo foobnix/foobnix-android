@@ -11,5 +11,5 @@
 		android:id="@+id/dir_list">
 	</ListView>
 
-	<include android:layout_width="fill_parent" layout="@layout/nav_images" />
+	<include android:layout_width="fill_parent" android:id="@+id/buttons_override"  layout="@layout/nav_images" />
 </LinearLayout>

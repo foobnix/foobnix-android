@@ -20,11 +20,14 @@
 package com.foobnix.engine;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Handler;
@@ -83,6 +86,8 @@ public class FoobnixMediaCore {
 		wifiLocker = new WifiLocker(context);
 		alarmSleepService = app.getAlarmSleepService();
 		handler = new Handler();
+
+		systemService = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 	}
 
 	MediaObserver mediaObserver = new MediaObserver() {
@@ -192,7 +197,8 @@ public class FoobnixMediaCore {
 		notification.displayNotifcation(song.getText());
 
 		if (async == null || async.getStatus() == Status.FINISHED) {
-			if (wifiLocker.getWifiManager().isWifiEnabled()) {
+			if (systemService.getActiveNetworkInfo() != null
+			        && systemService.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI) {
 				async = new BgAsync();
 				async.execute();
 			}
@@ -256,6 +262,7 @@ public class FoobnixMediaCore {
 	};
 
 	private BgAsync async;
+	private ConnectivityManager systemService;
 
 	public void pause() {
 		handler.removeCallbacks(shortTask);
@@ -326,6 +333,15 @@ public class FoobnixMediaCore {
 				String albumStr = track.getAlbumMbid();
 				Album album = Album.getInfo(song.getArtist(), albumStr, Conf.LAST_FM_API_KEY);
 				if (album != null) {
+					Date releaseDate = album.getReleaseDate();
+					if (releaseDate != null) {
+						Calendar c = Calendar.getInstance();
+						c.setTime(releaseDate);
+						app.getNowPlayingSong().setAlbum("" + c.get(Calendar.YEAR) + " " + album.getName());
+					} else {
+						app.getNowPlayingSong().setAlbum(album.getName());
+					}
+
 					String url = album.getImageURL(ImageSize.MEGA);
 					if (StringUtils.isNotEmpty(url)) {
 						broadCastManager.sendBgImage(url);

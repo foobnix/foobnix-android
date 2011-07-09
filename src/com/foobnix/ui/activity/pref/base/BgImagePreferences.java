@@ -24,6 +24,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 
+import com.foobnix.R;
 import com.foobnix.util.C;
 
 public class BgImagePreferences {
@@ -53,9 +54,9 @@ public class BgImagePreferences {
 
 	private void updateRandomTitle() {
 		if (C.get().isBackground) {
-			enable.setTitle("Background ON");
+			enable.setTitle(R.string.Background_On);
 		} else {
-			enable.setTitle("Background OFF");
+			enable.setTitle(R.string.Background_Off);
 		}
 	}
 

@@ -24,8 +24,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
+import android.os.AsyncTask.Status;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
@@ -38,6 +43,8 @@ public class BgImageBroadcast extends BroadcastReceiver {
 	public static String KEY = "KEY";
 	private View bgView;
 	private final Activity activiy;
+	private Task task;
+	private MyHandler myHandler = new MyHandler();
 
 	public BgImageBroadcast(Activity activiy) {
 		this.activiy = activiy;
@@ -50,28 +57,71 @@ public class BgImageBroadcast extends BroadcastReceiver {
 		if (url == null || bgView == null) {
 			return;
 		}
+		
+		if (task == null || task.getStatus() == Status.FINISHED) {
+			task = new Task(url);
+			task.execute();
+		}
 
-		Bitmap bmp = ImageUtil.fetchImage(url);
-		drawBackgound(bmp);
-		((FoobnixApplication) activiy.getApplication()).getCache().setDiscCover(bmp);
 	}
 
 	public void drawBackgound(Bitmap bmp) {
-		if (bmp == null || bgView == null) {
-			return;
+		if (bmp == null) {
+			bmp = BitmapFactory.decodeResource(activiy.getResources(), R.drawable.no_cover);
 		}
 		
 		Display display = activiy.getWindowManager().getDefaultDisplay();
 		int width = display.getWidth();
-		int height = display.getHeight();
-		double k = (double) width / height;
+		double k = (double) width / bmp.getWidth();
 
-		Bitmap scaled = Bitmap.createScaledBitmap(bmp, width, (int) (height * k), false);
+		Bitmap scaled = Bitmap.createScaledBitmap(bmp, width, (int) (bmp.getHeight() * k), false);
 		BitmapDrawable bitmapDrawable = new BitmapDrawable(scaled);
 		bitmapDrawable.setGravity(Gravity.TOP);
 		bitmapDrawable.setAlpha(80);
-		bitmapDrawable.setTileModeY(Shader.TileMode.REPEAT);
-		bgView.setBackgroundDrawable(bitmapDrawable);
+		bitmapDrawable.setTileModeY(Shader.TileMode.MIRROR);
+
+		myHandler.setBitmapDrawable(bitmapDrawable);
+		myHandler.sendEmptyMessage(0);
+
 	}
+	
+	class MyHandler extends Handler {
+
+		private BitmapDrawable bitmapDrawable;
+
+		public void handleMessage(Message msg) {
+			if (bgView != null) {
+				bgView.setBackgroundDrawable(getBitmapDrawable());
+			}
+		}
+
+		public void setBitmapDrawable(BitmapDrawable bitmapDrawable) {
+			this.bitmapDrawable = bitmapDrawable;
+		}
+
+		public BitmapDrawable getBitmapDrawable() {
+			return bitmapDrawable;
+		};
+		
+	};
+	
+	
+	class Task extends AsyncTask<Void, Void, Void> {
+		
+		private final String url;
+
+		public Task(String url) {
+			this.url = url;
+
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			Bitmap bmp = ImageUtil.fetchImage(url);
+			drawBackgound(bmp);
+			((FoobnixApplication) activiy.getApplication()).getCache().setDiscCover(bmp);
+			return null;
+		}
+	};
 
 }

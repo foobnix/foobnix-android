@@ -88,8 +88,10 @@ public class FoobnixUIUpdater extends BroadcastReceiver {
 	public String infoLineStatus(UIBroadcast stat) {
 		FModel model = stat.getModel();
 		String pos = String.format("%s/%s", model.getPosition() + 1, stat.getPlaylistLen());
+		String album = model.getAlbum() == null || model.getAlbum().equals("null") ? model.getText() + "."
+		        + model.getExt() : model.getAlbum();
 		if (model.getType() == TYPE.LOCAL) {
-			return String.format("%s SDcard|%s|%s|%s", pos, model.getExt(), model.getSize(), model.getTitle());
+			return String.format("%s %s", pos, album);
 		}
 
 		if (model.getType() == TYPE.ONLINE) {
@@ -97,9 +99,8 @@ public class FoobnixUIUpdater extends BroadcastReceiver {
 			if (stat.getBuffering() == -1) {
 				buffer = "Erorr";
 			}
-			return String
-			        .format("%s Online|Buffer: %s|%s|%s", pos, buffer, model.getSize(), stat
-			        .getModel().getTitle());
+
+			return String.format("%s |%s|%s|%s", pos, buffer, model.getSize(), album);
 		}
 
 		return stat.getModel().getText();

@@ -23,12 +23,14 @@ import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.foobnix.R;
 import com.foobnix.model.FModel;
+import com.foobnix.ui.activity.FoobnixActivity;
 import com.foobnix.ui.activity.FoobnixMenuActivity;
 import com.foobnix.util.C;
 import com.foobnix.util.Conf;
@@ -43,6 +45,12 @@ public class AboutArtistActivity extends FoobnixMenuActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		if (!app.isOnline()) {
+			finish();
+			startActivity(new Intent(this, FoobnixActivity.class));
+			return;
+		}
 
 		setContentView(R.layout.about_artist);
 

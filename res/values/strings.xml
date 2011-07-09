@@ -2,6 +2,8 @@
 <resources>
 	<string name="app_name">Foobnix Player</string>
     <string name="Action">Action</string>
+    <string name="Player">Player</string>
+    <string name="Info">Info</string>
     <string name="Delete">Delete</string>
     <string name="Delete_All">Delete All</string>
     <string name="Add">Add</string>
@@ -26,6 +28,9 @@
     <string name="Append_All">Append All</string>
     <string name="Set_As_Playlist">Set As Playlist</string>
     <string name="Set_Download_To">Set Download To</string>
+    <string name="Background_On">Background On</string>
+    <string name="Background_Off">Background Off</string>
+    
     <string name="Default_Login_and_Password">Default Login and Password</string>
     
     <!-- dm manager -->
