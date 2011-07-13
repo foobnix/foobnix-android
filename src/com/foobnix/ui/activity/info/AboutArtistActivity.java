@@ -25,8 +25,8 @@ import org.apache.commons.lang.StringUtils;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.Window;
+import android.webkit.WebView;
 
 import com.foobnix.R;
 import com.foobnix.model.FModel;
@@ -34,7 +34,6 @@ import com.foobnix.ui.activity.FoobnixActivity;
 import com.foobnix.ui.activity.FoobnixMenuActivity;
 import com.foobnix.util.C;
 import com.foobnix.util.Conf;
-import com.foobnix.util.ImageUtil;
 import com.foobnix.util.LOG;
 
 import de.umass.lastfm.Artist;
@@ -45,6 +44,7 @@ public class AboutArtistActivity extends FoobnixMenuActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		if (!app.isOnline()) {
 			finish();
@@ -53,10 +53,8 @@ public class AboutArtistActivity extends FoobnixMenuActivity {
 		}
 
 		setContentView(R.layout.about_artist);
+		WebView bio = (WebView) findViewById(R.id.webBio);
 
-		TextView title = (TextView) findViewById(R.id.aboutArtistTitle);
-		TextView bio = (TextView) findViewById(R.id.aboutArtistBio);
-		ImageView image = (ImageView) findViewById(R.id.aboutImage);
 		FModel song = app.getNowPlayingSong();
 
 		String user = "l_user_";
@@ -65,14 +63,18 @@ public class AboutArtistActivity extends FoobnixMenuActivity {
 			user = C.get().lastFmUser;
 		}
 		try {
-		Artist info = Artist.getInfo(song.getArtist(), Locale.getDefault(), user, Conf.LAST_FM_API_KEY);
-		if (info != null) {
-			String wikiText = info.getWikiText();
-			String imageURL = info.getImageURL(ImageSize.EXTRALARGE);
-				image.setImageBitmap(ImageUtil.fetchImage(imageURL));
-			title.setText(song.getText());
-			bio.setText(wikiText);
-		}
+			Artist info = Artist.getInfo(song.getArtist(), Locale.getDefault(), user, Conf.LAST_FM_API_KEY);
+			if (info != null) {
+				String wikiText = info.getWikiText();
+				if(wikiText==null){
+					wikiText = "";
+				}
+				String imageURL = info.getImageURL(ImageSize.EXTRALARGE);
+				String header = "<h3>" + song.getArtist() + " - " + song.getTitle() + "</h3>";
+				header += "<img width='100%' src='" + imageURL + "' /><br/>";
+				bio.loadDataWithBaseURL(null, header + wikiText, "text/html", "UTF-8", null);
+
+			}
 		} catch (Exception e) {
 			LOG.e("Info error", e);
 			ToastShort("Erorr, try again a bit later");
@@ -80,7 +82,6 @@ public class AboutArtistActivity extends FoobnixMenuActivity {
 
 		onAcitvateMenuImages(this);
 	}
-
 
 	@Override
 	public String getActivityTitle() {

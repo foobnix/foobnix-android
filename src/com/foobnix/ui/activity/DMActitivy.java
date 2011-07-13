@@ -200,14 +200,6 @@ public class DMActitivy extends FoobnixMenuActivity {
 	protected void actionDialog(final FModel item) {
 		new RunnableDialog(DMActitivy.this, getString(R.string.Download_Manager_Action))//
 
-		        .Action(getString(R.string.Clean_Playlist), new Runnable() {
-
-			        @Override
-			        public void run() {
-				        cleanPlayList();
-			        }
-		        }, item == null)//
-
 		        .Action(getString(R.string.Play), new Runnable() {
 			        @Override
 			        public void run() {

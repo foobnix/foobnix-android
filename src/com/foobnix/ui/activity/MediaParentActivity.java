@@ -17,14 +17,11 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.ui;
+package com.foobnix.ui.activity;
 
 import android.content.Context;
 
 import com.foobnix.R;
-import com.foobnix.ui.activity.FolderActivity;
-import com.foobnix.ui.activity.FoobnixMenuActivity;
-import com.foobnix.ui.activity.OnlineActivity;
 import com.foobnix.util.StarTabHelper;
 
 public abstract class MediaParentActivity extends FoobnixMenuActivity {

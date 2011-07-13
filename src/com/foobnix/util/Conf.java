@@ -36,7 +36,7 @@ public class Conf {
 
 	public static String getDownloadTo(Context context) {
 		String def = Environment.getExternalStorageDirectory().getPath() + "/Music/Downloads";
-		return PrefUtil.get(context, KEY.DOWNLOAD_TO, def);
+		return Pref.getStr(context, PrefKeys.DOWNLOAD_TO, def);
 	}
 
 	public static String getFoobnixVersion(Context context) {

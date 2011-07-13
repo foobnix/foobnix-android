@@ -147,7 +147,7 @@ public class FoobnixActivity extends FoobnixMenuActivity {
 		public void onClick(View v) {
 			if (app.isEmptyPlaylist() && app.getNowPlayingSong().equals(FModelBuilder.Empty())) {
 				FoobnixActivity.this.finish();
-				startActivity(new Intent(FoobnixActivity.this, OnlineActivity.class));
+				startActivity(new Intent(FoobnixActivity.this, MediaActivityChooser.class));
 			} else {
 				FServiceHelper.getInstance().playPause(getApplicationContext());
 			}

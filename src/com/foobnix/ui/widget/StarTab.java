@@ -35,10 +35,6 @@ public class StarTab extends LinearLayout {
 	private ImageView image;
 	private TextView text;
 
-	/**
-	 * @param context
-	 * @param attrs
-	 */
 	public StarTab(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -63,9 +59,6 @@ public class StarTab extends LinearLayout {
 		text.setText(txt);
 	}
 
-	/**
-	 * @param idText
-	 */
 	public void setText(int id) {
 		text.setText(id);
 

@@ -39,7 +39,7 @@ public class VkCheckActivity extends FoobnixMenuActivity {
 	private final static String REDIRECT_URL = "http://android.foobnix.com/vk";
 	private final static String API_URL = "http://api.vkontakte.ru";
 	private final static String OAUTH_URL = API_URL + "/oauth/authorize?client_id=" + Conf.VK_APP_ID
-	        + "&scope=26&redirect_uri=" + REDIRECT_URL + "&response_type=token";
+	        + "&scope=26&redirect_uri=" + REDIRECT_URL + "&response_type=token&display=touch";
 
 	private WebView webView;
 

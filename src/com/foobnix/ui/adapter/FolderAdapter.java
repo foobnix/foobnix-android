@@ -34,18 +34,18 @@ import com.foobnix.util.FolderUtil;
 
 public class FolderAdapter extends ArrayAdapter<FModel> {
 	private final Activity context;
-	private List<FModel> items;
+	private final List<FModel> items;
 	private String currentPath;
 
-	public FolderAdapter(Activity context, List<FModel> defItems) {
-		super(context, -1, defItems);
+	public FolderAdapter(Activity context, List<FModel> items) {
+		super(context, -1, items);
 		this.context = context;
-		this.items = defItems;
+		this.items = items;
 	}
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		final FModel navItem = items.get(position);
+		final FModel navItem = getItem(position);// items.get(position);
 
 		View newView;
 		if (convertView == null) {
@@ -72,26 +72,15 @@ public class FolderAdapter extends ArrayAdapter<FModel> {
 	}
 
 	public void update(String path) {
-		this.currentPath = path;
-		clear();
-		for (FModel item : FolderUtil.getNavItemsByPath(path)) {
-			add(item);
-		}
+		items.clear();
+		items.addAll(FolderUtil.getNavItemsByPath(path));
+		notifyDataSetChanged();
 	}
 
-	public void update(List<FModel> items) {
-		clear();
-		for (FModel item : items) {
-			add(item);
-		}
-	}
-
-	public void setItems(List<FModel> items) {
-		this.items = items;
-	}
-
-	public List<FModel> getItems() {
-		return items;
+	public void update(List<FModel> curItems) {
+		items.clear();
+		items.addAll(curItems);
+		notifyDataSetChanged();
 	}
 
 	public void setCurrentPath(String currentPath) {
@@ -100,5 +89,9 @@ public class FolderAdapter extends ArrayAdapter<FModel> {
 
 	public String getCurrentPath() {
 	    return currentPath;
+    }
+
+	public List<FModel> getItems() {
+	    return items;
     }
 }

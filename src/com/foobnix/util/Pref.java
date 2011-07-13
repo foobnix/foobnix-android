@@ -23,29 +23,30 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-public class PrefUtil {
-	public static void put(Context context, KEY key, String value) {
+public class Pref {
+	
+	public static void put(Context context, PrefKeys key, String value) {
 		SharedPreferences settings = context.getSharedPreferences(Conf.FOOBNIX_PREFS, Context.MODE_PRIVATE);
 		Editor editor = settings.edit();
-		editor.putString(key.toString(), value);
+		editor.putString(key.name(), value);
 		editor.commit();
 	}
 
-	public static void put(Context context, KEY key, boolean value) {
+	public static void put(Context context, PrefKeys key, boolean value) {
 		SharedPreferences settings = context.getSharedPreferences(Conf.FOOBNIX_PREFS, Context.MODE_PRIVATE);
 		Editor editor = settings.edit();
-		editor.putBoolean(key.toString(), value);
+		editor.putBoolean(key.name(), value);
 		editor.commit();
 	}
 
-	public static String get(Context context, KEY key, String defValue) {
+	public static String getStr(Context context, PrefKeys key, String defValue) {
 		SharedPreferences settings = context.getSharedPreferences(Conf.FOOBNIX_PREFS, Context.MODE_PRIVATE);
-		return settings.getString(key.toString(), defValue);
+		return settings.getString(key.name(), defValue);
 	}
 
-	public static boolean get(Context context, KEY key, boolean defValue) {
+	public static boolean getBool(Context context, PrefKeys key) {
 		SharedPreferences settings = context.getSharedPreferences(Conf.FOOBNIX_PREFS, Context.MODE_PRIVATE);
-		return settings.getBoolean(key.toString(), defValue);
+		return settings.getBoolean(key.name(), false);
 	}
 
 

@@ -20,6 +20,7 @@
 package com.foobnix.ui.activity;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,21 +40,21 @@ import com.foobnix.R;
 import com.foobnix.engine.FServiceHelper;
 import com.foobnix.engine.PlayListManager;
 import com.foobnix.model.FModel;
-import com.foobnix.ui.MediaParentActivity;
 import com.foobnix.ui.adapter.FolderAdapter;
 import com.foobnix.ui.widget.CommandString;
 import com.foobnix.ui.widget.Dialogs;
 import com.foobnix.ui.widget.RunnableDialog;
 import com.foobnix.util.FileComparator;
 import com.foobnix.util.FolderUtil;
-import com.foobnix.util.KEY;
-import com.foobnix.util.PrefUtil;
+import com.foobnix.util.Pref;
+import com.foobnix.util.PrefKeys;
 import com.foobnix.util.SongUtil;
 
 public class FolderActivity extends MediaParentActivity {
 
 	private FolderAdapter navAdapter;
 	private ListView list;
+	private List<FModel> items = new ArrayList<FModel>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +67,15 @@ public class FolderActivity extends MediaParentActivity {
 		list.setOnItemLongClickListener(onDialog);
 		list.setOnItemClickListener(onClick);
 
-		navAdapter = new FolderAdapter(this, FolderUtil.getRootNavItems());
-		navAdapter.update(PrefUtil.get(this, KEY.FOLDER_PREV_PATH, FolderUtil.ROOT_PATH));
+
+		navAdapter = new FolderAdapter(this, items);
+		navAdapter.setNotifyOnChange(true);
+		navAdapter.update(Pref.getStr(this, PrefKeys.FOLDER_PREV_PATH, FolderUtil.ROOT_PATH));
 
 		list.setAdapter(navAdapter);
 
 		onAcitvateMenuImages(this);
+		Pref.put(this, PrefKeys.ACTIVE_MEDIA_ACTIVITY, FolderActivity.class.getName());
 	}
 
 	OnItemClickListener onClick = new OnItemClickListener() {
@@ -80,18 +84,11 @@ public class FolderActivity extends MediaParentActivity {
 		public void onItemClick(AdapterView<?> adapter, View arg1, int pos, long arg3) {
 			final FModel item = (FModel) adapter.getItemAtPosition(pos);
 			if (item.isFile()) {
-				// PlayListManager manager = app.getPlayListManager();
-				// manager.add(item);
-				// Toast.makeText(FolderActivity.this, getString(R.string.Added)
-				// + ": " + item.getText(),
-				// Toast.LENGTH_SHORT).show();
 				FServiceHelper.getInstance().play(getApplicationContext(), item);
 			} else {
-				list.setSelection(0);
 				String path = item.getPath();
 				navAdapter.update(path);
-				setTitle(path);
-				PrefUtil.put(FolderActivity.this, KEY.FOLDER_PREV_PATH, path);
+				Pref.put(FolderActivity.this, PrefKeys.FOLDER_PREV_PATH, path);
 			}
 
 		}
@@ -209,7 +206,7 @@ public class FolderActivity extends MediaParentActivity {
 			        @Override
 			        public void run() {
 				        String to = FolderUtil.getFolderPath(downloadTo);
-				        PrefUtil.put(FolderActivity.this, KEY.DOWNLOAD_TO, to);
+				        Pref.put(FolderActivity.this, PrefKeys.DOWNLOAD_TO, to);
 				        ToastShort("Download Manager Set Download To " + to);
 			        }
 		        }, item == null || !item.isFile()).show();

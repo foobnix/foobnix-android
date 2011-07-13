@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.foobnix" android:installLocation="auto" 
-      android:versionCode="28"
+      android:versionCode="29"
       android:versionName="1.8">
 	
 	
@@ -28,6 +28,9 @@
         <activity android:name=".ui.activity.info.LyricActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.info.MoreActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.info.AboutArtistActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.MediaParentActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.MediaActivityChooser" android:screenOrientation="portrait" />
+        
         
         <service android:name=".service.FoobnixService"></service>
         <service android:name=".service.DMService"></service>

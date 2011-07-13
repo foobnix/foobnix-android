@@ -48,12 +48,13 @@ import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.TYPE;
 import com.foobnix.model.FModelBuilder;
 import com.foobnix.service.OnlineManager;
-import com.foobnix.ui.MediaParentActivity;
 import com.foobnix.ui.adapter.FolderAdapter;
 import com.foobnix.ui.widget.ImageBackgroundDecorator;
 import com.foobnix.ui.widget.RunnableDialog;
 import com.foobnix.util.C;
 import com.foobnix.util.LOG;
+import com.foobnix.util.Pref;
+import com.foobnix.util.PrefKeys;
 import com.foobnix.util.SongUtil;
 
 public class OnlineActivity extends MediaParentActivity {
@@ -91,6 +92,7 @@ public class OnlineActivity extends MediaParentActivity {
 	private EditText editText;
 	private FolderAdapter navAdapter;
 	private OnlineManager onlineManager;
+	private List<FModel> items = new ArrayList<FModel>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +100,9 @@ public class OnlineActivity extends MediaParentActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.online);
 
-		navAdapter = new FolderAdapter(this, new ArrayList<FModel>());
+		navAdapter = new FolderAdapter(this, items);
+		navAdapter.setNotifyOnChange(true);
+
 		onlineManager = new OnlineManager(this);
 
 		list = (ListView) findViewById(R.id.onlineListView);
@@ -108,7 +112,6 @@ public class OnlineActivity extends MediaParentActivity {
 		list.setOnItemClickListener(onClick);
 
 		FoobnixApplication app = (FoobnixApplication) getApplication();
-		navAdapter.update(app.getOnlineItems());
 
 		textSpinner = (TextView) findViewById(R.id.textSpinner);
 		textSpinner.setText(SEARCH_BY.TRACKS_BY_ARTIST.getText(this));
@@ -124,7 +127,7 @@ public class OnlineActivity extends MediaParentActivity {
 			@Override
 			public boolean onLongClick(View v) {
 				paste();
-				return false;
+				return true;
 			}
 		});
 		ImageBackgroundDecorator.backgroundOnTouch(search);
@@ -133,7 +136,10 @@ public class OnlineActivity extends MediaParentActivity {
 			startActivity(new Intent(this, VkCheckActivity.class));
 		}
 
+		navAdapter.update(app.getOnlineItems());
+
 		onAcitvateMenuImages(this);
+		Pref.put(this, PrefKeys.ACTIVE_MEDIA_ACTIVITY, OnlineActivity.class.getName());
 	}
 
 	View.OnClickListener onSearchChoose = new View.OnClickListener() {
@@ -183,7 +189,7 @@ public class OnlineActivity extends MediaParentActivity {
 			String ask = editText.getText().toString();
 			try {
 				if (StringUtils.isNotEmpty(ask)) {
-					ask = StringUtils.capitalize(ask.trim());
+					ask = capitilizeWords(ask.trim());
 					// SEARCH_BY searchBy = getByText((String)
 					// spinner.getSelectedItem());
 					SEARCH_BY searchBy = getByText((String) textSpinner.getText());
@@ -198,6 +204,24 @@ public class OnlineActivity extends MediaParentActivity {
 			}
 		}
 	};
+
+	private String capitilizeWords(String text) {
+		String[] split = text.split(" ");
+		StringBuilder result = new StringBuilder();
+		for (String str : split) {
+			String word = str.trim();
+			if(StringUtils.isNotEmpty(word)){
+				String first = (""+word.charAt(0)).toUpperCase();
+				if (word.length() > 1) {
+					first = first + word.substring(1);
+				}
+				result.append(first);
+				result.append(" ");
+			}
+		}
+		return result.toString().trim();
+
+	}
 
 	OnItemClickListener onClick = new OnItemClickListener() {
 
@@ -279,11 +303,11 @@ public class OnlineActivity extends MediaParentActivity {
 
 		        .Action(String.format("%s: %s", getString(R.string.Paste), app.getNowPlayingSong().getArtist()),
 		                new Runnable() {
-			        @Override
-			        public void run() {
-				        paste();
-			        }
-		        }, StringUtils.isNotEmpty(app.getNowPlayingSong().getArtist()))//
+			                @Override
+			                public void run() {
+				                paste();
+			                }
+		                }, StringUtils.isNotEmpty(app.getNowPlayingSong().getArtist()))//
 
 		        .Action(getString(R.string.Play), new Runnable() {
 			        @Override
@@ -291,6 +315,22 @@ public class OnlineActivity extends MediaParentActivity {
 				        FServiceHelper.getInstance().play(getApplicationContext(), item);
 			        }
 		        }, item != null && item.isFile())//
+
+		        .Action(getString(R.string.Set_As_Playlist), new Runnable() {
+			        @Override
+			        public void run() {
+				        cleanPlayList();
+
+				        List<FModel> items = navAdapter.getItems();
+				        SongUtil.removeFolders(items);
+				        app.getPlayListManager().addAll(items);
+
+				        app.playOnAppend();
+				        showPlayer();
+
+			        }
+
+		        })//
 
 		        .Action(getString(R.string.Append), new Runnable() {
 			        @Override
@@ -308,28 +348,17 @@ public class OnlineActivity extends MediaParentActivity {
 		        .Action(getString(R.string.Append_All), new Runnable() {
 			        @Override
 			        public void run() {
+
 				        List<FModel> items = navAdapter.getItems();
 				        SongUtil.removeFolders(items);
 				        app.getPlayListManager().addAll(items);
 				        app.playOnAppend();
 				        showPlayer();
+
 			        }
 
 		        })//
 
-		        .Action(getString(R.string.Set_As_Playlist), new Runnable() {
-			        @Override
-			        public void run() {
-				        cleanPlayList();
-				        List<FModel> items = navAdapter.getItems();
-				        SongUtil.removeFolders(items);
-				        app.getPlayListManager().addAll(items);
-
-				        app.playOnAppend();
-				        showPlayer();
-			        }
-
-		        })//
 
 		        .Action(getString(R.string.Download), new Runnable() {
 			        @Override
@@ -341,10 +370,12 @@ public class OnlineActivity extends MediaParentActivity {
 		        .Action(getString(R.string.Download_All), new Runnable() {
 			        @Override
 			        public void run() {
+
 				        List<FModel> items = navAdapter.getItems();
 				        for (FModel current : items) {
 					        app.addToDownload(current);
 				        }
+
 			        }
 		        }, item != null && item.isFile()).show();
 

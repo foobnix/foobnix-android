@@ -93,7 +93,7 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 
 	@Override
 	public void onAcitvateMenuImages(Context context) {
-		new ButtonImageBindActivity(context, R.id.imageAddNav, FolderActivity.class);
+		new ButtonImageBindActivity(context, R.id.imageAddNav, MediaActivityChooser.class);
 		new ButtonImageBindActivity(context, R.id.imagePlayer, FoobnixActivity.class);
 		new ButtonImageBindActivity(context, R.id.imageDownload, DMActitivy.class);
 		new ButtonImageBindActivity(context, R.id.imageInfo, AboutArtistActivity.class);
@@ -136,6 +136,11 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 	class ButtonImageBindActivity {
 		public ButtonImageBindActivity(final Context context, int buttonId, final Class activityClazz,
 		        final boolean isFinish) {
+
+			if (context.getClass().equals(activityClazz)) {
+				return;
+			}
+
 			View view = (View) findViewById(buttonId);
 			if (view == null) {
 				return;
@@ -244,7 +249,7 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 			return true;
 		case R.id.playerMedia:
 			finish();
-			startActivity(new Intent(this, OnlineActivity.class));
+			startActivity(new Intent(this, MediaActivityChooser.class));
 			return true;
 		case R.id.playerInfo:
 			finish();

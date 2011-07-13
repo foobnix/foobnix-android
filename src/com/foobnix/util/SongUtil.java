@@ -92,7 +92,7 @@ public class SongUtil {
 		if (index > 1) {
 			return text.substring(0, index).trim();
 		}
-		return KEY.UNDEFINED_VALUE.toString();
+		return PrefKeys.UNDEFINED_VALUE.toString();
 	}
 
 	public static String getTitle(String text) {
