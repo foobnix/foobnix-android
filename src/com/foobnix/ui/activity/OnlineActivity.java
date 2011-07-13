@@ -48,6 +48,7 @@ import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.TYPE;
 import com.foobnix.model.FModelBuilder;
 import com.foobnix.service.OnlineManager;
+import com.foobnix.ui.MediaParentActivity;
 import com.foobnix.ui.adapter.FolderAdapter;
 import com.foobnix.ui.widget.ImageBackgroundDecorator;
 import com.foobnix.ui.widget.RunnableDialog;
@@ -55,7 +56,7 @@ import com.foobnix.util.C;
 import com.foobnix.util.LOG;
 import com.foobnix.util.SongUtil;
 
-public class OnlineActivity extends FoobnixMenuActivity {
+public class OnlineActivity extends MediaParentActivity {
 	public enum SEARCH_BY {
 		TRACKS_BY_ARTIST(R.string.Tracks, true), //
 		ALBUMS_BY_ARTIST(R.string.Albums, true), //

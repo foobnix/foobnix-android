@@ -4,31 +4,16 @@
 	android:id="@+id/topBar" android:layout_height="wrap_content"
 	android:gravity="center_horizontal">
 
-	<LinearLayout android:layout_height="wrap_content" android:id="@+id/folderActivity"
-			android:layout_weight="1" android:orientation="vertical"
-			android:layout_width="wrap_content" android:gravity="center_horizontal">
-			<ImageView android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:src="@android:drawable/btn_star"
-				android:layout_weight="1" />
 
-			<TextView android:text="@string/Folders" android:id="@+id/textView1"
-				android:gravity="center_horizontal" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:textStyle="bold"/>
-		</LinearLayout>
+	<com.foobnix.ui.widget.StarTab
+		android:id="@+id/folderStartTab" android:layout_height="wrap_content"
+		android:layout_weight="1" android:orientation="vertical"
+		android:layout_width="wrap_content" android:gravity="center_horizontal" />
 
-
-		<LinearLayout android:layout_height="wrap_content" android:id="@+id/onlineActivity"
-			android:layout_weight="1" android:orientation="vertical"
-			android:layout_width="wrap_content" android:gravity="center_horizontal">
-			<ImageView android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:src="@android:drawable/btn_star"
-				android:layout_weight="1" />
-			<TextView android:text="@string/Search" android:id="@+id/textView1"
-				android:gravity="center_horizontal" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:textStyle="bold"/>
-		</LinearLayout>
-
-
+	<com.foobnix.ui.widget.StarTab
+		android:id="@+id/onlineStartTab" android:layout_height="wrap_content"
+		android:layout_weight="1" android:orientation="vertical"
+		android:layout_width="wrap_content" android:gravity="center_horizontal" />
 
 
 </LinearLayout>

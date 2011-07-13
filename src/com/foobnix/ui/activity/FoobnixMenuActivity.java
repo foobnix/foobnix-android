@@ -91,19 +91,14 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 		return false;
 	}
 
-	public void onAcitvateMenuImages(Context contex) {
-		// new ButtonImageBindActivity(contex, R.id.imageAdd,
-		// MediaActivity.class);
-
-		new ButtonImageBindActivity(contex, R.id.folderActivity, FolderActivity.class);
-		new ButtonImageBindActivity(contex, R.id.onlineActivity, OnlineActivity.class);
-
-		new ButtonImageBindActivity(contex, R.id.imageAddNav, FolderActivity.class);
-		new ButtonImageBindActivity(contex, R.id.imagePlayer, FoobnixActivity.class);
-		new ButtonImageBindActivity(contex, R.id.imageDownload, DMActitivy.class);
-		new ButtonImageBindActivity(contex, R.id.imageInfo, AboutArtistActivity.class);
-		new ButtonImageBindActivity(contex, R.id.imageSettins, PlayerPreferences.class);
-		new ButtonImageBindActivity(contex, R.id.imageMore, new View.OnClickListener() {
+	@Override
+	public void onAcitvateMenuImages(Context context) {
+		new ButtonImageBindActivity(context, R.id.imageAddNav, FolderActivity.class);
+		new ButtonImageBindActivity(context, R.id.imagePlayer, FoobnixActivity.class);
+		new ButtonImageBindActivity(context, R.id.imageDownload, DMActitivy.class);
+		new ButtonImageBindActivity(context, R.id.imageInfo, AboutArtistActivity.class);
+		new ButtonImageBindActivity(context, R.id.imageSettins, PlayerPreferences.class);
+		new ButtonImageBindActivity(context, R.id.imageMore, new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				onMoreAction();

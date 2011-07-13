@@ -39,6 +39,7 @@ import com.foobnix.R;
 import com.foobnix.engine.FServiceHelper;
 import com.foobnix.engine.PlayListManager;
 import com.foobnix.model.FModel;
+import com.foobnix.ui.MediaParentActivity;
 import com.foobnix.ui.adapter.FolderAdapter;
 import com.foobnix.ui.widget.CommandString;
 import com.foobnix.ui.widget.Dialogs;
@@ -49,7 +50,7 @@ import com.foobnix.util.KEY;
 import com.foobnix.util.PrefUtil;
 import com.foobnix.util.SongUtil;
 
-public class FolderActivity extends FoobnixMenuActivity {
+public class FolderActivity extends MediaParentActivity {
 
 	private FolderAdapter navAdapter;
 	private ListView list;

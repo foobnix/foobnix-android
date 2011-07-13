@@ -17,36 +17,24 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.ui.activity;
+package com.foobnix.ui;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
-import android.widget.Toast;
 
-public abstract class FoobnixCommonActivity extends Activity {
+import com.foobnix.R;
+import com.foobnix.ui.activity.FolderActivity;
+import com.foobnix.ui.activity.FoobnixMenuActivity;
+import com.foobnix.ui.activity.OnlineActivity;
+import com.foobnix.util.StarTabHelper;
 
-	public abstract String getActivityTitle();
-
-	public abstract void onAcitvateMenuImages(Context context);
+public abstract class MediaParentActivity extends FoobnixMenuActivity {
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-		setTitle(getActivityTitle());
+	public void onAcitvateMenuImages(Context context) {
+		super.onAcitvateMenuImages(context);
+		StarTabHelper.bindStarTab(this, context, R.id.folderStartTab, FolderActivity.class, R.string.Folders);
+		StarTabHelper.bindStarTab(this, context, R.id.onlineStartTab, OnlineActivity.class, R.string.Online);
 	}
 
-	public void ToastShort(String msg) {
-		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-	}
-
-	public void ToastLong(String msg) {
-		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-	}
-
-	public void ToastLong(int msgId) {
-		Toast.makeText(this, msgId, Toast.LENGTH_LONG).show();
-	}
-	
 	
 }

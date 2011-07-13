@@ -17,36 +17,52 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.ui.activity;
+package com.foobnix.util;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
-import android.widget.Toast;
+import android.content.Intent;
+import android.graphics.Color;
+import android.view.MotionEvent;
+import android.view.View;
 
-public abstract class FoobnixCommonActivity extends Activity {
+import com.foobnix.ui.widget.StarTab;
 
-	public abstract String getActivityTitle();
+public class StarTabHelper {
 
-	public abstract void onAcitvateMenuImages(Context context);
+	public static StarTab bindStarTab(final Activity context, final Context current, int starId,
+	        final Class<?> activityClazz, int resId) {
+		StarTab starTab = (StarTab) context.findViewById(starId);
+		if (starTab == null) {
+			return null;
+		}
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-		setTitle(getActivityTitle());
+		starTab.setText(resId);
+		starTab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				context.startActivity(new Intent(context, activityClazz));
+			}
+		});
+
+		starTab.setOnTouchListener(new View.OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if (MotionEvent.ACTION_DOWN == event.getAction()) {
+					v.setBackgroundColor(Color.GRAY);
+				} else if (MotionEvent.ACTION_UP == event.getAction()) {
+					v.setBackgroundColor(Color.TRANSPARENT);
+				}
+				return false;
+			}
+
+		});
+		if (current.getClass().equals(activityClazz)) {
+			starTab.active();
+		} else {
+			starTab.unactive();
+		}
+		return starTab;
 	}
-
-	public void ToastShort(String msg) {
-		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-	}
-
-	public void ToastLong(String msg) {
-		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-	}
-
-	public void ToastLong(int msgId) {
-		Toast.makeText(this, msgId, Toast.LENGTH_LONG).show();
-	}
-	
-	
 }

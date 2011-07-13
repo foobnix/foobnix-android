@@ -25,26 +25,26 @@ import android.content.SharedPreferences.Editor;
 
 public class PrefUtil {
 	public static void put(Context context, KEY key, String value) {
-		SharedPreferences settings = context.getSharedPreferences(Conf.FOOBNIX_PREFS, 0);
+		SharedPreferences settings = context.getSharedPreferences(Conf.FOOBNIX_PREFS, Context.MODE_PRIVATE);
 		Editor editor = settings.edit();
 		editor.putString(key.toString(), value);
 		editor.commit();
 	}
 
 	public static void put(Context context, KEY key, boolean value) {
-		SharedPreferences settings = context.getSharedPreferences(Conf.FOOBNIX_PREFS, 0);
+		SharedPreferences settings = context.getSharedPreferences(Conf.FOOBNIX_PREFS, Context.MODE_PRIVATE);
 		Editor editor = settings.edit();
 		editor.putBoolean(key.toString(), value);
 		editor.commit();
 	}
 
 	public static String get(Context context, KEY key, String defValue) {
-		SharedPreferences settings = context.getSharedPreferences(Conf.FOOBNIX_PREFS, 0);
+		SharedPreferences settings = context.getSharedPreferences(Conf.FOOBNIX_PREFS, Context.MODE_PRIVATE);
 		return settings.getString(key.toString(), defValue);
 	}
 
 	public static boolean get(Context context, KEY key, boolean defValue) {
-		SharedPreferences settings = context.getSharedPreferences(Conf.FOOBNIX_PREFS, 0);
+		SharedPreferences settings = context.getSharedPreferences(Conf.FOOBNIX_PREFS, Context.MODE_PRIVATE);
 		return settings.getBoolean(key.toString(), defValue);
 	}
 
