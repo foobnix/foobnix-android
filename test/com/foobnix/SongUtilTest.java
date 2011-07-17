@@ -17,13 +17,14 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.util;
+package com.foobnix;
 
 import junit.framework.TestCase;
 
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModelBuilder;
 import com.foobnix.model.VKSong;
+import com.foobnix.util.SongUtil;
 
 public class SongUtilTest extends TestCase {
 
@@ -52,7 +53,7 @@ public class SongUtilTest extends TestCase {
 	}
 
 	public void testFModel() {
-		FModel model = FModelBuilder.CreateFromText("go go").addPath("path");
+		FModel model = FModelBuilder.PatternText("go go").addPath("path");
 		assertEquals("go go", model.getText());
 		assertEquals("path", model.getPath());
 	}
@@ -67,49 +68,49 @@ public class SongUtilTest extends TestCase {
 
 	public void testNumberLine0() {
 		String line = "01 Artist-Title";
-		FModel model = FModelBuilder.CreateFromText(line);
+		FModel model = FModelBuilder.PatternText(line);
 		assertEquals("Artist", model.getArtist());
 		assertEquals("Title", model.getTitle());
 	}
 
 	public void testNumberLine1() {
 		String line = "01 Artist-Title";
-		FModel model = FModelBuilder.CreateFromText(line);
+		FModel model = FModelBuilder.PatternText(line);
 		assertEquals("Artist", model.getArtist());
 		assertEquals("Title", model.getTitle());
 	}
 
 	public void testNumberLine2() {
 		String line = "1- Artist-Title";
-		FModel model = FModelBuilder.CreateFromText(line);
+		FModel model = FModelBuilder.PatternText(line);
 		assertEquals("Artist", model.getArtist());
 		assertEquals("Title", model.getTitle());
 	}
 
 	public void testNumberLine3() {
 		String line = "04.Artist-Title";
-		FModel model = FModelBuilder.CreateFromText(line);
+		FModel model = FModelBuilder.PatternText(line);
 		assertEquals("Artist", model.getArtist());
 		assertEquals("Title", model.getTitle());
 	}
 
 	public void testNumberLine4() {
 		String line = "05-Artist-Title";
-		FModel model = FModelBuilder.CreateFromText(line);
+		FModel model = FModelBuilder.PatternText(line);
 		assertEquals("Artist", model.getArtist());
 		assertEquals("Title", model.getTitle());
 	}
 
 	public void testNumberLine6() {
 		String line = "-Artist-Title";
-		FModel model = FModelBuilder.CreateFromText(line);
+		FModel model = FModelBuilder.PatternText(line);
 		assertEquals("Artist", model.getArtist());
 		assertEquals("Title", model.getTitle());
 	}
 
 	public void testNumberLine7() {
 		String line = "01 - Artist - Title.mp3.mp3";
-		FModel model = FModelBuilder.CreateFromText(line);
+		FModel model = FModelBuilder.PatternText(line);
 		assertEquals(line, model.getText());
 		assertEquals("Artist", model.getArtist());
 		assertEquals("Title.mp3.mp3", model.getTitle());
@@ -117,7 +118,7 @@ public class SongUtilTest extends TestCase {
 
 	public void testNumberLine9() {
 		
-		FModel model = FModelBuilder.CreateFromText("Artist", "TrackName").addPath("path");
+		FModel model = FModelBuilder.Track("Artist", "TrackName").addPath("path");
 		assertEquals("Artist - TrackName", model.getText());
 		assertEquals("Artist", model.getArtist());
 		assertEquals("TrackName", model.getTitle());

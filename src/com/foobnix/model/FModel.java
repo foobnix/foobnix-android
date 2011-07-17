@@ -21,8 +21,6 @@ package com.foobnix.model;
 
 import java.io.Serializable;
 
-import com.foobnix.ui.activity.OnlineActivity.SEARCH_BY;
-
 public class FModel implements Serializable {
 	private static final long serialVersionUID = 277665175970179591L;
 
@@ -36,7 +34,7 @@ public class FModel implements Serializable {
 
 	private TYPE type = TYPE.LOCAL;
 	private DOWNLOAD_STATUS status = DOWNLOAD_STATUS.NEW;
-	private SEARCH_BY searchBy = SEARCH_BY.ALL_AUDIO;
+	private SearchQuery searchQuery;
 
 	private String parent;
 	private String tag;
@@ -211,13 +209,6 @@ public class FModel implements Serializable {
 		return album;
 	}
 
-	public void setSearchBy(SEARCH_BY searchBy) {
-		this.searchBy = searchBy;
-	}
-
-	public SEARCH_BY getSearchBy() {
-		return searchBy;
-	}
 
 	public void setParent(String parent) {
 		this.parent = parent;
@@ -247,6 +238,14 @@ public class FModel implements Serializable {
 
 	public int getTrackNum() {
 	    return trackNum;
+    }
+
+	public void setSearchQuery(SearchQuery searchQuery) {
+	    this.searchQuery = searchQuery;
+    }
+
+	public SearchQuery getSearchQuery() {
+	    return searchQuery;
     }
 
 }

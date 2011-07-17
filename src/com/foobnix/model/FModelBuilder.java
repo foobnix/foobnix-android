@@ -22,7 +22,6 @@ package com.foobnix.model;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.foobnix.ui.activity.OnlineActivity.SEARCH_BY;
 import com.foobnix.util.SongUtil;
 import com.foobnix.util.TimeUtil;
 
@@ -32,15 +31,23 @@ public class FModelBuilder extends FModel {
 		return new FModelBuilder("").addArtist("").addTitle("");
 	}
 
-	public static FModelBuilder Parent(SEARCH_BY searchBy) {
-		return FModelBuilder.Folder("..").addSearchBy(searchBy);
+	public static FModelBuilder Parent(SearchQuery searchQuery) {
+		return FModelBuilder.Folder("..").addSearchQuery(searchQuery);
 	}
 
-	public static FModelBuilder CreateFromText(String artist, String title) {
+	public static FModelBuilder Track(String artist, String title) {
 		return new FModelBuilder(artist + " - " + title).addIsFile(true).addArtist(artist).addTitle(title);
 	}
 
-	public static FModelBuilder CreateFromText(String original) {
+	public static FModelBuilder Track(String artist, String title, String album) {
+		return new FModelBuilder(artist + " - " + title).addIsFile(true).addArtist(artist).addTitle(title)
+		        .addAlbum(album);
+	}
+
+	public static FModelBuilder Text(String text) {
+		return new FModelBuilder(text).addIsFile(true);
+	}
+	public static FModelBuilder PatternText(String original) {
 		String text = original;
 		Pattern p = Pattern.compile("^[0-9 ,.-]+");
 		Matcher m = p.matcher(text);
@@ -61,6 +68,7 @@ public class FModelBuilder extends FModel {
 		return new FModelBuilder(original).addIsFile(true).addArtist(artist).addTitle(title);
 	}
 
+
 	public String getNomilizedTrackNum() {
 		if (getTrackNum() > 0) {
 			return SongUtil.getNumWithZero(getTrackNum());
@@ -68,18 +76,21 @@ public class FModelBuilder extends FModel {
 		return SongUtil.getNumWithZero(getPosition() + 1);
 	}
 
-	public static FModelBuilder Search(String text, SEARCH_BY by) {
-		return new FModelBuilder(text).addIsFile(true).addArtist(text).addTitle(text).addTag(text).addAlbum(text)
-		        .addSearchBy(by);
-	}
-	
 	public static FModelBuilder CreateFromVK(VKSong song) {
 		String time = TimeUtil.durationSecToString(song.getDuration());
-		return CreateFromText(song.getArtist(), song.getTitle()).addDuration(time).addPath(song.getUrl());
+		return Track(song.getArtist(), song.getTitle()).addDuration(time).addPath(song.getUrl());
 	}
 
 	public static FModelBuilder Folder(String text) {
 		return new FModelBuilder(text).addIsFile(false);
+	}
+
+	public static FModelBuilder Search(String text, SearchQuery searchQuery) {
+		return new FModelBuilder(text).addIsFile(true).addSearchQuery(searchQuery);
+	}
+
+	public static FModelBuilder SearchFolder(String text, SearchQuery searchQuery) {
+		return new FModelBuilder(text).addIsFile(false).addSearchQuery(searchQuery);
 	}
 
 	private FModelBuilder(String text) {
@@ -110,13 +121,15 @@ public class FModelBuilder extends FModel {
 		return this;
 	}
 
-	public FModelBuilder addTag(String tag) {
-		setTag(tag);
+	
+	public FModelBuilder addSearchQuery(SearchQuery searchQuery) {
+		setSearchQuery(searchQuery);
 		return this;
 	}
 
-	public FModelBuilder addSearchBy(SEARCH_BY by) {
-		setSearchBy(by);
+	
+	public FModelBuilder addTag(String tag) {
+		setTag(tag);
 		return this;
 	}
 

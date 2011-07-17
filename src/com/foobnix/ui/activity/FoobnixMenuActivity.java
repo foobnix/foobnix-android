@@ -181,6 +181,7 @@ public abstract class FoobnixMenuActivity extends FoobnixCommonActivity {
 			view.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					finish();
 					onClickLisner.onClick(v);
 				}
 			});

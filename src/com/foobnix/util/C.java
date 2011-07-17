@@ -31,7 +31,7 @@ import com.foobnix.ui.activity.DMActitivy.DOWNLOAD_FORMAT_BY;
  */
 public class C implements Serializable {
 
-	private transient final static String FILE_NAME = "cfg.obj";
+	private transient final static String FILE_NAME = "cfg1.obj";
 	private transient static C instanse = new C();
 
 	public int[] sleepMins = { 30, 0 };
@@ -40,8 +40,8 @@ public class C implements Serializable {
 	public boolean isBackground = true;
 	public MODE notificationMode = MODE.NO_CLEAR;
 	public String vkontakteToken = "";
-	public String lastFmUser = "";
-	public String lastFmPass = "";
+	public String lastFmUser = "l_user_";
+	public String lastFmPass = "l_pass_";
 	public boolean lastFmEnable = false;
 	public String supportedExts[] = new String[] { "mp3", "flac", "ape", "ogg" };
 

@@ -17,30 +17,52 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.ui.activity;
+package com.foobnix.model;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.view.Window;
+import java.io.Serializable;
 
-import com.foobnix.R;
-import com.foobnix.util.StarTabHelper;
+public class SearchQuery implements Serializable {
 
-public abstract class MediaParentActivity extends FoobnixMenuActivity {
+	private SearchBy searchBy;
+	private String param1;
+	private String param2;
+	private String param3;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+	public SearchQuery(SearchBy searchBy, String param1) {
+		this.searchBy = searchBy;
+		this.param1 = param1;
 	}
 
-	@Override
-	public void onAcitvateMenuImages(Context context) {
-		super.onAcitvateMenuImages(context);
-		StarTabHelper.bindStarTab(this, context, R.id.folderStartTab, FolderActivity.class, R.string.Folders);
-		StarTabHelper.bindStarTab(this, context, R.id.onlineStartTab, OnlineActivity.class, R.string.Search);
-		StarTabHelper.bindStarTab(this, context, R.id.lastfmStartTab, LastFMActivity.class, R.string.Last_fm);
+	public SearchBy getSearchBy() {
+		return searchBy;
 	}
 
-	
+	public void setSearchBy(SearchBy searchBy) {
+		this.searchBy = searchBy;
+	}
+
+	public String getParam1() {
+		return param1;
+	}
+
+	public void setParam1(String param1) {
+		this.param1 = param1;
+	}
+
+	public String getParam2() {
+		return param2;
+	}
+
+	public void setParam2(String param2) {
+		this.param2 = param2;
+	}
+
+	public String getParam3() {
+		return param3;
+	}
+
+	public void setParam3(String param3) {
+		this.param3 = param3;
+	}
+
 }

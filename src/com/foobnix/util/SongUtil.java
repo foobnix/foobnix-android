@@ -26,11 +26,11 @@ import java.net.URLConnection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.TYPE;
-import com.foobnix.ui.activity.OnlineActivity.SEARCH_BY;
 
 /**
  *
@@ -87,6 +87,20 @@ public class SongUtil {
 		}
 	}
 
+	public static boolean isFileInList(List<FModel> list) {
+		if (CollectionUtils.isEmpty(list)) {
+			return false;
+		}
+
+		for (FModel model : list) {
+			if (model.isFile()) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public static String getArtist(String text) {
 		int index = text.indexOf("-");
 		if (index > 1) {
@@ -133,9 +147,4 @@ public class SongUtil {
 		}
 	}
 
-	public static void updateSearchType(List<FModel> models, SEARCH_BY by) {
-		for (FModel model : models) {
-			model.setSearchBy(by);
-		}
-	}
 }

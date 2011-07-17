@@ -91,7 +91,7 @@ public class DBPlayListStoreImpl implements PlayListStore {
 				String name = cursor.getString(1);
 				String path = cursor.getString(2);
 				String time = cursor.getString(3);
-				list.add(FModelBuilder.CreateFromText(name).addPath(path).addTime(time));
+				list.add(FModelBuilder.PatternText(name).addPath(path).addTime(time));
 			} while (cursor.moveToNext());
 		}
 		if (cursor != null && !cursor.isClosed()) {

@@ -17,30 +17,62 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.ui.activity;
+package com.foobnix.api.lastfm;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.view.Window;
+public class Track {
+	private String name;
+	private int duration;
+	private int playcount;
+	private String mbid;
+	private String url;
+	private Artist artist;
 
-import com.foobnix.R;
-import com.foobnix.util.StarTabHelper;
-
-public abstract class MediaParentActivity extends FoobnixMenuActivity {
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+	public String getName() {
+		return name;
 	}
 
-	@Override
-	public void onAcitvateMenuImages(Context context) {
-		super.onAcitvateMenuImages(context);
-		StarTabHelper.bindStarTab(this, context, R.id.folderStartTab, FolderActivity.class, R.string.Folders);
-		StarTabHelper.bindStarTab(this, context, R.id.onlineStartTab, OnlineActivity.class, R.string.Search);
-		StarTabHelper.bindStarTab(this, context, R.id.lastfmStartTab, LastFMActivity.class, R.string.Last_fm);
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
+	public int getPlaycount() {
+		return playcount;
+	}
+
+	public void setPlaycount(int playcount) {
+		this.playcount = playcount;
+	}
+
+	public String getMbid() {
+		return mbid;
+	}
+
+	public void setMbid(String mbid) {
+		this.mbid = mbid;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public Artist getArtist() {
+		return artist;
+	}
+
+	public void setArtist(Artist artist) {
+		this.artist = artist;
+	}
+
 }

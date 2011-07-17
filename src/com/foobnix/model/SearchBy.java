@@ -1,0 +1,21 @@
+package com.foobnix.model;
+public enum SearchBy {
+		TOP_TRACKS_BY_ARTIST, //
+		ALBUMS_BY_ARTIST, //
+		SIMILAR_ARTISTS_BY_ARTIST, //
+		TAGS_BY_TAG, //
+		ALL_AUDIO, //
+
+		TRACKS_BY_ALBUM, //
+		TRACKS_BY_TAG, //
+		
+		TOP_TRACKS_BY_USER,//
+		TOP_ARTISTS_BY_USER, //
+		LOVED_TRACKS_BY_USER, //
+	RECENT_TRACKS_BY_USER, //
+
+	LAST_FM_USER, //
+	LAST_FM_ARTIST, //
+	LAST_FM_FRIENDS_BY_USER, BACK_BUTTON,
+
+	};

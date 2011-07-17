@@ -116,7 +116,7 @@ public class FolderUtil {
 			String fileName = file.getName();
 			String cutName = fileName.substring(0, fileName.length() - 4);
 			FModel navItem = FModelBuilder//
-			        .CreateFromText(cutName)//
+			        .PatternText(cutName)//
 			        .addPath(file.getPath())//
 			        .addExt(getExt(fileName))//
 			        .addSize(getSizeMb(file));
@@ -141,7 +141,7 @@ public class FolderUtil {
 
 		if (file.isFile()) {
 			FModel navItem = FModelBuilder//
-			        .CreateFromText(file.getName())//
+			        .PatternText(file.getName())//
 			        .addPath(file.getPath())//
 			        .addExt(getExt(file.getName()))//
 			        .addSize(getSizeMb(file));
@@ -190,7 +190,7 @@ public class FolderUtil {
 			if (current.isFile()) {
 				String cutName = fileName.substring(0, fileName.length() - 4);
 				FModel navItem = FModelBuilder//
-				        .CreateFromText(cutName)//
+				        .PatternText(cutName)//
 				        .addPath(current.getPath())//
 				        .addExt(getExt(fileName))//
 				        .addSize(getSizeMb(new File(current.getParent(), fileName)));

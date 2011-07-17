@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
 	<string name="app_name">Foobnix Player</string>
     <string name="Action">Action</string>
     <string name="Player">Player</string>
@@ -30,6 +31,7 @@
     <string name="Set_Download_To">Set Download To</string>
     <string name="Background_On">Background On</string>
     <string name="Background_Off">Background Off</string>
+    <string name="Open">Open</string>
     
     <string name="Default_Login_and_Password">Default Login and Password</string>
     
@@ -100,7 +102,9 @@
     <string name="Success_please_recheck_if_expired">Success (please recheck if expired)</string>
     <string name="Login_or_password_is_empty">Login or password is empty</string>
     
-    
+
+	<string name="Last_fm">Last.fm</string>
+	<string name="Last_fm_Action">Last.fm Action</string>    
     
     
     

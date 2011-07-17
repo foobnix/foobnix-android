@@ -17,30 +17,32 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.ui.activity;
+package com.foobnix.api.lastfm;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.view.Window;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Text;
 
-import com.foobnix.R;
-import com.foobnix.util.StarTabHelper;
+public class Image {
 
-public abstract class MediaParentActivity extends FoobnixMenuActivity {
+	@Attribute
+	private String size;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+	@Text(required = false)
+	private String url;
+
+	public void setSize(String size) {
+		this.size = size;
 	}
 
-	@Override
-	public void onAcitvateMenuImages(Context context) {
-		super.onAcitvateMenuImages(context);
-		StarTabHelper.bindStarTab(this, context, R.id.folderStartTab, FolderActivity.class, R.string.Folders);
-		StarTabHelper.bindStarTab(this, context, R.id.onlineStartTab, OnlineActivity.class, R.string.Search);
-		StarTabHelper.bindStarTab(this, context, R.id.lastfmStartTab, LastFMActivity.class, R.string.Last_fm);
+	public String getSize() {
+		return size;
 	}
 
-	
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getUrl() {
+		return url;
+	}
 }

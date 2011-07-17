@@ -17,30 +17,35 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.ui.activity;
+package com.foobnix.api.lastfm;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.view.Window;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
+import org.simpleframework.xml.Text;
 
-import com.foobnix.R;
-import com.foobnix.util.StarTabHelper;
+@Root(name = "error")
+public class ErrorCode {
 
-public abstract class MediaParentActivity extends FoobnixMenuActivity {
+	@Attribute
+	private int code;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+	@Text
+	private String value;
+
+	public void setCode(int code) {
+	    this.code = code;
+    }
+
+	public int getCode() {
+	    return code;
+    }
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 
-	@Override
-	public void onAcitvateMenuImages(Context context) {
-		super.onAcitvateMenuImages(context);
-		StarTabHelper.bindStarTab(this, context, R.id.folderStartTab, FolderActivity.class, R.string.Folders);
-		StarTabHelper.bindStarTab(this, context, R.id.onlineStartTab, OnlineActivity.class, R.string.Search);
-		StarTabHelper.bindStarTab(this, context, R.id.lastfmStartTab, LastFMActivity.class, R.string.Last_fm);
+	public String getValue() {
+		return value;
 	}
 
-	
 }

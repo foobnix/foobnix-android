@@ -17,30 +17,11 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.ui.activity;
+package com.foobnix;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.view.Window;
-
-import com.foobnix.R;
-import com.foobnix.util.StarTabHelper;
-
-public abstract class MediaParentActivity extends FoobnixMenuActivity {
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-	}
-
-	@Override
-	public void onAcitvateMenuImages(Context context) {
-		super.onAcitvateMenuImages(context);
-		StarTabHelper.bindStarTab(this, context, R.id.folderStartTab, FolderActivity.class, R.string.Folders);
-		StarTabHelper.bindStarTab(this, context, R.id.onlineStartTab, OnlineActivity.class, R.string.Search);
-		StarTabHelper.bindStarTab(this, context, R.id.lastfmStartTab, LastFMActivity.class, R.string.Last_fm);
-	}
+public class TestImageName {
+	private String size;
+	private String value;
 
 	
 }

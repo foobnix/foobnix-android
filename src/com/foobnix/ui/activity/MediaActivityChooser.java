@@ -19,28 +19,36 @@
  * THE SOFTWARE. */
 package com.foobnix.ui.activity;
 
-import android.content.Context;
+import java.util.Arrays;
+import java.util.List;
+
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Window;
 
-import com.foobnix.R;
-import com.foobnix.util.StarTabHelper;
+import com.foobnix.util.Pref;
+import com.foobnix.util.PrefKeys;
 
-public abstract class MediaParentActivity extends FoobnixMenuActivity {
+public class MediaActivityChooser extends Activity {
+	@SuppressWarnings("unchecked")
+	private List<Class<? extends MediaParentActivity>> activities = Arrays.asList(FolderActivity.class,
+	        LastFMActivity.class, OnlineActivity.class);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		String currentClazz = Pref.getStr(this, PrefKeys.ACTIVE_MEDIA_ACTIVITY, FolderActivity.class.getName());
+
+		finish();
+
+		for (Class<?> clazz : activities) {
+			if (clazz.getName().equals(currentClazz)) {
+				startActivity(new Intent(this, clazz));
+				return;
+			}
+		}
+
 	}
 
-	@Override
-	public void onAcitvateMenuImages(Context context) {
-		super.onAcitvateMenuImages(context);
-		StarTabHelper.bindStarTab(this, context, R.id.folderStartTab, FolderActivity.class, R.string.Folders);
-		StarTabHelper.bindStarTab(this, context, R.id.onlineStartTab, OnlineActivity.class, R.string.Search);
-		StarTabHelper.bindStarTab(this, context, R.id.lastfmStartTab, LastFMActivity.class, R.string.Last_fm);
-	}
-
-	
 }

@@ -17,30 +17,46 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.ui.activity;
+package com.foobnix;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.view.Window;
+import java.io.InputStream;
+import java.util.List;
 
-import com.foobnix.R;
-import com.foobnix.util.StarTabHelper;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
 
-public abstract class MediaParentActivity extends FoobnixMenuActivity {
+import android.test.AndroidTestCase;
+
+import com.foobnix.api.lastfm.Artist;
+import com.foobnix.api.lastfm.LastFmApi;
+import com.foobnix.api.lastfm.Lfm;
+
+
+public class TestXStream extends AndroidTestCase {
+
+	private LastFmApi api;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+	protected void setUp() throws Exception {
+		super.setUp();
+		api = new LastFmApi(getContext());
 	}
 
-	@Override
-	public void onAcitvateMenuImages(Context context) {
-		super.onAcitvateMenuImages(context);
-		StarTabHelper.bindStarTab(this, context, R.id.folderStartTab, FolderActivity.class, R.string.Folders);
-		StarTabHelper.bindStarTab(this, context, R.id.onlineStartTab, OnlineActivity.class, R.string.Search);
-		StarTabHelper.bindStarTab(this, context, R.id.lastfmStartTab, LastFMActivity.class, R.string.Last_fm);
+	public void testSimple() {
+		List<Artist> artists = api.getTopArtistsByUser("matik");
+		assertTrue(artists.size() > 10);
+		for (Artist artist : artists) {
+			assertNotNull(artist.getName());
+			assertNotNull(artist.getRank());
+		}
 	}
 
-	
+	public void testFile() throws Exception {
+		Serializer serializer = new Persister();
+		InputStream resourceAsStream = TestXStream.class.getResourceAsStream("demo.xml");
+		Lfm lfm = serializer.read(Lfm.class, resourceAsStream);
+		assertEquals("ok", lfm.getStatus());
+
+	}
+
 }

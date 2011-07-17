@@ -24,9 +24,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -43,11 +41,10 @@ import com.foobnix.R;
 import com.foobnix.engine.FServiceHelper;
 import com.foobnix.engine.FoobnixApplication;
 import com.foobnix.engine.PlayListManager;
-import com.foobnix.exception.VKAuthorizationException;
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.TYPE;
 import com.foobnix.model.FModelBuilder;
-import com.foobnix.service.OnlineManager;
+import com.foobnix.provider.SearchQueryManager;
 import com.foobnix.ui.adapter.FolderAdapter;
 import com.foobnix.ui.widget.ImageBackgroundDecorator;
 import com.foobnix.ui.widget.RunnableDialog;
@@ -58,7 +55,7 @@ import com.foobnix.util.PrefKeys;
 import com.foobnix.util.SongUtil;
 
 public class OnlineActivity extends MediaParentActivity {
-	public enum SEARCH_BY {
+	public enum SEARCH_BY12 {
 		TRACKS_BY_ARTIST(R.string.Tracks, true), //
 		ALBUMS_BY_ARTIST(R.string.Albums, true), //
 		SIMILAR_ARTIST_BY_ARTIST(R.string.Similar, true), //
@@ -71,7 +68,7 @@ public class OnlineActivity extends MediaParentActivity {
 		private final int textId;
 		private final boolean display;
 
-		private SEARCH_BY(int textId, boolean display) {
+		private SEARCH_BY12(int textId, boolean display) {
 			this.textId = textId;
 			this.display = display;
 		}
@@ -89,9 +86,9 @@ public class OnlineActivity extends MediaParentActivity {
 		}
 	};
 
+	private SearchQueryManager queryManager;
 	private EditText editText;
 	private FolderAdapter navAdapter;
-	private OnlineManager onlineManager;
 	private List<FModel> items = new ArrayList<FModel>();
 
 	@Override
@@ -103,7 +100,7 @@ public class OnlineActivity extends MediaParentActivity {
 		navAdapter = new FolderAdapter(this, items);
 		navAdapter.setNotifyOnChange(true);
 
-		onlineManager = new OnlineManager(this);
+		queryManager = new SearchQueryManager(this);
 
 		list = (ListView) findViewById(R.id.onlineListView);
 		list.setAdapter(navAdapter);
@@ -114,7 +111,7 @@ public class OnlineActivity extends MediaParentActivity {
 		FoobnixApplication app = (FoobnixApplication) getApplication();
 
 		textSpinner = (TextView) findViewById(R.id.textSpinner);
-		textSpinner.setText(SEARCH_BY.TRACKS_BY_ARTIST.getText(this));
+		// textSpinner.setText(SEARCH_BY.TRACKS_BY_ARTIST.getText(this));
 
 		textSpinner.setOnClickListener(onSearchChoose);
 
@@ -146,16 +143,16 @@ public class OnlineActivity extends MediaParentActivity {
 
 		@Override
 		public void onClick(View v) {
-
-			AlertDialog.Builder builder = new AlertDialog.Builder(OnlineActivity.this);
-			builder.setTitle("Search By");
-			builder.setItems(getAllSearchByValues(), new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int item) {
-					textSpinner.setText(getAllSearchByValues()[item]);
-					dialog.cancel();
-				}
-			});
-			builder.show();
+			/*
+			 * AlertDialog.Builder builder = new
+			 * AlertDialog.Builder(OnlineActivity.this);
+			 * builder.setTitle("Search By");
+			 * builder.setItems(getAllSearchByValues(), new
+			 * DialogInterface.OnClickListener() { public void
+			 * onClick(DialogInterface dialog, int item) {
+			 * textSpinner.setText(getAllSearchByValues()[item]);
+			 * dialog.cancel(); } }); builder.show();
+			 */
 
 		}
 	};
@@ -171,7 +168,7 @@ public class OnlineActivity extends MediaParentActivity {
 
 	private void checkForEmpy(List<FModel> items) {
 		if (items.isEmpty()) {
-			items.add(FModelBuilder.CreateFromText(getString(R.string.Your_search_did_not_match_any_results))
+			items.add(FModelBuilder.PatternText(getString(R.string.Your_search_did_not_match_any_results))
 			        .addArtist(""));
 		}
 
@@ -192,8 +189,9 @@ public class OnlineActivity extends MediaParentActivity {
 					ask = capitilizeWords(ask.trim());
 					// SEARCH_BY searchBy = getByText((String)
 					// spinner.getSelectedItem());
-					SEARCH_BY searchBy = getByText((String) textSpinner.getText());
-					updateByTypes(FModelBuilder.Search(ask, searchBy));
+					// SEARCH_BY searchBy = getByText((String)
+					// textSpinner.getText());
+					// updateByTypes(FModelBuilder.Search(ask, searchBy));
 				}
 
 				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -230,72 +228,22 @@ public class OnlineActivity extends MediaParentActivity {
 			final FModel item = (FModel) adapter.getItemAtPosition(pos);
 
 			if (item.getType() != TYPE.ONLINE) {
-				// Toast.makeText(OnlineActivity.this, item.getText(),
-				// Toast.LENGTH_SHORT).show();
-				// FServiceHelper.getInstance().play(getApplicationContext(),
-				// item);
 				return;
 			}
 
 			if (item.isFile()) {
-				// PlayListManager manager = app.getPlayListManager();
-				// manager.add(item);
-				// Toast.makeText(OnlineActivity.this, getString(R.string.Added)
-				// + ": " + item.getText(),
-				// Toast.LENGTH_SHORT).show();
 				FServiceHelper.getInstance().play(getApplicationContext(), item);
 			} else {
+				List<FModel> items = queryManager.getSearchResult(item.getSearchQuery());
+				SongUtil.updateType(items, TYPE.ONLINE);
+				SongUtil.updatePositions(items);
+				checkForEmpy(items);
+				updateList(items);
+
 				list.setSelection(0);
-				updateByTypes(item);
 			}
 		}
 	};
-
-	private void updateByTypes(FModel item) {
-		List<FModel> items = new ArrayList<FModel>();
-
-		LOG.d("SEACH BY", item.getSearchBy());
-
-		switch (item.getSearchBy()) {
-		case TRACKS_BY_ARTIST:
-			items = onlineManager.findTracksByArtist(item.getArtist());
-			break;
-		case ALBUMS_BY_ARTIST:
-			items = onlineManager.findAlbumsByArtist(item.getArtist());
-			break;
-		case SIMILAR_ARTIST_BY_ARTIST:
-			items = onlineManager.findSimilarArtistByArtist(item.getArtist());
-			break;
-		case TAGS_BY_TAG:
-			items = onlineManager.findTagsByTag(item.getTag());
-			break;
-		case ALL_AUDIO:
-			try {
-				items = onlineManager.findTracksByVK(item.getText());
-			} catch (VKAuthorizationException e) {
-				startActivity(new Intent(OnlineActivity.this, VkCheckActivity.class));
-			}
-			break;
-
-		// on click items
-		case TRACKS_BY_ALBUM:
-			LOG.d("Seach by Album");
-			items = onlineManager.findTracksByArtistAlbum(item.getArtist(), item.getAlbum());
-			break;
-		case TRACKS_BY_TAG:
-			items = onlineManager.findTracksByTag(item.getTag());
-			break;
-
-		default:
-			LOG.d("TYPE not found", item.getType());
-			break;
-		}
-		SongUtil.updateType(items, TYPE.ONLINE);
-		SongUtil.updatePositions(items);
-		checkForEmpy(items);
-		updateList(items);
-
-	}
 
 	@Override
 	protected void actionDialog(final FModel item) {
@@ -395,25 +343,6 @@ public class OnlineActivity extends MediaParentActivity {
 	};
 	private ListView list;
 	private TextView textSpinner;
-
-	private String[] getAllSearchByValues() {
-		List<String> result = new ArrayList<String>();
-		for (SEARCH_BY ITEM : SEARCH_BY.values()) {
-			if (ITEM.isDisplay()) {
-				result.add(ITEM.getText(OnlineActivity.this));
-			}
-		}
-		return result.toArray(new String[] {});
-	}
-
-	private SEARCH_BY getByText(String text) {
-		for (SEARCH_BY ITEM : SEARCH_BY.values()) {
-			if (ITEM.getText(OnlineActivity.this).equalsIgnoreCase(text)) {
-				return ITEM;
-			}
-		}
-		return SEARCH_BY.ALL_AUDIO;
-	}
 
 	private void updateList(List<FModel> items) {
 		if (items == null) {

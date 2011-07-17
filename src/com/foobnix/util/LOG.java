@@ -41,4 +41,12 @@ public class LOG {
 		Log.e(TAG, message, th);
 		th.printStackTrace();
 	}
+
+	public static void test(Object... messages) {
+		StringBuilder result = new StringBuilder();
+		for (Object msg : messages) {
+			result.append(msg).append(" ");
+		}
+		Log.d("TEST", result.toString());
+	}
 }

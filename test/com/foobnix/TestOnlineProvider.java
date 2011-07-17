@@ -17,30 +17,47 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.ui.activity;
+package com.foobnix;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.view.Window;
+import java.util.List;
 
-import com.foobnix.R;
-import com.foobnix.util.StarTabHelper;
+import android.test.AndroidTestCase;
 
-public abstract class MediaParentActivity extends FoobnixMenuActivity {
+import com.foobnix.model.FModel;
+import com.foobnix.provider.OnlineProvider;
+
+import de.umass.lastfm.Caller;
+import de.umass.lastfm.cache.MemoryCache;
+
+public class TestOnlineProvider extends AndroidTestCase {
+	OnlineProvider provider;
+
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+	protected void setUp() throws Exception {
+		super.setUp();
+		provider = new OnlineProvider(getContext());
+		Caller.getInstance().setCache(new MemoryCache());
 	}
 
-	@Override
-	public void onAcitvateMenuImages(Context context) {
-		super.onAcitvateMenuImages(context);
-		StarTabHelper.bindStarTab(this, context, R.id.folderStartTab, FolderActivity.class, R.string.Folders);
-		StarTabHelper.bindStarTab(this, context, R.id.onlineStartTab, OnlineActivity.class, R.string.Search);
-		StarTabHelper.bindStarTab(this, context, R.id.lastfmStartTab, LastFMActivity.class, R.string.Last_fm);
+	/*
+	 * public void testTagTracks() { List<FModel> findUserTopTracks =
+	 * provider.findTracksByTag("pop"); assertNotNull(findUserTopTracks);
+	 * assertTrue(findUserTopTracks.size() > 20); }
+	 */
+
+	public void testGetTopTracks() {
+		List<FModel> findUserTopTracks = provider.findUserTopTracks("ivanivanenko");
+		assertNotNull(findUserTopTracks);
+		assertTrue(findUserTopTracks.size() > 20);
+
 	}
 
-	
+	public void testRecentTracks() {
+		List<FModel> findUserTopTracks = provider.findUserRecentTracks("ivanivanenko");
+		assertNotNull(findUserTopTracks);
+		assertTrue(findUserTopTracks.size() > 5);
+
+	}
+
 }
