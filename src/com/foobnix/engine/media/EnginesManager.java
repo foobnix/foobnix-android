@@ -19,111 +19,82 @@
  * THE SOFTWARE. */
 package com.foobnix.engine.media;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.foobnix.model.FModel;
-import com.foobnix.util.LOG;
 
 public class EnginesManager implements MediaEngine {
 
-	private final MediaEngine mediaPlayer;
-	private final MediaEngine loseless;
-	private MediaEngine instanse;
+    private final MediaEngine instanse;
 
-	public EnginesManager(MediaObserver observer) {
-		mediaPlayer = new MediaPlayerEngine(observer);
-		loseless = new AndLessMediaEngine(observer);
-		setInstanse(mediaPlayer);
-	}
+    public EnginesManager(MediaObserver observer) {
+        instanse = new MediaPlayerEngine(observer);
+    }
 
-	public void playPause() {
-		if (isPlaying()) {
-			pause();
-		} else {
-			play();
-		}
-	}
+    public void playPause() {
+        if (isPlaying()) {
+            pause();
+        } else {
+            play();
+        }
+    }
 
-	public void playModel(FModel model) throws Exception {
-		if (model == null) {
-			throw new IllegalArgumentException();
-		}
-		instanse.stop();
+    public void playModel(FModel model) throws Exception {
+        if (model == null) {
+            throw new IllegalArgumentException();
+        }
+        instanse.stop();
 
-		String path = model.getPath();
-		if (StringUtils.isEmpty(path)) {
-			LOG.d("path is empth", model);
-			return;
-		}
+        String path = model.getPath();
+        instanse.play(path);
 
-		boolean find = false;
-		for (String ext : loseless.supportedExts()) {
-			if (path.toLowerCase().endsWith(ext)) {
-				find = true;
-				setInstanse(loseless);
-				break;
-			}
-		}
+    }
 
-		if(!find){
-			setInstanse(mediaPlayer);
-		}
+    @Override
+    public String[] supportedExts() {
+        return null;
+    }
 
-		instanse.play(path);
+    @Override
+    public void play(String path) throws Exception {
+    }
 
-	}
+    @Override
+    public void pause() {
+        instanse.pause();
+    }
 
-	public void setInstanse(MediaEngine instanse) {
-		this.instanse = instanse;
-	}
+    public void stop() {
+        instanse.stop();
+    }
 
-	@Override
-	public String[] supportedExts() {
-		return null;
-	}
+    @Override
+    public void play() {
+        instanse.play();
 
-	@Override
-	public void play(String path) throws Exception {
-	}
+    }
 
-	@Override
-	public void pause() {
-		instanse.pause();
-	}
+    @Override
+    public boolean isPlaying() {
+        return instanse.isPlaying();
+    }
 
-	public void stop() {
-		instanse.stop();
-	}
+    @Override
+    public int getDuration() {
+        return instanse.getDuration();
+    }
 
-	@Override
-	public void play() {
-		instanse.play();
+    @Override
+    public int getCurrentPosition() {
+        return instanse.getCurrentPosition();
+    }
 
-	}
+    @Override
+    public int getBuffering() {
+        return instanse.getBuffering();
+    }
 
-	@Override
-	public boolean isPlaying() {
-		return instanse.isPlaying();
-	}
-
-	@Override
-	public int getDuration() {
-		return instanse.getDuration();
-	}
-
-	@Override
-	public int getCurrentPosition() {
-		return instanse.getCurrentPosition();
-	}
-
-	@Override
-	public int getBuffering() {
-		return instanse.getBuffering();
-	}
-
-	@Override
-	public void seekTo(int pos) {
-		instanse.seekTo(pos);
-	}
+    @Override
+    public void seekTo(int pos) {
+        instanse.seekTo(pos);
+    }
 
 }
