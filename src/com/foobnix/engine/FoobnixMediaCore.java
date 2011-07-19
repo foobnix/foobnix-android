@@ -94,6 +94,7 @@ public class FoobnixMediaCore {
 
         @Override
         public void onError() {
+            playNext();
         }
 
         @Override

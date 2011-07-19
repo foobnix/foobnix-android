@@ -32,7 +32,7 @@ import com.foobnix.api.lastfm.LastFmApi;
 import com.foobnix.api.lastfm.Lfm;
 
 
-public class TestXStream extends AndroidTestCase {
+public class TestLastFmApi extends AndroidTestCase {
 
 	private LastFmApi api;
 
@@ -53,7 +53,7 @@ public class TestXStream extends AndroidTestCase {
 
 	public void testFile() throws Exception {
 		Serializer serializer = new Persister();
-		InputStream resourceAsStream = TestXStream.class.getResourceAsStream("demo.xml");
+		InputStream resourceAsStream = TestLastFmApi.class.getResourceAsStream("demo.xml");
 		Lfm lfm = serializer.read(Lfm.class, resourceAsStream);
 		assertEquals("ok", lfm.getStatus());
 
