@@ -43,118 +43,119 @@ import com.foobnix.ui.activity.DMActitivy.DOWNLOAD_FORMAT_BY;
 
 public class DownloadManager {
 
-	public static String getBaseDownloadFolder(Context context) {
-		File dir = new File(Conf.getDownloadTo(context));
-		if (!dir.exists()) {
-			dir.mkdirs();
-		}
-		return dir.getPath();
-	}
+    public static String getBaseDownloadFolder(Context context) {
+        File dir = new File(Conf.getDownloadTo(context));
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        return dir.getPath();
+    }
 
-	public static void downloadFModel(Context context, FModel item) throws VKAuthorizationException,
-	        VKSongNotFoundException {
-		item.setStatus(FModel.DOWNLOAD_STATUS.ACTIVE);
-		VKService.updateDMPathPath(item, context);
-		download(context, item);
-	}
+    public static void downloadFModel(Context context, FModel item) throws VKAuthorizationException,
+            VKSongNotFoundException {
+        item.setStatus(FModel.DOWNLOAD_STATUS.ACTIVE);
+        VKService.updateDMPathPath(item, context);
+        download(context, item);
+    }
 
-	public static void download(Context context, FModel item) {
-		try {
-			item.setStatus(FModel.DOWNLOAD_STATUS.ACTIVE);
-			downloadProccess(context, item);
-		} catch (IOException e) {
-			item.setStatus(DOWNLOAD_STATUS.FAIL);
-		}
-	}
+    public static void download(Context context, FModel item) {
+        try {
+            item.setStatus(FModel.DOWNLOAD_STATUS.ACTIVE);
+            downloadProccess(context, item);
+        } catch (IOException e) {
+            item.setStatus(DOWNLOAD_STATUS.FAIL);
+        }
+    }
 
-	public static String getFModelDownloadFolder(Context context, FModel item) {
-		if (C.get().downloadFormat == DOWNLOAD_FORMAT_BY.SIMPLE) {
-			return getBaseDownloadFolder(context);
-		} else {
-			String path = getBaseDownloadFolder(context) + "/";
+    public static String getFModelDownloadFolder(Context context, FModel item) {
+        if (C.get().downloadFormat == DOWNLOAD_FORMAT_BY.SIMPLE) {
+            return getBaseDownloadFolder(context);
+        } else {
+            String path = getBaseDownloadFolder(context) + "/";
 
-			if (StringUtils.isNotEmpty(item.getTag())) {
-				path += item.getTag() + "/";
-			}
+            if (StringUtils.isNotEmpty(item.getTag())) {
+                path += item.getTag() + "/";
+            }
 
-			if (StringUtils.isNotEmpty(item.getArtist())) {
-				path += item.getArtist() + "/";
-			}
+            if (StringUtils.isNotEmpty(item.getArtist())) {
+                path += item.getArtist() + "/";
+            }
 
-			if (StringUtils.isNotEmpty(item.getAlbum())) {
-				path += item.getAlbum() + "/";
-			}
+            if (StringUtils.isNotEmpty(item.getAlbum())) {
+                path += item.getAlbum() + "/";
+            }
 
-			File folder = new File(path);
-			if (!folder.exists()) {
-				folder.mkdirs();
-			}
-			return path;
+            File folder = new File(path);
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+            return path;
 
-		}
+        }
 
-	}
-	public static String getFMoldelDownloadFile(Context context, FModel item) {
-		String forlder = getFModelDownloadFolder(context, item);
-		String text = FilenameUtils.normalizeNoEndSeparator(item.getText());
-		String name = String.format("%s - %s.mp3", ((FModelBuilder) item).getNomilizedTrackNum(), text);
-		return new File(forlder, name).getPath();
+    }
 
-	}
+    public static String getFMoldelDownloadFile(Context context, FModel item) {
+        String forlder = getFModelDownloadFolder(context, item);
+        String text = FilenameUtils.normalizeNoEndSeparator(item.getText());
+        String name = String.format("%s - %s.mp3", ((FModelBuilder) item).getNomilizedTrackNum(), text);
+        return new File(forlder, name).getPath();
 
-	public static void downloadProccess(Context context, FModel item) throws IOException {
+    }
 
-		int remote = SongUtil.getRemoteSize(item.getPath());
+    public static void downloadProccess(Context context, FModel item) throws IOException {
 
-		StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-		double available = (double) stat.getAvailableBlocks() * (double) stat.getBlockSize();
+        int remote = SongUtil.getRemoteSize(item.getPath());
 
-		if (remote > available) {
-			item.setStatus(FModel.DOWNLOAD_STATUS.FAIL);
-			return;
-		}
+        StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
+        double available = (double) stat.getAvailableBlocks() * (double) stat.getBlockSize();
 
-		item.setStatus(FModel.DOWNLOAD_STATUS.ACTIVE);
-		item.setDownloadTo(getFMoldelDownloadFile(context, item));
+        if (remote > available) {
+            item.setStatus(FModel.DOWNLOAD_STATUS.FAIL);
+            return;
+        }
 
-		LOG.d("begin download ", item.getDownloadTo(), item.getText(), item.getPath());
+        item.setStatus(FModel.DOWNLOAD_STATUS.ACTIVE);
+        item.setDownloadTo(getFMoldelDownloadFile(context, item));
 
-		if (new File(item.getDownloadTo()).exists()) {
-			LOG.d("FModel exist", item.getDownloadTo());
-			item.setStatus(FModel.DOWNLOAD_STATUS.EXIST);
-			return;
-		}
+        LOG.d("begin download ", item.getDownloadTo(), item.getText(), item.getPath());
 
-		URL url = new URL(item.getPath());
-		HttpURLConnection connect = (HttpURLConnection) url.openConnection();
-		connect.setRequestMethod("GET");
-		connect.setDoOutput(true);
-		connect.connect();
+        if (new File(item.getDownloadTo()).exists()) {
+            LOG.d("FModel exist", item.getDownloadTo());
+            item.setStatus(FModel.DOWNLOAD_STATUS.EXIST);
+            return;
+        }
 
-		FileOutputStream toStream = new FileOutputStream(new File(item.getDownloadTo()));
-		InputStream fromStream = connect.getInputStream();
+        URL url = new URL(item.getPath());
+        HttpURLConnection connect = (HttpURLConnection) url.openConnection();
+        connect.setRequestMethod("GET");
+        connect.setDoOutput(true);
+        connect.connect();
 
-		if (fromStream == null) {
-			LOG.d("Null from stream");
-			return;
-		}
+        FileOutputStream toStream = new FileOutputStream(new File(item.getDownloadTo()));
+        InputStream fromStream = connect.getInputStream();
 
-		byte[] buffer = new byte[1024];
-		int lenght = 0;
-		int size = connect.getContentLength();
-		int current = 0;
+        if (fromStream == null) {
+            LOG.d("Null from stream");
+            return;
+        }
 
-		while ((lenght = fromStream.read(buffer)) > 0) {
-			toStream.write(buffer, 0, lenght);
-			current += lenght;
-			item.setPercent(current * 100 / size);
-		}
-		item.setStatus(FModel.DOWNLOAD_STATUS.DONE);
-		item.setPercent(100);
-		toStream.close();
-		fromStream.close();
-		LOG.d("end download ", item.getText(), item.getPath(), item.getDownloadTo());
-		return;
-	}
+        byte[] buffer = new byte[1024];
+        int lenght = 0;
+        int size = connect.getContentLength();
+        int current = 0;
+
+        while ((lenght = fromStream.read(buffer)) > 0) {
+            toStream.write(buffer, 0, lenght);
+            current += lenght;
+            item.setPercent(current * 100 / size);
+        }
+        item.setStatus(FModel.DOWNLOAD_STATUS.DONE);
+        item.setPercent(100);
+        toStream.close();
+        fromStream.close();
+        LOG.d("end download ", item.getText(), item.getPath(), item.getDownloadTo());
+        return;
+    }
 
 }

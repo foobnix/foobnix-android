@@ -100,17 +100,16 @@ public final class R {
         public static final int about_artist=0x7f030000;
         public static final int dm=0x7f030001;
         public static final int info=0x7f030002;
-        public static final int lastfm=0x7f030003;
-        public static final int more=0x7f030004;
-        public static final int nav=0x7f030005;
-        public static final int nav_images=0x7f030006;
-        public static final int nav_item=0x7f030007;
-        public static final int online=0x7f030008;
-        public static final int player=0x7f030009;
-        public static final int player_item=0x7f03000a;
-        public static final int star_tab=0x7f03000b;
-        public static final int top_media_bar=0x7f03000c;
-        public static final int web=0x7f03000d;
+        public static final int more=0x7f030003;
+        public static final int nav=0x7f030004;
+        public static final int nav_images=0x7f030005;
+        public static final int nav_item=0x7f030006;
+        public static final int online=0x7f030007;
+        public static final int player=0x7f030008;
+        public static final int player_item=0x7f030009;
+        public static final int star_tab=0x7f03000a;
+        public static final int top_media_bar=0x7f03000b;
+        public static final int web=0x7f03000c;
     }
     public static final class menu {
         public static final int player_menu=0x7f060000;
