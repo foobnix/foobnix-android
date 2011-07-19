@@ -19,44 +19,40 @@
  * THE SOFTWARE. */
 package com.foobnix;
 
-import java.io.InputStream;
 import java.util.List;
-
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
 
 import android.test.AndroidTestCase;
 
-import com.foobnix.api.lastfm.Artist;
+import com.foobnix.api.lastfm.Album;
+import com.foobnix.api.lastfm.ArtistFull;
 import com.foobnix.api.lastfm.LastFmApi;
-import com.foobnix.api.lastfm.Lfm;
-
 
 public class TestLastFmApi extends AndroidTestCase {
 
-	private LastFmApi api;
+    private LastFmApi api;
 
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-		api = new LastFmApi(getContext());
-	}
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        api = new LastFmApi(getContext());
+    }
 
-	public void testSimple() {
-		List<Artist> artists = api.getTopArtistsByUser("matik");
-		assertTrue(artists.size() > 10);
-		for (Artist artist : artists) {
-			assertNotNull(artist.getName());
-			assertNotNull(artist.getRank());
-		}
-	}
+    public void testfindUserTopArtists() {
+        List<ArtistFull> artists = api.findUserTopArtists("matik");
+        assertTrue(artists.size() > 10);
+        for (ArtistFull artist : artists) {
+            assertNotNull(artist.getName());
+            assertNotNull(artist.getRank());
+        }
+    }
 
-	public void testFile() throws Exception {
-		Serializer serializer = new Persister();
-		InputStream resourceAsStream = TestLastFmApi.class.getResourceAsStream("demo.xml");
-		Lfm lfm = serializer.read(Lfm.class, resourceAsStream);
-		assertEquals("ok", lfm.getStatus());
-
-	}
+    public void findArtistTopAlbums() {
+        List<Album> artists = api.findArtistTopAlbums("madonna");
+        assertTrue(artists.size() > 10);
+        for (Album album : artists) {
+            assertNotNull(album.getName());
+            assertNotNull(album.getUrl());
+        }
+    }
 
 }

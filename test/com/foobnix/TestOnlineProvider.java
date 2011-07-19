@@ -24,13 +24,14 @@ import java.util.List;
 import android.test.AndroidTestCase;
 
 import com.foobnix.model.FModel;
+import com.foobnix.provider.LastFmMethods;
 import com.foobnix.provider.OnlineProvider;
 
 import de.umass.lastfm.Caller;
 import de.umass.lastfm.cache.MemoryCache;
 
 public class TestOnlineProvider extends AndroidTestCase {
-	OnlineProvider provider;
+	LastFmMethods provider;
 
 
 	@Override

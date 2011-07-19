@@ -24,52 +24,48 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.http.message.BasicNameValuePair;
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
 
 import android.content.Context;
 
 import com.foobnix.api.RequestHelper;
 import com.foobnix.util.Conf;
 import com.foobnix.util.LOG;
+import com.foobnix.util.XmlPersister;
 
 public class LastFmApi {
 
-	private RequestHelper requestHelper;
+    private RequestHelper requestHelper;
 
-	public LastFmApi(Context contex) {
-		requestHelper = new RequestHelper("http://ws.audioscrobbler.com/2.0/");
-		BasicNameValuePair api = new BasicNameValuePair("api_key", Conf.LAST_FM_API_KEY);
-		requestHelper.setDefaultParam(api);
-	}
+    public LastFmApi(Context contex) {
+        requestHelper = new RequestHelper("http://ws.audioscrobbler.com/2.0/");
+        BasicNameValuePair api = new BasicNameValuePair("api_key", Conf.LAST_FM_API_KEY);
+        requestHelper.setDefaultParam(api);
+    }
 
-	public String getResponse(String method, BasicNameValuePair... params) {
-		BasicNameValuePair methodParam = new BasicNameValuePair("method", method);
-		List<BasicNameValuePair> list = new ArrayList<BasicNameValuePair>(Arrays.asList(params));
-		list.add(methodParam);
-		return requestHelper.get(list);
-	}
+    public String getResponse(String method, BasicNameValuePair... params) {
+        BasicNameValuePair methodParam = new BasicNameValuePair("method", method);
+        List<BasicNameValuePair> list = new ArrayList<BasicNameValuePair>(Arrays.asList(params));
+        list.add(methodParam);
+        return requestHelper.get(list);
+    }
 
-	public List<Artist> getTopArtistsByUser(String user) {
-		BasicNameValuePair userParam = new BasicNameValuePair("user", user);
-		String response = getResponse("user.getTopArtists", userParam);
-		response.replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>", "");
-		LOG.d(response);
+    public List<ArtistFull> findUserTopArtists(String user) {
+        BasicNameValuePair userParam = new BasicNameValuePair("user", user);
+        String response = getResponse("user.getTopArtists", userParam);
+        LOG.d(response);
 
-		Serializer serializer = new Persister();
+        TopArtistsResponse model = XmlPersister.toModel(response, TopArtistsResponse.class);
+        return model.getTopArtists().getArtists();
+    }
 
-		Lfm lfm = null;
-		try {
-			lfm = serializer.read(Lfm.class, response);
-		} catch (Exception e) {
-			new RuntimeException(e);
-		}
+    public List<Album> findArtistTopAlbums(String artist) {
+        BasicNameValuePair param1 = new BasicNameValuePair("artist", artist);
+        String response = getResponse("artist.getTopAlbums", param1);
+        LOG.d(response);
 
-		if ("fail".equals(lfm.getStatus())) {
-			new RuntimeException(lfm.getError().getValue());
-		}
+        TopAlbumResponse model = XmlPersister.toModel(response, TopAlbumResponse.class);
+        return model.getTopAlbums().getAlbums();
 
-		return lfm.getTopArtists().getArtists();
-	}
+    }
 
 }

@@ -21,41 +21,31 @@ package com.foobnix.api.lastfm;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-public class Lfm {
+@Root(name = "lfm")
+public class LastFmResponse {
 
-	@Attribute(name = "status")
-	private String status;
+    @Attribute(name = "status")
+    private String status;
 
-	@Element(required = false, name = "topartists")
-	private TopArtists topArtists;
+    @Element(required = false)
+    private ErrorCode error;
 
-	@Element(required = false)
-	private ErrorCode error;
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-
-	public void setError(ErrorCode error) {
-	    this.error = error;
+    public String getStatus() {
+        return status;
     }
 
-	public ErrorCode getError() {
-	    return error;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-	public void setTopArtists(TopArtists topArtists) {
-		this.topArtists = topArtists;
-	}
+    public void setError(ErrorCode error) {
+        this.error = error;
+    }
 
-	public TopArtists getTopArtists() {
-		return topArtists;
-	}
+    public ErrorCode getError() {
+        return error;
+    }
 
 }

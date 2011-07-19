@@ -23,85 +23,39 @@ import java.util.List;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
-import org.simpleframework.xml.Root;
 
-@Root(name = "topartists")
-public class TopArtists {
-	@Attribute
-	private String user;
+public class TopArtists extends Statistics {
+    @Attribute
+    private String user;
 
-	@Attribute
-	private String type;
+    @Attribute
+    private String type;
 
-	@Attribute
-	private int page;
+    @ElementList(inline = true)
+    private List<ArtistFull> artists;
 
-	@Attribute
-	private int perPage;
-
-	@Attribute
-	private int totalPages;
-
-	@Attribute
-	private int total;
-
-	@ElementList(inline = true)
-	private List<Artist> artists;
-
-	public String getUser() {
-		return user;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public int getPage() {
-		return page;
-	}
-
-	public void setPage(int page) {
-		this.page = page;
-	}
-
-	public int getTotalPages() {
-		return totalPages;
-	}
-
-	public void setTotalPages(int totalPages) {
-		this.totalPages = totalPages;
-	}
-
-	public int getTotal() {
-		return total;
-	}
-
-	public void setTotal(int total) {
-		this.total = total;
-	}
-
-	public List<Artist> getArtists() {
-		return artists;
-	}
-
-	public void setArtists(List<Artist> artists) {
-		this.artists = artists;
-	}
-
-	public void setPerPage(int perPage) {
-	    this.perPage = perPage;
+    public String getUser() {
+        return user;
     }
 
-	public int getPerPage() {
-	    return perPage;
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setArtists(List<ArtistFull> artists) {
+        this.artists = artists;
+    }
+
+    public List<ArtistFull> getArtists() {
+        return artists;
     }
 
 }

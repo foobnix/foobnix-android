@@ -25,7 +25,7 @@ public class Track {
 	private int playcount;
 	private String mbid;
 	private String url;
-	private Artist artist;
+	private ArtistFull artist;
 
 	public String getName() {
 		return name;
@@ -67,11 +67,11 @@ public class Track {
 		this.url = url;
 	}
 
-	public Artist getArtist() {
+	public ArtistFull getArtist() {
 		return artist;
 	}
 
-	public void setArtist(Artist artist) {
+	public void setArtist(ArtistFull artist) {
 		this.artist = artist;
 	}
 

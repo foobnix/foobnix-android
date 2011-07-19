@@ -35,7 +35,7 @@ import com.foobnix.util.LOG;
 
 public class SearchQueryManager {
 
-	private final OnlineProvider provider;
+	private final LastFmMethods provider;
 	private Stack<SearchQuery> stack;
 
 	public SearchQueryManager(Context context) {

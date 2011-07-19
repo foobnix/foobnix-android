@@ -24,84 +24,86 @@ import java.util.List;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
-public class Artist {
+@Root(name = "artist")
+public class ArtistFull {
 
-	@Attribute
-	private int rank;
+    @Attribute
+    private int rank;
 
-	@Element
-	private String name;
+    @Element
+    private String name;
 
-	@Element
-	private int playcount;
+    @Element
+    private int playcount;
 
-	@Element(required = false)
-	private String mbid;
+    @Element(required = false)
+    private String mbid;
 
-	@Element
-	private String url;
+    @Element
+    private String url;
 
-	@Element
-	private boolean streamable;
+    @Element
+    private boolean streamable;
 
-	@ElementList(inline = true)
-	private List<Image> images;
+    @ElementList(inline = true)
+    private List<Image> images;
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getMbid() {
-		return mbid;
-	}
-
-	public void setMbid(String mbid) {
-		this.mbid = mbid;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public int getPlaycount() {
-		return playcount;
-	}
-
-	public void setPlaycount(int playcount) {
-		this.playcount = playcount;
-	}
-
-	public boolean isStreamable() {
-		return streamable;
-	}
-
-	public void setStreamable(boolean streamable) {
-		this.streamable = streamable;
-	}
-
-	public List<Image> getImages() {
-		return images;
-	}
-
-	public void setImages(List<Image> images) {
-		this.images = images;
-	}
-
-	public void setRank(int rank) {
-	    this.rank = rank;
+    public String getName() {
+        return name;
     }
 
-	public int getRank() {
-	    return rank;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMbid() {
+        return mbid;
+    }
+
+    public void setMbid(String mbid) {
+        this.mbid = mbid;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public int getPlaycount() {
+        return playcount;
+    }
+
+    public void setPlaycount(int playcount) {
+        this.playcount = playcount;
+    }
+
+    public boolean isStreamable() {
+        return streamable;
+    }
+
+    public void setStreamable(boolean streamable) {
+        this.streamable = streamable;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public int getRank() {
+        return rank;
     }
 
 }
