@@ -29,116 +29,119 @@ import android.content.Context;
 import com.foobnix.model.FModel;
 
 public class PlayListController {
-	private final List<FModel> list = new ArrayList<FModel>();
-	private int active;
-	private Random random = new Random();
+    private final List<FModel> list = new ArrayList<FModel>();
+    private int active;
+    private Random random = new Random();
 
-	public PlayListController(Context context) {
-		List<String> res = Collections.emptyList();
+    public PlayListController(Context context) {
+        List<String> res = Collections.emptyList();
 
-		active = 0;
-	}
-
-	public void remove(FModel model) {
-		list.remove(model);
-	}
-
-	public FModel getAtPos(int pos){
-		if (pos > list.size()) {
-			return null;
-		}
-		active = pos;
-		return getItem();
-	}
-
-	public void addAll(List<FModel> FModels) {
-		list.addAll(FModels);
-	}
-
-	public void setAll(List<FModel> FModels) {
-		active = 0;
-		list.clear();
-		list.addAll(FModels);
-	}
-
-	public void add(FModel FModel) {
-		list.add(FModel);
-	}
-
-	public FModel getNextFModel() {
-		if (list.isEmpty()) {
-			return null;
-		}
-
-		if (active < list.size() - 1) {
-			active++;
-		} else {
-			active = 0;
-		}
-
-		return getItem();
-	}
-
-
-	public FModel getRandomFModel() {
-		if (!list.isEmpty()) {
-			active = random.nextInt(list.size());
-		}
-
-		return getItem();
-
-	}
-
-	public FModel getPrevFModel() {
-		if (list.isEmpty()) {
-			return null;
-		}
-
-		if (active > 0) {
-			active--;
-		} else {
-			active = list.size() - 1;
-		}
-		return getItem();
-	}
-
-	public void clear() {
-		list.clear();
-		active = 0;
-	}
-
-	public List<FModel> getPlayList() {
-		return list;
-	}
-
-	public void setActive(FModel model) {
-		for (int i = 0; i < list.size(); i++) {
-			if (model.equals(list.get(i))) {
-				active = i;
-				return;
-			}
-		}
-	}
-
-	public void setActive(int active) {
-	    this.active = active;
+        active = 0;
     }
 
-	public FModel getItem() {
-		return getCurrentFModel();
-	}
+    public int size() {
+        return list.size();
+    }
 
-	public FModel getCurrentFModel() {
-		if (list.isEmpty()) {
-			return null;
-		}
-		FModel model = list.get(active);
-		model.setPosition(active);
-		return model;
-	}
+    public void remove(FModel model) {
+        list.remove(model);
+    }
 
-	public int getActive() {
-	    return active;
+    public FModel getAtPos(int pos) {
+        if (pos > list.size()) {
+            return null;
+        }
+        active = pos;
+        return getItem();
+    }
+
+    public void addAll(List<FModel> FModels) {
+        list.addAll(FModels);
+    }
+
+    public void setAll(List<FModel> FModels) {
+        active = 0;
+        list.clear();
+        list.addAll(FModels);
+    }
+
+    public void add(FModel FModel) {
+        list.add(FModel);
+    }
+
+    public FModel getNextFModel() {
+        if (list.isEmpty()) {
+            return null;
+        }
+
+        if (active < list.size() - 1) {
+            active++;
+        } else {
+            active = 0;
+        }
+
+        return getItem();
+    }
+
+    public FModel getRandomFModel() {
+        if (!list.isEmpty()) {
+            active = random.nextInt(list.size());
+        }
+
+        return getItem();
+
+    }
+
+    public FModel getPrevFModel() {
+        if (list.isEmpty()) {
+            return null;
+        }
+
+        if (active > 0) {
+            active--;
+        } else {
+            active = list.size() - 1;
+        }
+        return getItem();
+    }
+
+    public void clear() {
+        list.clear();
+        active = 0;
+    }
+
+    public List<FModel> getPlayList() {
+        return list;
+    }
+
+    public void setActive(FModel model) {
+        for (int i = 0; i < list.size(); i++) {
+            if (model.equals(list.get(i))) {
+                active = i;
+                return;
+            }
+        }
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    public FModel getItem() {
+        return getCurrentFModel();
+    }
+
+    public FModel getCurrentFModel() {
+        if (list.isEmpty()) {
+            return null;
+        }
+        FModel model = list.get(active);
+        model.setPosition(active);
+        return model;
+    }
+
+    public int getActive() {
+        return active;
     }
 
 }

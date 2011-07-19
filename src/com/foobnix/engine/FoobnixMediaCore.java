@@ -94,7 +94,9 @@ public class FoobnixMediaCore {
 
         @Override
         public void onError() {
-            playNext();
+            if (playListController.size() > 2) {
+                playNext();
+            }
         }
 
         @Override
