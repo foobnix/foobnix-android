@@ -29,8 +29,8 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import com.foobnix.R;
+import com.foobnix.api.vkontakte.VkOld;
 import com.foobnix.model.FModel;
-import com.foobnix.service.VKService;
 import com.foobnix.util.C;
 import com.foobnix.util.Conf;
 import com.foobnix.util.LOG;
@@ -60,7 +60,7 @@ public class VkCheckActivity extends FoobnixMenuActivity {
 		webDefault.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String[] userPass = VKService.getVKUserPass(REDIRECT_URL);
+				String[] userPass = VkOld.getVKUserPass(REDIRECT_URL);
 				webView.loadUrl(String.format(
 				        "javascript:(function() {document.getElementsByName('email')[0].value='%s'})()", userPass[0]));
 				webView.loadUrl(String.format(

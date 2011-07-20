@@ -25,6 +25,8 @@
         <activity android:name=".ui.activity.InfoActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.OnlineActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.LastFMActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.VkontakteActivity" android:screenOrientation="portrait" />
+        
         <activity android:name=".ui.activity.DMActitivy" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.info.LyricActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.info.MoreActivity" android:screenOrientation="portrait" />

@@ -19,6 +19,9 @@
  * THE SOFTWARE. */
 package com.foobnix.util;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class TimeUtil {
 
 	public static String durationSecToString(String millis) {
@@ -69,5 +72,14 @@ public class TimeUtil {
 
 	public static int durationToSec(int millis) {
 		return (int) ((millis / 1000) % 60);
+	}
+
+	public static String getYear(Date date) {
+		if (date == null) {
+			return null;
+		}
+		Calendar instance = Calendar.getInstance();
+		instance.setTime(date);
+		return "" + instance.get(Calendar.YEAR);
 	}
 }

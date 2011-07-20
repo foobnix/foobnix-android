@@ -55,6 +55,8 @@ public class FModel implements Serializable {
 
 	private int position;
 	private int percent;
+	private String year;
+
 	private boolean isScrobbled;
 
 	public FModel() {
@@ -247,5 +249,13 @@ public class FModel implements Serializable {
 	public SearchQuery getSearchQuery() {
 	    return searchQuery;
     }
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getYear() {
+		return year;
+	}
 
 }

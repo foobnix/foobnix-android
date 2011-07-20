@@ -17,38 +17,41 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.ui.activity;
+package com.foobnix.api.vkontakte;
 
-import java.util.Arrays;
 import java.util.List;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
+import org.apache.http.message.BasicNameValuePair;
 
-import com.foobnix.util.Pref;
-import com.foobnix.util.PrefKeys;
+import com.foobnix.api.RequestHelper;
+import com.foobnix.model.VKSong;
+import com.foobnix.model.VKUser;
 
-public class MediaActivityChooser extends Activity {
-	@SuppressWarnings("unchecked")
-	private List<Class<? extends MediaParentActivity>> activities = Arrays.asList(FolderActivity.class,
-	        LastFMActivity.class, OnlineActivity.class, VkontakteActivity.class);
+public class VkApi {
+	private static String API_URL = "https://api.vkontakte.ru/method/";
+	private RequestHelper requestHelper;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public VkApi(String token) {
+		requestHelper = new RequestHelper(API_URL);
+		requestHelper.setDefaultParam(new BasicNameValuePair("access_token", token));
+	}
 
-		String currentClazz = Pref.getStr(this, PrefKeys.ACTIVE_MEDIA_ACTIVITY, FolderActivity.class.getName());
+	public List<VKSong> audioSearch(String text) {
+		BasicNameValuePair q = new BasicNameValuePair("q", text);
+		BasicNameValuePair count = new BasicNameValuePair("count", "100");
 
-		finish();
+		String json = requestHelper.get("audio.search", q, count);
+		List<VKSong> result = GsonResponse.toModels(json, VKSong.class);
+		return result;
+	}
 
-		for (Class<?> clazz : activities) {
-			if (clazz.getName().equals(currentClazz)) {
-				startActivity(new Intent(this, clazz));
-				return;
-			}
-		}
+	public List<VKUser> friendsGet(String uid) {
+		BasicNameValuePair uidParam = new BasicNameValuePair("uid", uid);
+		BasicNameValuePair fields = new BasicNameValuePair("fields", "uid,first_name,last_name,lists,online");
 
+		String json = requestHelper.get("friends.get", uidParam, fields);
+		List<VKUser> result = GsonResponse.toModels(json, VKUser.class);
+		return result;
 	}
 
 }

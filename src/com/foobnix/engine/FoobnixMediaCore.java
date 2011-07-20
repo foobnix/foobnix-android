@@ -31,22 +31,17 @@ import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Handler;
-import android.widget.Toast;
 
-import com.foobnix.R;
 import com.foobnix.broadcast.BroadCastManager;
 import com.foobnix.broadcast.model.UIBroadcast;
 import com.foobnix.engine.media.EnginesManager;
 import com.foobnix.engine.media.MediaObserver;
-import com.foobnix.exception.VKAuthorizationException;
-import com.foobnix.exception.VKSongNotFoundException;
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.TYPE;
 import com.foobnix.model.FModelBuilder;
 import com.foobnix.service.AlarmSleepService;
 import com.foobnix.service.FoobnixNotification;
 import com.foobnix.service.LastFmService;
-import com.foobnix.service.VKService;
 import com.foobnix.util.C;
 import com.foobnix.util.Conf;
 import com.foobnix.util.FolderUtil;
@@ -153,19 +148,20 @@ public class FoobnixMediaCore {
 		UIBroadcast stat = new UIBroadcast(song, 0, 0, false, 0, app.getPlayListManager().getAll().size());
 		broadCastManager.sendNowPlaying(stat);
 
-		try {
-			if (song.getType() == TYPE.ONLINE && !app.isOnline()) {
-				Toast.makeText(context, R.string.Network_not_available_cant_play_online_song, Toast.LENGTH_LONG).show();
-				return;
-			}
-			VKService.updateFModelPath(song, context);
-		} catch (VKSongNotFoundException e) {
-			Toast.makeText(context, R.string.Song_not_found_in_the_Internet_cantt_play, Toast.LENGTH_LONG).show();
-			return;
-		} catch (VKAuthorizationException e) {
-			Toast.makeText(context, R.string.Please_Refresh_Vkontakte_Settings, Toast.LENGTH_LONG).show();
-			return;
-		}
+		// TODO : fix update song
+		/*
+		 * try { if (song.getType() == TYPE.ONLINE && !app.isOnline()) {
+		 * Toast.makeText(context,
+		 * R.string.Network_not_available_cant_play_online_song,
+		 * Toast.LENGTH_LONG).show(); return; } //
+		 * VKontakteApi.updateFModelPath(song, context); } catch
+		 * (VKSongNotFoundException e) { Toast.makeText(context,
+		 * R.string.Song_not_found_in_the_Internet_cantt_play,
+		 * Toast.LENGTH_LONG).show(); return; } catch (VKAuthorizationException
+		 * e) { Toast.makeText(context,
+		 * R.string.Please_Refresh_Vkontakte_Settings,
+		 * Toast.LENGTH_LONG).show(); return; }
+		 */
 
 		if (song.getType() != TYPE.ONLINE) {
 			song.setTime(TimeUtil.durationToString(engineManager.getDuration()));

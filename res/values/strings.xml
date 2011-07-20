@@ -32,6 +32,7 @@
     <string name="Background_On">Background On</string>
     <string name="Background_Off">Background Off</string>
     <string name="Open">Open</string>
+    <string name="VK">VK</string>
     
     <string name="Default_Login_and_Password">Default Login and Password</string>
     
@@ -53,6 +54,7 @@
     <string name="Exit">Exit</string>
     <string name="Paste">Paste</string>
     <string name="Online_Action">Online Action</string>
+    <string name="VKontakte_Action">VKontakte Action</string>
     <string name="Your_search_did_not_match_any_results">Your search did not match any results</string>
     
     

@@ -43,6 +43,10 @@ public class SearchQueryManager {
 		stack = new Stack<SearchQuery>();
 	}
 
+	public void emtyStack() {
+		stack.empty();
+	}
+
 	public List<FModel> previousPage() {
 		if (stack.size() <= 1) {
 			return Collections.EMPTY_LIST;
@@ -109,15 +113,15 @@ public class SearchQueryManager {
 
 		case LAST_FM_ARTIST:
 			List<FModel> options = new ArrayList<FModel>();
-			options.add(FModelBuilder.Search(//
+			options.add(FModelBuilder.SearchFolder(//
 			        String.format("%s - %s", searchQuery.getParam1(), "Top Tracks"),//
 			        new SearchQuery(SearchBy.TOP_TRACKS_BY_ARTIST, searchQuery.getParam1())));
 
-			options.add(FModelBuilder.Search(//
+			options.add(FModelBuilder.SearchFolder(//
 			        String.format("%s - %s", searchQuery.getParam1(), "Top Albums"),//
 			        new SearchQuery(SearchBy.ALBUMS_BY_ARTIST, searchQuery.getParam1())));
 
-			options.add(FModelBuilder.Search(//
+			options.add(FModelBuilder.SearchFolder(//
 			        String.format("%s - %s", searchQuery.getParam1(), "Similar Artists"),//
 			        new SearchQuery(SearchBy.SIMILAR_ARTISTS_BY_ARTIST, searchQuery.getParam1())));
 

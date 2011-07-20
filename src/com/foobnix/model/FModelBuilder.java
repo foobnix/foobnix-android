@@ -138,6 +138,11 @@ public class FModelBuilder extends FModel {
 		return this;
 	}
 
+	public FModelBuilder addYear(String year) {
+		setYear(year);
+		return this;
+	}
+
 	public FModelBuilder addTitle(String title) {
 		setTitle(title);
 		return this;

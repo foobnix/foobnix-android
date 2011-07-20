@@ -69,6 +69,7 @@ public class LastFMActivity extends MediaParentActivity {
 		list.setOnItemLongClickListener(onDialog);
 
 		onAcitvateMenuImages(this);
+		queryManager.emtyStack();
 	}
 	
 	OnItemClickListener onClick = new OnItemClickListener() {
