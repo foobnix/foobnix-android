@@ -41,12 +41,12 @@ import de.umass.lastfm.Tag;
 import de.umass.lastfm.Track;
 import de.umass.lastfm.User;
 
-public class OnlineProvider {
+public class LastFmApiAdapter {
 
 	private Context context;
 	private final String apiKey = Conf.LAST_FM_API_KEY;
 
-	public OnlineProvider(Context context) {
+	public LastFmApiAdapter(Context context) {
 		this.context = context;
 	}
 

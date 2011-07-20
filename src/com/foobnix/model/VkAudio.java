@@ -17,38 +17,71 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.util;
+package com.foobnix.model;
 
-import java.util.ArrayList;
-import java.util.List;
+public class VkAudio {
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+	private String aid;
+	private String owner_id;
+	private String artist;
+	private String title;
+	private String duration;
+	private String url;
 
-import com.foobnix.model.VkAudio;
-
-public class JSONHelper {
-
-	public static List<VkAudio> parseVKSongs(String jsonString) throws JSONException {
-		List<VkAudio> results = new ArrayList<VkAudio>();
-
-		JSONObject jObject = new JSONObject(jsonString);
-		JSONArray jResponse = jObject.getJSONArray("response");
-
-		for (int i = 1; i < jResponse.length(); i++) {
-			JSONObject jItem = jResponse.getJSONObject(i);
-			String aid = jItem.getString("aid");
-			String owner_id = jItem.getString("owner_id");
-			String artist = jItem.getString("artist");
-			String title = jItem.getString("title");
-			String duration = jItem.getString("duration");
-			String url = jItem.getString("url");
-			results.add(new VkAudio(aid, owner_id, artist, title, duration, url));
-		}
-
-		return results;
-
+	public VkAudio(String aid, String owner_id, String artist, String title, String duration, String url) {
+		this.aid = aid;
+		this.owner_id = owner_id;
+		this.artist = artist;
+		this.title = title;
+		this.duration = duration;
+		this.url = url;
 	}
 
+	public String getAid() {
+		return aid;
+	}
+
+	public void setAid(String aid) {
+		this.aid = aid;
+	}
+
+	public String getOwner_id() {
+		return owner_id;
+	}
+
+	public void setOwner_id(String owner_id) {
+		this.owner_id = owner_id;
+	}
+
+	public String getArtist() {
+		return artist;
+	}
+
+	public void setArtist(String artist) {
+		this.artist = artist;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDuration() {
+		return duration;
+	}
+
+	public void setDuration(String duration) {
+		this.duration = duration;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }

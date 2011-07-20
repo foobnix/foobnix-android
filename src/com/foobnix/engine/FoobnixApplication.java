@@ -32,6 +32,7 @@ import android.net.NetworkInfo;
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.DOWNLOAD_STATUS;
 import com.foobnix.model.FModelBuilder;
+import com.foobnix.provider.VkontakteApiAdapter;
 import com.foobnix.service.AlarmSleepService;
 import com.foobnix.service.FoobnixNotification;
 import com.foobnix.service.LastFmService;
@@ -53,21 +54,26 @@ public class FoobnixApplication extends Application {
 	private boolean isPlaying = false;
 	private boolean isShowMenu = false;
 	private ApplicationCache cache = new ApplicationCache();
+	private VkontakteApiAdapter vkontakteApiAdapter;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		C.get().load(this);
+
 		notification = new FoobnixNotification(this);
 		playListManager = new PlayListManager(this);
 		lastFmService = new LastFmService(this);
 		alarmSleepService = new AlarmSleepService(this, notification);
+		vkontakteApiAdapter = new VkontakteApiAdapter(C.get().vkontakteToken);
 
 		if (isOnline()) {
 			lastFmService.isConnectedAndEnable();
+
 		}
 
 		Caller.getInstance().setCache(new MemoryCache());
-		C.get().load(this);
+
 	}
 
 	public void cleanDMList() {
@@ -187,5 +193,13 @@ public class FoobnixApplication extends Application {
 
 	public ApplicationCache getCache() {
 	    return cache;
+    }
+
+	public void setVkontakteApiAdapter(VkontakteApiAdapter vkontakteApiAdapter) {
+	    this.vkontakteApiAdapter = vkontakteApiAdapter;
+    }
+
+	public VkontakteApiAdapter getVkontakteApiAdapter() {
+	    return vkontakteApiAdapter;
     }
 }

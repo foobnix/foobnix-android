@@ -17,38 +17,53 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.util;
+package com.foobnix.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+public class VKUser {
 
-import com.foobnix.model.VkAudio;
+	private String uid;
 
-public class JSONHelper {
+	@SerializedName("first_name")
+	private String firstName;
 
-	public static List<VkAudio> parseVKSongs(String jsonString) throws JSONException {
-		List<VkAudio> results = new ArrayList<VkAudio>();
+	@SerializedName("last_name")
+	private String lastName;
 
-		JSONObject jObject = new JSONObject(jsonString);
-		JSONArray jResponse = jObject.getJSONArray("response");
 
-		for (int i = 1; i < jResponse.length(); i++) {
-			JSONObject jItem = jResponse.getJSONObject(i);
-			String aid = jItem.getString("aid");
-			String owner_id = jItem.getString("owner_id");
-			String artist = jItem.getString("artist");
-			String title = jItem.getString("title");
-			String duration = jItem.getString("duration");
-			String url = jItem.getString("url");
-			results.add(new VkAudio(aid, owner_id, artist, title, duration, url));
-		}
+	private boolean online;
 
-		return results;
+	public String getUid() {
+		return uid;
+	}
 
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public boolean isOnline() {
+		return online;
+	}
+
+	public void setOnline(boolean online) {
+		this.online = online;
 	}
 
 }

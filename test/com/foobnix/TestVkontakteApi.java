@@ -1,7 +1,7 @@
 /* Copyright (c) 2011 Ivan Ivanenko <ivan.ivanenko@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
+ * of this software and associated documentation files (the Software), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
@@ -10,7 +10,7 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -25,26 +25,25 @@ import org.json.JSONException;
 
 import android.test.AndroidTestCase;
 
+import com.foobnix.api.vkontakte.VkAlbum;
 import com.foobnix.api.vkontakte.VkApi;
 import com.foobnix.api.vkontakte.VkHelper;
-import com.foobnix.model.VKSong;
 import com.foobnix.model.VKUser;
+import com.foobnix.model.VkAudio;
 import com.foobnix.util.LOG;
-import com.foobnix.util.Res;
 
 public class TestVkontakteApi extends AndroidTestCase {
 
 	VkApi vkApi;
 
 	protected void setUp() throws Exception {
-		vkApi = new VkApi(Res.get(getContext(), R.string.vk_access_token));
+		vkApi = new VkApi("de9b762590db6cfade32900addded1ed5e5def3def3fa897f1a833aee37acfc");
 	};
 
-	public void testSearchResult() throws JSONException {
-		List<VKSong> search = vkApi.audioSearch("Madonna");
+	public void _testSearchResult() throws JSONException {
+		List<VkAudio> search = vkApi.audioSearch("Madonna");
 		assertNotNull(search);
-		for (VKSong song : search) {
-			LOG.d(song.getArtist());
+		for (VkAudio song : search) {
 			assertNotNull(song.getArtist());
 			assertNotNull(song.getTitle());
 			assertNotNull(song.getUrl());
@@ -53,19 +52,86 @@ public class TestVkontakteApi extends AndroidTestCase {
 	}
 
 	public void testSearchSongPath() throws JSONException {
-		VKSong search = VkHelper.getMostRelevantSong(vkApi.audioSearch("Madonna - Sorry"));
+		VkAudio search = VkHelper.getMostRelevantSong(vkApi.audioSearch("Madonna - Sorry"));
 		assertNotNull(search);
 		LOG.d(search.getTitle(), search.getDuration());
 	}
 
-	public void testGetFriends(){
-		List<VKUser> users = vkApi.friendsGet("6851750");
+	public void testGetUserFriends() {
+		List<VKUser> users = vkApi.getUserFriends("6851750");
 		for (VKUser user : users) {
 			assertNotNull(user.getUid());
 			assertNotNull(user.getFirstName());
 			assertNotNull(user.getLastName());
 		}
-
 	}
 
+	public void testUserAudio() throws JSONException {
+		List<VkAudio> search = vkApi.getUserAudio("6851750");
+		assertNotNull(search);
+		for (VkAudio song : search) {
+			assertNotNull(song.getArtist());
+			assertNotNull(song.getTitle());
+			assertNotNull(song.getUrl());
+			assertNotNull(song.getDuration());
+		}
+	}
+
+	public void testGroupAudio() throws JSONException {
+		List<VkAudio> search = vkApi.getGroupAudio("5073524");
+		assertNotNull(search);
+		for (VkAudio song : search) {
+			assertNotNull(song.getArtist());
+			assertNotNull(song.getTitle());
+			assertNotNull(song.getUrl());
+			assertNotNull(song.getDuration());
+		}
+	}
+
+	public void testUserAlbums() throws JSONException {
+		List<VkAlbum> search = vkApi.getUserAlbums("6851750");
+		assertNotNull(search);
+		for (VkAlbum song : search) {
+			assertNotNull(song.getTitle());
+			assertNotNull(song.getAlbumId());
+			assertNotNull(song.getOwnerId());
+		}
+	}
+
+	public void testGroupAlbums() throws JSONException {
+		List<VkAlbum> search = vkApi.getGroupAlbums("3842582");
+		assertNotNull(search);
+		for (VkAlbum song : search) {
+			assertNotNull(song.getTitle());
+			assertNotNull(song.getAlbumId());
+			assertNotNull(song.getOwnerId());
+		}
+	}
+
+	public void testGroupAlbumSongs() {
+		List<VkAudio> search = vkApi.getGroupAlbumAudio("5073524", "13705923");
+		for (VkAudio song : search) {
+			assertNotNull(song.getArtist());
+			assertNotNull(song.getTitle());
+			assertNotNull(song.getUrl());
+			assertNotNull(song.getDuration());
+		}
+	}
+
+	public void testUserAlbumSongs() {
+		List<VkAudio> search = vkApi.getUserAlbumAudio("9091358", "16711661");
+		for (VkAudio song : search) {
+			assertNotNull(song.getArtist());
+			assertNotNull(song.getTitle());
+			assertNotNull(song.getUrl());
+			assertNotNull(song.getDuration());
+		}
+	}
+
+	public void testGetUserProfile() {
+		VKUser user = vkApi.getUserProfile("6851750");
+		assertNotNull(user.getUid());
+		assertNotNull(user.getFirstName());
+		assertNotNull(user.getLastName());
+	}
 }

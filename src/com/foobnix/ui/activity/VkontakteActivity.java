@@ -23,6 +23,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,21 +40,24 @@ import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.TYPE;
 import com.foobnix.model.SearchBy;
 import com.foobnix.model.SearchQuery;
-import com.foobnix.provider.LastFmQueryManager;
+import com.foobnix.provider.VkontakteApiAdapter;
+import com.foobnix.provider.VkontakteQueryManager;
 import com.foobnix.ui.adapter.FolderAdapter;
 import com.foobnix.ui.widget.RunnableDialog;
+import com.foobnix.util.C;
 import com.foobnix.util.LOG;
 import com.foobnix.util.Pref;
 import com.foobnix.util.PrefKeys;
 import com.foobnix.util.SongUtil;
 
-public class LastFMActivity extends MediaParentActivity {
+public class VkontakteActivity extends MediaParentActivity {
 
 	private FolderAdapter adapter;
 	private List<FModel> items = new ArrayList<FModel>();
 	private ListView list;
-	private LastFmQueryManager queryManager;
-	
+	private VkontakteQueryManager queryManager;
+	private VkontakteApiAdapter vkontakteApi;
+
 	private String currentUser = "ivanivanenko";
 
 	@Override
@@ -59,11 +65,20 @@ public class LastFMActivity extends MediaParentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.nav);
 
-		queryManager = new LastFmQueryManager(this);
+		if (StringUtils.isEmpty(C.get().vkontakteToken) && app.isOnline()) {
+			startActivity(new Intent(this, VkCheckActivity.class));
+			return;
+		}
+
+		vkontakteApi = app.getVkontakteApiAdapter();
+		vkontakteApi.setToken(C.get().vkontakteToken);
+
+		queryManager = new VkontakteQueryManager(vkontakteApi);
+
 		adapter = new FolderAdapter(this, items);
 		adapter.setNotifyOnChange(true);
-		
-		items.addAll(queryManager.getSearchResult(new SearchQuery(SearchBy.LAST_FM_USER, currentUser)));
+
+		items.addAll(queryManager.getSearchResult(new SearchQuery(SearchBy.VK_USER_ID, C.get().vkontakteUserId)));
 
 		list = (ListView) findViewById(R.id.dir_list);
 		list.setAdapter(adapter);
@@ -72,9 +87,9 @@ public class LastFMActivity extends MediaParentActivity {
 
 		onAcitvateMenuImages(this);
 		queryManager.emtyStack();
-		Pref.put(this, PrefKeys.ACTIVE_MEDIA_ACTIVITY, LastFMActivity.class.getName());
+		Pref.put(this, PrefKeys.ACTIVE_MEDIA_ACTIVITY, VkontakteActivity.class.getName());
 	}
-	
+
 	OnItemClickListener onClick = new OnItemClickListener() {
 
 		@Override
@@ -124,7 +139,7 @@ public class LastFMActivity extends MediaParentActivity {
 	protected void actionDialog(final FModel item) {
 		final List<FModel> items = adapter.getItems();
 
-		new RunnableDialog(LastFMActivity.this, getString(R.string.Last_fm_Action))//
+		new RunnableDialog(VkontakteActivity.this, getString(R.string.VKontakte_Action))//
 
 		        .Action(getString(R.string.Open), new Runnable() {
 			        @Override
@@ -169,7 +184,6 @@ public class LastFMActivity extends MediaParentActivity {
 			        @Override
 			        public void run() {
 
-
 				        SongUtil.removeFolders(items);
 				        app.getPlayListManager().addAll(items);
 				        app.playOnAppend();
@@ -198,7 +212,6 @@ public class LastFMActivity extends MediaParentActivity {
 
 	}
 
-
 	@Override
 	public String getActivityTitle() {
 		return "LAST.FM";
@@ -210,4 +223,3 @@ public class LastFMActivity extends MediaParentActivity {
 	}
 
 }
-

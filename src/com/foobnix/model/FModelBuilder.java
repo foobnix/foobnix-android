@@ -76,7 +76,7 @@ public class FModelBuilder extends FModel {
 		return SongUtil.getNumWithZero(getPosition() + 1);
 	}
 
-	public static FModelBuilder CreateFromVK(VKSong song) {
+	public static FModelBuilder CreateFromVK(VkAudio song) {
 		String time = TimeUtil.durationSecToString(song.getDuration());
 		return Track(song.getArtist(), song.getTitle()).addDuration(time).addPath(song.getUrl());
 	}

@@ -39,7 +39,7 @@ public class VkCheckActivity extends FoobnixMenuActivity {
 	private final static String REDIRECT_URL = "http://android.foobnix.com/vk";
 	private final static String API_URL = "http://api.vkontakte.ru";
 	private final static String OAUTH_URL = API_URL + "/oauth/authorize?client_id=" + Conf.VK_APP_ID
-	        + "&scope=26&redirect_uri=" + REDIRECT_URL + "&response_type=token&display=touch";
+	        + "&scope=audio,friends&redirect_uri=" + REDIRECT_URL + "&response_type=token&display=touch";
 
 	private WebView webView;
 
@@ -75,11 +75,13 @@ public class VkCheckActivity extends FoobnixMenuActivity {
 			if (url.startsWith(REDIRECT_URL)) {
 				LOG.d("Tocken founded");
 
-				Pattern p = Pattern.compile(REDIRECT_URL + "#access_token=(.*)&expires_in=(.*)");
+				Pattern p = Pattern.compile(REDIRECT_URL + "#access_token=(.*)&expires_in=(.*)&user_id=(.*)");
 				Matcher m = p.matcher(url);
 				if (m.matches()) {
-					String token = m.group(1);
-					C.get().vkontakteToken = token;
+					C.get().vkontakteToken = m.group(1);
+					C.get().vkontakteUserId = m.group(3);
+
+					LOG.d("Recive token and user", C.get().vkontakteToken, C.get().vkontakteUserId);
 					ToastLong(R.string.Success);
 					finish();
 					return true;

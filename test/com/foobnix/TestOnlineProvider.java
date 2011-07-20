@@ -24,19 +24,19 @@ import java.util.List;
 import android.test.AndroidTestCase;
 
 import com.foobnix.model.FModel;
-import com.foobnix.provider.OnlineProvider;
+import com.foobnix.provider.LastFmApiAdapter;
 
 import de.umass.lastfm.Caller;
 import de.umass.lastfm.cache.MemoryCache;
 
 public class TestOnlineProvider extends AndroidTestCase {
-	OnlineProvider provider;
+	LastFmApiAdapter provider;
 
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		provider = new OnlineProvider(getContext());
+		provider = new LastFmApiAdapter(getContext());
 		Caller.getInstance().setCache(new MemoryCache());
 	}
 

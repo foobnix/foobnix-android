@@ -17,37 +17,41 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.util;
+package com.foobnix.api.vkontakte;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.Map;
 
 import com.foobnix.model.VkAudio;
 
-public class JSONHelper {
+public class VkHelper {
 
-	public static List<VkAudio> parseVKSongs(String jsonString) throws JSONException {
-		List<VkAudio> results = new ArrayList<VkAudio>();
+	public static VkAudio getMostRelevantSong(List<VkAudio> list) {
+		Map<String, Integer> bestTimes = new HashMap<String, Integer>();
 
-		JSONObject jObject = new JSONObject(jsonString);
-		JSONArray jResponse = jObject.getJSONArray("response");
+		int maxCount = 0;
+		VkAudio result = null;
 
-		for (int i = 1; i < jResponse.length(); i++) {
-			JSONObject jItem = jResponse.getJSONObject(i);
-			String aid = jItem.getString("aid");
-			String owner_id = jItem.getString("owner_id");
-			String artist = jItem.getString("artist");
-			String title = jItem.getString("title");
-			String duration = jItem.getString("duration");
-			String url = jItem.getString("url");
-			results.add(new VkAudio(aid, owner_id, artist, title, duration, url));
+		// find best time
+		for (VkAudio model : list) {
+			String key = model.getDuration();
+			if (bestTimes.containsKey(key)) {
+				Integer value = bestTimes.get(key);
+				value++;
+				bestTimes.put(key, value);
+
+				if (value > maxCount) {
+					maxCount = value;
+					result = model;
+				}
+
+			} else {
+				bestTimes.put(key, 1);
+			}
+
 		}
-
-		return results;
+		return result;
 
 	}
 

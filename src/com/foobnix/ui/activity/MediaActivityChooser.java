@@ -31,8 +31,12 @@ import com.foobnix.util.PrefKeys;
 
 public class MediaActivityChooser extends Activity {
 	@SuppressWarnings("unchecked")
-	private List<Class<? extends MediaParentActivity>> activities = Arrays.asList(FolderActivity.class,
-	        LastFMActivity.class, OnlineActivity.class, VkontakteActivity.class);
+	private List<Class<? extends MediaParentActivity>> activities = Arrays.asList(//
+	        FolderActivity.class,//
+	        OnlineActivity.class, //
+	        LastFMActivity.class, //
+	        VkontakteActivity.class//
+	        );
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

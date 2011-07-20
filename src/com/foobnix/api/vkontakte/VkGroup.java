@@ -17,38 +17,48 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.util;
+package com.foobnix.api.vkontakte;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+public class VkGroup {
+	private String gid;
+	private String name;
+	private String photo;
 
-import com.foobnix.model.VkAudio;
+	@SerializedName("is_closed")
+	private boolean isClosed;
 
-public class JSONHelper {
+	public String getGid() {
+		return gid;
+	}
 
-	public static List<VkAudio> parseVKSongs(String jsonString) throws JSONException {
-		List<VkAudio> results = new ArrayList<VkAudio>();
+	public void setGid(String gid) {
+		this.gid = gid;
+	}
 
-		JSONObject jObject = new JSONObject(jsonString);
-		JSONArray jResponse = jObject.getJSONArray("response");
+	public String getName() {
+		return name;
+	}
 
-		for (int i = 1; i < jResponse.length(); i++) {
-			JSONObject jItem = jResponse.getJSONObject(i);
-			String aid = jItem.getString("aid");
-			String owner_id = jItem.getString("owner_id");
-			String artist = jItem.getString("artist");
-			String title = jItem.getString("title");
-			String duration = jItem.getString("duration");
-			String url = jItem.getString("url");
-			results.add(new VkAudio(aid, owner_id, artist, title, duration, url));
-		}
+	public void setName(String name) {
+		this.name = name;
+	}
 
-		return results;
+	public String getPhoto() {
+		return photo;
+	}
 
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public boolean isClosed() {
+		return isClosed;
+	}
+
+	public void setClosed(boolean isClosed) {
+		this.isClosed = isClosed;
 	}
 
 }

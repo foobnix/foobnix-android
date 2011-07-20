@@ -17,38 +17,34 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.util;
+package com.foobnix.api.vkontakte;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
-import com.foobnix.model.VkAudio;
+public class GsonResponse {
 
-public class JSONHelper {
+	public static <T> List<T> toModels(String json, Class<T> clazz) {
+		return toModels(json, clazz, 1);
+	}
 
-	public static List<VkAudio> parseVKSongs(String jsonString) throws JSONException {
-		List<VkAudio> results = new ArrayList<VkAudio>();
+	public static <T> List<T> toModels(String json, Class<T> clazz, int startIndex) {
+		List<T> result = new ArrayList<T>();
+		Gson gson = new Gson();
+		JsonParser parser = new JsonParser();
+		JsonArray array = parser.parse(json).getAsJsonObject().getAsJsonArray("response");
 
-		JSONObject jObject = new JSONObject(jsonString);
-		JSONArray jResponse = jObject.getJSONArray("response");
-
-		for (int i = 1; i < jResponse.length(); i++) {
-			JSONObject jItem = jResponse.getJSONObject(i);
-			String aid = jItem.getString("aid");
-			String owner_id = jItem.getString("owner_id");
-			String artist = jItem.getString("artist");
-			String title = jItem.getString("title");
-			String duration = jItem.getString("duration");
-			String url = jItem.getString("url");
-			results.add(new VkAudio(aid, owner_id, artist, title, duration, url));
+		for (int i = startIndex; i < array.size(); i++) {
+			JsonElement next = array.get(i);
+			T fromJson = gson.fromJson(next, clazz);
+			result.add(fromJson);
 		}
-
-		return results;
-
+		return result;
 	}
 
 }
