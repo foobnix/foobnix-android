@@ -73,7 +73,7 @@ public class VkontakteApiAdapter {
 		AdapterHelper<VkAudio> helper = new AdapterHelper<VkAudio>(vkApi.getUserAudio(uid)) {
 			@Override
 			public FModel getModel(VkAudio entry) {
-				return FModelBuilder.Track(entry.getArtist(), entry.getTitle());
+				return FModelBuilder.VkAudio(entry);
 			}
 		};
 		return helper.getFModels();
@@ -83,7 +83,7 @@ public class VkontakteApiAdapter {
 		AdapterHelper<VkAudio> helper = new AdapterHelper<VkAudio>(vkApi.getGroupAudio(gid)) {
 			@Override
 			public FModel getModel(VkAudio entry) {
-				return FModelBuilder.Track(entry.getArtist(), entry.getTitle());
+				return FModelBuilder.VkAudio(entry);
 			}
 		};
 		return helper.getFModels();

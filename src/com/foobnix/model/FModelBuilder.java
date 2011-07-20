@@ -27,6 +27,11 @@ import com.foobnix.util.TimeUtil;
 
 public class FModelBuilder extends FModel {
 
+	public static FModelBuilder VkAudio(VkAudio vkAudio) {
+		return Track(vkAudio.getArtist(), vkAudio.getTitle()).addPath(vkAudio.getUrl());
+
+	}
+
 	public static FModelBuilder Empty() {
 		return new FModelBuilder("").addArtist("").addTitle("");
 	}

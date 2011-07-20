@@ -156,8 +156,12 @@ public class FoobnixMediaCore {
 			return;
 		} //
 
-		VkAudio mostRelevantSong = app.getVkontakteApiAdapter().getMostRelevantSong(song.getText());
-		song.setPath(mostRelevantSong.getUrl());
+		if (StringUtils.isEmpty(song.getPath())) {
+			LOG.d("Search most relevant song");
+			VkAudio mostRelevantSong = app.getVkontakteApiAdapter().getMostRelevantSong(song.getText());
+			song.setPath(mostRelevantSong.getUrl());
+
+		}
 
 		if (song.getType() != TYPE.ONLINE) {
 			song.setTime(TimeUtil.durationToString(engineManager.getDuration()));
