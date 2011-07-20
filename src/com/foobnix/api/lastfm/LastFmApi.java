@@ -29,7 +29,6 @@ import android.content.Context;
 
 import com.foobnix.api.RequestHelper;
 import com.foobnix.util.Conf;
-import com.foobnix.util.LOG;
 import com.foobnix.util.XmlPersister;
 
 public class LastFmApi {
@@ -52,7 +51,6 @@ public class LastFmApi {
     public List<ArtistFull> findUserTopArtists(String user) {
         BasicNameValuePair userParam = new BasicNameValuePair("user", user);
         String response = getResponse("user.getTopArtists", userParam);
-        LOG.d(response);
 
         TopArtistsResponse model = XmlPersister.toModel(response, TopArtistsResponse.class);
         return model.getTopArtists().getArtists();
@@ -61,9 +59,13 @@ public class LastFmApi {
     public List<Album> findArtistTopAlbums(String artist) {
         BasicNameValuePair param1 = new BasicNameValuePair("artist", artist);
         String response = getResponse("artist.getTopAlbums", param1);
-        LOG.d(response);
-
         TopAlbumResponse model = XmlPersister.toModel(response, TopAlbumResponse.class);
+        // LOG.d(response);
+        // InputStream resourceAsStream =
+        // LastFmApi.class.getResourceAsStream("demo.xml");
+        // TopAlbumResponse model = XmlPersister.toModel(resourceAsStream,
+        // TopAlbumResponse.class);
+
         return model.getTopAlbums().getAlbums();
 
     }

@@ -20,29 +20,31 @@
 package com.foobnix.api.lastfm;
 
 import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Text;
 
+@Root(name = "image")
 public class Image {
 
-	@Attribute
-	private String size;
+    @Attribute
+    private String size;
 
-	@Text(required = false)
-	private String url;
+    @Text(required = false)
+    private String url;
 
-	public void setSize(String size) {
-		this.size = size;
-	}
+    public void setSize(String size) {
+        this.size = size;
+    }
 
-	public String getSize() {
-		return size;
-	}
+    public String getSize() {
+        return size;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public String getUrl() {
+        return url;
+    }
 }
