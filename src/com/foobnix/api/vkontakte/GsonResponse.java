@@ -17,58 +17,34 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.model;
+package com.foobnix.api.vkontakte;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class SearchQuery implements Serializable {
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
-	private SearchBy searchBy;
-	private String param1;
-	private String param2;
-	private String param3;
+public class GsonResponse {
 
-	public SearchQuery(SearchBy searchBy, String param1) {
-		this.searchBy = searchBy;
-		this.param1 = param1;
+	public static <T> List<T> toModels(String json, Class<T> clazz) {
+		return toModels(json, clazz, 1);
 	}
 
-	public SearchQuery(SearchBy searchBy, String param1, String param2) {
-		this.searchBy = searchBy;
-		this.param1 = param1;
-		this.param2 = param2;
-	}
+	public static <T> List<T> toModels(String json, Class<T> clazz, int startIndex) {
+		List<T> result = new ArrayList<T>();
+		Gson gson = new Gson();
+		JsonParser parser = new JsonParser();
+		JsonArray array = parser.parse(json).getAsJsonObject().getAsJsonArray("response");
 
-	public SearchBy getSearchBy() {
-		return searchBy;
-	}
-
-	public void setSearchBy(SearchBy searchBy) {
-		this.searchBy = searchBy;
-	}
-
-	public String getParam1() {
-		return param1;
-	}
-
-	public void setParam1(String param1) {
-		this.param1 = param1;
-	}
-
-	public String getParam2() {
-		return param2;
-	}
-
-	public void setParam2(String param2) {
-		this.param2 = param2;
-	}
-
-	public String getParam3() {
-		return param3;
-	}
-
-	public void setParam3(String param3) {
-		this.param3 = param3;
+		for (int i = startIndex; i < array.size(); i++) {
+			JsonElement next = array.get(i);
+			T fromJson = gson.fromJson(next, clazz);
+			result.add(fromJson);
+		}
+		return result;
 	}
 
 }

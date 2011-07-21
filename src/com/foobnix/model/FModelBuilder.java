@@ -27,6 +27,11 @@ import com.foobnix.util.TimeUtil;
 
 public class FModelBuilder extends FModel {
 
+	public static FModelBuilder VkAudio(VkAudio vkAudio) {
+		return Track(vkAudio.getArtist(), vkAudio.getTitle()).addPath(vkAudio.getUrl());
+
+	}
+
 	public static FModelBuilder Empty() {
 		return new FModelBuilder("").addArtist("").addTitle("");
 	}
@@ -76,7 +81,7 @@ public class FModelBuilder extends FModel {
 		return SongUtil.getNumWithZero(getPosition() + 1);
 	}
 
-	public static FModelBuilder CreateFromVK(VKSong song) {
+	public static FModelBuilder CreateFromVK(VkAudio song) {
 		String time = TimeUtil.durationSecToString(song.getDuration());
 		return Track(song.getArtist(), song.getTitle()).addDuration(time).addPath(song.getUrl());
 	}
@@ -135,6 +140,11 @@ public class FModelBuilder extends FModel {
 
 	public FModelBuilder addAlbum(String album) {
 		setAlbum(album);
+		return this;
+	}
+
+	public FModelBuilder addYear(String year) {
+		setYear(year);
 		return this;
 	}
 

@@ -17,58 +17,48 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.model;
+package com.foobnix.api.vkontakte;
 
-import java.io.Serializable;
+import com.google.gson.annotations.SerializedName;
 
-public class SearchQuery implements Serializable {
+public class VkGroup {
+	private String gid;
+	private String name;
+	private String photo;
 
-	private SearchBy searchBy;
-	private String param1;
-	private String param2;
-	private String param3;
+	@SerializedName("is_closed")
+	private boolean isClosed;
 
-	public SearchQuery(SearchBy searchBy, String param1) {
-		this.searchBy = searchBy;
-		this.param1 = param1;
+	public String getGid() {
+		return gid;
 	}
 
-	public SearchQuery(SearchBy searchBy, String param1, String param2) {
-		this.searchBy = searchBy;
-		this.param1 = param1;
-		this.param2 = param2;
+	public void setGid(String gid) {
+		this.gid = gid;
 	}
 
-	public SearchBy getSearchBy() {
-		return searchBy;
+	public String getName() {
+		return name;
 	}
 
-	public void setSearchBy(SearchBy searchBy) {
-		this.searchBy = searchBy;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getParam1() {
-		return param1;
+	public String getPhoto() {
+		return photo;
 	}
 
-	public void setParam1(String param1) {
-		this.param1 = param1;
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
-	public String getParam2() {
-		return param2;
+	public boolean isClosed() {
+		return isClosed;
 	}
 
-	public void setParam2(String param2) {
-		this.param2 = param2;
-	}
-
-	public String getParam3() {
-		return param3;
-	}
-
-	public void setParam3(String param3) {
-		this.param3 = param3;
+	public void setClosed(boolean isClosed) {
+		this.isClosed = isClosed;
 	}
 
 }

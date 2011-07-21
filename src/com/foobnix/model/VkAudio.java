@@ -19,56 +19,69 @@
  * THE SOFTWARE. */
 package com.foobnix.model;
 
-import java.io.Serializable;
+public class VkAudio {
 
-public class SearchQuery implements Serializable {
+	private String aid;
+	private String owner_id;
+	private String artist;
+	private String title;
+	private String duration;
+	private String url;
 
-	private SearchBy searchBy;
-	private String param1;
-	private String param2;
-	private String param3;
-
-	public SearchQuery(SearchBy searchBy, String param1) {
-		this.searchBy = searchBy;
-		this.param1 = param1;
+	public VkAudio(String aid, String owner_id, String artist, String title, String duration, String url) {
+		this.aid = aid;
+		this.owner_id = owner_id;
+		this.artist = artist;
+		this.title = title;
+		this.duration = duration;
+		this.url = url;
 	}
 
-	public SearchQuery(SearchBy searchBy, String param1, String param2) {
-		this.searchBy = searchBy;
-		this.param1 = param1;
-		this.param2 = param2;
+	public String getAid() {
+		return aid;
 	}
 
-	public SearchBy getSearchBy() {
-		return searchBy;
+	public void setAid(String aid) {
+		this.aid = aid;
 	}
 
-	public void setSearchBy(SearchBy searchBy) {
-		this.searchBy = searchBy;
+	public String getOwner_id() {
+		return owner_id;
 	}
 
-	public String getParam1() {
-		return param1;
+	public void setOwner_id(String owner_id) {
+		this.owner_id = owner_id;
 	}
 
-	public void setParam1(String param1) {
-		this.param1 = param1;
+	public String getArtist() {
+		return artist;
 	}
 
-	public String getParam2() {
-		return param2;
+	public void setArtist(String artist) {
+		this.artist = artist;
 	}
 
-	public void setParam2(String param2) {
-		this.param2 = param2;
+	public String getTitle() {
+		return title;
 	}
 
-	public String getParam3() {
-		return param3;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public void setParam3(String param3) {
-		this.param3 = param3;
+	public String getDuration() {
+		return duration;
 	}
 
+	public void setDuration(String duration) {
+		this.duration = duration;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }

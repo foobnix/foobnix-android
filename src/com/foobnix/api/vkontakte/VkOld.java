@@ -17,7 +17,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.service;
+package com.foobnix.api.vkontakte;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,19 +44,27 @@ import android.content.Context;
 import com.foobnix.exception.VKAuthorizationException;
 import com.foobnix.exception.VKSongNotFoundException;
 import com.foobnix.model.FModel;
-import com.foobnix.model.VKSong;
+import com.foobnix.model.VkAudio;
 import com.foobnix.util.C;
 import com.foobnix.util.JSONHelper;
 import com.foobnix.util.LOG;
 import com.foobnix.util.TimeUtil;
 
-public class VKService {
+public class VkOld {
+
+
 	private static String API_URL = "https://api.vkontakte.ru/method/";
+	private String token;
+
+	public VkOld(String token) {
+		this.token = token;
+
+	}
 
 	public static void updateDMPathPath(FModel item, Context context) throws VKAuthorizationException,
 	        VKSongNotFoundException {
 		if (StringUtils.isEmpty(item.getPath())) {
-			VKSong search = VKService.search(item.getText(), context);
+			VkAudio search = search(item.getText(), context);
 			if (search != null) {
 				item.setPath(search.getUrl());
 			} else {
@@ -77,8 +85,8 @@ public class VKService {
 			 * model.setPath(downloadPath); return; }
 			 */
 
-			VKSong search = null;
-			search = VKService.search(model.getText(), context);
+			VkAudio search = null;
+			search = search(model.getText(), context);
 			if (search == null) {
 				throw new VKSongNotFoundException("not found");
 			}
@@ -87,17 +95,17 @@ public class VKService {
 		}
 	}
 
-	public static VKSong search(String text, Context context) throws VKAuthorizationException {
+	public static VkAudio search(String text, Context context) throws VKAuthorizationException {
 		LOG.d("Search FModel by text", text);
-		List<VKSong> list = searchAll(text, context);
+		List<VkAudio> list = searchAll(text, context);
 
 		Map<String, Integer> bestTimes = new HashMap<String, Integer>();
 
 		int maxCount = 0;
-		VKSong result = null;
+		VkAudio result = null;
 
 		// find best time
-		for (VKSong model : list) {
+		for (VkAudio model : list) {
 			String key = model.getDuration();
 			if (bestTimes.containsKey(key)) {
 				Integer value = bestTimes.get(key);
@@ -123,7 +131,7 @@ public class VKService {
 		HttpClient client = new DefaultHttpClient();
 		HttpPost http = new HttpPost(url);
 		HttpResponse response;
-		String jString =":";
+		String jString = ":";
 		try {
 			response = client.execute(http);
 			HttpEntity entity = response.getEntity();
@@ -136,7 +144,7 @@ public class VKService {
 
 	}
 
-	public static List<VKSong> searchAll(String text, Context context) throws VKAuthorizationException {
+	public static List<VkAudio> searchAll(String text, Context context) throws VKAuthorizationException {
 
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("q", text));
@@ -148,7 +156,7 @@ public class VKService {
 
 		HttpClient client = new DefaultHttpClient();
 		HttpResponse response;
-		List<VKSong> result = null;
+		List<VkAudio> result = null;
 		try {
 			response = client.execute(request);
 
@@ -179,4 +187,6 @@ public class VKService {
 		return result;
 
 	}
+
 }
+

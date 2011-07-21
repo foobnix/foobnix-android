@@ -40,6 +40,7 @@ public class C implements Serializable {
 	public boolean isBackground = true;
 	public MODE notificationMode = MODE.NO_CLEAR;
 	public String vkontakteToken = "";
+	public String vkontakteUserId = "";
 	public String lastFmUser = "l_user_";
 	public String lastFmPass = "l_pass_";
 	public boolean lastFmEnable = false;

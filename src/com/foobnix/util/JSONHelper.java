@@ -26,12 +26,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.foobnix.model.VKSong;
+import com.foobnix.model.VkAudio;
 
 public class JSONHelper {
 
-	public static List<VKSong> parseVKSongs(String jsonString) throws JSONException {
-		List<VKSong> results = new ArrayList<VKSong>();
+	public static List<VkAudio> parseVKSongs(String jsonString) throws JSONException {
+		List<VkAudio> results = new ArrayList<VkAudio>();
 
 		JSONObject jObject = new JSONObject(jsonString);
 		JSONArray jResponse = jObject.getJSONArray("response");
@@ -44,7 +44,7 @@ public class JSONHelper {
 			String title = jItem.getString("title");
 			String duration = jItem.getString("duration");
 			String url = jItem.getString("url");
-			results.add(new VKSong(aid, owner_id, artist, title, duration, url));
+			results.add(new VkAudio(aid, owner_id, artist, title, duration, url));
 		}
 
 		return results;

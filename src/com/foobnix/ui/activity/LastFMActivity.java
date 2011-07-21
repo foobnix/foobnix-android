@@ -37,10 +37,12 @@ import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.TYPE;
 import com.foobnix.model.SearchBy;
 import com.foobnix.model.SearchQuery;
-import com.foobnix.provider.SearchQueryManager;
+import com.foobnix.provider.LastFmQueryManager;
 import com.foobnix.ui.adapter.FolderAdapter;
 import com.foobnix.ui.widget.RunnableDialog;
 import com.foobnix.util.LOG;
+import com.foobnix.util.Pref;
+import com.foobnix.util.PrefKeys;
 import com.foobnix.util.SongUtil;
 
 public class LastFMActivity extends MediaParentActivity {
@@ -48,7 +50,7 @@ public class LastFMActivity extends MediaParentActivity {
 	private FolderAdapter adapter;
 	private List<FModel> items = new ArrayList<FModel>();
 	private ListView list;
-	private SearchQueryManager queryManager;
+	private LastFmQueryManager queryManager;
 	
 	private String currentUser = "ivanivanenko";
 
@@ -57,7 +59,7 @@ public class LastFMActivity extends MediaParentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.nav);
 
-		queryManager = new SearchQueryManager(this);
+		queryManager = new LastFmQueryManager(this);
 		adapter = new FolderAdapter(this, items);
 		adapter.setNotifyOnChange(true);
 		
@@ -69,6 +71,8 @@ public class LastFMActivity extends MediaParentActivity {
 		list.setOnItemLongClickListener(onDialog);
 
 		onAcitvateMenuImages(this);
+		queryManager.emtyStack();
+		Pref.put(this, PrefKeys.ACTIVE_MEDIA_ACTIVITY, LastFMActivity.class.getName());
 	}
 	
 	OnItemClickListener onClick = new OnItemClickListener() {

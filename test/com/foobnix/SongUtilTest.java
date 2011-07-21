@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModelBuilder;
-import com.foobnix.model.VKSong;
+import com.foobnix.model.VkAudio;
 import com.foobnix.util.SongUtil;
 
 public class SongUtilTest extends TestCase {
@@ -126,7 +126,7 @@ public class SongUtilTest extends TestCase {
 	}
 
 	public void testNumberLine10() {
-		VKSong song = new VKSong("123", "123", "Artist", "TrackName", "123", "path");
+		VkAudio song = new VkAudio("123", "123", "Artist", "TrackName", "123", "path");
 
 		assertEquals("Artist", song.getArtist());
 		assertEquals("TrackName", song.getTitle());

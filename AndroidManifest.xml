@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.foobnix" android:installLocation="auto" 
-      android:versionCode="29"
-      android:versionName="1.8">
+      android:versionCode="30"
+      android:versionName="2.0">
 	
 	
 	<instrumentation android:targetPackage="com.foobnix" android:name="android.test.InstrumentationTestRunner" />
@@ -25,6 +25,8 @@
         <activity android:name=".ui.activity.InfoActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.OnlineActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.LastFMActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.VkontakteActivity" android:screenOrientation="portrait" />
+        
         <activity android:name=".ui.activity.DMActitivy" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.info.LyricActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.info.MoreActivity" android:screenOrientation="portrait" />

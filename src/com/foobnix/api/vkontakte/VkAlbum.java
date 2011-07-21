@@ -17,48 +17,34 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.model;
+package com.foobnix.api.vkontakte;
 
-public class VKSong {
+import com.google.gson.annotations.SerializedName;
 
-	private String aid;
-	private String owner_id;
-	private String artist;
+public class VkAlbum {
+
+	@SerializedName("owner_id")
+	private String ownerId;
+
+	@SerializedName("album_id")
+	private String albumId;
+
 	private String title;
-	private String duration;
-	private String url;
 
-	public VKSong(String aid, String owner_id, String artist, String title, String duration, String url) {
-		this.aid = aid;
-		this.owner_id = owner_id;
-		this.artist = artist;
-		this.title = title;
-		this.duration = duration;
-		this.url = url;
+	public String getOwnerId() {
+		return ownerId;
 	}
 
-	public String getAid() {
-		return aid;
+	public void setOwnerId(String ownerId) {
+		this.ownerId = ownerId;
 	}
 
-	public void setAid(String aid) {
-		this.aid = aid;
+	public String getAlbumId() {
+		return albumId;
 	}
 
-	public String getOwner_id() {
-		return owner_id;
-	}
-
-	public void setOwner_id(String owner_id) {
-		this.owner_id = owner_id;
-	}
-
-	public String getArtist() {
-		return artist;
-	}
-
-	public void setArtist(String artist) {
-		this.artist = artist;
+	public void setAlbumId(String albumId) {
+		this.albumId = albumId;
 	}
 
 	public String getTitle() {
@@ -69,19 +55,4 @@ public class VKSong {
 		this.title = title;
 	}
 
-	public String getDuration() {
-		return duration;
-	}
-
-	public void setDuration(String duration) {
-		this.duration = duration;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
 }

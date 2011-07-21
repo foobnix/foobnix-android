@@ -30,8 +30,6 @@ import com.foobnix.model.FModel;
 import com.foobnix.model.FModelBuilder;
 import com.foobnix.model.SearchBy;
 import com.foobnix.model.SearchQuery;
-import com.foobnix.model.VKSong;
-import com.foobnix.service.VKService;
 import com.foobnix.util.Conf;
 import com.foobnix.util.LOG;
 
@@ -136,12 +134,8 @@ public class OnlineProvider {
     }
 
     public List<FModel> findTracksByVK(String q) throws VKAuthorizationException {
-        List<FModel> results = new ArrayList<FModel>();
-        List<VKSong> searchAll = VKService.searchAll(q, context);
-        for (VKSong model : searchAll) {
-            results.add(FModelBuilder.CreateFromVK(model));
-        }
-        return results;
+        // TODO fix this method
+        return null;
     }
 
     public List<FModel> findTracksByArtist(final String artist) {

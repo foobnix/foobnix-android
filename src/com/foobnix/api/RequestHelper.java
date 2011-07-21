@@ -133,6 +133,14 @@ public class RequestHelper {
 		} catch (IOException e) {
 			LOG.e(e);
 		}
+
+		// do not run to offten
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
 		return strResponse;
 	}
 

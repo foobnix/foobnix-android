@@ -21,6 +21,8 @@ package com.foobnix.ui.adapter;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +61,16 @@ public class FolderAdapter extends ArrayAdapter<FModel> {
 		if (navItem.isFile()) {
 			text.setText(navItem.getText());
 		} else {
-			text.setText(String.format("[%s]", navItem.getText()));
+			if (StringUtils.isNotEmpty(navItem.getAlbum())) {
+				if (StringUtils.isNotEmpty(navItem.getYear())) {
+					text.setText(String.format("[%s - %s-%s]", navItem.getArtist(), navItem.getYear(),
+					        navItem.getAlbum()));
+				} else {
+					text.setText(String.format("[%s - %s]", navItem.getArtist(), navItem.getAlbum()));
+				}
+			} else {
+				text.setText(String.format("[%s]", navItem.getText()));
+			}
 		}
 
 		TextView ext = (TextView) newView.findViewById(R.id.navExt);

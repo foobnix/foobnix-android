@@ -44,7 +44,7 @@ import com.foobnix.engine.PlayListManager;
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.TYPE;
 import com.foobnix.model.FModelBuilder;
-import com.foobnix.provider.SearchQueryManager;
+import com.foobnix.provider.LastFmQueryManager;
 import com.foobnix.ui.adapter.FolderAdapter;
 import com.foobnix.ui.widget.ImageBackgroundDecorator;
 import com.foobnix.ui.widget.RunnableDialog;
@@ -86,7 +86,7 @@ public class OnlineActivity extends MediaParentActivity {
 		}
 	};
 
-	private SearchQueryManager queryManager;
+	private LastFmQueryManager queryManager;
 	private EditText editText;
 	private FolderAdapter navAdapter;
 	private List<FModel> items = new ArrayList<FModel>();
@@ -100,7 +100,7 @@ public class OnlineActivity extends MediaParentActivity {
 		navAdapter = new FolderAdapter(this, items);
 		navAdapter.setNotifyOnChange(true);
 
-		queryManager = new SearchQueryManager(this);
+		queryManager = new LastFmQueryManager(this);
 
 		list = (ListView) findViewById(R.id.onlineListView);
 		list.setAdapter(navAdapter);

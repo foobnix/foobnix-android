@@ -19,56 +19,51 @@
  * THE SOFTWARE. */
 package com.foobnix.model;
 
-import java.io.Serializable;
+import com.google.gson.annotations.SerializedName;
 
-public class SearchQuery implements Serializable {
+public class VKUser {
 
-	private SearchBy searchBy;
-	private String param1;
-	private String param2;
-	private String param3;
+	private String uid;
 
-	public SearchQuery(SearchBy searchBy, String param1) {
-		this.searchBy = searchBy;
-		this.param1 = param1;
+	@SerializedName("first_name")
+	private String firstName;
+
+	@SerializedName("last_name")
+	private String lastName;
+
+
+	private boolean online;
+
+	public String getUid() {
+		return uid;
 	}
 
-	public SearchQuery(SearchBy searchBy, String param1, String param2) {
-		this.searchBy = searchBy;
-		this.param1 = param1;
-		this.param2 = param2;
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
-	public SearchBy getSearchBy() {
-		return searchBy;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setSearchBy(SearchBy searchBy) {
-		this.searchBy = searchBy;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getParam1() {
-		return param1;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setParam1(String param1) {
-		this.param1 = param1;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String getParam2() {
-		return param2;
+	public boolean isOnline() {
+		return online;
 	}
 
-	public void setParam2(String param2) {
-		this.param2 = param2;
-	}
-
-	public String getParam3() {
-		return param3;
-	}
-
-	public void setParam3(String param3) {
-		this.param3 = param3;
+	public void setOnline(boolean online) {
+		this.online = online;
 	}
 
 }

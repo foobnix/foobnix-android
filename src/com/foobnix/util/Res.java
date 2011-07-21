@@ -17,58 +17,14 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. */
-package com.foobnix.model;
+package com.foobnix.util;
 
-import java.io.Serializable;
+import android.content.Context;
 
-public class SearchQuery implements Serializable {
+public class Res {
 
-	private SearchBy searchBy;
-	private String param1;
-	private String param2;
-	private String param3;
-
-	public SearchQuery(SearchBy searchBy, String param1) {
-		this.searchBy = searchBy;
-		this.param1 = param1;
-	}
-
-	public SearchQuery(SearchBy searchBy, String param1, String param2) {
-		this.searchBy = searchBy;
-		this.param1 = param1;
-		this.param2 = param2;
-	}
-
-	public SearchBy getSearchBy() {
-		return searchBy;
-	}
-
-	public void setSearchBy(SearchBy searchBy) {
-		this.searchBy = searchBy;
-	}
-
-	public String getParam1() {
-		return param1;
-	}
-
-	public void setParam1(String param1) {
-		this.param1 = param1;
-	}
-
-	public String getParam2() {
-		return param2;
-	}
-
-	public void setParam2(String param2) {
-		this.param2 = param2;
-	}
-
-	public String getParam3() {
-		return param3;
-	}
-
-	public void setParam3(String param3) {
-		this.param3 = param3;
+	public static String get(Context context, int resId) {
+		return context.getResources().getString(resId);
 	}
 
 }
