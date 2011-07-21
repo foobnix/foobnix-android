@@ -24,41 +24,39 @@ import java.util.List;
 import android.test.AndroidTestCase;
 
 import com.foobnix.model.FModel;
-import com.foobnix.provider.LastFmMethods;
 import com.foobnix.provider.OnlineProvider;
 
 import de.umass.lastfm.Caller;
 import de.umass.lastfm.cache.MemoryCache;
 
 public class TestOnlineProvider extends AndroidTestCase {
-	LastFmMethods provider;
+    OnlineProvider provider;
 
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        provider = new OnlineProvider(getContext());
+        Caller.getInstance().setCache(new MemoryCache());
+    }
 
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-		provider = new OnlineProvider(getContext());
-		Caller.getInstance().setCache(new MemoryCache());
-	}
+    /*
+     * public void testTagTracks() { List<FModel> findUserTopTracks =
+     * provider.findTracksByTag("pop"); assertNotNull(findUserTopTracks);
+     * assertTrue(findUserTopTracks.size() > 20); }
+     */
 
-	/*
-	 * public void testTagTracks() { List<FModel> findUserTopTracks =
-	 * provider.findTracksByTag("pop"); assertNotNull(findUserTopTracks);
-	 * assertTrue(findUserTopTracks.size() > 20); }
-	 */
+    public void testGetTopTracks() {
+        List<FModel> findUserTopTracks = provider.findUserTopTracks("ivanivanenko");
+        assertNotNull(findUserTopTracks);
+        assertTrue(findUserTopTracks.size() > 20);
 
-	public void testGetTopTracks() {
-		List<FModel> findUserTopTracks = provider.findUserTopTracks("ivanivanenko");
-		assertNotNull(findUserTopTracks);
-		assertTrue(findUserTopTracks.size() > 20);
+    }
 
-	}
+    public void testRecentTracks() {
+        List<FModel> findUserTopTracks = provider.findUserRecentTracks("ivanivanenko");
+        assertNotNull(findUserTopTracks);
+        assertTrue(findUserTopTracks.size() > 5);
 
-	public void testRecentTracks() {
-		List<FModel> findUserTopTracks = provider.findUserRecentTracks("ivanivanenko");
-		assertNotNull(findUserTopTracks);
-		assertTrue(findUserTopTracks.size() > 5);
-
-	}
+    }
 
 }

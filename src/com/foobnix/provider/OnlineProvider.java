@@ -42,7 +42,7 @@ import de.umass.lastfm.Tag;
 import de.umass.lastfm.Track;
 import de.umass.lastfm.User;
 
-public class OnlineProvider implements LastFmMethods {
+public class OnlineProvider {
 
     private Context context;
     private final String apiKey = Conf.LAST_FM_API_KEY;
@@ -51,7 +51,6 @@ public class OnlineProvider implements LastFmMethods {
         this.context = context;
     }
 
-    @Override
     public List<FModel> findAlbumsByArtist(final String artist) {
         MusicHelper<Album> helper = new MusicHelper<Album>(Artist.getTopAlbums(artist, apiKey)) {
             @Override
@@ -62,7 +61,6 @@ public class OnlineProvider implements LastFmMethods {
         return helper.getFModels();
     }
 
-    @Override
     public List<FModel> findUserTopTracks(String user) {
         MusicHelper<Track> helper = new MusicHelper<Track>(User.getTopTracks(user, apiKey)) {
             @Override
@@ -73,7 +71,6 @@ public class OnlineProvider implements LastFmMethods {
         return helper.getFModels();
     }
 
-    @Override
     public List<FModel> findUserFriends(String user) {
         MusicHelper<User> helper = new MusicHelper<User>(User.getFriends(user, apiKey)) {
             @Override
@@ -85,7 +82,6 @@ public class OnlineProvider implements LastFmMethods {
         return helper.getFModels();
     }
 
-    @Override
     public List<FModel> findUserRecentTracks(String user) {
         MusicHelper<Track> helper = new MusicHelper<Track>(User.getRecentTracks(user, apiKey).getPageResults()) {
             @Override
@@ -96,7 +92,6 @@ public class OnlineProvider implements LastFmMethods {
         return helper.getFModels();
     }
 
-    @Override
     public List<FModel> findUserLovedTracks(String user) {
         MusicHelper<Track> helper = new MusicHelper<Track>(User.getLovedTracks(user, apiKey).getPageResults()) {
             @Override
@@ -107,7 +102,6 @@ public class OnlineProvider implements LastFmMethods {
         return helper.getFModels();
     }
 
-    @Override
     public List<FModel> findUserTopArtists(String user) {
         MusicHelper<Artist> helper = new MusicHelper<Artist>(User.getTopArtists(user, apiKey)) {
             @Override
@@ -120,7 +114,6 @@ public class OnlineProvider implements LastFmMethods {
         return helper.getFModels();
     }
 
-    @Override
     public List<FModel> findSimilarArtistByArtist(final String artist) {
         MusicHelper<Artist> helper = new MusicHelper<Artist>(Artist.getSimilar(artist, apiKey)) {
             @Override
@@ -131,7 +124,6 @@ public class OnlineProvider implements LastFmMethods {
         return helper.getFModels();
     }
 
-    @Override
     public List<FModel> findTagsByTag(final String tag) {
         MusicHelper<Tag> helper = new MusicHelper<Tag>(Tag.search(tag, apiKey)) {
             @Override
@@ -143,7 +135,6 @@ public class OnlineProvider implements LastFmMethods {
 
     }
 
-    @Override
     public List<FModel> findTracksByVK(String q) throws VKAuthorizationException {
         List<FModel> results = new ArrayList<FModel>();
         List<VKSong> searchAll = VKService.searchAll(q, context);
@@ -153,7 +144,6 @@ public class OnlineProvider implements LastFmMethods {
         return results;
     }
 
-    @Override
     public List<FModel> findTracksByArtist(final String artist) {
         MusicHelper<Track> helper = new MusicHelper<Track>(Artist.getTopTracks(artist, apiKey)) {
             @Override
@@ -164,7 +154,6 @@ public class OnlineProvider implements LastFmMethods {
         return helper.getFModels();
     }
 
-    @Override
     public List<FModel> findTracksByTag(final String tag) {
         MusicHelper<Track> helper = new MusicHelper<Track>(Tag.getTopTracks(tag, apiKey)) {
             @Override
@@ -176,7 +165,6 @@ public class OnlineProvider implements LastFmMethods {
 
     }
 
-    @Override
     public List<FModel> findTracksByArtistAlbum(final String artist, final String album) {
         LOG.d("Seach tracks by ", artist, album);
         Album info = Album.getInfo(artist, album, apiKey);
