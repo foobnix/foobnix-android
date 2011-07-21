@@ -33,70 +33,71 @@ import com.foobnix.model.FModel;
 import com.foobnix.ui.activity.FoobnixActivity;
 import com.foobnix.ui.activity.FoobnixMenuActivity;
 import com.foobnix.util.C;
-import com.foobnix.util.Conf;
 import com.foobnix.util.LOG;
+import com.foobnix.util.Res;
 
 import de.umass.lastfm.Artist;
 import de.umass.lastfm.ImageSize;
 
 public class AboutArtistActivity extends FoobnixMenuActivity {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		if (!app.isOnline()) {
-			finish();
-			startActivity(new Intent(this, FoobnixActivity.class));
-			return;
-		}
+        if (!app.isOnline()) {
+            finish();
+            startActivity(new Intent(this, FoobnixActivity.class));
+            return;
+        }
 
-		setContentView(R.layout.about_artist);
-		WebView bio = (WebView) findViewById(R.id.webBio);
+        setContentView(R.layout.about_artist);
+        WebView bio = (WebView) findViewById(R.id.webBio);
 
-		FModel song = app.getNowPlayingSong();
+        FModel song = app.getNowPlayingSong();
 
-		String user = "l_user_";
+        String user = "l_user_";
 
-		if (StringUtils.isNotEmpty(C.get().lastFmUser)) {
-			user = C.get().lastFmUser;
-		}
-		try {
-			Artist info = Artist.getInfo(song.getArtist(), Locale.getDefault(), user, Conf.LAST_FM_API_KEY);
-			if (info != null) {
-				String wikiText = info.getWikiText();
-				if(wikiText==null){
-					wikiText = "";
-				}
-				String imageURL = info.getImageURL(ImageSize.EXTRALARGE);
-				String header = "<h3>" + song.getArtist() + " - " + song.getTitle() + "</h3>";
-				header += "<img width='100%' src='" + imageURL + "' /><br/>";
-				bio.loadDataWithBaseURL(null, header + wikiText, "text/html", "UTF-8", null);
+        if (StringUtils.isNotEmpty(C.get().lastFmUser)) {
+            user = C.get().lastFmUser;
+        }
+        try {
+            Artist info = Artist.getInfo(song.getArtist(), Locale.getDefault(), user,
+                    Res.get(this, R.string.LAST_FM_API_KEY));
+            if (info != null) {
+                String wikiText = info.getWikiText();
+                if (wikiText == null) {
+                    wikiText = "";
+                }
+                String imageURL = info.getImageURL(ImageSize.EXTRALARGE);
+                String header = "<h3>" + song.getArtist() + " - " + song.getTitle() + "</h3>";
+                header += "<img width='100%' src='" + imageURL + "' /><br/>";
+                bio.loadDataWithBaseURL(null, header + wikiText, "text/html", "UTF-8", null);
 
-			}
-		} catch (Exception e) {
-			LOG.e("Info error", e);
-			ToastShort("Erorr, try again a bit later");
-		}
+            }
+        } catch (Exception e) {
+            LOG.e("Info error", e);
+            ToastShort("Erorr, try again a bit later");
+        }
 
-		onAcitvateMenuImages(this);
-	}
+        onAcitvateMenuImages(this);
+    }
 
-	@Override
-	public String getActivityTitle() {
-		return "About Artist";
-	}
+    @Override
+    public String getActivityTitle() {
+        return "About Artist";
+    }
 
-	@Override
-	protected void actionDialog(FModel item) {
+    @Override
+    protected void actionDialog(FModel item) {
 
-	}
+    }
 
-	@Override
-	public Class<?> activityClazz() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Class<?> activityClazz() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

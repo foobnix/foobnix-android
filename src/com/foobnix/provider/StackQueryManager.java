@@ -32,49 +32,49 @@ import com.foobnix.util.LOG;
 
 public abstract class StackQueryManager {
 
-	protected Stack<SearchQuery> stack;
+    protected Stack<SearchQuery> stack;
 
-	public StackQueryManager() {
-		stack = new Stack<SearchQuery>();
-	}
+    public StackQueryManager() {
+        stack = new Stack<SearchQuery>();
+    }
 
-	public void emtyStack() {
-		stack.empty();
-	}
+    public void emtyStack() {
+        stack.empty();
+    }
 
-	public List<FModel> previousPage() {
-		if (stack.size() <= 1) {
-			return Collections.EMPTY_LIST;
-		}
+    public List<FModel> previousPage() {
+        if (stack.size() <= 1) {
+            return Collections.EMPTY_LIST;
+        }
 
-		stack.pop();
-		SearchQuery back = stack.pop();
-		LOG.d("previous result page:", back.getSearchBy(), back.getParam1(), back.getParam2());
-		return getSearchResult(back);
-	}
+        stack.pop();
+        SearchQuery back = stack.pop();
+        LOG.d("previous result page:", back.getSearchBy(), back.getParam1(), back.getParam2());
+        return getSearchResult(back);
+    }
 
-	public List<FModel> getSearchResult(SearchQuery searchQuery) {
+    public List<FModel> getSearchResult(SearchQuery searchQuery) {
 
-		LOG.d("Search By L1", searchQuery.getSearchBy(), searchQuery.getParam1(), searchQuery.getParam2());
+        LOG.d("Search By L1", searchQuery.getSearchBy(), searchQuery.getParam1(), searchQuery.getParam2());
 
-		if (searchQuery.getSearchBy() == SearchBy.BACK_BUTTON) {
-			stack.pop();
-			SearchQuery back = stack.pop();
-			LOG.d("back", back.getSearchBy(), back.getParam1(), back.getParam2());
-			return getSearchResult(back);
-		} else {
-			List<FModel> result = new ArrayList<FModel>();
+        if (searchQuery.getSearchBy() == SearchBy.BACK_BUTTON) {
+            stack.pop();
+            SearchQuery back = stack.pop();
+            LOG.d("back", back.getSearchBy(), back.getParam1(), back.getParam2());
+            return getSearchResult(back);
+        } else {
+            List<FModel> result = new ArrayList<FModel>();
 
-			if (!stack.isEmpty()) {
-				FModel back = FModelBuilder.SearchFolder("..", new SearchQuery(SearchBy.BACK_BUTTON, ".."));
-				result.add(back);
-			}
-			stack.push(searchQuery);
-			result.addAll(getSearchResultProccess(searchQuery));
-			return result;
-		}
-	}
+            if (!stack.isEmpty()) {
+                FModel back = FModelBuilder.SearchFolder("..", new SearchQuery(SearchBy.BACK_BUTTON, ".."));
+                result.add(back);
+            }
+            stack.push(searchQuery);
+            result.addAll(getSearchResultProccess(searchQuery));
+            return result;
+        }
+    }
 
-	protected abstract List<FModel> getSearchResultProccess(SearchQuery searchQuery);
+    protected abstract List<FModel> getSearchResultProccess(SearchQuery searchQuery);
 
 }

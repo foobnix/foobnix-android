@@ -43,7 +43,7 @@ import com.foobnix.model.FModel.TYPE;
 import com.foobnix.model.FModelBuilder;
 import com.foobnix.ui.widget.RunnableDialog;
 import com.foobnix.util.C;
-import com.foobnix.util.Conf;
+import com.foobnix.util.VersionHelper;
 import com.foobnix.util.LOG;
 
 public class FoobnixActivity extends FoobnixMenuActivity {
@@ -241,7 +241,7 @@ public class FoobnixActivity extends FoobnixMenuActivity {
 
 	@Override
 	public String getActivityTitle() {
-		return String.format(getString(R.string.app_name) + " %s", Conf.getFoobnixVersion(FoobnixActivity.this));
+		return String.format(getString(R.string.app_name) + " %s", VersionHelper.getFoobnixVersion(FoobnixActivity.this));
 	}
 
 	public Class<?> activityClazz() {

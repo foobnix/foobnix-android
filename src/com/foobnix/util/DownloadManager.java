@@ -43,7 +43,7 @@ import com.foobnix.ui.activity.DMActitivy.DOWNLOAD_FORMAT_BY;
 public class DownloadManager {
 
     public static String getBaseDownloadFolder(Context context) {
-        File dir = new File(Conf.getDownloadTo(context));
+        File dir = new File(VersionHelper.getDownloadTo(context));
         if (!dir.exists()) {
             dir.mkdirs();
         }

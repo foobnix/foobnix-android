@@ -27,8 +27,9 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.content.Context;
 
+import com.foobnix.R;
 import com.foobnix.api.RequestHelper;
-import com.foobnix.util.Conf;
+import com.foobnix.util.Res;
 import com.foobnix.util.XmlPersister;
 
 public class LastFmApi {
@@ -37,7 +38,7 @@ public class LastFmApi {
 
     public LastFmApi(Context contex) {
         requestHelper = new RequestHelper("http://ws.audioscrobbler.com/2.0/");
-        BasicNameValuePair api = new BasicNameValuePair("api_key", Conf.LAST_FM_API_KEY);
+        BasicNameValuePair api = new BasicNameValuePair("api_key", Res.get(contex, R.string.LAST_FM_API_KEY));
         requestHelper.setDefaultParam(api);
     }
 

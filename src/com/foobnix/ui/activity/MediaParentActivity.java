@@ -38,7 +38,7 @@ public abstract class MediaParentActivity extends FoobnixMenuActivity {
 	public void onAcitvateMenuImages(Context context) {
 		super.onAcitvateMenuImages(context);
 		StarTabHelper.bindStarTab(this, context, R.id.folderStartTab, FolderActivity.class, R.string.Folders);
-		StarTabHelper.bindStarTab(this, context, R.id.onlineStartTab, OnlineActivity.class, R.string.Search);
+		StarTabHelper.bindStarTab(this, context, R.id.onlineStartTab, SearchActivity.class, R.string.Search);
 		StarTabHelper.bindStarTab(this, context, R.id.lastfmStartTab, LastFMActivity.class, R.string.Last_fm);
 		StarTabHelper.bindStarTab(this, context, R.id.vkontakteStartTab, VkontakteActivity.class, R.string.VK);
 	}

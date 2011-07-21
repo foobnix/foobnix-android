@@ -31,7 +31,7 @@ import com.foobnix.engine.FoobnixApplication;
 import com.foobnix.ui.activity.DMActitivy;
 import com.foobnix.ui.activity.FoobnixActivity;
 import com.foobnix.ui.activity.InfoActivity;
-import com.foobnix.ui.activity.OnlineActivity;
+import com.foobnix.ui.activity.SearchActivity;
 import com.foobnix.util.C;
 
 public class PrefMenuActivity extends PreferenceActivity {
@@ -88,7 +88,7 @@ public class PrefMenuActivity extends PreferenceActivity {
 			return true;
 
 		case R.id.playerMedia:
-			startActivity(new Intent(this, OnlineActivity.class));
+			startActivity(new Intent(this, SearchActivity.class));
 			return true;
 
 		case R.id.playerInfo:

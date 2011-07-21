@@ -23,8 +23,12 @@ import android.content.Context;
 
 public class Res {
 
-	public static String get(Context context, int resId) {
-		return context.getResources().getString(resId);
-	}
+    public static String get(Context context, int resId) {
+        return context.getResources().getString(resId);
+    }
+
+    public static String getStr(Context context, int resId) {
+        return context.getResources().getString(resId);
+    }
 
 }

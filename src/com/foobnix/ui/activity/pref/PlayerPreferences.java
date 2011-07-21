@@ -41,7 +41,7 @@ import com.foobnix.ui.activity.pref.base.NotificationIconPreference;
 import com.foobnix.ui.activity.pref.base.RandomModePreference;
 import com.foobnix.ui.activity.pref.base.StopTimerPreference;
 import com.foobnix.util.C;
-import com.foobnix.util.Conf;
+import com.foobnix.util.VersionHelper;
 
 public class PlayerPreferences extends PrefMenuActivity {
 	private PreferenceScreen root;
@@ -114,7 +114,7 @@ public class PlayerPreferences extends PrefMenuActivity {
 
 		PreferenceScreen version = getPreferenceManager().createPreferenceScreen(this);
 		version.setTitle(R.string.app_name);
-		version.setSummary(Conf.getFoobnixVersion(getApplicationContext()));
+		version.setSummary(VersionHelper.getFoobnixVersion(getApplicationContext()));
 		other.addPreference(version);
 
 		PreferenceScreen web = getPreferenceManager().createPreferenceScreen(this);

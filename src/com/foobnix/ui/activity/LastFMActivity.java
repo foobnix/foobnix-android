@@ -37,7 +37,7 @@ import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.TYPE;
 import com.foobnix.model.SearchBy;
 import com.foobnix.model.SearchQuery;
-import com.foobnix.provider.LastFmQueryManager;
+import com.foobnix.provider.IntegrationsQueryManager;
 import com.foobnix.ui.adapter.FolderAdapter;
 import com.foobnix.ui.widget.RunnableDialog;
 import com.foobnix.util.LOG;
@@ -47,167 +47,164 @@ import com.foobnix.util.SongUtil;
 
 public class LastFMActivity extends MediaParentActivity {
 
-	private FolderAdapter adapter;
-	private List<FModel> items = new ArrayList<FModel>();
-	private ListView list;
-	private LastFmQueryManager queryManager;
-	
-	private String currentUser = "ivanivanenko";
+    private FolderAdapter adapter;
+    private List<FModel> items = new ArrayList<FModel>();
+    private ListView list;
+    private IntegrationsQueryManager queryManager;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.nav);
+    private String currentUser = "ivanivanenko";
 
-		queryManager = new LastFmQueryManager(this);
-		adapter = new FolderAdapter(this, items);
-		adapter.setNotifyOnChange(true);
-		
-		items.addAll(queryManager.getSearchResult(new SearchQuery(SearchBy.LAST_FM_USER, currentUser)));
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.nav);
 
-		list = (ListView) findViewById(R.id.dir_list);
-		list.setAdapter(adapter);
-		list.setOnItemClickListener(onClick);
-		list.setOnItemLongClickListener(onDialog);
+        queryManager = app.getIntegrationsQueryManager();
+        adapter = new FolderAdapter(this, items);
+        adapter.setNotifyOnChange(true);
 
-		onAcitvateMenuImages(this);
-		queryManager.emtyStack();
-		Pref.put(this, PrefKeys.ACTIVE_MEDIA_ACTIVITY, LastFMActivity.class.getName());
-	}
-	
-	OnItemClickListener onClick = new OnItemClickListener() {
+        items.addAll(queryManager.getSearchResult(new SearchQuery(SearchBy.LAST_FM_USER, currentUser)));
 
-		@Override
-		public void onItemClick(AdapterView<?> a, View arg1, int pos, long arg3) {
-			final FModel item = (FModel) a.getItemAtPosition(pos);
-			LOG.d("Choose:", item.getText());
+        list = (ListView) findViewById(R.id.dir_list);
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(onClick);
+        list.setOnItemLongClickListener(onDialog);
 
-			if (item.isFile()) {
-				FServiceHelper.getInstance().play(getApplicationContext(), item);
-			} else {
-				List<FModel> result = queryManager.getSearchResult(item.getSearchQuery());
-				LOG.d("Found Items: ", result.size());
-				SongUtil.updateType(result, TYPE.ONLINE);
-				adapter.update(result);
-				list.setSelection(0);
+        onAcitvateMenuImages(this);
+        queryManager.emtyStack();
+        Pref.put(this, PrefKeys.ACTIVE_MEDIA_ACTIVITY, LastFMActivity.class.getName());
+    }
 
-			}
-		}
-	};
+    OnItemClickListener onClick = new OnItemClickListener() {
 
-	@Override
-	public void onBackPressed() {
-		List<FModel> result = queryManager.previousPage();
+        @Override
+        public void onItemClick(AdapterView<?> a, View arg1, int pos, long arg3) {
+            final FModel item = (FModel) a.getItemAtPosition(pos);
+            LOG.d("Choose:", item.getText());
 
-		if (result.equals(Collections.EMPTY_LIST)) {
-			finish();
-			return;
-		}
+            if (item.isFile()) {
+                FServiceHelper.getInstance().play(getApplicationContext(), item);
+            } else {
+                List<FModel> result = queryManager.getSearchResult(item.getSearchQuery());
+                LOG.d("Found Items: ", result.size());
+                SongUtil.updateType(result, TYPE.ONLINE);
+                adapter.update(result);
+                list.setSelection(0);
 
-		LOG.d("Found Items: ", result.size());
-		SongUtil.updateType(result, TYPE.ONLINE);
-		adapter.update(result);
-		list.setSelection(0);
-	};
+            }
+        }
+    };
 
-	OnItemLongClickListener onDialog = new OnItemLongClickListener() {
+    @Override
+    public void onBackPressed() {
+        List<FModel> result = queryManager.previousPage();
 
-		@Override
-		public boolean onItemLongClick(final AdapterView<?> adapter, View arg1, final int pos, long arg3) {
-			final FModel item = (FModel) adapter.getItemAtPosition(pos);
-			actionDialog(item);
-			return true;
-		}
-	};
+        if (result.equals(Collections.EMPTY_LIST)) {
+            finish();
+            return;
+        }
 
-	@Override
-	protected void actionDialog(final FModel item) {
-		final List<FModel> items = adapter.getItems();
+        LOG.d("Found Items: ", result.size());
+        SongUtil.updateType(result, TYPE.ONLINE);
+        adapter.update(result);
+        list.setSelection(0);
+    };
 
-		new RunnableDialog(LastFMActivity.this, getString(R.string.Last_fm_Action))//
+    OnItemLongClickListener onDialog = new OnItemLongClickListener() {
 
-		        .Action(getString(R.string.Open), new Runnable() {
-			        @Override
-			        public void run() {
-				        List<FModel> result = queryManager.getSearchResult(item.getSearchQuery());
-				        LOG.d("Found Items: ", result.size());
-				        SongUtil.updateType(result, TYPE.ONLINE);
-				        adapter.update(result);
-				        list.setSelection(0);
+        @Override
+        public boolean onItemLongClick(final AdapterView<?> adapter, View arg1, final int pos, long arg3) {
+            final FModel item = (FModel) adapter.getItemAtPosition(pos);
+            actionDialog(item);
+            return true;
+        }
+    };
 
-			        }
-		        }, item != null && item.isFolder())//
+    @Override
+    protected void actionDialog(final FModel item) {
+        final List<FModel> items = adapter.getItems();
 
-		        .Action(getString(R.string.Set_As_Playlist), new Runnable() {
-			        @Override
-			        public void run() {
-				        cleanPlayList();
+        new RunnableDialog(LastFMActivity.this, getString(R.string.Last_fm_Action))//
 
-				        SongUtil.removeFolders(items);
-				        app.getPlayListManager().addAll(items);
+                .Action(getString(R.string.Open), new Runnable() {
+                    @Override
+                    public void run() {
+                        List<FModel> result = queryManager.getSearchResult(item.getSearchQuery());
+                        LOG.d("Found Items: ", result.size());
+                        SongUtil.updateType(result, TYPE.ONLINE);
+                        adapter.update(result);
+                        list.setSelection(0);
 
-				        app.playOnAppend();
-				        showPlayer();
+                    }
+                }, item != null && item.isFolder())//
 
-			        }
-		        }, SongUtil.isFileInList(items))//
+                .Action(getString(R.string.Set_As_Playlist), new Runnable() {
+                    @Override
+                    public void run() {
+                        cleanPlayList();
 
-		        .Action(getString(R.string.Append), new Runnable() {
-			        @Override
-			        public void run() {
-				        PlayListManager manager = app.getPlayListManager();
-				        if (item.isFile()) {
-					        manager.add(item);
-				        } else {
-					        ToastShort(item.getText() + "is not file");
-				        }
-				        app.playOnAppend();
-			        }
-		        }, item != null && item.isFile())//
+                        SongUtil.removeFolders(items);
+                        app.getPlayListManager().addAll(items);
 
-		        .Action(getString(R.string.Append_All), new Runnable() {
-			        @Override
-			        public void run() {
+                        app.playOnAppend();
+                        showPlayer();
 
+                    }
+                }, SongUtil.isFileInList(items))//
 
-				        SongUtil.removeFolders(items);
-				        app.getPlayListManager().addAll(items);
-				        app.playOnAppend();
-				        showPlayer();
+                .Action(getString(R.string.Append), new Runnable() {
+                    @Override
+                    public void run() {
+                        PlayListManager manager = app.getPlayListManager();
+                        if (item.isFile()) {
+                            manager.add(item);
+                        } else {
+                            ToastShort(item.getText() + "is not file");
+                        }
+                        app.playOnAppend();
+                    }
+                }, item != null && item.isFile())//
 
-			        }
+                .Action(getString(R.string.Append_All), new Runnable() {
+                    @Override
+                    public void run() {
 
-		        }, SongUtil.isFileInList(items))//
+                        SongUtil.removeFolders(items);
+                        app.getPlayListManager().addAll(items);
+                        app.playOnAppend();
+                        showPlayer();
 
-		        .Action(getString(R.string.Download), new Runnable() {
-			        @Override
-			        public void run() {
-				        app.addToDownload(item);
-			        }
-		        }, item != null && item.isFile())//
+                    }
 
-		        .Action(getString(R.string.Download_All), new Runnable() {
-			        @Override
-			        public void run() {
-				        for (FModel current : items) {
-					        app.addToDownload(current);
-				        }
+                }, SongUtil.isFileInList(items))//
 
-			        }
-		        }, SongUtil.isFileInList(items)).show();
+                .Action(getString(R.string.Download), new Runnable() {
+                    @Override
+                    public void run() {
+                        app.addToDownload(item);
+                    }
+                }, item != null && item.isFile())//
 
-	}
+                .Action(getString(R.string.Download_All), new Runnable() {
+                    @Override
+                    public void run() {
+                        for (FModel current : items) {
+                            app.addToDownload(current);
+                        }
 
+                    }
+                }, SongUtil.isFileInList(items)).show();
 
-	@Override
-	public String getActivityTitle() {
-		return "LAST.FM";
-	}
+    }
 
-	@Override
-	public Class<?> activityClazz() {
-		return null;
-	}
+    @Override
+    public String getActivityTitle() {
+        return "LAST.FM";
+    }
+
+    @Override
+    public Class<?> activityClazz() {
+        return null;
+    }
 
 }
-

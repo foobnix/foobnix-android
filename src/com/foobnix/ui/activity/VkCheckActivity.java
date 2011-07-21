@@ -32,87 +32,92 @@ import com.foobnix.R;
 import com.foobnix.api.vkontakte.VkOld;
 import com.foobnix.model.FModel;
 import com.foobnix.util.C;
-import com.foobnix.util.Conf;
 import com.foobnix.util.LOG;
+import com.foobnix.util.Pref;
+import com.foobnix.util.PrefKeys;
+import com.foobnix.util.Res;
 
 public class VkCheckActivity extends FoobnixMenuActivity {
-	private final static String REDIRECT_URL = "http://android.foobnix.com/vk";
-	private final static String API_URL = "http://api.vkontakte.ru";
-	private final static String OAUTH_URL = API_URL + "/oauth/authorize?client_id=" + Conf.VK_APP_ID
-	        + "&scope=audio,friends&redirect_uri=" + REDIRECT_URL + "&response_type=token&display=touch";
+    private final static String REDIRECT_URL = "http://android.foobnix.com/vk";
+    private final static String API_URL = "http://api.vkontakte.ru";
 
-	private WebView webView;
+    private WebView webView;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.web);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.web);
 
-		LOG.d(OAUTH_URL);
+        String OAUTH_URL = API_URL + "/oauth/authorize?client_id=" + Res.get(this, R.string.VK_APP_ID)
+                + "&scope=audio,friends&redirect_uri=" + REDIRECT_URL + "&response_type=token&display=touch";
 
-		webView = (WebView) findViewById(R.id.webView1);
-		webView.getSettings().setJavaScriptEnabled(true);
+        LOG.d(OAUTH_URL);
 
-		webView.setWebViewClient(new VkontakteClient());
-		webView.loadUrl(OAUTH_URL);
+        webView = (WebView) findViewById(R.id.webView1);
+        webView.getSettings().setJavaScriptEnabled(true);
 
-		Button webDefault = (Button) findViewById(R.id.webDefault);
-		webDefault.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				String[] userPass = VkOld.getVKUserPass(REDIRECT_URL);
-				webView.loadUrl(String.format(
-				        "javascript:(function() {document.getElementsByName('email')[0].value='%s'})()", userPass[0]));
-				webView.loadUrl(String.format(
-				        "javascript:(function() {document.getElementsByName('pass')[0].value='%s'})()", userPass[1]));
-			}
-		});
-	}
+        webView.setWebViewClient(new VkontakteClient());
+        webView.loadUrl(OAUTH_URL);
 
-	private class VkontakteClient extends WebViewClient {
-		@Override
-		public boolean shouldOverrideUrlLoading(WebView view, String url) {
-			if (url.startsWith(REDIRECT_URL)) {
-				LOG.d("Tocken founded");
+        Button webDefault = (Button) findViewById(R.id.webDefault);
+        webDefault.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] userPass = VkOld.getVKUserPass(REDIRECT_URL);
+                webView.loadUrl(String.format(
+                        "javascript:(function() {document.getElementsByName('email')[0].value='%s'})()", userPass[0]));
+                webView.loadUrl(String.format(
+                        "javascript:(function() {document.getElementsByName('pass')[0].value='%s'})()", userPass[1]));
+            }
+        });
+    }
 
-				Pattern p = Pattern.compile(REDIRECT_URL + "#access_token=(.*)&expires_in=(.*)&user_id=(.*)");
-				Matcher m = p.matcher(url);
-				if (m.matches()) {
-					C.get().vkontakteToken = m.group(1);
-					C.get().vkontakteUserId = m.group(3);
+    private class VkontakteClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if (url.startsWith(REDIRECT_URL)) {
+                LOG.d("Tocken founded");
 
-					LOG.d("Recive token and user", C.get().vkontakteToken, C.get().vkontakteUserId);
-					ToastLong(R.string.Success);
-					finish();
-					return true;
-				} else {
-					C.get().vkontakteToken = "";
-				}
+                Pattern p = Pattern.compile(REDIRECT_URL + "#access_token=(.*)&expires_in=(.*)&user_id=(.*)");
+                Matcher m = p.matcher(url);
+                if (m.matches()) {
+                    C.get().vkontakteToken = m.group(1);
+                    C.get().vkontakteUserId = m.group(3);
+                    Pref.put(VkCheckActivity.this, PrefKeys.VKONTAKTE_TOKEN, m.group(1));
+                    app.getIntegrationsQueryManager().getVkAdapter().setToken(m.group(1));
 
-			}
-			view.loadUrl(url);
-			return true;
-		}
+                    LOG.d("Recive token and user", C.get().vkontakteToken, C.get().vkontakteUserId);
+                    ToastLong(R.string.Success);
+                    finish();
+                    return true;
+                } else {
+                    C.get().vkontakteToken = "";
+                }
 
-		@Override
-		public void onPageFinished(WebView view, String url) {
-			LOG.d("On Finished", url);
-		}
-	}
+            }
+            view.loadUrl(url);
+            return true;
+        }
 
-	@Override
-	protected void actionDialog(FModel item) {
-	}
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            LOG.d("On Finished", url);
+        }
+    }
 
-	@Override
-	public String getActivityTitle() {
-		return getString(R.string.Authorization_VKontakte_require_for_music_search);
-	}
+    @Override
+    protected void actionDialog(FModel item) {
+    }
 
-	@Override
-	public Class<?> activityClazz() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getActivityTitle() {
+        return getString(R.string.Authorization_VKontakte_require_for_music_search);
+    }
+
+    @Override
+    public Class<?> activityClazz() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

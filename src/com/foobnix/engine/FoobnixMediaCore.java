@@ -46,9 +46,9 @@ import com.foobnix.service.AlarmSleepService;
 import com.foobnix.service.FoobnixNotification;
 import com.foobnix.service.LastFmService;
 import com.foobnix.util.C;
-import com.foobnix.util.Conf;
 import com.foobnix.util.FolderUtil;
 import com.foobnix.util.LOG;
+import com.foobnix.util.Res;
 import com.foobnix.util.SongUtil;
 import com.foobnix.util.TimeUtil;
 
@@ -154,18 +154,18 @@ public class FoobnixMediaCore {
         UIBroadcast stat = new UIBroadcast(song, 0, 0, false, 0, app.getPlayListManager().getAll().size());
         broadCastManager.sendNowPlaying(stat);
 
+        if (song.getType() == TYPE.ONLINE && !app.isOnline()) {
+            Toast.makeText(context, R.string.Network_not_available_cant_play_online_song, Toast.LENGTH_LONG).show();
+            return;
+        } //
 
-		if (song.getType() == TYPE.ONLINE && !app.isOnline()) {
-			Toast.makeText(context, R.string.Network_not_available_cant_play_online_song, Toast.LENGTH_LONG).show();
-			return;
-		} //
+        if (StringUtils.isEmpty(song.getPath())) {
+            LOG.d("Search most relevant song");
+            VkAudio mostRelevantSong = app.getIntegrationsQueryManager().getVkAdapter()
+                    .getMostRelevantSong(song.getText());
+            song.setPath(mostRelevantSong.getUrl());
 
-		if (StringUtils.isEmpty(song.getPath())) {
-			LOG.d("Search most relevant song");
-			VkAudio mostRelevantSong = app.getVkontakteApiAdapter().getMostRelevantSong(song.getText());
-			song.setPath(mostRelevantSong.getUrl());
-
-		}
+        }
 
         if (song.getType() != TYPE.ONLINE) {
             song.setTime(TimeUtil.durationToString(engineManager.getDuration()));
@@ -328,10 +328,10 @@ public class FoobnixMediaCore {
                 user = C.get().lastFmUser;
             }
             LOG.d("Disc cover for", song.getArtist(), song.getTitle());
-            Track track = Track.getInfo(song.getArtist(), song.getTitle(), Conf.LAST_FM_API_KEY);
+            Track track = Track.getInfo(song.getArtist(), song.getTitle(), Res.get(context, R.string.LAST_FM_API_KEY));
             if (track != null) {
                 String albumStr = track.getAlbumMbid();
-                Album album = Album.getInfo(song.getArtist(), albumStr, Conf.LAST_FM_API_KEY);
+                Album album = Album.getInfo(song.getArtist(), albumStr, Res.get(context, R.string.LAST_FM_API_KEY));
                 if (album != null) {
                     Date releaseDate = album.getReleaseDate();
                     if (releaseDate != null) {
@@ -350,7 +350,8 @@ public class FoobnixMediaCore {
                 }
             }
 
-            Artist info = Artist.getInfo(song.getArtist(), Locale.getDefault(), user, Conf.LAST_FM_API_KEY);
+            Artist info = Artist.getInfo(song.getArtist(), Locale.getDefault(), user,
+                    Res.get(context, R.string.LAST_FM_API_KEY));
             if (info != null) {
                 String imageURL = info.getImageURL(ImageSize.MEGA);
                 broadCastManager.sendBgImage(imageURL);

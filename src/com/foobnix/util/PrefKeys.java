@@ -20,11 +20,10 @@
 package com.foobnix.util;
 
 public enum PrefKeys {
-	UNDEFINED_VALUE, //
-	FOLDER_PREV_PATH, //
-	UI_STAT, //
-	ACTIVE_TAB, //
-	DOWNLOAD_TO,
-	ACTIVE_MEDIA_ACTIVITY
+    UNDEFINED_VALUE, //
+    FOLDER_PREV_PATH, //
+    UI_STAT, //
+    ACTIVE_TAB, //
+    DOWNLOAD_TO, ACTIVE_MEDIA_ACTIVITY, VKONTAKTE_TOKEN
 
 }

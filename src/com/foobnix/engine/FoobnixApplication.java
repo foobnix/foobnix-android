@@ -24,8 +24,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -34,7 +32,7 @@ import android.net.NetworkInfo;
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.DOWNLOAD_STATUS;
 import com.foobnix.model.FModelBuilder;
-import com.foobnix.provider.VkontakteApiAdapter;
+import com.foobnix.provider.IntegrationsQueryManager;
 import com.foobnix.service.AlarmSleepService;
 import com.foobnix.service.FoobnixNotification;
 import com.foobnix.service.LastFmService;
@@ -56,7 +54,8 @@ public class FoobnixApplication extends Application {
     private boolean isPlaying = false;
     private boolean isShowMenu = false;
     private ApplicationCache cache = new ApplicationCache();
-    private VkontakteApiAdapter vkontakteApiAdapter;
+
+    private IntegrationsQueryManager integrationsQueryManager;
 
     @Override
     public void onCreate() {
@@ -67,10 +66,8 @@ public class FoobnixApplication extends Application {
         playListManager = new PlayListManager(this);
         lastFmService = new LastFmService(this);
         alarmSleepService = new AlarmSleepService(this, notification);
-        vkontakteApiAdapter = new VkontakteApiAdapter();
-        if (StringUtils.isNotEmpty(C.get().vkontakteToken)) {
-            vkontakteApiAdapter.setToken(C.get().vkontakteToken);
-        }
+
+        integrationsQueryManager = new IntegrationsQueryManager(this);
 
         if (isOnline()) {
             lastFmService.isConnectedAndEnable();
@@ -198,11 +195,7 @@ public class FoobnixApplication extends Application {
         return cache;
     }
 
-    public void setVkontakteApiAdapter(VkontakteApiAdapter vkontakteApiAdapter) {
-        this.vkontakteApiAdapter = vkontakteApiAdapter;
-    }
-
-    public VkontakteApiAdapter getVkontakteApiAdapter() {
-        return vkontakteApiAdapter;
+    public IntegrationsQueryManager getIntegrationsQueryManager() {
+        return integrationsQueryManager;
     }
 }

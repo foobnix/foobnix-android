@@ -22,7 +22,8 @@ package com.foobnix.provider;
 import java.util.List;
 
 import com.foobnix.api.vkontakte.VkAlbum;
-import com.foobnix.api.vkontakte.VkApi;
+import com.foobnix.api.vkontakte.VkApiCache;
+import com.foobnix.api.vkontakte.VkApiCalls;
 import com.foobnix.api.vkontakte.VkGroup;
 import com.foobnix.api.vkontakte.VkHelper;
 import com.foobnix.model.FModel;
@@ -33,15 +34,28 @@ import com.foobnix.model.VKUser;
 import com.foobnix.model.VkAudio;
 
 public class VkontakteApiAdapter {
-    private VkApi vkApi;
+    private VkApiCalls vkApi;
+
+    public VkontakteApiAdapter(String token) {
+        vkApi = new VkApiCache(token);
+    }
 
     public void setToken(String token) {
-        vkApi = new VkApi(token);
         vkApi.setToken(token);
     }
 
     public VkAudio getMostRelevantSong(String query) {
         return VkHelper.getMostRelevantSong(vkApi.audioSearch(query));
+    }
+
+    public List<FModel> search(String query) {
+        AdapterHelper<VkAudio> helper = new AdapterHelper<VkAudio>(vkApi.audioSearch(query)) {
+            @Override
+            public FModel getModel(VkAudio entry) {
+                return FModelBuilder.VkAudio(entry);
+            }
+        };
+        return helper.getFModels();
     }
 
     public List<FModel> getUserFriends(final String uid) {
@@ -128,7 +142,7 @@ public class VkontakteApiAdapter {
         return helper.getFModels();
     }
 
-    public VkApi getVkApi() {
+    public VkApiCalls getVkApi() {
         return vkApi;
     }
 

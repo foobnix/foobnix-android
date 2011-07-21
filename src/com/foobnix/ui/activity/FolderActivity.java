@@ -174,7 +174,7 @@ public class FolderActivity extends MediaParentActivity {
 			        public void run() {
 				        FolderUtil.deleteFiles(item.getPath());
 				        finish();
-				        startActivity(new Intent(FolderActivity.this, OnlineActivity.class));
+				        startActivity(new Intent(FolderActivity.this, SearchActivity.class));
 			        }
 		        }, item != null)//
 
@@ -194,7 +194,7 @@ public class FolderActivity extends MediaParentActivity {
 							        ToastShort("Can't crate dir " + value);
 						        } else {
 							        finish();
-							        startActivity(new Intent(FolderActivity.this, OnlineActivity.class));
+							        startActivity(new Intent(FolderActivity.this, SearchActivity.class));
 						        }
 					        }
 				        });

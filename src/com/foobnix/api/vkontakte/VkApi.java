@@ -28,101 +28,108 @@ import com.foobnix.api.RequestHelper;
 import com.foobnix.model.VKUser;
 import com.foobnix.model.VkAudio;
 
-public class VkApi {
-	private static String API_URL = "https://api.vkontakte.ru/method/";
-	private RequestHelper requestHelper;
+public class VkApi implements VkApiCalls {
+    private static String API_URL = "https://api.vkontakte.ru/method/";
+    private RequestHelper requestHelper;
 
-	public VkApi(String token) {
-		requestHelper = new RequestHelper(API_URL);
-		setToken(token);
-	}
+    public VkApi(String token) {
+        requestHelper = new RequestHelper(API_URL);
+    }
 
-	public void setToken(String token) {
-		if (StringUtils.isEmpty(token)) {
-			throw new IllegalArgumentException("Empty token");
-		}
-		requestHelper.setDefaultParam(new BasicNameValuePair("access_token", token));
-	}
+    @Override
+    public void setToken(String token) {
+        if (StringUtils.isEmpty(token)) {
+            throw new IllegalArgumentException("Empty token");
+        }
+        requestHelper.setDefaultParam(new BasicNameValuePair("access_token", token));
+    }
 
-	// TODO: check for erorr returns
+    @Override
+    public List<VkAudio> audioSearch(final String text) {
+        BasicNameValuePair q = new BasicNameValuePair("q", text);
+        BasicNameValuePair count = new BasicNameValuePair("count", "100");
 
-	public List<VkAudio> audioSearch(String text) {
-		BasicNameValuePair q = new BasicNameValuePair("q", text);
-		BasicNameValuePair count = new BasicNameValuePair("count", "100");
+        String json = requestHelper.get("audio.search", q, count);
+        return GsonResponse.toModels(json, VkAudio.class);
 
-		String json = requestHelper.get("audio.search", q, count);
+    }
 
-		List<VkAudio> result = GsonResponse.toModels(json, VkAudio.class);
-		return result;
-	}
+    @Override
+    public List<VkAudio> getUserAudio(String uid) {
+        BasicNameValuePair param1 = new BasicNameValuePair("uid", uid);
+        String json = requestHelper.get("audio.get", param1);
 
-	public List<VkAudio> getUserAudio(String uid) {
-		BasicNameValuePair param1 = new BasicNameValuePair("uid", uid);
-		String json = requestHelper.get("audio.get", param1);
+        List<VkAudio> result = GsonResponse.toModels(json, VkAudio.class);
+        return result;
+    }
 
-		List<VkAudio> result = GsonResponse.toModels(json, VkAudio.class);
-		return result;
-	}
+    @Override
+    public List<VkAlbum> getUserAlbums(String uid) {
+        BasicNameValuePair param1 = new BasicNameValuePair("uid", uid);
+        String json = requestHelper.get("audio.getAlbums", param1);
+        List<VkAlbum> result = GsonResponse.toModels(json, VkAlbum.class);
+        return result;
+    }
 
-	public List<VkAlbum> getUserAlbums(String uid) {
-		BasicNameValuePair param1 = new BasicNameValuePair("uid", uid);
-		String json = requestHelper.get("audio.getAlbums", param1);
-		List<VkAlbum> result = GsonResponse.toModels(json, VkAlbum.class);
-		return result;
-	}
+    @Override
+    public List<VkAlbum> getGroupAlbums(String gid) {
+        BasicNameValuePair param1 = new BasicNameValuePair("gid", gid);
+        String json = requestHelper.get("audio.getAlbums", param1);
+        List<VkAlbum> result = GsonResponse.toModels(json, VkAlbum.class);
+        return result;
+    }
 
-	public List<VkAlbum> getGroupAlbums(String gid) {
-		BasicNameValuePair param1 = new BasicNameValuePair("gid", gid);
-		String json = requestHelper.get("audio.getAlbums", param1);
-		List<VkAlbum> result = GsonResponse.toModels(json, VkAlbum.class);
-		return result;
-	}
+    @Override
+    public List<VkAudio> getGroupAudio(String gid) {
+        BasicNameValuePair param1 = new BasicNameValuePair("gid", gid);
+        String json = requestHelper.get("audio.get", param1);
+        List<VkAudio> result = GsonResponse.toModels(json, VkAudio.class);
+        return result;
+    }
 
-	public List<VkAudio> getGroupAudio(String gid) {
-		BasicNameValuePair param1 = new BasicNameValuePair("gid", gid);
-		String json = requestHelper.get("audio.get", param1);
-		List<VkAudio> result = GsonResponse.toModels(json, VkAudio.class);
-		return result;
-	}
+    @Override
+    public List<VkAudio> getUserAlbumAudio(String uid, String albumId) {
+        BasicNameValuePair param1 = new BasicNameValuePair("album_id", albumId);
+        BasicNameValuePair param2 = new BasicNameValuePair("uid", uid);
+        String json = requestHelper.get("audio.get", param1, param2);
+        List<VkAudio> result = GsonResponse.toModels(json, VkAudio.class);
+        return result;
+    }
 
-	public List<VkAudio> getUserAlbumAudio(String uid, String albumId) {
-		BasicNameValuePair param1 = new BasicNameValuePair("album_id", albumId);
-		BasicNameValuePair param2 = new BasicNameValuePair("uid", uid);
-		String json = requestHelper.get("audio.get", param1, param2);
-		List<VkAudio> result = GsonResponse.toModels(json, VkAudio.class);
-		return result;
-	}
+    @Override
+    public List<VkAudio> getGroupAlbumAudio(String gid, String albumId) {
+        BasicNameValuePair param1 = new BasicNameValuePair("album_id", albumId);
+        BasicNameValuePair param2 = new BasicNameValuePair("gid", gid);
+        String json = requestHelper.get("audio.get", param1, param2);
+        List<VkAudio> result = GsonResponse.toModels(json, VkAudio.class);
+        return result;
+    }
 
-	public List<VkAudio> getGroupAlbumAudio(String gid, String albumId) {
-		BasicNameValuePair param1 = new BasicNameValuePair("album_id", albumId);
-		BasicNameValuePair param2 = new BasicNameValuePair("gid", gid);
-		String json = requestHelper.get("audio.get", param1, param2);
-		List<VkAudio> result = GsonResponse.toModels(json, VkAudio.class);
-		return result;
-	}
+    @Override
+    public List<VkGroup> getUserGroups() {
+        String json = requestHelper.get("getGroupsFull");
+        List<VkGroup> result = GsonResponse.toModels(json, VkGroup.class, 0);
+        return result;
+    }
 
-	public List<VkGroup> getUserGroups() {
-		String json = requestHelper.get("getGroupsFull");
-		List<VkGroup> result = GsonResponse.toModels(json, VkGroup.class, 0);
-		return result;
-	}
+    @Override
+    public List<VKUser> getUserFriends(String uid) {
+        BasicNameValuePair uidParam = new BasicNameValuePair("uid", uid);
+        BasicNameValuePair fields = new BasicNameValuePair("fields", "uid,first_name,last_name,online");
 
-	public List<VKUser> getUserFriends(String uid) {
-		BasicNameValuePair uidParam = new BasicNameValuePair("uid", uid);
-		BasicNameValuePair fields = new BasicNameValuePair("fields", "uid,first_name,last_name,online");
+        String json = requestHelper.get("friends.get", uidParam, fields);
+        List<VKUser> result = GsonResponse.toModels(json, VKUser.class, 0);
+        return result;
+    }
 
-		String json = requestHelper.get("friends.get", uidParam, fields);
-		List<VKUser> result = GsonResponse.toModels(json, VKUser.class, 0);
-		return result;
-	}
+    @Override
+    public VKUser getUserProfile(String uid) {
+        BasicNameValuePair uidParam = new BasicNameValuePair("uids", uid);
+        BasicNameValuePair fields = new BasicNameValuePair("fields", "uid,first_name,last_name,online");
 
-	public VKUser getUserProfile(String uid) {
-		BasicNameValuePair uidParam = new BasicNameValuePair("uids", uid);
-		BasicNameValuePair fields = new BasicNameValuePair("fields", "uid,first_name,last_name,online");
-
-		String json = requestHelper.get("getProfiles", uidParam, fields);
-		List<VKUser> result = GsonResponse.toModels(json, VKUser.class, 0);
-		return result.get(0);
-	}
+        String json = requestHelper.get("getProfiles", uidParam, fields);
+        List<VKUser> result = GsonResponse.toModels(json, VKUser.class, 0);
+        return result.get(0);
+    }
 
 }

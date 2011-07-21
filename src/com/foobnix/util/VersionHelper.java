@@ -26,28 +26,22 @@ import android.os.Environment;
 
 import com.foobnix.R;
 
-public class Conf {
-	public final static String FOOBNIX_PREFS = "FOOBNIX_PREFS";
+public class VersionHelper {
 
-	public final static String LAST_FM_API_KEY = "bca6866edc9bdcec8d5e8c32f709bea1";
-	public final static String LAST_FM_API_SECRET = "800adaf46e237805a4ec2a81404b3ff2";
-	public final static String VK_APP_ID = "2234333";
-	public final static String VK_SECRET = "0kCUFX5mK3McLmkxPHHB";
+    public static String getDownloadTo(Context context) {
+        String def = Environment.getExternalStorageDirectory().getPath() + "/Music/Downloads";
+        return Pref.getStr(context, PrefKeys.DOWNLOAD_TO, def);
+    }
 
-	public static String getDownloadTo(Context context) {
-		String def = Environment.getExternalStorageDirectory().getPath() + "/Music/Downloads";
-		return Pref.getStr(context, PrefKeys.DOWNLOAD_TO, def);
-	}
-
-	public static String getFoobnixVersion(Context context) {
-		try {
-			PackageInfo info = context.getPackageManager().getPackageInfo("com.foobnix", 0);
-			return String.format("%s: %s %s: %s", context.getString(R.string.Version), info.versionName,
-			        context.getString(R.string.Code), info.versionCode);
-		} catch (NameNotFoundException e) {
-			LOG.e("version", e);
-			return "version undefined";
-		}
-	}
+    public static String getFoobnixVersion(Context context) {
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo("com.foobnix", 0);
+            return String.format("%s: %s %s: %s", context.getString(R.string.Version), info.versionName,
+                    context.getString(R.string.Code), info.versionCode);
+        } catch (NameNotFoundException e) {
+            LOG.e("version", e);
+            return "version undefined";
+        }
+    }
 
 }

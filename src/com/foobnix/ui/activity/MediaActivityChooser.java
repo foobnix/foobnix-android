@@ -33,7 +33,7 @@ public class MediaActivityChooser extends Activity {
 	@SuppressWarnings("unchecked")
 	private List<Class<? extends MediaParentActivity>> activities = Arrays.asList(//
 	        FolderActivity.class,//
-	        OnlineActivity.class, //
+	        SearchActivity.class, //
 	        LastFMActivity.class, //
 	        VkontakteActivity.class//
 	        );

@@ -27,6 +27,7 @@ import android.test.AndroidTestCase;
 
 import com.foobnix.api.vkontakte.VkAlbum;
 import com.foobnix.api.vkontakte.VkApi;
+import com.foobnix.api.vkontakte.VkApiCalls;
 import com.foobnix.api.vkontakte.VkHelper;
 import com.foobnix.model.VKUser;
 import com.foobnix.model.VkAudio;
@@ -34,7 +35,7 @@ import com.foobnix.util.LOG;
 
 public class TestVkontakteApi extends AndroidTestCase {
 
-	VkApi vkApi;
+	VkApiCalls vkApi;
 
 	protected void setUp() throws Exception {
 		vkApi = new VkApi("de9b762590db6cfade32900addded1ed5e5def3def3fa897f1a833aee37acfc");

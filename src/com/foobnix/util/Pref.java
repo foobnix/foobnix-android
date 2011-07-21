@@ -24,30 +24,35 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 public class Pref {
-	
-	public static void put(Context context, PrefKeys key, String value) {
-		SharedPreferences settings = context.getSharedPreferences(Conf.FOOBNIX_PREFS, Context.MODE_PRIVATE);
-		Editor editor = settings.edit();
-		editor.putString(key.name(), value);
-		editor.commit();
-	}
+    private final static String KEY = "FOOBNIX";
 
-	public static void put(Context context, PrefKeys key, boolean value) {
-		SharedPreferences settings = context.getSharedPreferences(Conf.FOOBNIX_PREFS, Context.MODE_PRIVATE);
-		Editor editor = settings.edit();
-		editor.putBoolean(key.name(), value);
-		editor.commit();
-	}
+    public static void put(Context context, PrefKeys key, String value) {
+        SharedPreferences settings = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
+        Editor editor = settings.edit();
+        editor.putString(key.name(), value);
+        editor.commit();
+    }
 
-	public static String getStr(Context context, PrefKeys key, String defValue) {
-		SharedPreferences settings = context.getSharedPreferences(Conf.FOOBNIX_PREFS, Context.MODE_PRIVATE);
-		return settings.getString(key.name(), defValue);
-	}
+    public static void put(Context context, PrefKeys key, boolean value) {
+        SharedPreferences settings = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
+        Editor editor = settings.edit();
+        editor.putBoolean(key.name(), value);
+        editor.commit();
+    }
 
-	public static boolean getBool(Context context, PrefKeys key) {
-		SharedPreferences settings = context.getSharedPreferences(Conf.FOOBNIX_PREFS, Context.MODE_PRIVATE);
-		return settings.getBoolean(key.name(), false);
-	}
+    public static String getStr(Context context, PrefKeys key, String defValue) {
+        SharedPreferences settings = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
+        return settings.getString(key.name(), defValue);
+    }
 
+    public static String getStr(Context context, PrefKeys key) {
+        SharedPreferences settings = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
+        return settings.getString(key.name(), "");
+    }
+
+    public static boolean getBool(Context context, PrefKeys key) {
+        SharedPreferences settings = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
+        return settings.getBoolean(key.name(), false);
+    }
 
 }

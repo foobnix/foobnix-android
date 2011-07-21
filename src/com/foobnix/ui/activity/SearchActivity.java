@@ -20,25 +20,30 @@
 package com.foobnix.ui.activity;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.foobnix.R;
 import com.foobnix.engine.FServiceHelper;
+import com.foobnix.engine.FoobnixApplication;
 import com.foobnix.engine.PlayListManager;
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.TYPE;
+import com.foobnix.model.FModelBuilder;
 import com.foobnix.model.SearchBy;
 import com.foobnix.model.SearchQuery;
 import com.foobnix.provider.IntegrationsQueryManager;
-import com.foobnix.provider.VkontakteApiAdapter;
 import com.foobnix.ui.adapter.FolderAdapter;
 import com.foobnix.ui.widget.RunnableDialog;
 import com.foobnix.util.C;
@@ -47,36 +52,77 @@ import com.foobnix.util.Pref;
 import com.foobnix.util.PrefKeys;
 import com.foobnix.util.SongUtil;
 
-public class VkontakteActivity extends MediaParentActivity {
+public class SearchActivity extends MediaParentActivity {
 
-    private FolderAdapter adapter;
-    private List<FModel> items = new ArrayList<FModel>();
-    private ListView list;
     private IntegrationsQueryManager queryManager;
-    private VkontakteApiAdapter vkontakteApi;
-
-    private String currentUser = "ivanivanenko";
+    private EditText editText;
+    private FolderAdapter navAdapter;
+    private List<FModel> items = new ArrayList<FModel>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.nav);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.search);
 
         queryManager = app.getIntegrationsQueryManager();
 
-        adapter = new FolderAdapter(this, items);
-        adapter.setNotifyOnChange(true);
+        navAdapter = new FolderAdapter(this, items);
+        navAdapter.setNotifyOnChange(true);
 
-        items.addAll(queryManager.getSearchResult(new SearchQuery(SearchBy.VK_USER_ID, C.get().vkontakteUserId)));
+        items.addAll(queryManager.getSearchResult(new SearchQuery(SearchBy.SEARCH, "Madonna")));
 
-        list = (ListView) findViewById(R.id.dir_list);
-        list.setAdapter(adapter);
-        list.setOnItemClickListener(onClick);
+        list = (ListView) findViewById(R.id.onlineListView);
+        list.setAdapter(navAdapter);
+
         list.setOnItemLongClickListener(onDialog);
+        list.setOnItemClickListener(onClick);
+
+        FoobnixApplication app = (FoobnixApplication) getApplication();
+
+        editText = (EditText) findViewById(R.id.onlineEditText);
+
+        if (StringUtils.isEmpty(C.get().vkontakteToken) && app.isOnline()) {
+            startActivity(new Intent(this, VkCheckActivity.class));
+        }
 
         onAcitvateMenuImages(this);
-        queryManager.emtyStack();
-        Pref.put(this, PrefKeys.ACTIVE_MEDIA_ACTIVITY, VkontakteActivity.class.getName());
+        Pref.put(this, PrefKeys.ACTIVE_MEDIA_ACTIVITY, SearchActivity.class.getName());
+    }
+
+    private void paste() {
+        String artist = app.getNowPlayingSong().getArtist();
+        if (StringUtils.isNotEmpty(artist)) {
+            editText.setText(artist);
+        } else {
+            editText.setText(app.getNowPlayingSong().getText());
+        }
+    }
+
+    private void checkForEmpy(List<FModel> items) {
+        if (items.isEmpty()) {
+            items.add(FModelBuilder.PatternText(getString(R.string.Your_search_did_not_match_any_results))
+                    .addArtist(""));
+        }
+
+    }
+
+    private String capitilizeWords(String text) {
+        String[] split = text.split(" ");
+        StringBuilder result = new StringBuilder();
+        for (String str : split) {
+            String word = str.trim();
+            if (StringUtils.isNotEmpty(word)) {
+                String first = ("" + word.charAt(0)).toUpperCase();
+                if (word.length() > 1) {
+                    first = first + word.substring(1);
+                }
+                result.append(first);
+                result.append(" ");
+            }
+        }
+        return result.toString().trim();
+
     }
 
     OnItemClickListener onClick = new OnItemClickListener() {
@@ -92,7 +138,7 @@ public class VkontakteActivity extends MediaParentActivity {
                 List<FModel> result = queryManager.getSearchResult(item.getSearchQuery());
                 LOG.d("Found Items: ", result.size());
                 SongUtil.updateType(result, TYPE.ONLINE);
-                adapter.update(result);
+                navAdapter.update(result);
                 list.setSelection(0);
 
             }
@@ -100,53 +146,30 @@ public class VkontakteActivity extends MediaParentActivity {
     };
 
     @Override
-    public void onBackPressed() {
-        List<FModel> result = queryManager.previousPage();
-
-        if (result.equals(Collections.EMPTY_LIST)) {
-            finish();
-            return;
-        }
-
-        LOG.d("Found Items: ", result.size());
-        SongUtil.updateType(result, TYPE.ONLINE);
-        adapter.update(result);
-        list.setSelection(0);
-    };
-
-    OnItemLongClickListener onDialog = new OnItemLongClickListener() {
-
-        @Override
-        public boolean onItemLongClick(final AdapterView<?> adapter, View arg1, final int pos, long arg3) {
-            final FModel item = (FModel) adapter.getItemAtPosition(pos);
-            actionDialog(item);
-            return true;
-        }
-    };
-
-    @Override
     protected void actionDialog(final FModel item) {
-        final List<FModel> items = adapter.getItems();
+        new RunnableDialog(SearchActivity.this, getString(R.string.Online_Action))//
 
-        new RunnableDialog(VkontakteActivity.this, getString(R.string.VKontakte_Action))//
+                .Action(String.format("%s: %s", getString(R.string.Paste), app.getNowPlayingSong().getArtist()),
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                paste();
+                            }
+                        }, StringUtils.isNotEmpty(app.getNowPlayingSong().getArtist()))//
 
-                .Action(getString(R.string.Open), new Runnable() {
+                .Action(getString(R.string.Play), new Runnable() {
                     @Override
                     public void run() {
-                        List<FModel> result = queryManager.getSearchResult(item.getSearchQuery());
-                        LOG.d("Found Items: ", result.size());
-                        SongUtil.updateType(result, TYPE.ONLINE);
-                        adapter.update(result);
-                        list.setSelection(0);
-
+                        FServiceHelper.getInstance().play(getApplicationContext(), item);
                     }
-                }, item != null && item.isFolder())//
+                }, item != null && item.isFile())//
 
                 .Action(getString(R.string.Set_As_Playlist), new Runnable() {
                     @Override
                     public void run() {
                         cleanPlayList();
 
+                        List<FModel> items = navAdapter.getItems();
                         SongUtil.removeFolders(items);
                         app.getPlayListManager().addAll(items);
 
@@ -154,7 +177,8 @@ public class VkontakteActivity extends MediaParentActivity {
                         showPlayer();
 
                     }
-                }, SongUtil.isFileInList(items))//
+
+                })//
 
                 .Action(getString(R.string.Append), new Runnable() {
                     @Override
@@ -167,12 +191,13 @@ public class VkontakteActivity extends MediaParentActivity {
                         }
                         app.playOnAppend();
                     }
-                }, item != null && item.isFile())//
+                }, item != null)//
 
                 .Action(getString(R.string.Append_All), new Runnable() {
                     @Override
                     public void run() {
 
+                        List<FModel> items = navAdapter.getItems();
                         SongUtil.removeFolders(items);
                         app.getPlayListManager().addAll(items);
                         app.playOnAppend();
@@ -180,7 +205,7 @@ public class VkontakteActivity extends MediaParentActivity {
 
                     }
 
-                }, SongUtil.isFileInList(items))//
+                })//
 
                 .Action(getString(R.string.Download), new Runnable() {
                     @Override
@@ -192,18 +217,34 @@ public class VkontakteActivity extends MediaParentActivity {
                 .Action(getString(R.string.Download_All), new Runnable() {
                     @Override
                     public void run() {
+
+                        List<FModel> items = navAdapter.getItems();
                         for (FModel current : items) {
                             app.addToDownload(current);
                         }
 
                     }
-                }, SongUtil.isFileInList(items)).show();
+                }, item != null && item.isFile()).show();
 
     }
 
+    OnItemLongClickListener onDialog = new OnItemLongClickListener() {
+
+        @Override
+        public boolean onItemLongClick(final AdapterView<?> adapter, View arg1, final int pos, long arg3) {
+            final FModel item = (FModel) adapter.getItemAtPosition(pos);
+            if (item.getType() != TYPE.ONLINE) {
+                return false;
+            }
+            actionDialog(item);
+            return true;
+        }
+    };
+    private ListView list;
+
     @Override
     public String getActivityTitle() {
-        return "LAST.FM";
+        return "Online Music Search";
     }
 
     @Override

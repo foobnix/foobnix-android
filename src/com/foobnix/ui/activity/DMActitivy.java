@@ -48,7 +48,7 @@ import com.foobnix.model.FModel.DOWNLOAD_STATUS;
 import com.foobnix.ui.adapter.DMAdapter;
 import com.foobnix.ui.widget.RunnableDialog;
 import com.foobnix.util.C;
-import com.foobnix.util.Conf;
+import com.foobnix.util.VersionHelper;
 import com.foobnix.util.FolderUtil;
 import com.foobnix.util.SongUtil;
 
@@ -133,7 +133,7 @@ public class DMActitivy extends FoobnixMenuActivity {
 		info.setText(getInfoLine());
 
 		TextView downloadTo = (TextView) findViewById(R.id.dmDownloadTo);
-		downloadTo.setText(FolderUtil.normalizePath(Conf.getDownloadTo(this)));
+		downloadTo.setText(FolderUtil.normalizePath(VersionHelper.getDownloadTo(this)));
 
 		Button choose = (Button) findViewById(R.id.dmChoose);
 		choose.setOnClickListener(onChoose);
@@ -192,7 +192,7 @@ public class DMActitivy extends FoobnixMenuActivity {
 	View.OnClickListener onChoose = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			startActivity(new Intent(DMActitivy.this, OnlineActivity.class));
+			startActivity(new Intent(DMActitivy.this, SearchActivity.class));
 		}
 	};
 

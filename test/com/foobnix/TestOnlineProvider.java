@@ -24,40 +24,40 @@ import java.util.List;
 import android.test.AndroidTestCase;
 
 import com.foobnix.model.FModel;
-import com.foobnix.provider.OnlineProvider;
+import com.foobnix.provider.LastFmApiAdapter;
+import com.foobnix.util.Res;
 
 import de.umass.lastfm.Caller;
 import de.umass.lastfm.cache.MemoryCache;
 
 public class TestOnlineProvider extends AndroidTestCase {
-	OnlineProvider provider;
+    LastFmApiAdapter lastFmApiAdapter;
 
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        lastFmApiAdapter = new LastFmApiAdapter(Res.get(getContext(), R.string.LAST_FM_API_KEY));
+        Caller.getInstance().setCache(new MemoryCache());
+    }
 
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-		provider = new OnlineProvider(getContext());
-		Caller.getInstance().setCache(new MemoryCache());
-	}
+    /*
+     * public void testTagTracks() { List<FModel> findUserTopTracks =
+     * provider.findTracksByTag("pop"); assertNotNull(findUserTopTracks);
+     * assertTrue(findUserTopTracks.size() > 20); }
+     */
 
-	/*
-	 * public void testTagTracks() { List<FModel> findUserTopTracks =
-	 * provider.findTracksByTag("pop"); assertNotNull(findUserTopTracks);
-	 * assertTrue(findUserTopTracks.size() > 20); }
-	 */
+    public void testGetTopTracks() {
+        List<FModel> findUserTopTracks = lastFmApiAdapter.findUserTopTracks("ivanivanenko");
+        assertNotNull(findUserTopTracks);
+        assertTrue(findUserTopTracks.size() > 20);
 
-	public void testGetTopTracks() {
-		List<FModel> findUserTopTracks = provider.findUserTopTracks("ivanivanenko");
-		assertNotNull(findUserTopTracks);
-		assertTrue(findUserTopTracks.size() > 20);
+    }
 
-	}
+    public void testRecentTracks() {
+        List<FModel> findUserTopTracks = lastFmApiAdapter.findUserRecentTracks("ivanivanenko");
+        assertNotNull(findUserTopTracks);
+        assertTrue(findUserTopTracks.size() > 5);
 
-	public void testRecentTracks() {
-		List<FModel> findUserTopTracks = provider.findUserRecentTracks("ivanivanenko");
-		assertNotNull(findUserTopTracks);
-		assertTrue(findUserTopTracks.size() > 5);
-
-	}
+    }
 
 }
