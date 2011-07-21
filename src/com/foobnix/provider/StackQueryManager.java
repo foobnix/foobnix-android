@@ -53,6 +53,11 @@ public abstract class StackQueryManager {
         return getSearchResult(back);
     }
 
+    public List<FModel> getSearchResult(SearchQuery searchQuery, boolean clean) {
+        stack.clear();
+        return getSearchResult(searchQuery);
+    }
+
     public List<FModel> getSearchResult(SearchQuery searchQuery) {
 
         LOG.d("Search By L1", searchQuery.getSearchBy(), searchQuery.getParam1(), searchQuery.getParam2());

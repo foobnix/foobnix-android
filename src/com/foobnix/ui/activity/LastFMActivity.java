@@ -60,10 +60,12 @@ public class LastFMActivity extends MediaParentActivity {
         setContentView(R.layout.nav);
 
         queryManager = app.getIntegrationsQueryManager();
+        queryManager.emtyStack();
+
         adapter = new FolderAdapter(this, items);
         adapter.setNotifyOnChange(true);
 
-        items.addAll(queryManager.getSearchResult(new SearchQuery(SearchBy.LAST_FM_USER, currentUser)));
+        items.addAll(queryManager.getSearchResult(new SearchQuery(SearchBy.LAST_FM_USER, currentUser), true));
 
         list = (ListView) findViewById(R.id.dir_list);
         list.setAdapter(adapter);

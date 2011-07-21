@@ -38,7 +38,6 @@ import com.foobnix.model.FModel.TYPE;
 import com.foobnix.model.SearchBy;
 import com.foobnix.model.SearchQuery;
 import com.foobnix.provider.IntegrationsQueryManager;
-import com.foobnix.provider.VkontakteApiAdapter;
 import com.foobnix.ui.adapter.FolderAdapter;
 import com.foobnix.ui.widget.RunnableDialog;
 import com.foobnix.util.C;
@@ -53,9 +52,6 @@ public class VkontakteActivity extends MediaParentActivity {
     private List<FModel> items = new ArrayList<FModel>();
     private ListView list;
     private IntegrationsQueryManager queryManager;
-    private VkontakteApiAdapter vkontakteApi;
-
-    private String currentUser = "ivanivanenko";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +59,12 @@ public class VkontakteActivity extends MediaParentActivity {
         setContentView(R.layout.nav);
 
         queryManager = app.getIntegrationsQueryManager();
+        queryManager.emtyStack();
 
         adapter = new FolderAdapter(this, items);
         adapter.setNotifyOnChange(true);
 
-        items.addAll(queryManager.getSearchResult(new SearchQuery(SearchBy.VK_USER_ID, C.get().vkontakteUserId)));
+        items.addAll(queryManager.getSearchResult(new SearchQuery(SearchBy.VK_USER_ID, C.get().vkontakteUserId), true));
 
         list = (ListView) findViewById(R.id.dir_list);
         list.setAdapter(adapter);
@@ -77,7 +74,16 @@ public class VkontakteActivity extends MediaParentActivity {
         onAcitvateMenuImages(this);
         queryManager.emtyStack();
         Pref.put(this, PrefKeys.ACTIVE_MEDIA_ACTIVITY, VkontakteActivity.class.getName());
+
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (queryManager != null) {
+            queryManager.emtyStack();
+        }
+    };
 
     OnItemClickListener onClick = new OnItemClickListener() {
 

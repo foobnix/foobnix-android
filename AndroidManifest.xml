@@ -23,7 +23,7 @@
         <activity android:name=".ui.activity.pref.PlayerPreferences" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.VkCheckActivity"  />
         <activity android:name=".ui.activity.InfoActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.OnlineActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.SearchActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.LastFMActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.VkontakteActivity" android:screenOrientation="portrait" />
         
