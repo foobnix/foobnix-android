@@ -11,8 +11,6 @@
         
 	   <activity android:name=".ui.activity.HomeActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.stars.PlaylistActivity" android:screenOrientation="portrait">
-        
-        
         	<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

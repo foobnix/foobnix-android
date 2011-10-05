@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -9,11 +7,11 @@
 		<groupId>foobnix</groupId>
 		<version>1.0.0</version>
 	</parent>
-	<groupId>foobnix</groupId>
-	<artifactId>foobnix-android-full</artifactId>
+	<groupId>foobnix-android-simple</groupId>
+	<artifactId>foobnix-android-simple</artifactId>
 	<version>1.0.0</version>
 	<packaging>apk</packaging>
-	<name>foobnix-android-full</name>
+	<name>foobnix-android-simple</name>
 
 	<dependencies>
 		<dependency>
@@ -23,32 +21,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>foobnix</groupId>
-			<artifactId>foobnix-commons</artifactId>
-			<version>1.0.1</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>1.7.2</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.0.1</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>10.0</version>
 		</dependency>
 	</dependencies>
 
@@ -64,9 +39,9 @@
 					<resourceDirectory>${project.basedir}/res</resourceDirectory>
 					<nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
 					<sdk>
-	<path>${sdk.path}</path>
-	<platform>${sdk.platform}</platform>
-</sdk>
+						<path>${sdk.path}</path>
+						<platform>${sdk.platform}</platform>
+					</sdk>
 					<deleteConflictingFiles>true</deleteConflictingFiles>
 					<undeployBeforeDeploy>true</undeployBeforeDeploy>
 				</configuration>

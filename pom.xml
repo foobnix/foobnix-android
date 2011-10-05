@@ -9,5 +9,11 @@
   <modules>
   	<module>foobnix-commons</module>
   	<module>foobnix-android-full</module>
+  	<module>foobnix-android-simple</module>
   </modules>
+  
+  <properties>
+  	<sdk.path>/home/ivan/Downloads/android-sdk-linux_x86</sdk.path>
+  	<sdk.platform>8</sdk.platform>  
+  </properties>
 </project>
