@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content" android:layout_width="match_parent"
+	android:orientation="horizontal" android:id="@+id/pItemLayout">
+	
+	<TextView android:text="1" android:id="@+id/pItemNum"
+		android:layout_height="match_parent" android:layout_width="wrap_content"
+		android:textSize="15dip" android:textStyle="bold"
+		android:gravity="center_vertical" android:paddingRight="5dip">
+	</TextView>
+	<LinearLayout android:layout_height="match_parent"
+		android:orientation="vertical" android:layout_width="wrap_content"
+		android:id="@+id/linearLayout2" android:layout_weight="1" android:gravity="center_vertical">
+
+		<TextView android:text="Title Long Long Title Long Long Title Long Long" android:id="@+id/pItemTitle"
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:textStyle="bold" android:textSize="20dip"
+			android:scrollHorizontally="true"  />
+
+		<TextView android:text="Artist" android:id="@+id/pItemArtist" 
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:scrollHorizontally="true" android:textSize="15dip" />
+	</LinearLayout>
+	
+	<LinearLayout android:layout_height="match_parent"
+		android:orientation="vertical" android:layout_width="wrap_content" android:gravity="center_vertical|right"
+		android:id="@+id/linearLayout2" android:layout_weight="0" android:paddingLeft="5dip">
+
+	<TextView android:text="00:00" android:id="@+id/pItemTime"
+		android:layout_height="wrap_content" android:layout_width="wrap_content"
+		android:gravity="center_vertical|right" android:textSize="15dip" />
+	
+	<TextView android:text="online" android:id="@+id/pItemState"
+		android:layout_height="wrap_content" android:layout_width="wrap_content"
+		android:gravity="center_vertical|right" android:textSize="12dip" android:textColor="#CC0000" />
+	</LinearLayout>
+	
+</LinearLayout>

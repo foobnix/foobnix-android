@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">Foobnix Player</string>
+    <string name="Action">Action</string>
+    <string name="Player">Player</string>
+    <string name="Info">Info</string>
+    <string name="Delete">Delete</string>
+    <string name="Delete_All">Delete All</string>
+    <string name="Add">Add</string>
+    <string name="Added">Added</string>
+    <string name="Play">Play</string>    
+    <string name="Folders_Online">Folders-Online</string>    
+    <string name="Player_List">Player List</string>
+    <string name="Downloads">Downloads</string>
+    <string name="Download">Download track</string>
+    <string name="Download_All">Download All</string>
+    <string name="Song_Info">Song Info</string>
+    <string name="Settings">Settings</string>
+    <string name="Playlist">Playlist</string>
+    <string name="Clean_Playlist">Clean Playlist</string>
+    <string name="Player_List_Action">Player List Action</string>
+    <string name="Network_not_available">Network not available</string>
+    <string name="Media_Resources">Media Resources</string>
+    <string name="Folders">Folders</string>
+    <string name="Online">Online</string>
+    <string name="Folder_Action">Folder Action</string>
+    <string name="Create_Folder">Create Folder</string>
+    <string name="Append">Append</string>
+    <string name="Append_All">Append All</string>
+    <string name="Set_As_Playlist">Set As Playlist</string>
+    <string name="Set_Download_To">Set Download To</string>
+    <string name="Background_On">Background On</string>
+    <string name="Background_Off">Background Off</string>
+    <string name="Open">Open</string>
+    <string name="VK">VK</string>
+    <string name="Last.fm_VK">Last+VK</string>
+    <string name="DM">DM</string>
+    <string name="Network_Error">Network Error</string>
+    <string name="Token_Expired">Token Expired</string>
+    
+    <string name="Skip_Song_With_Error">Skip Errors</string>
+    
+    
+    <string name="Add_To_Playlist">Add Track To Playlist</string>
+    <string name="Add_All_To_Playlist">Add All To Playlist</string>
+    
+    <string name="Default_Login_and_Password">Default Login and Password</string>
+    
+    <!-- dm manager -->
+    <string name="Download_Manager">Download Manager</string>
+    <string name="Save_To:_">Save To: </string>
+    <string name="Choose_...">Choose ...</string>
+    <string name="Now:_">Now: </string>
+    <string name="_Refresh_"> Refresh </string>
+    <string name="Stat:_">Stat: </string>
+    
+    <!-- Online -->
+    <string name="Tracks">Tracks</string>
+    <string name="Albums">Albums</string>
+    <string name="Similar">Similar</string>
+    <string name="Tags">Tags</string>
+    <string name="Audio">Audio</string>
+    <string name="Search">Search</string>
+    <string name="Exit">Exit</string>
+    <string name="Paste">Paste</string>
+    <string name="Online_Action">Online Action</string>
+    <string name="VKontakte_Action">VKontakte Action</string>
+    <string name="Your_search_did_not_match_any_results">Your search did not match any results</string>
+    
+    
+    <string name="Version">Version</string>
+    <string name="Code">Code</string>
+    
+    <string name="Create">Create</string>
+    <string name="Cancel">Cancel</string>
+    <string name="Success">Success</string>
+    <string name="Format:_">Format: </string>
+    
+    
+    <string name="Fail">Fail</string>
+    <string name="Enable">Enable</string>
+    <string name="Enable_Scrobbler">Enable Scrobbler</string>
+    <string name="Services">Services</string>
+    <string name="Login">Login</string>
+    <string name="Password">Password</string>
+    <string name="Foobnix_Settings">Foobnix Settings</string>
+    <string name="Last_Fm_Scrobbler">Last.FM Scrobbler</string>
+    <string name="Disable">Disable</string>
+    <string name="VKontakte_Authorization">VKontakte Authorization</string>
+    
+    <string name="Functional">Functional</string>
+    <string name="Other">Other</string>
+    <string name="Site">Site</string>
+    <string name="About">About</string>
+    
+    <string name="Random_On">Random On</string>
+    <string name="Random_Off">Random Off</string>
+    
+    
+    <string name="Notification_Icon">Notification Icon</string>
+    <string name="Stop_Timer">Stop Timer</string>
+    <string name="Stop_from_last_activity_in_mins">Stop from last activity in %s mins</string>
+    
+    
+    <string name="To_Artist_Tilte">[to]/Artist - Title</string>
+    <string name="To_Artist_Artist_Tilte">[to]/[Artist]/Artist - Title</string>
+    
+    <string name="Download_Manager_Action">Download Manager Action</string>
+    <string name="Please_Refresh_Vkontakte_Settings">Please Refresh Vkontakte Settings</string>
+    <string name="Network_not_available_cant_play_online_song">Network not available, can"t play online song</string>
+    <string name="Song_not_found_in_the_Internet_cantt_play">Song not found in the Internet, cant"t play</string>
+    <string name="Authorization_VKontakte_require_for_music_search">Authorization VKontakte (require for music search)</string>
+    <string name="Player_Info_Line">You can start with Menu -> Folders-Online</string>
+    <string name="Success_please_recheck_if_expired">Success (please recheck if expired)</string>
+    <string name="Login_or_password_is_empty">Login or password is empty</string>
+    <string name="Vk_message">Click here to automatic Sign In</string>
+    
+
+	<string name="Last_fm">Last.fm</string>
+	<string name="Last_fm_Action">Last.fm Action</string>    
+    
+    
+    
+    
+</resources>

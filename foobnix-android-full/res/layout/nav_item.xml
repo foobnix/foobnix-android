@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="horizontal"
+	android:layout_height="match_parent"
+	android:gravity="center_vertical"
+	android:layout_width="match_parent"
+	android:id="@+id/navLayout"
+	android:paddingTop="2dip"
+	android:paddingBottom="2dip">
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:text="TextView "
+		android:id="@+id/navTxtView"
+		android:layout_width="match_parent"
+		android:layout_weight="1"
+		android:gravity="center_vertical"
+		android:textSize="17dip"></TextView>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:typeface="monospace"
+		android:id="@+id/linearLayout1"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:gravity="center_horizontal"
+		android:paddingLeft="5dip">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="MP3"
+			android:textStyle="bold"
+			android:textSize="15dip"
+			android:id="@+id/navExt"
+			android:layout_width="wrap_content"
+			android:layout_weight="0"
+			android:gravity="center_vertical" />
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="12.3Mb"
+			android:textSize="13dip"
+			android:id="@+id/navSize"
+			android:layout_width="wrap_content"
+			android:layout_weight="0"
+			android:gravity="center_vertical" />
+
+	</LinearLayout>
+
+	<CheckBox
+		android:text=""
+		android:visibility="gone"
+		android:enabled="false"
+		android:id="@+id/checkBox"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"></CheckBox>
+
+</LinearLayout>

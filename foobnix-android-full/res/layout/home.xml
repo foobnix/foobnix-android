@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@drawable/bg"
+	android:gravity="center_vertical|center_horizontal">
+
+	<include
+		android:layout_width="match_parent"
+		android:layout_weight="0"
+		layout="@layout/top_bar" />
+
+
+	<LinearLayout
+		android:id="@+id/homeGridLayout"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:layout_height="match_parent">
+
+		<!-- first line -->
+		<LinearLayout
+			android:id="@+id/linearLayout2"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:gravity="center_vertical|center_horizontal"
+			android:orientation="horizontal">
+
+			<LinearLayout
+				android:id="@+id/homePlaylist"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:gravity="center_vertical|center_horizontal"
+				android:layout_weight="1">
+
+				<ImageView
+					android:src="@android:drawable/ic_menu_agenda"
+
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/imageMyImages" />
+
+				<TextView
+					android:text="Playlist"
+					android:textSize="20dip"
+					android:textStyle="bold"
+					android:id="@+id/textMyImages"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+
+
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/homeFolder"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:gravity="center_vertical|center_horizontal"
+				android:layout_weight="1">
+				<ImageView
+					android:src="@android:drawable/ic_menu_add"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/imageBrowseFolders" />
+
+				<TextView
+					android:text="Folders"
+					android:textSize="20dip"
+					android:textStyle="bold"
+					android:id="@+id/textBrowseFolders"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/homeSearch"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:gravity="center_vertical|center_horizontal"
+				android:layout_weight="1">
+
+				<ImageView
+					android:src="@android:drawable/ic_menu_search"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/imageMyImages" />
+
+				<TextView
+					android:text="Search"
+					android:textSize="20dip"
+					android:textStyle="bold"
+					android:id="@+id/textMyImages"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+
+			</LinearLayout>
+		</LinearLayout>
+
+		<!-- second line -->
+		<LinearLayout
+			android:id="@+id/linearLayout2"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+
+			android:gravity="center_horizontal|center_vertical"
+			android:orientation="horizontal">
+
+
+			<LinearLayout
+				android:id="@+id/homeLastFm"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:gravity="center_vertical|center_horizontal"
+				android:layout_weight="1">
+
+				<ImageView
+					android:src="@android:drawable/ic_menu_slideshow"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/imageBrowseFolders" />
+
+				<TextView
+					android:text="Last.fm"
+					android:textSize="20dip"
+					android:textStyle="bold"
+					android:id="@+id/textBrowseFolders"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/homeVkontakte"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:gravity="center_vertical|center_horizontal"
+				android:layout_weight="1">
+
+				<ImageView
+					android:src="@android:drawable/ic_menu_gallery"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/imageMyImages" />
+
+				<TextView
+					android:text="VK"
+					android:textSize="20dip"
+					android:textStyle="bold"
+					android:id="@+id/textMyImages"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/homeRadio"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:gravity="center_vertical|center_horizontal"
+				android:layout_weight="1">
+
+				<ImageView
+					android:src="@android:drawable/ic_menu_upload"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/imageMyImages" />
+
+				<TextView
+					android:text="Downloads"
+					android:textSize="20dip"
+					android:textStyle="bold"
+					android:id="@+id/textMyImages"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+
+			</LinearLayout>
+		</LinearLayout>
+
+
+
+		<!-- 3 line -->
+		<LinearLayout
+			android:visibility="gone"
+			android:id="@+id/linearLayout2"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+
+			android:gravity="center_horizontal|center_vertical"
+			android:orientation="horizontal">
+
+
+			<LinearLayout
+				android:id="@+id/linearLayout1"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:gravity="center_vertical|center_horizontal"
+				android:layout_weight="1">
+
+				<ImageView
+					android:src="@android:drawable/ic_menu_edit"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/imageBrowseFolders" />
+
+				<TextView
+					android:text="Feedback"
+					android:textSize="20dip"
+					android:textStyle="bold"
+					android:id="@+id/textBrowseFolders"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/linearLayout1"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:gravity="center_vertical|center_horizontal"
+				android:layout_weight="1">
+
+				<ImageView
+					android:src="@android:drawable/ic_menu_close_clear_cancel"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/imageMyImages" />
+
+				<TextView
+					android:text="Exit"
+					android:textSize="20dip"
+					android:textStyle="bold"
+					android:id="@+id/textMyImages"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/linearLayout1"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:gravity="center_vertical|center_horizontal"
+				android:layout_weight="1">
+
+				<ImageView
+					android:src="@android:drawable/ic_menu_preferences"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/imageMyImages" />
+
+				<TextView
+					android:text="Settings"
+					android:textSize="20dip"
+					android:textStyle="bold"
+					android:id="@+id/textMyImages"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+
+			</LinearLayout>
+		</LinearLayout>
+
+
+		<TextView android:visibility="gone"
+			android:text="Donate or Contribute"
+			android:background="#d8eb6f"
+			android:padding="5dip"
+			android:textColor="#000000"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content" />
+
+
+		<LinearLayout android:visibility="gone"
+			android:layout_weight="0"
+			android:background="#176923"
+			android:id="@+id/homeGridLayout"
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:layout_height="wrap_content">
+
+
+			<ImageView
+				android:src="@drawable/prev"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:id="@+id/imageBrowseFolders" />
+
+			<!-- end line -->
+			<ViewFlipper
+				android:layout_weight="1"
+				android:layout_width="match_parent"
+				android:id="@+id/viewFlipper1"
+				android:layout_height="wrap_content">
+
+				<LinearLayout
+					android:id="@+id/linearLayout1"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					android:gravity="center_vertical|center_horizontal"
+					android:layout_weight="1">
+
+					<ImageView
+						android:src="@android:drawable/sym_def_app_icon"
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:id="@+id/imageMyImages" />
+
+					<LinearLayout
+						android:gravity="center_vertical"
+						android:layout_width="match_parent"
+						android:orientation="vertical"
+						android:layout_height="match_parent">
+
+						<TextView
+							android:text="Foobnix Donait Application"
+							android:singleLine="true"
+							android:textStyle="bold"
+							android:id="@+id/textMyImages"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content" />
+
+						<TextView
+							android:text="Install from Android Market"
+							android:singleLine="true"
+							android:id="@+id/textMyImages"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content" />
+
+					</LinearLayout>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:id="@+id/linearLayout1"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					android:gravity="center_vertical|center_horizontal"
+					android:layout_weight="1">
+
+					<ImageView
+						android:src="@android:drawable/sym_def_app_icon"
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:id="@+id/imageMyImages" />
+
+					<TextView
+						android:text="Support by Card"
+						android:textStyle="bold"
+						android:id="@+id/textMyImages"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content" />
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:id="@+id/linearLayout1"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					android:gravity="center_vertical|center_horizontal"
+					android:layout_weight="1">
+
+					<ImageView
+						android:src="@android:drawable/sym_def_app_icon"
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:id="@+id/imageMyImages" />
+
+					<TextView
+						android:text="Help by Webmoney"
+						android:textStyle="bold"
+						android:id="@+id/textMyImages"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content" />
+
+				</LinearLayout>
+
+			</ViewFlipper>
+
+			<ImageView
+				android:src="@drawable/next"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:id="@+id/imageBrowseFolders" />
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+</LinearLayout>
