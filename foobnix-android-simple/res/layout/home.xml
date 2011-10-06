@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:typeface="monospace"
+	android:orientation="vertical"
+	android:id="@+id/menuLinearLayout"
+	android:layout_height="match_parent">
+	
+	<TextView
+		android:text="path"
+		android:id="@+id/fileCurrentPath"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"></TextView>
+
+	<ListView
+		android:id="@+id/listView"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:layout_width="match_parent" />
+
+
+	<LinearLayout
+		android:layout_weight="0"
+		android:id="@+id/buttonsLine"
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		<Button
+			style="?android:attr/buttonStyleSmall"
+			android:layout_weight="1"
+			android:text="Delete"
+			android:id="@+id/fileDelete"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"></Button>
+		<Button
+			style="?android:attr/buttonStyleSmall"
+			android:layout_weight="1"
+			android:text="Create Folder"
+			android:id="@+id/fileCreate"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"></Button>
+
+	</LinearLayout>
+
+
+</LinearLayout>
