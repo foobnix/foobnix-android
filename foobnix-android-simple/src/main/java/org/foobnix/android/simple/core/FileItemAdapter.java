@@ -9,28 +9,19 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class FileItemAdapter extends ArrayAdapter<FileItem> {
-
-    private final Activity context;
-    private final List<FileItem> items;
-    private OnModelClickListener<FileItem> onModelClickListener;
-
+public class FileItemAdapter extends ModelListAdapter<FileItem> {
     public FileItemAdapter(Activity context, List<FileItem> items) {
-        super(context, -1, items);
-        setNotifyOnChange(true);
-        this.context = context;
-        this.items = items;
+        super(context, items);
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        final FileItem fileItem = getItem(position);
+        final FileItem item = getItem(position);
 
         View newView;
         if (convertView == null) {
@@ -41,56 +32,41 @@ public class FileItemAdapter extends ArrayAdapter<FileItem> {
         }
 
         ImageView image = (ImageView) newView.findViewById(R.id.fileImage);
-        if (fileItem.getBitmap() != null) {
-            image.setImageBitmap(fileItem.getBitmap());
+        if (item.getBitmap() != null) {
+            image.setImageBitmap(item.getBitmap());
         } else {
             image.setImageResource(R.drawable.icon);
         }
+        
 
         TextView name = (TextView) newView.findViewById(R.id.fileName);
-        name.setText(fileItem.getDisplayName());
+        name.setText(item.getDisplayName());
 
-        if (fileItem.getFile().isFile()) {
+        if (item.getFile().isFile()) {
             name.setTypeface(null, Typeface.NORMAL);
+            image.setImageResource(R.drawable.music_file);
         } else {
             name.setTypeface(null, Typeface.BOLD);
+            image.setImageResource(R.drawable.music_folder);
         }
 
         View clickable = (View) newView.findViewById(R.id.fileClickable);
-        clickable.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                if (onModelClickListener != null) {
-                    onModelClickListener.onClick(fileItem);
-                    notifyDataSetChanged();
-                }
-            }
-        });
-
+        clickable.setOnClickListener(new OnModelClick(item));
+        
         CheckBox checkBox = (CheckBox) newView.findViewById(R.id.fileCheckbox);
-        if (fileItem instanceof TopFileItem) {
+        if (item instanceof TopFileItem) {
             checkBox.setVisibility(View.GONE);
         } else {
-            checkBox.setVisibility(View.VISIBLE);
+            checkBox.setVisibility(View.GONE);
         }
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                fileItem.setChecked(isChecked);
+                item.setChecked(isChecked);
             }
         });
 
         return newView;
     }
-
-    public void setOnModelClickListener(OnModelClickListener<FileItem> onModelClickListener) {
-        this.onModelClickListener = onModelClickListener;
-    }
-
-    public OnModelClickListener<FileItem> getOnModelClickListener() {
-        return onModelClickListener;
-    }
-
 }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<LinearLayout android:id="@+id/linearLayout1"
+		android:paddingTop="2dip" android:layout_width="match_parent"
+		android:layout_height="wrap_content" android:background="@drawable/gradient_header"
+		android:gravity="center_vertical">
+
+		<ImageView android:layout_height="wrap_content" android:id="@+id/imageView1"
+			android:padding="3dip" android:layout_marginLeft="3dip"
+			android:layout_marginRight="3dip" android:layout_width="wrap_content"
+			android:src="@drawable/foobnix_small"></ImageView>
+
+
+		<TextView android:textColor="#ffffff" android:text="Foobnix Playlist"
+			android:textStyle="bold" android:textSize="20dip" android:id="@+id/homeTextLogo"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_weight="1" />
+
+		<ImageView android:layout_width="wrap_content"
+			android:paddingLeft="10dip" android:paddingRight="10dip"
+			android:src="@android:drawable/arrow_down_float"
+			android:layout_height="match_parent" android:id="@+id/fileSettings"
+			android:layout_weight="0" />
+
+	</LinearLayout>
+
+	<TextView android:text="www.foobnix.com" android:id="@+id/textView1"
+		android:layout_width="match_parent" android:layout_height="wrap_content"
+		android:layout_weight="0" />
+
+
+
+	<ListView android:id="@+id/listView" android:layout_height="match_parent"
+		android:layout_weight="1" android:layout_width="match_parent">
+	</ListView>
+
+	<LinearLayout android:layout_width="match_parent"
+		android:layout_weight="0" android:typeface="monospace"
+		android:orientation="vertical" android:layout_height="wrap_content">
+
+		<LinearLayout android:layout_width="match_parent"
+			android:orientation="horizontal" android:typeface="monospace"
+			android:id="@+id/linearLayout1" android:layout_height="wrap_content"
+			android:gravity="center_horizontal|center_vertical">
+
+
+			<ImageView android:layout_width="wrap_content" android:id="@+id/playlistAdd"
+				android:visibility="visible" android:layout_height="wrap_content"
+				android:src="@android:drawable/ic_menu_add" />
+
+			<ImageButton android:id="@+id/button_prev"
+				android:typeface="monospace" android:src="@android:drawable/ic_media_rew"
+				android:textSize="20sp" android:textStyle="bold" android:text="≪"
+				android:layout_height="wrap_content" android:layout_width="wrap_content"
+				android:layout_weight="1" />
+			<ImageButton android:id="@+id/button_play_pause"
+				android:typeface="monospace" android:src="@android:drawable/ic_media_play"
+				android:textSize="20sp" android:textStyle="bold" android:text=">"
+				android:layout_height="wrap_content" android:layout_width="wrap_content"
+				android:layout_weight="1" />
+			<ImageButton android:id="@+id/button_next"
+				android:typeface="monospace" android:textSize="20sp"
+				android:textStyle="bold" android:text="≫"
+				android:src="@android:drawable/ic_media_ff" android:layout_height="wrap_content"
+				android:layout_width="wrap_content" android:layout_weight="1" />
+
+			<ImageView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:visibility="visible"
+				android:src="@android:drawable/ic_menu_info_details" android:id="@+id/playlistInfo" />
+
+
+
+		</LinearLayout>
+
+
+		<LinearLayout android:layout_width="match_parent"
+			android:orientation="horizontal" android:typeface="monospace"
+			android:id="@+id/linearLayout2" android:layout_height="wrap_content"
+			android:gravity="center_vertical">
+			<TextView android:text="00:00" android:id="@+id/playerActiveTimer"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:layout_weight="0" android:gravity="center_vertical"></TextView>
+			<SeekBar android:id="@+id/playerSeekBar"
+				android:layout_height="wrap_content" android:layout_width="match_parent"
+				android:thumb="@drawable/none" android:paddingLeft="3px"
+				android:paddingRight="3px" android:layout_weight="1"
+				android:gravity="center_vertical"></SeekBar>
+			<TextView android:text="00:00" android:id="@+id/playerTrackTime"
+				android:layout_width="wrap_content" android:layout_weight="0"
+				android:layout_height="wrap_content" android:gravity="center_vertical"></TextView>
+		</LinearLayout>
+
+
+
+
+	</LinearLayout>
+</LinearLayout>
