@@ -7,6 +7,7 @@ import org.foobnix.android.simple.core.ModelListAdapter;
 import org.foobnix.android.simple.mediaengine.Model;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 
 public class PlaylistAdapter extends ModelListAdapter<Model> {
     
+    private Model current;
+
     public PlaylistAdapter(Activity context, List<Model> items) {
         super(context, items);
     }
@@ -33,10 +36,24 @@ public class PlaylistAdapter extends ModelListAdapter<Model> {
         TextView name = (TextView) newView.findViewById(R.id.fileName);
         name.setText(item.getName());
 
+        if (item.equals(current)) {
+            name.setBackgroundColor(Color.argb(60, 255, 255, 0));
+        } else {
+            name.setBackgroundColor(Color.TRANSPARENT);
+        }
+
         name.setOnClickListener(new OnModelClick(item));
 
         return newView;
     }
 
+
+    public void setCurrent(Model current) {
+        this.current = current;
+    }
+
+    public Model getCurrent() {
+        return current;
+    }
 
 }

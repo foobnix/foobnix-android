@@ -16,9 +16,11 @@ import com.foobnix.commons.LOG;
 public class MediaPlayerFeatures extends MediaPlayerEngine {
     IntentFilter filter;
     private Handler handler = new Handler();
+    protected Context context;
 
     protected MediaPlayerFeatures(Context context) {
         super(null);
+        this.context = context;
         TelephonyManager tmgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         tmgr.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
 

@@ -27,7 +27,7 @@
 
 	</LinearLayout>
 
-	<TextView android:text="www.foobnix.com" android:id="@+id/textView1"
+	<TextView android:text="www.foobnix.com" android:id="@+id/playlist_info_line"
 		android:layout_width="match_parent" android:layout_height="wrap_content"
 		android:layout_weight="0" />
 
@@ -80,15 +80,15 @@
 			android:orientation="horizontal" android:typeface="monospace"
 			android:id="@+id/linearLayout2" android:layout_height="wrap_content"
 			android:gravity="center_vertical">
-			<TextView android:text="00:00" android:id="@+id/playerActiveTimer"
+			<TextView android:text="00:00" android:id="@+id/playlist_track_time"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:layout_weight="0" android:gravity="center_vertical"></TextView>
-			<SeekBar android:id="@+id/playerSeekBar"
+			<SeekBar android:id="@+id/playilst_seek"
 				android:layout_height="wrap_content" android:layout_width="match_parent"
 				android:thumb="@drawable/none" android:paddingLeft="3px"
 				android:paddingRight="3px" android:layout_weight="1"
 				android:gravity="center_vertical"></SeekBar>
-			<TextView android:text="00:00" android:id="@+id/playerTrackTime"
+			<TextView android:text="00:00" android:id="@+id/playlist_track_duration"
 				android:layout_width="wrap_content" android:layout_weight="0"
 				android:layout_height="wrap_content" android:gravity="center_vertical"></TextView>
 		</LinearLayout>

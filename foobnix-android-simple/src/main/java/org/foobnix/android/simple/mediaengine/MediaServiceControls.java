@@ -9,7 +9,7 @@ public abstract class MediaServiceControls extends Service {
     private static Context context;
 
     public enum MediaAction {
-        PLAY_PAHT, PAUSE, NEXT, PREV, SET_PLAYLIST, PLAY_PAUSE
+        PLAY_PAHT, PAUSE, NEXT, PREV, SET_PLAYLIST, PLAY_PAUSE, SEEK_TO, PLAY_AT_POS
 	}
 
     // any action without extra
@@ -36,10 +36,24 @@ public abstract class MediaServiceControls extends Service {
 		context.startService(service);
 	}
 
+    public static void playAtPos(int pos) {
+        Intent service = new Intent(context, MediaService.class);
+        service.setAction(MediaAction.PLAY_AT_POS.name());
+        service.putExtra(EXTRA, pos);
+        context.startService(service);
+    }
+
     public static void setPlaylist(Models models) {
         Intent service = new Intent(context, MediaService.class);
         service.setAction(MediaAction.SET_PLAYLIST.name());
         service.putExtra(EXTRA, models);
+        context.startService(service);
+    }
+
+    public static void seekTo(int seekPos) {
+        Intent service = new Intent(context, MediaService.class);
+        service.setAction(MediaAction.SEEK_TO.name());
+        service.putExtra(EXTRA, seekPos);
         context.startService(service);
     }
 
