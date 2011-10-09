@@ -170,7 +170,7 @@ public class FoldersActivity extends Activity implements OnModelClickListener<Fi
             items.addAll(FileItemProvider.getFilesAndFoldersByPath(currentPath));
             adapter.notifyDataSetChanged();
 		} else {
-			MediaService.playPath(this, fileItem.getFile().getPath());
+            MediaService.playPath(fileItem.getFile().getPath());
 
             Intent intent = new Intent(this, PlaylistActivity.class);
             List<FileItem> filesByPath = FileItemProvider.getFilesByPath(currentPath);

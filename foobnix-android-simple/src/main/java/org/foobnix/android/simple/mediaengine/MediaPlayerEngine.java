@@ -32,15 +32,6 @@ public class MediaPlayerEngine extends MediaPlayer {
             }
         });
 
-        setOnCompletionListener(new OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                LOG.d("On Complete");
-                if (mediaObserver != null) {
-                    mediaObserver.onComlete();
-                }
-            }
-        });
         setOnErrorListener(new OnErrorListener() {
             @Override
             public boolean onError(MediaPlayer mp, int what, int extra) {

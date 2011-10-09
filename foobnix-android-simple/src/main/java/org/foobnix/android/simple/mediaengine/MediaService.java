@@ -14,6 +14,7 @@ public class MediaService extends MediaServiceControls {
     @Override
     public void onCreate() {
         super.onCreate();
+        setContext(getApplicationContext());
         mediaCore = new MediaPlayerCore(getApplicationContext());
     }
 
@@ -24,13 +25,30 @@ public class MediaService extends MediaServiceControls {
             return;
         }
 
-        Controls mode = Controls.valueOf(intent.getAction());
+        MediaAction mode = MediaAction.valueOf(intent.getAction());
 
         switch (mode) {
         case PLAY_PAHT:
-            String path = (String) intent.getExtras().getString(EXTRA_PATH);
+            String path = (String) intent.getExtras().getString(EXTRA);
             mediaCore.play(path);
             break;
+        case SET_PLAYLIST:
+            Models models = (Models) intent.getExtras().getSerializable(EXTRA);
+            mediaCore.getPlaylistCtr().setPlaylist(models.getItems());
+            break;
+        case PAUSE:
+            mediaCore.pause();
+            break;
+        case NEXT:
+            mediaCore.next();
+            break;
+        case PREV:
+            mediaCore.prev();
+            break;
+        case PLAY_PAUSE:
+            mediaCore.playPause();
+            break;
+
         }
     }
 }

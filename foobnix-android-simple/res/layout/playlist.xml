@@ -51,17 +51,17 @@
 				android:visibility="visible" android:layout_height="wrap_content"
 				android:src="@android:drawable/ic_menu_add" />
 
-			<ImageButton android:id="@+id/button_prev"
+			<ImageButton android:id="@+id/playlist_prev"
 				android:typeface="monospace" android:src="@android:drawable/ic_media_rew"
 				android:textSize="20sp" android:textStyle="bold" android:text="≪"
 				android:layout_height="wrap_content" android:layout_width="wrap_content"
 				android:layout_weight="1" />
-			<ImageButton android:id="@+id/button_play_pause"
+			<ImageButton android:id="@+id/playlist_play_pause"
 				android:typeface="monospace" android:src="@android:drawable/ic_media_play"
 				android:textSize="20sp" android:textStyle="bold" android:text=">"
 				android:layout_height="wrap_content" android:layout_width="wrap_content"
 				android:layout_weight="1" />
-			<ImageButton android:id="@+id/button_next"
+			<ImageButton android:id="@+id/playlist_next"
 				android:typeface="monospace" android:textSize="20sp"
 				android:textStyle="bold" android:text="≫"
 				android:src="@android:drawable/ic_media_ff" android:layout_height="wrap_content"
