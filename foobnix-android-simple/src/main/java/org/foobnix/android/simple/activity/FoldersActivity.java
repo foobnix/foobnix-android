@@ -14,7 +14,6 @@ import org.foobnix.android.simple.mediaengine.MediaService;
 import org.foobnix.android.simple.mediaengine.Models;
 import org.foobnix.android.simple.mediaengine.ModelsHelper;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,7 +32,7 @@ import com.foobnix.commons.RecurciveFiles;
 import com.foobnix.commons.ViewBinder;
 import com.google.common.base.Strings;
 
-public class FoldersActivity extends Activity implements OnModelClickListener<FileItem> {
+public class FoldersActivity extends AppActivity implements OnModelClickListener<FileItem> {
     final List<FileItem> items = new ArrayList<FileItem>();
     File rootPath = Environment.getExternalStorageDirectory();
     private TextView path;
@@ -49,13 +48,10 @@ public class FoldersActivity extends Activity implements OnModelClickListener<Fi
 
         ListView listView = (ListView) findViewById(R.id.listView);
 
-       
         path.setText(rootPath.getPath());
         currentPath = rootPath;
 
         items.addAll(FileItemProvider.getFilesAndFoldersByPath(rootPath));
-
-        
 
         adapter = new FileItemAdapter(this, items);
         adapter.setOnModelClickListener(this);
@@ -63,33 +59,32 @@ public class FoldersActivity extends Activity implements OnModelClickListener<Fi
 
         ViewBinder.onClick(this, R.id.fileDelete, onDelete);
         ViewBinder.onClick(this, R.id.fileCreate, onCreate);
-        
+
         settinsImage = (ImageView) findViewById(R.id.fileSettings);
         settinsImage.setOnClickListener(onOpenSettigns);
-        
-        
-        
+
         settinsLayout = findViewById(R.id.fileSettinsLayout);
-        
+
         hideShowSettinsLine(isSettingsVisible);
 
     }
-    public void hideShowSettinsLine(boolean flag){
-    	if(flag){
-    		settinsLayout.setVisibility(View.VISIBLE);
-    		settinsImage.setImageResource(android.R.drawable.arrow_up_float);
-    	}else{
-    		settinsLayout.setVisibility(View.GONE);	
-    		settinsImage.setImageResource(android.R.drawable.arrow_down_float);
-    	}
+
+    public void hideShowSettinsLine(boolean flag) {
+        if (flag) {
+            settinsLayout.setVisibility(View.VISIBLE);
+            settinsImage.setImageResource(android.R.drawable.arrow_up_float);
+        } else {
+            settinsLayout.setVisibility(View.GONE);
+            settinsImage.setImageResource(android.R.drawable.arrow_down_float);
+        }
     }
-    
+
     OnClickListener onOpenSettigns = new OnClickListener() {
 
         @Override
         public void onClick(View arg0) {
-        	isSettingsVisible = !isSettingsVisible;
-        	hideShowSettinsLine(isSettingsVisible);
+            isSettingsVisible = !isSettingsVisible;
+            hideShowSettinsLine(isSettingsVisible);
 
         }
     };
@@ -148,8 +143,8 @@ public class FoldersActivity extends Activity implements OnModelClickListener<Fi
     }
 
     private FileItemAdapter adapter;
-	private View settinsLayout;
-	private ImageView settinsImage;
+    private View settinsLayout;
+    private ImageView settinsImage;
 
     @Override
     public void onClick(FileItem fileItem) {
@@ -159,23 +154,25 @@ public class FoldersActivity extends Activity implements OnModelClickListener<Fi
 
             File top = currentPath.getParentFile();
             items.clear();
-            
+
             if (!top.equals(rootPath.getParentFile())) {
                 items.add(new TopFileItem(top));
                 LOG.d("top", rootPath.getPath(), top.getPath());
             } else {
                 LOG.d("not top", rootPath.getPath(), top.getPath());
             }
-            
+
             items.addAll(FileItemProvider.getFilesAndFoldersByPath(currentPath));
             adapter.notifyDataSetChanged();
-		} else {
+        } else {
             MediaService.playPath(fileItem.getFile().getPath());
 
             Intent intent = new Intent(this, PlaylistActivity.class);
             List<FileItem> filesByPath = FileItemProvider.getFilesByPath(currentPath);
+
             Models models = ModelsHelper.getModelsByFileItems(filesByPath);
-            intent.putExtra("Models", models);
+            app.getItems().clear();
+            app.getItems().addAll(models.getItems());
 
             startActivity(intent);
         }

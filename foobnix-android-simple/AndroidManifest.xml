@@ -6,9 +6,9 @@
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:name=".FoobnixFolderPlayerApplication" android:theme="@android:style/Theme.Black.NoTitleBar">
 
-		<activity android:name=".activity.FoldersActivity" />
+		<activity android:name=".activity.FoldersActivity" android:launchMode="singleInstance" />
 
-		<activity android:name=".activity.PlaylistActivity">
+		<activity android:name=".activity.PlaylistActivity" android:launchMode="singleInstance">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />

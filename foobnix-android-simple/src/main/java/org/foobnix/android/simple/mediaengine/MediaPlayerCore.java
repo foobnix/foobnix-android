@@ -2,6 +2,8 @@ package org.foobnix.android.simple.mediaengine;
 
 import java.io.IOException;
 
+import org.foobnix.android.simple.FoobnixFolderPlayerApplication;
+
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -15,7 +17,10 @@ public class MediaPlayerCore extends MediaPlayerFeatures implements OnCompletion
     private final Handler handler = new Handler();
     public MediaPlayerCore(Context context) {
         super(context);
+        FoobnixFolderPlayerApplication app = (FoobnixFolderPlayerApplication) context.getApplicationContext();
         playlistCtr = new PlayListController();
+        playlistCtr.setPlaylist(app.getItems());
+
         setOnCompletionListener(this);
     }
 

@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class PlaylistAdapter extends ModelListAdapter<Model> {
@@ -33,18 +34,19 @@ public class PlaylistAdapter extends ModelListAdapter<Model> {
             newView = convertView;
         }
 
-        // TextView num = (TextView)
-        // newView.findViewById(R.id.playlist_track_pos);
-        // num.setText(item.getPosition() + 1);
+        TextView pos = (TextView) newView.findViewById(R.id.playlist_track_pos);
+        pos.setText("" + item.getPosition() + 1);
 
         TextView name = (TextView) newView.findViewById(R.id.playlist_title);
         name.setText(item.getName());
 
+        // playlist_item_layout
+        LinearLayout layout = (LinearLayout) newView.findViewById(R.id.playlist_item_layout);
 
         if (item.equals(current)) {
-            name.setBackgroundColor(Color.argb(60, 255, 255, 0));
+            layout.setBackgroundColor(Color.argb(60, 255, 255, 0));
         } else {
-            name.setBackgroundColor(Color.TRANSPARENT);
+            layout.setBackgroundColor(Color.TRANSPARENT);
         }
 
         name.setOnClickListener(new OnModelClick(item));

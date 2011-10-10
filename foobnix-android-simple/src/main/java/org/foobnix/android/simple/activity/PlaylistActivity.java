@@ -1,17 +1,12 @@
 package org.foobnix.android.simple.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.foobnix.android.simple.R;
 import org.foobnix.android.simple.core.OnModelClickListener;
 import org.foobnix.android.simple.core.playlist.PlaylistAdapter;
 import org.foobnix.android.simple.mediaengine.MediaEngineState;
 import org.foobnix.android.simple.mediaengine.MediaService;
 import org.foobnix.android.simple.mediaengine.Model;
-import org.foobnix.android.simple.mediaengine.Models;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,7 +23,7 @@ import com.foobnix.commons.LOG;
 import com.foobnix.commons.TimeUtil;
 import com.foobnix.commons.ViewBinder;
 
-public class PlaylistActivity extends Activity implements OnModelClickListener<Model> {
+public class PlaylistActivity extends AppActivity implements OnModelClickListener<Model> {
     private SeekBar seekBar;
     private TextView trackTime;
     private TextView trackDuration;
@@ -36,7 +31,6 @@ public class PlaylistActivity extends Activity implements OnModelClickListener<M
     private ImageButton playPause;
 
     private PlaylistAdapter adapter;
-    final List<Model> items = new ArrayList<Model>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +39,7 @@ public class PlaylistActivity extends Activity implements OnModelClickListener<M
 
         ListView listView = (ListView) findViewById(R.id.listView);
 
-        Models models = (Models) getIntent().getSerializableExtra("Models");
-        if (models != null) {
-
-            List<Model> temp = models.getItems();
-            for (int i = 0; i < temp.size(); i++) {
-                Model model = temp.get(i);
-                model.setPosition(i);
-            }
-
-            items.addAll(temp);
-            MediaService.setPlaylist(models);
-        }
-
-        adapter = new PlaylistAdapter(this, items);
+        adapter = new PlaylistAdapter(this, app.getItems());
         adapter.setOnModelClickListener(this);
         listView.setAdapter(adapter);
 
@@ -143,7 +124,6 @@ public class PlaylistActivity extends Activity implements OnModelClickListener<M
             MediaService.playPause();
         }
     };
-
 
     View.OnClickListener onPrev = new View.OnClickListener() {
 
