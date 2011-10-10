@@ -17,7 +17,7 @@ public class ViewBinder {
         return textView;
     }
 
-    public static View startActivity(final Activity c, int id, final Class<?> clazz) {
+    public static View onClickActivity(final Activity c, int id, final Class<?> clazz) {
         View button = (View) c.findViewById(id);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

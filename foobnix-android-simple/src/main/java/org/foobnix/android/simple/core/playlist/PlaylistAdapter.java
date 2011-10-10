@@ -33,8 +33,13 @@ public class PlaylistAdapter extends ModelListAdapter<Model> {
             newView = convertView;
         }
 
-        TextView name = (TextView) newView.findViewById(R.id.fileName);
+        // TextView num = (TextView)
+        // newView.findViewById(R.id.playlist_track_pos);
+        // num.setText(item.getPosition() + 1);
+
+        TextView name = (TextView) newView.findViewById(R.id.playlist_title);
         name.setText(item.getName());
+
 
         if (item.equals(current)) {
             name.setBackgroundColor(Color.argb(60, 255, 255, 0));

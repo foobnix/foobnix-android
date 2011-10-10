@@ -7,22 +7,22 @@ import java.util.Collections;
 import java.util.List;
 
 public class FileItemProvider {
-	public final static FileItemComparator comparator = new FileItemComparator();
-	public final static Mp3FileNameFilter filter = new Mp3FileNameFilter();
-	
-	public static List<FileItem> getFilesAndFoldersByPath(File rootPath){
-		final List<FileItem> items = new ArrayList<FileItem>();
-		File[] listFiles = rootPath.listFiles(filter);
-		if (listFiles == null) {
-			return Collections.emptyList();
-		}
+    public final static FileItemComparator comparator = new FileItemComparator();
+    public final static Mp3FileNameFilter filter = new Mp3FileNameFilter();
+
+    public static List<FileItem> getFilesAndFoldersByPath(File rootPath) {
+        final List<FileItem> items = new ArrayList<FileItem>();
+        File[] listFiles = rootPath.listFiles(filter);
+        if (listFiles == null) {
+            return Collections.emptyList();
+        }
         for (File file : listFiles) {
             items.add(new FileItem(file));
         }
-        Collections.sort(items,comparator);
+        Collections.sort(items, comparator);
         return items;
-		
-	}
+
+    }
 
     public static List<FileItem> getFilesByPath(File rootPath) {
         final List<FileItem> items = new ArrayList<FileItem>();
@@ -30,7 +30,8 @@ public class FileItemProvider {
 
             @Override
             public boolean accept(File file) {
-                return file.isFile();
+                return file.isFile() && file.getName().toLowerCase().endsWith(".mp3");
+
             }
         });
         if (listFiles == null) {
@@ -45,4 +46,3 @@ public class FileItemProvider {
     }
 
 }
-

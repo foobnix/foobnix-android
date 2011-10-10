@@ -47,7 +47,14 @@ public class PlaylistActivity extends Activity implements OnModelClickListener<M
 
         Models models = (Models) getIntent().getSerializableExtra("Models");
         if (models != null) {
-            items.addAll(models.getItems());
+
+            List<Model> temp = models.getItems();
+            for (int i = 0; i < temp.size(); i++) {
+                Model model = temp.get(i);
+                model.setPosition(i);
+            }
+
+            items.addAll(temp);
             MediaService.setPlaylist(models);
         }
 
@@ -114,6 +121,7 @@ public class PlaylistActivity extends Activity implements OnModelClickListener<M
             playPause.setImageResource(android.R.drawable.ic_media_play);
         }
         adapter.setCurrent(state.getModel());
+        adapter.notifyDataSetChanged();
     }
 
     BroadcastReceiver updateProggressReciver = new BroadcastReceiver() {
