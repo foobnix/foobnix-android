@@ -11,6 +11,7 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Handler;
 
 import com.foobnix.commons.LOG;
+import com.foobnix.commons.TimeUtil;
 
 public class MediaPlayerCore extends MediaPlayerFeatures implements OnCompletionListener {
     private final PlayListController playlistCtr;
@@ -61,7 +62,10 @@ public class MediaPlayerCore extends MediaPlayerFeatures implements OnCompletion
     }
 
     public void play(Model model) {
-        play(model.getPath());
+        if (model != null) {
+            play(model.getPath());
+        }
+        model.setDuration(TimeUtil.durationToString(getDuration()));
     }
     public void play(String path) {
         try {

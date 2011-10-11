@@ -35,10 +35,16 @@ public class PlaylistAdapter extends ModelListAdapter<Model> {
         }
 
         TextView pos = (TextView) newView.findViewById(R.id.playlist_track_pos);
-        pos.setText("" + item.getPosition() + 1);
+        pos.setText("" + (item.getPosition() + 1));
 
-        TextView name = (TextView) newView.findViewById(R.id.playlist_title);
-        name.setText(item.getName());
+        TextView title = (TextView) newView.findViewById(R.id.playlist_title);
+        title.setText(item.getTitle());
+
+        TextView artist = (TextView) newView.findViewById(R.id.playlist_artist);
+        artist.setText(item.getArtist());
+
+        TextView time = (TextView) newView.findViewById(R.id.playlist_time);
+        time.setText(item.getDuration());
 
         // playlist_item_layout
         LinearLayout layout = (LinearLayout) newView.findViewById(R.id.playlist_item_layout);
@@ -49,7 +55,7 @@ public class PlaylistAdapter extends ModelListAdapter<Model> {
             layout.setBackgroundColor(Color.TRANSPARENT);
         }
 
-        name.setOnClickListener(new OnModelClick(item));
+        layout.setOnClickListener(new OnModelClick(item));
 
         return newView;
     }

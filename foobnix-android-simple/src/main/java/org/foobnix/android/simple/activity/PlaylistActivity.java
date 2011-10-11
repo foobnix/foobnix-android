@@ -94,7 +94,7 @@ public class PlaylistActivity extends AppActivity implements OnModelClickListene
         seekBar.setProgress(state.getCurrentPosition());
         trackTime.setText(TimeUtil.durationToString(state.getCurrentPosition()));
         trackDuration.setText(TimeUtil.durationToString(state.getDuration()));
-        infoLine.setText("" + state.getModel().getName());
+        infoLine.setText("" + state.getModel().getTitle());
 
         if (state.isPlaying()) {
             playPause.setImageResource(android.R.drawable.ic_media_pause);

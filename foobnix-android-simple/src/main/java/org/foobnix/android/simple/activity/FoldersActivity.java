@@ -1,6 +1,7 @@
 package org.foobnix.android.simple.activity;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +12,19 @@ import org.foobnix.android.simple.core.FileItemProvider;
 import org.foobnix.android.simple.core.OnModelClickListener;
 import org.foobnix.android.simple.core.TopFileItem;
 import org.foobnix.android.simple.mediaengine.MediaService;
+import org.foobnix.android.simple.mediaengine.Model;
 import org.foobnix.android.simple.mediaengine.Models;
 import org.foobnix.android.simple.mediaengine.ModelsHelper;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.audio.mp3.MP3AudioHeader;
+import org.jaudiotagger.audio.mp3.MP3File;
+import org.jaudiotagger.tag.FieldKey;
+import org.jaudiotagger.tag.Tag;
+import org.jaudiotagger.tag.TagException;
+import org.jaudiotagger.tag.id3.ID3v1Tag;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -29,12 +41,15 @@ import android.widget.Toast;
 
 import com.foobnix.commons.LOG;
 import com.foobnix.commons.RecurciveFiles;
+import com.foobnix.commons.TimeUtil;
 import com.foobnix.commons.ViewBinder;
+import com.foobnix.util.pref.Pref;
 import com.google.common.base.Strings;
 
 public class FoldersActivity extends AppActivity implements OnModelClickListener<FileItem> {
+    private static final String FOLDER_PATH = "FOLDER_PATH";
     final List<FileItem> items = new ArrayList<FileItem>();
-    File rootPath = Environment.getExternalStorageDirectory();
+    final File ROOT_PATH = Environment.getExternalStorageDirectory();
     private TextView path;
     private File currentPath;
     private boolean isSettingsVisible = false;
@@ -48,10 +63,11 @@ public class FoldersActivity extends AppActivity implements OnModelClickListener
 
         ListView listView = (ListView) findViewById(R.id.listView);
 
-        path.setText(rootPath.getPath());
-        currentPath = rootPath;
+        String initPath = Pref.getStr(this, FOLDER_PATH, Environment.getExternalStorageDirectory().getPath());
+        currentPath = new File(initPath);
 
-        items.addAll(FileItemProvider.getFilesAndFoldersByPath(rootPath));
+        path.setText(currentPath.getPath());
+        items.addAll(FileItemProvider.getFilesAndFoldersByPath(currentPath));
 
         adapter = new FileItemAdapter(this, items);
         adapter.setOnModelClickListener(this);
@@ -150,16 +166,16 @@ public class FoldersActivity extends AppActivity implements OnModelClickListener
     public void onClick(FileItem fileItem) {
         if (fileItem.getFile().isDirectory()) {
             currentPath = fileItem.getFile();
+
+            Pref.putStr(this, FOLDER_PATH, currentPath.getPath());
+
             path.setText(currentPath.getPath());
 
             File top = currentPath.getParentFile();
             items.clear();
 
-            if (!top.equals(rootPath.getParentFile())) {
+            if (!top.equals(ROOT_PATH.getParentFile())) {
                 items.add(new TopFileItem(top));
-                LOG.d("top", rootPath.getPath(), top.getPath());
-            } else {
-                LOG.d("not top", rootPath.getPath(), top.getPath());
             }
 
             items.addAll(FileItemProvider.getFilesAndFoldersByPath(currentPath));
@@ -171,6 +187,40 @@ public class FoldersActivity extends AppActivity implements OnModelClickListener
             List<FileItem> filesByPath = FileItemProvider.getFilesByPath(currentPath);
 
             Models models = ModelsHelper.getModelsByFileItems(filesByPath);
+            for (Model model : models.getItems()) {
+                if (model == null) {
+                    continue;
+                }
+                File file = new File(model.getPath());
+                try {
+                    MP3File f = (MP3File) AudioFileIO.read(file);
+                    MP3AudioHeader audioHeader = f.getMP3AudioHeader();
+                    model.setDuration(TimeUtil.durationSecToString(audioHeader.getTrackLength()));
+
+                    Tag tag = f.getTag();
+                    ID3v1Tag v1Tag = f.getID3v1Tag();
+                    if (tag != null) {
+                        model.setTitle("tag" + tag.getFirst(FieldKey.TITLE));
+                        model.setArtist("tag" + tag.getFirst(FieldKey.ARTIST));
+                    } else if (v1Tag != null) {
+                        model.setTitle("tag1" + v1Tag.getFirst(FieldKey.TITLE));
+                        model.setArtist("tag1" + v1Tag.getFirst(FieldKey.ARTIST));
+                    }
+
+                } catch (CannotReadException e) {
+                } catch (IOException e) {
+                } catch (TagException e) {
+                } catch (ReadOnlyFileException e) {
+                } catch (InvalidAudioFrameException e) {
+                }
+                // MP3AudioHeader audioHeader = f.getAudioHeader();
+                // audioHeader.getTrackLength();
+                // audioHeader.getSampleRateAsNumber();
+                // mp3AudioHeader.getChannels();
+                // mp3AudioHeader.isVariableBitRate();
+
+            }
+
             app.getItems().clear();
             app.getItems().addAll(models.getItems());
 

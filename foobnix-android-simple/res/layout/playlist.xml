@@ -69,7 +69,7 @@
 
 			<ImageView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:visibility="visible"
-				android:src="@android:drawable/ic_menu_info_details" android:id="@+id/playlistInfo" />
+				android:src="@android:drawable/ic_menu_preferences" android:id="@+id/playlist_preferences" />
 
 
 

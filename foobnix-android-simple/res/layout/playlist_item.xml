@@ -10,11 +10,11 @@
 		android:gravity="center_vertical" android:paddingRight="5dip">
 	</TextView>
 	
-	<LinearLayout android:layout_height="match_parent"
+	<LinearLayout android:layout_height="match_parent" android:padding="3dip"
 		android:orientation="vertical" android:layout_width="wrap_content"
 		android:id="@+id/linearLayout2" android:layout_weight="1" android:gravity="center_vertical">
 
-		<TextView android:text="Title" android:id="@+id/playlist_title"
+		<TextView android:text="Title Title TitleTitle Title Title Title Title Title Title Title Title" android:id="@+id/playlist_title"
 			android:layout_height="wrap_content" android:layout_width="wrap_content"
 			android:textStyle="bold" android:textSize="20dip"
 			android:scrollHorizontally="true"  />
@@ -28,7 +28,7 @@
 		android:orientation="vertical" android:layout_width="wrap_content" android:gravity="center_vertical|right"
 		android:id="@+id/linearLayout2" android:layout_weight="0" android:paddingLeft="5dip">
 
-	<TextView android:text="00:00" android:id="@+id/pItemTime"
+	<TextView android:text="00:00" android:id="@+id/playlist_time"
 		android:layout_height="wrap_content" android:layout_width="wrap_content"
 		android:gravity="center_vertical|right" android:textSize="15dip" />
 	
