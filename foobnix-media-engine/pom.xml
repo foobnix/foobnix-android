@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>foobnix-parent</artifactId>
+    <groupId>foobnix</groupId>
+    <version>1.0.0</version>
+  </parent>
+  <groupId>foobnix</groupId>
+  <artifactId>foobnix-media-engine</artifactId>
+  <version>1.0.0</version>
+  <name>Foobnix Media Engine</name>
+  <packaging>jar</packaging>
+  
+  <dependencies>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<version>2.2.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>foobnix</groupId>
+			<artifactId>foobnix-commons</artifactId>
+			<version>1.0.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+  </dependencies>
+  
+</project>

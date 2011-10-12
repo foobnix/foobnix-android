@@ -8,8 +8,9 @@
   <description>Foobnix Parent Project</description>
   <modules>
   	<module>foobnix-commons</module>
-  	<module>foobnix-android-full</module>
+  	<module>foobnix-media-engine</module>
   	<module>foobnix-android-simple</module>
+  	<module>foobnix-android-full</module>
   </modules>
   
   <properties>
