@@ -1,20 +1,8 @@
 package com.foobnix.android.simple.activity;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.audio.mp3.MP3AudioHeader;
-import org.jaudiotagger.audio.mp3.MP3File;
-import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.TagException;
-import org.jaudiotagger.tag.id3.ID3v1Tag;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -36,13 +24,11 @@ import com.foobnix.android.simple.core.FileItemProvider;
 import com.foobnix.android.simple.core.OnModelClickListener;
 import com.foobnix.commons.LOG;
 import com.foobnix.commons.RecurciveFiles;
-import com.foobnix.commons.TimeUtil;
+import com.foobnix.commons.StringUtils;
 import com.foobnix.commons.ViewBinder;
 import com.foobnix.mediaengine.MediaModel;
 import com.foobnix.mediaengine.MediaModels;
-import com.foobnix.mediaengine.MediaService;
 import com.foobnix.util.pref.Pref;
-import com.google.common.base.Strings;
 
 public class FoldersActivity extends AppActivity implements OnModelClickListener<FileItem> {
     private static final String FOLDER_PATH = "FOLDER_PATH";
@@ -134,7 +120,7 @@ public class FoldersActivity extends AppActivity implements OnModelClickListener
                 .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String text = name.getText().toString();
-                        if (!Strings.isNullOrEmpty(text)) {
+                        if (StringUtils.isEmpty(text)) {
                             File file = new File(currentPath, text);
 
                             LOG.d("Create file", file.getPath());
@@ -174,9 +160,6 @@ public class FoldersActivity extends AppActivity implements OnModelClickListener
             items.addAll(FileItemProvider.getFilesAndFoldersWithRoot(currentPath));
             adapter.notifyDataSetChanged();
         } else {
-            MediaService.playPath(fileItem.getFile().getPath());
-
-
             List<FileItem> filesByPath = FileItemProvider.getFilesByPath(currentPath);
 
             MediaModels models = ModelsHelper.getModelsByFileItems(filesByPath);
@@ -184,33 +167,6 @@ public class FoldersActivity extends AppActivity implements OnModelClickListener
                 if (model == null) {
                     continue;
                 }
-                File file = new File(model.getPath());
-                try {
-                    MP3File f = (MP3File) AudioFileIO.read(file);
-                    MP3AudioHeader audioHeader = f.getMP3AudioHeader();
-                    model.setDuration(TimeUtil.durationSecToString(audioHeader.getTrackLength()));
-
-                    Tag tag = f.getTag();
-                    ID3v1Tag v1Tag = f.getID3v1Tag();
-                    if (tag != null) {
-                        model.setTitle("tag" + tag.getFirst(FieldKey.TITLE));
-                        model.setArtist("tag" + tag.getFirst(FieldKey.ARTIST));
-                    } else if (v1Tag != null) {
-                        model.setTitle("tag1" + v1Tag.getFirst(FieldKey.TITLE));
-                        model.setArtist("tag1" + v1Tag.getFirst(FieldKey.ARTIST));
-                    }
-
-                } catch (CannotReadException e) {
-                } catch (IOException e) {
-                } catch (TagException e) {
-                } catch (ReadOnlyFileException e) {
-                } catch (InvalidAudioFrameException e) {
-                }
-                // MP3AudioHeader audioHeader = f.getAudioHeader();
-                // audioHeader.getTrackLength();
-                // audioHeader.getSampleRateAsNumber();
-                // mp3AudioHeader.getChannels();
-                // mp3AudioHeader.isVariableBitRate();
             }
 
             Intent playlist = new Intent(this, PlaylistActivity.class);

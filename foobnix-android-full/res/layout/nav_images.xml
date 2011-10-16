@@ -13,7 +13,7 @@
 		android:typeface="monospace" android:id="@+id/linearLayout1"
 		android:layout_height="wrap_content" android:gravity="center_horizontal|center_vertical">
 		
-		<ImageView android:layout_width="wrap_content"
+		<ImageView android:layout_width="wrap_content" android:padding="3dip"
 		 android:layout_height="wrap_content" android:visibility="visible"
 		android:src="@android:drawable/ic_menu_info_details" android:id="@+id/imageInfo"/>
 		
@@ -36,6 +36,7 @@
 		
 		<ImageView android:layout_width="wrap_content" android:id="@+id/imageSettins" android:visibility="visible"
 			android:layout_height="wrap_content" android:src="@android:drawable/ic_menu_preferences"
+			android:padding="3dip"
 			 />
 		
 	</LinearLayout>
@@ -49,8 +50,8 @@
 			android:layout_weight="0" android:gravity="center_vertical"></TextView>
 		<SeekBar android:id="@+id/playerSeekBar"
 			android:layout_height="wrap_content" android:layout_width="match_parent"
-			android:thumb="@drawable/none" android:paddingLeft="3px"
-			android:paddingRight="3px" android:layout_weight="1" android:gravity="center_vertical"></SeekBar>
+			android:thumb="@drawable/none" android:padding="5dip"
+			android:layout_weight="1" android:gravity="center_vertical"></SeekBar>
 		<TextView android:text="00:00" android:id="@+id/playerTrackTime"
 			android:layout_width="wrap_content" android:layout_weight="0"
 			android:layout_height="wrap_content" android:gravity="center_vertical"></TextView>
