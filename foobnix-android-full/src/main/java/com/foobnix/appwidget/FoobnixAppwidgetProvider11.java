@@ -12,6 +12,7 @@ import com.foobnix.R;
 import com.foobnix.broadcast.model.UIBroadcast;
 import com.foobnix.commons.LOG;
 import com.foobnix.engine.FServiceHelper;
+import com.foobnix.ui.activity.stars.PlaylistActivity;
 
 public class FoobnixAppwidgetProvider11 extends AppWidgetProvider {
     public static String ACTION_WIDGET_PLAY_PAUSE = "ACTION_WIDGET_PLAY_PAUSE";
@@ -30,6 +31,12 @@ public class FoobnixAppwidgetProvider11 extends AppWidgetProvider {
 
         PendingIntent playPendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.app_button_play_pause, playPendingIntent);
+
+        // open foobnix
+        intent = new Intent(context, PlaylistActivity.class);
+        PendingIntent prevPendingIntent = PendingIntent.getActivity(context, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.foobnix_clicable, prevPendingIntent);
 
         appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
 
