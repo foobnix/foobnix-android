@@ -4,59 +4,97 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/widget"
 	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:gravity="center_vertical"
 	android:focusable="true"
-	android:background="#500000FF">
+	android:orientation="horizontal"
+	android:layout_margin="1dip"
+	android:padding="1dip"
+	android:background="@drawable/gradient_widget"
+	android:layout_height="wrap_content">
 
 	<ImageView
-		android:gravity="center_vertical"
+		android:layout_margin="1dip"
+		android:layout_gravity="left"
+		android:layout_height="match_parent"
+		android:src="@drawable/foobnix"
 		android:layout_width="wrap_content"
-		android:padding="3dip"
-		android:layout_height="wrap_content"
-		android:visibility="visible"
-		android:src="@android:drawable/ic_menu_info_details"
-		android:id="@+id/button_info" />
+		android:id="@+id/image_foobnix"
+		android:layout_weight="0"></ImageView>
 
 
-	<ImageButton
+	<LinearLayout
+		android:layout_weight="1"
+		android:padding="1dip"
+		android:layout_marginLeft="1dip"
 		android:gravity="center_vertical"
-		android:id="@+id/button_prev"
-		android:typeface="monospace"
-		android:src="@android:drawable/ic_media_rew"
-		android:textSize="20sp"
-		android:textStyle="bold"
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:layout_weight="1" />
-	<ImageButton
-		android:id="@+id/button_play_pause"
-		android:typeface="monospace"
-		android:src="@android:drawable/ic_media_play"
-		android:textSize="20sp"
-		android:textStyle="bold"
-		android:gravity="center_vertical"
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:layout_weight="1" />
-	<ImageButton
-		android:id="@+id/button_next"
-		android:typeface="monospace"
-		android:textSize="20sp"
-		android:textStyle="bold"
-		android:gravity="center_vertical"
-		android:src="@android:drawable/ic_media_ff"
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:layout_weight="1" />
+		android:layout_width="match_parent"
+		android:id="@+id/linearLayout1"
+		android:orientation="vertical"
+		android:layout_height="match_parent">
 
-	<ImageView
-		android:gravity="center_vertical"
-		android:layout_width="wrap_content"
-		android:id="@+id/button_exit"
-		android:visibility="visible"
-		android:layout_height="wrap_content"
-		android:src="@android:drawable/ic_menu_close_clear_cancel"
-		android:padding="3dip" />
+
+
+		<LinearLayout
+			android:layout_weight="0"
+			android:padding="1dip"
+
+			android:layout_marginLeft="1dip"
+			android:layout_marginRight="1dip"
+			android:gravity="center_vertical"
+			android:layout_width="match_parent"
+			android:id="@+id/linearLayout1"
+			android:orientation="horizontal"
+			android:layout_height="wrap_content">
+
+			<TextView
+				android:layout_weight="1"
+				android:text="Foobnix Player - Simple and Powerfull"
+				android:singleLine="true"
+				android:id="@+id/app_text_line"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"></TextView>
+
+			<TextView
+				android:layout_weight="0"
+				android:text="04:14"
+				android:visibility="gone"
+				android:id="@+id/app_text_time"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"></TextView>
+
+
+		</LinearLayout>
+
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:id="@+id/linearLayout1"
+			android:layout_weight="1"
+			android:gravity="center_vertical"
+			android:orientation="horizontal"
+			android:layout_height="match_parent">
+
+			<ImageView
+			android:background="@drawable/select_image"
+				android:padding="8dip"
+				android:layout_margin="2dip"
+				android:id="@+id/app_button_play_pause"
+				android:src="@android:drawable/ic_media_play"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_weight="1" />
+
+
+			<ImageView
+			android:background="@drawable/select_image"
+				android:padding="8dip"
+				android:layout_margin="2dip"
+				android:id="@+id/app_button_next"
+				android:src="@android:drawable/ic_media_ff"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_weight="1" />
+		</LinearLayout>
+
+	</LinearLayout>
 
 </LinearLayout>

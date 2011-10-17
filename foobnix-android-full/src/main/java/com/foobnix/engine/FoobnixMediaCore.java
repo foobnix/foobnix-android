@@ -342,6 +342,13 @@ public class FoobnixMediaCore {
 			notification.displayNotifcation(!app.isPlaying());
 			app.setPlaying(!app.isPlaying());
 		}
+
+        UIBroadcast stat = new UIBroadcast(app.getNowPlayingSong(), engineManager.getCurrentPosition(),
+                engineManager.getDuration(), app.isPlaying(), engineManager.getBuffering(), app.getPlayListManager()
+                        .getAll().size());
+
+        broadCastManager.sendNowPlaying(stat);
+
 	}
 
 	public void seekTo(Integer msec) {

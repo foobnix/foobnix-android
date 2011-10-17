@@ -22,6 +22,7 @@ package com.foobnix.broadcast;
 import android.content.Context;
 import android.content.Intent;
 
+import com.foobnix.appwidget.FoobnixAppwidgetProvider;
 import com.foobnix.broadcast.action.NewSongBroadcastAction;
 import com.foobnix.broadcast.action.UIBrodcastAction;
 import com.foobnix.broadcast.model.NewSongBroadcast;
@@ -54,6 +55,12 @@ public class BroadCastManager {
 		}
 		Intent i = IntentHelper.createBroadcastIntent(new UIBrodcastAction(), stat);
 		context.sendBroadcast(i);
+
+        Intent intent = new Intent(context, FoobnixAppwidgetProvider.class);
+        intent.setAction(FoobnixAppwidgetProvider.ACTION_WIDGET_MEDIA_MODEL);
+        intent.putExtra(UIBroadcast.class.getName(), stat);
+        context.sendBroadcast(intent);
+
 	}
 
 	public void sendNewFModel(FModel FModel) {

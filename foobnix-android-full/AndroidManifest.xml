@@ -18,7 +18,10 @@
 		<receiver android:name=".appwidget.FoobnixAppwidgetProvider">
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-				<action android:name="com.foobnix.appwidget.FoobnixAppwidgetProvider.ACTION_WIDGET_RECEIVER" />
+				
+				<action android:name="com.foobnix.appwidget.FoobnixAppwidgetProvider.ACTION_WIDGET_PLAY_PAUSE" />
+				<action android:name="com.foobnix.appwidget.FoobnixAppwidgetProvider.ACTION_WIDGET_NEXT" />
+				<action android:name="com.foobnix.appwidget.FoobnixAppwidgetProvider.ACTION_WIDGET_MEDIA_MODEL" />
 			</intent-filter>
 			
 			<meta-data android:name="android.appwidget.provider"
