@@ -4,11 +4,14 @@
 	android:layout_width="match_parent"
 	android:typeface="monospace"
 	android:id="@+id/topBar"
+	android:padding="2dip"
 	android:layout_height="wrap_content"
-	android:background="@drawable/gradient_widget"
 	android:gravity="center_horizontal">
 
 	<LinearLayout
+		android:layout_margin="1dip"
+		android:padding="2dip"
+		android:background="@drawable/select_image"
 		android:layout_height="wrap_content"
 		android:id="@+id/starLayout"
 		android:layout_weight="1"
@@ -20,7 +23,7 @@
 			android:layout_width="wrap_content"
 			android:id="@+id/starImage"
 			android:layout_height="wrap_content"
-			android:src="@android:drawable/btn_star"
+			android:src="@drawable/playlist"
 			android:layout_weight="1" />
 
 		<TextView
@@ -31,8 +34,14 @@
 			android:layout_height="wrap_content"
 			android:textStyle="bold" />
 	</LinearLayout>
-	
+
+
+
+
 	<LinearLayout
+		android:layout_margin="1dip"
+		android:padding="2dip"
+		android:background="@drawable/select_image"
 		android:layout_height="wrap_content"
 		android:id="@+id/starLayout"
 		android:layout_weight="1"
@@ -44,7 +53,7 @@
 			android:layout_width="wrap_content"
 			android:id="@+id/starImage"
 			android:layout_height="wrap_content"
-			android:src="@android:drawable/btn_star"
+			android:src="@drawable/folder"
 			android:layout_weight="1" />
 
 		<TextView
@@ -55,8 +64,12 @@
 			android:layout_height="wrap_content"
 			android:textStyle="bold" />
 	</LinearLayout>
-	
+
+
 	<LinearLayout
+		android:layout_margin="1dip"
+		android:padding="2dip"
+		android:background="@drawable/select_image"
 		android:layout_height="wrap_content"
 		android:id="@+id/starLayout"
 		android:layout_weight="1"
@@ -68,7 +81,7 @@
 			android:layout_width="wrap_content"
 			android:id="@+id/starImage"
 			android:layout_height="wrap_content"
-			android:src="@android:drawable/btn_star"
+			android:src="@drawable/find"
 			android:layout_weight="1" />
 
 		<TextView
@@ -79,8 +92,10 @@
 			android:layout_height="wrap_content"
 			android:textStyle="bold" />
 	</LinearLayout>
-	
 	<LinearLayout
+		android:layout_margin="1dip"
+		android:padding="2dip"
+		android:background="@drawable/select_image"
 		android:layout_height="wrap_content"
 		android:id="@+id/starLayout"
 		android:layout_weight="1"
@@ -92,7 +107,7 @@
 			android:layout_width="wrap_content"
 			android:id="@+id/starImage"
 			android:layout_height="wrap_content"
-			android:src="@android:drawable/btn_star"
+			android:src="@drawable/lastvk"
 			android:layout_weight="1" />
 
 		<TextView
@@ -103,8 +118,10 @@
 			android:layout_height="wrap_content"
 			android:textStyle="bold" />
 	</LinearLayout>
-	
 	<LinearLayout
+		android:layout_margin="1dip"
+		android:padding="2dip"
+		android:background="@drawable/select_image"
 		android:layout_height="wrap_content"
 		android:id="@+id/starLayout"
 		android:layout_weight="1"
@@ -116,7 +133,7 @@
 			android:layout_width="wrap_content"
 			android:id="@+id/starImage"
 			android:layout_height="wrap_content"
-			android:src="@android:drawable/btn_star"
+			android:src="@drawable/down"
 			android:layout_weight="1" />
 
 		<TextView

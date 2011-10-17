@@ -3,16 +3,6 @@ package com.foobnix.android.simple.activity;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-<<<<<<< HEAD
-
-import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.mp3.MP3AudioHeader;
-import org.jaudiotagger.audio.mp3.MP3File;
-import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.Tag;
-import org.mozilla.universalchardet.UniversalDetector;
-=======
->>>>>>> refs/remotes/origin/master
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -35,10 +25,6 @@ import com.foobnix.android.simple.core.OnModelClickListener;
 import com.foobnix.commons.LOG;
 import com.foobnix.commons.RecurciveFiles;
 import com.foobnix.commons.StringUtils;
-<<<<<<< HEAD
-import com.foobnix.commons.TimeUtil;
-=======
->>>>>>> refs/remotes/origin/master
 import com.foobnix.commons.ViewBinder;
 import com.foobnix.mediaengine.MediaModel;
 import com.foobnix.mediaengine.MediaModels;
@@ -184,7 +170,7 @@ public class FoldersActivity extends AppActivity implements OnModelClickListener
             }
             LOG.d("Models", filesByPath.size());
             Intent playlist = new Intent(this, PlaylistActivity.class);
-            playlist.putExtra(MediaModels.class.getName(), new MediaModels(models));
+            playlist.putExtra(MediaModels.class.getName(), models);
             startActivity(playlist);
         }
 

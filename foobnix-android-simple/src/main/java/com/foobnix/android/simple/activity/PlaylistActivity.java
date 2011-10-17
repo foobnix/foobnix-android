@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -30,7 +30,7 @@ public class PlaylistActivity extends AppActivity implements OnModelClickListene
     private TextView trackTime;
     private TextView trackDuration;
     private TextView infoLine;
-    private ImageButton playPause;
+    private ImageView playPause;
 
     private PlaylistAdapter adapter;
 
@@ -59,7 +59,7 @@ public class PlaylistActivity extends AppActivity implements OnModelClickListene
         ViewBinder.onClick(this, R.id.playlist_next, onNext);
         ViewBinder.onClick(this, R.id.playlist_prev, onPrev);
 
-        playPause = (ImageButton) findViewById(R.id.playlist_play_pause);
+        playPause = (ImageView) findViewById(R.id.playlist_play_pause);
         playPause.setOnClickListener(onPlayPause);
 
         seekBar = (SeekBar) findViewById(R.id.playilst_seek);
