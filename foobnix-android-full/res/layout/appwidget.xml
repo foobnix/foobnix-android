@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/widget"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:gravity="center_vertical"
+	android:focusable="true"
+	android:background="#500000FF">
+
+	<ImageView
+		android:gravity="center_vertical"
+		android:layout_width="wrap_content"
+		android:padding="3dip"
+		android:layout_height="wrap_content"
+		android:visibility="visible"
+		android:src="@android:drawable/ic_menu_info_details"
+		android:id="@+id/button_info" />
+
+
+	<ImageButton
+		android:gravity="center_vertical"
+		android:id="@+id/button_prev"
+		android:typeface="monospace"
+		android:src="@android:drawable/ic_media_rew"
+		android:textSize="20sp"
+		android:textStyle="bold"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_weight="1" />
+	<ImageButton
+		android:id="@+id/button_play_pause"
+		android:typeface="monospace"
+		android:src="@android:drawable/ic_media_play"
+		android:textSize="20sp"
+		android:textStyle="bold"
+		android:gravity="center_vertical"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_weight="1" />
+	<ImageButton
+		android:id="@+id/button_next"
+		android:typeface="monospace"
+		android:textSize="20sp"
+		android:textStyle="bold"
+		android:gravity="center_vertical"
+		android:src="@android:drawable/ic_media_ff"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_weight="1" />
+
+	<ImageView
+		android:gravity="center_vertical"
+		android:layout_width="wrap_content"
+		android:id="@+id/button_exit"
+		android:visibility="visible"
+		android:layout_height="wrap_content"
+		android:src="@android:drawable/ic_menu_close_clear_cancel"
+		android:padding="3dip" />
+
+</LinearLayout>

@@ -1,55 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.foobnix" android:installLocation="auto" 
-      android:versionCode="34"
-      android:versionName="2.1">
-		
-	<instrumentation android:targetPackage="com.foobnix" android:name="android.test.InstrumentationTestRunner" />
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.foobnix"
+	android:installLocation="auto"
+	android:versionCode="34"
+	android:versionName="2.1">
 
-    <application android:label="@string/app_name" android:icon="@drawable/foobnix" android:name=".engine.FoobnixApplication" >
-        
-        
-	   <activity android:name=".ui.activity.HomeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.stars.PlaylistActivity" android:screenOrientation="portrait">
-        	<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        
-        <activity android:name=".ui.activity.stars.FolderActivity"  android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.pref.LastFmAccountPreferences" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.pref.VkPreferences" android:screenOrientation="portrait" />
-        
-        <activity android:name=".ui.activity.pref.PlayerPreferences" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.pref.VkontakteAccountPreferences" android:screenOrientation="portrait" />
-        
-        <activity android:name=".ui.activity.other.VkCheckActivity"  android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.InfoActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.stars.SearchActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.stars.LastWithVKActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.VkontakteActivity" android:screenOrientation="portrait" />
-        
-        <activity android:name=".ui.activity.other.DownloadActitivy" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.info.LyricActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.stars.MoreActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.stars.AboutArtistActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.StarTabActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.MediaActivityChooser" android:screenOrientation="portrait" />
-        
-        
-        <service android:name=".service.FoobnixService"></service>
-        <service android:name=".service.DMService"></service>
-        
-	<uses-library android:name="android.test.runner" />
-    </application>
-    <supports-screens />
-    
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
-	<uses-permission android:name="android.permission.INTERNET"/>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="8"/>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
-	<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+	<instrumentation
+		android:targetPackage="com.foobnix"
+		android:name="android.test.InstrumentationTestRunner" />
+
+	<application
+		android:label="@string/app_name"
+		android:icon="@drawable/foobnix"
+		android:name=".engine.FoobnixApplication">
+
+		<receiver android:name=".appwidget.FoobnixAppwidgetProvider">
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+				<action android:name="com.foobnix.appwidget.FoobnixAppwidgetProvider.ACTION_WIDGET_RECEIVER" />
+			</intent-filter>
+			
+			<meta-data android:name="android.appwidget.provider"
+				android:resource="@xml/foobnix_widget_provider" />
+		</receiver>
+
+		<activity
+			android:name=".ui.activity.HomeActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".ui.activity.stars.PlaylistActivity"
+			android:screenOrientation="portrait">
+			<intent-filter>
+				<action
+					android:name="android.intent.action.MAIN" />
+				<category
+					android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+
+		<activity
+			android:name=".ui.activity.stars.FolderActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".ui.activity.pref.LastFmAccountPreferences"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".ui.activity.pref.VkPreferences"
+			android:screenOrientation="portrait" />
+
+		<activity
+			android:name=".ui.activity.pref.PlayerPreferences"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".ui.activity.pref.VkontakteAccountPreferences"
+			android:screenOrientation="portrait" />
+
+		<activity
+			android:name=".ui.activity.other.VkCheckActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".ui.activity.InfoActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".ui.activity.stars.SearchActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".ui.activity.stars.LastWithVKActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".ui.activity.VkontakteActivity"
+			android:screenOrientation="portrait" />
+
+		<activity
+			android:name=".ui.activity.other.DownloadActitivy"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".ui.activity.info.LyricActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".ui.activity.stars.MoreActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".ui.activity.stars.AboutArtistActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".ui.activity.StarTabActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".ui.activity.MediaActivityChooser"
+			android:screenOrientation="portrait" />
+
+
+		<service
+			android:name=".service.FoobnixService"></service>
+		<service
+			android:name=".service.DMService"></service>
+
+		<uses-library
+			android:name="android.test.runner" />
+	</application>
+	<supports-screens />
+
+	<uses-permission
+		android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+	<uses-permission
+		android:name="android.permission.INTERNET" />
+	<uses-permission
+		android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-sdk
+		android:minSdkVersion="4"
+		android:targetSdkVersion="8" />
+	<uses-permission
+		android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission
+		android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+	<uses-permission
+		android:name="android.permission.WAKE_LOCK"></uses-permission>
 </manifest>

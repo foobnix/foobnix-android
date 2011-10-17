@@ -3,6 +3,7 @@ package com.foobnix.android.simple.activity;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
 
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.mp3.MP3AudioHeader;
@@ -10,6 +11,8 @@ import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.mozilla.universalchardet.UniversalDetector;
+=======
+>>>>>>> refs/remotes/origin/master
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -32,12 +35,14 @@ import com.foobnix.android.simple.core.OnModelClickListener;
 import com.foobnix.commons.LOG;
 import com.foobnix.commons.RecurciveFiles;
 import com.foobnix.commons.StringUtils;
+<<<<<<< HEAD
 import com.foobnix.commons.TimeUtil;
+=======
+>>>>>>> refs/remotes/origin/master
 import com.foobnix.commons.ViewBinder;
 import com.foobnix.mediaengine.MediaModel;
 import com.foobnix.mediaengine.MediaModels;
 import com.foobnix.util.pref.Pref;
-import com.google.common.base.Strings;
 
 public class FoldersActivity extends AppActivity implements OnModelClickListener<FileItem> {
     private static final String FOLDER_PATH = "FOLDER_PATH";
@@ -129,7 +134,7 @@ public class FoldersActivity extends AppActivity implements OnModelClickListener
                 .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String text = name.getText().toString();
-                        if (!Strings.isNullOrEmpty(text)) {
+                        if (StringUtils.isEmpty(text)) {
                             File file = new File(currentPath, text);
 
                             LOG.d("Create file", file.getPath());
@@ -169,48 +174,12 @@ public class FoldersActivity extends AppActivity implements OnModelClickListener
             items.addAll(FileItemProvider.getFilesAndFoldersWithRoot(currentPath));
             adapter.notifyDataSetChanged();
         } else {
-            List<FileItem> filesByPath = FileItemProvider.getFilesByPath(fileItem.getFile().getParentFile());
-            LOG.d("filesByPath", filesByPath.size());
+            List<FileItem> filesByPath = FileItemProvider.getFilesByPath(currentPath);
 
-            List<MediaModel> models = new ArrayList<MediaModel>();
-            int i = 0;
-            for (FileItem item : filesByPath) {
-                MediaModel model = new MediaModel(item.getFile().getName(), item.getFile().getPath());
-                model.setPosition(i++);
-                models.add(model);
-
-                try {
-                    MP3File f = (MP3File) AudioFileIO.read(item.getFile());
-                    MP3AudioHeader audioHeader = f.getMP3AudioHeader();
-                    model.setDuration(TimeUtil.durationSecToString(audioHeader.getTrackLength()));
-
-                    Tag tag = f.getID3v2Tag();
-
-                    if (tag != null) {
-
-                        String title = tag.getFirst(FieldKey.TITLE);
-
-                        UniversalDetector detector = new UniversalDetector(null);
-                        detector.handleData(title.getBytes(), 0, title.length());
-                        detector.dataEnd();
-
-                        title = new String(tag.getFirst(FieldKey.TITLE).getBytes(detector.getDetectedCharset()),
-                                "utf-8");
-                        String artist = new String(tag.getFirst(FieldKey.ARTIST)
-                                .getBytes(detector.getDetectedCharset()), "utf-8");
-
-                        detector.getDetectedCharset();
-
-                        model.setTitle(StringUtils.getStringIfEmpty(title, item.getFile()
-                                .getName()));
-                        model.setArtist(StringUtils.getStringIfEmpty(artist, "Unknown Artist"));
-                    } else {
-                        model.setTitle(item.getFile().getName());
-                        model.setArtist("Unknown Artist");
-                    }
-
-                } catch (Exception e) {
-                    LOG.e("MP3 Tags fail", e);
+            MediaModels models = ModelsHelper.getModelsByFileItems(filesByPath);
+            for (MediaModel model : models.getItems()) {
+                if (model == null) {
+                    continue;
                 }
             }
             LOG.d("Models", filesByPath.size());

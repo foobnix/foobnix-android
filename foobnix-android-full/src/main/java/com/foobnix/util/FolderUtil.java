@@ -36,7 +36,22 @@ import com.foobnix.model.FModel;
 import com.foobnix.model.FModelBuilder;
 
 public class FolderUtil {
-	public final static String ROOT_PATH = Environment.getExternalStorageDirectory().getPath();
+	private static final FilenameFilter FILENAME_FILTER = new FilenameFilter() {
+    
+    			@Override
+    			public boolean accept(File dir, String filename) {
+    				LOG.d(dir, filename);
+    				File root = new File(dir, filename);
+    
+    				if (root.isFile()) {
+    					LOG.d("is file", filename);
+    					return isSupportedExt(filename);
+    				}
+    				return true;
+        }
+    };
+
+    public final static String ROOT_PATH = Environment.getExternalStorageDirectory().getPath();
 
 	public static boolean createParentDir(String path, String name) {
 		File file = new File(path);
@@ -153,34 +168,7 @@ public class FolderUtil {
 
 		}
 
-		String[] dirs = file.list(new FilenameFilter() {
-
-			@Override
-			public boolean accept(File dir, String filename) {
-				LOG.d(dir, filename);
-				File root = new File(dir, filename);
-
-				if (root.isFile()) {
-					LOG.d("is file", filename);
-					return isSupportedExt(filename);
-				}
-
-				String[] subFiles = root.list();
-				if (subFiles == null) {
-					return true;
-				}
-
-				for (String name : subFiles) {
-					File current = new File(root, name);
-					if (current.isFile() && isSupportedExt(name)) {
-						return true;
-					} else if (current.isDirectory()) {
-						return true;
-					}
-				}
-				return true;
-			}
-		});
+		String[] dirs = file.list(FILENAME_FILTER);
 
 		if (dirs == null) {
 			return result;
