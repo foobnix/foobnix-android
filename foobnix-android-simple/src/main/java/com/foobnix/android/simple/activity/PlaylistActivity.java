@@ -44,7 +44,11 @@ public class PlaylistActivity extends AppActivity implements OnModelClickListene
         MediaModels models = (MediaModels) getIntent().getSerializableExtra(MediaModels.class.getName());
         if (models == null) {
             models = new MediaModels(Collections.EMPTY_LIST);
+            LOG.d("Playlist is empty");
         }
+        LOG.d("Models items size", models.getItems().size());
+
+        MediaService.setPlaylist(models);
 
         adapter = new PlaylistAdapter(this, models.getItems());
         adapter.setOnModelClickListener(this);
@@ -63,7 +67,6 @@ public class PlaylistActivity extends AppActivity implements OnModelClickListene
         trackTime = (TextView) findViewById(R.id.playlist_track_time);
         trackDuration = (TextView) findViewById(R.id.playlist_track_duration);
         infoLine = (TextView) findViewById(R.id.playlist_info_line);
-
     }
 
     protected void onResume() {
@@ -97,6 +100,9 @@ public class PlaylistActivity extends AppActivity implements OnModelClickListene
     };
 
     public void updateUi(MediaEngineState state) {
+        if (state == null) {
+            return;
+        }
         seekBar.setMax(state.getDuration());
         seekBar.setProgress(state.getCurrentPosition());
         trackTime.setText(TimeUtil.durationToString(state.getCurrentPosition()));
@@ -151,6 +157,7 @@ public class PlaylistActivity extends AppActivity implements OnModelClickListene
 
     @Override
     public void onClick(MediaModel model) {
+        LOG.d(model.getPath(), model.getPosition());
         MediaService.playAtPos(model.getPosition());
     }
 

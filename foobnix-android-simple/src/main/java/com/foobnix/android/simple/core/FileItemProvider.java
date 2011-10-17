@@ -8,6 +8,8 @@ import java.util.List;
 
 import android.os.Environment;
 
+import com.foobnix.commons.LOG;
+
 public class FileItemProvider {
     private final static File ROOT_PATH = Environment.getExternalStorageDirectory();
     private final static FileItemComparator comparator = new FileItemComparator();
@@ -39,6 +41,8 @@ public class FileItemProvider {
     }
 
     public static List<FileItem> getFilesByPath(File rootPath) {
+        LOG.d("get getFilesByPath", rootPath.getPath());
+
         final List<FileItem> items = new ArrayList<FileItem>();
         File[] listFiles = rootPath.listFiles(new FileFilter() {
 

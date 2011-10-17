@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 
+import com.foobnix.commons.LOG;
+
 public class MediaService extends MediaServiceControls {
     private MediaPlayerCore mediaCore;
     private final IBinder mBinder = new LocalBinder();
@@ -36,6 +38,8 @@ public class MediaService extends MediaServiceControls {
 
         MediaAction mode = MediaAction.valueOf(intent.getAction());
 
+        LOG.d("Service action", mode);
+
         switch (mode) {
         case PLAY_PAHT:
             String path = (String) intent.getExtras().getString(EXTRA);
@@ -49,7 +53,6 @@ public class MediaService extends MediaServiceControls {
             int seekTo = intent.getExtras().getInt(EXTRA);
             mediaCore.seekTo(seekTo);
             break;
-
         case PLAY_AT_POS:
             int pos = intent.getExtras().getInt(EXTRA);
             mediaCore.playAtPot(pos);

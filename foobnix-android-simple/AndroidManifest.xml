@@ -6,15 +6,15 @@
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:name="com.foobnix.android.simple.FoobnixFolderPlayerApplication" android:theme="@android:style/Theme.Black.NoTitleBar">
 
-		<activity android:name=".activity.FoldersActivity" android:launchMode="singleInstance" />
+		<activity android:name=".activity.FoldersActivity" android:launchMode="standard" />
 
-		<activity android:name=".activity.PlaylistActivity" android:launchMode="singleInstance">
+		<activity android:name=".activity.PlaylistActivity" android:launchMode="standard">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<service android:name="com.foobnix.mediaengine.mediaengine.MediaService" />
+		<service android:name="com.foobnix.mediaengine.MediaService" />
 	</application>
 
 

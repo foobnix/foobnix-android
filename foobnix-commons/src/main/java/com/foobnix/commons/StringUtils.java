@@ -8,4 +8,11 @@ public class StringUtils {
         }
         return true;
     }
+
+    public static String getStringIfEmpty(String result, String value) {
+        if(isEmpty(result)){
+            return value;
+        }
+        return result;
+    }
 }

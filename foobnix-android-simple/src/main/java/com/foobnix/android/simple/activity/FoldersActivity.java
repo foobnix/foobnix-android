@@ -1,20 +1,15 @@
 package com.foobnix.android.simple.activity;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.audio.mp3.MP3AudioHeader;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.TagException;
-import org.jaudiotagger.tag.id3.ID3v1Tag;
+import org.mozilla.universalchardet.UniversalDetector;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -36,11 +31,11 @@ import com.foobnix.android.simple.core.FileItemProvider;
 import com.foobnix.android.simple.core.OnModelClickListener;
 import com.foobnix.commons.LOG;
 import com.foobnix.commons.RecurciveFiles;
+import com.foobnix.commons.StringUtils;
 import com.foobnix.commons.TimeUtil;
 import com.foobnix.commons.ViewBinder;
 import com.foobnix.mediaengine.MediaModel;
 import com.foobnix.mediaengine.MediaModels;
-import com.foobnix.mediaengine.MediaService;
 import com.foobnix.util.pref.Pref;
 import com.google.common.base.Strings;
 
@@ -174,47 +169,53 @@ public class FoldersActivity extends AppActivity implements OnModelClickListener
             items.addAll(FileItemProvider.getFilesAndFoldersWithRoot(currentPath));
             adapter.notifyDataSetChanged();
         } else {
-            MediaService.playPath(fileItem.getFile().getPath());
+            List<FileItem> filesByPath = FileItemProvider.getFilesByPath(fileItem.getFile().getParentFile());
+            LOG.d("filesByPath", filesByPath.size());
 
+            List<MediaModel> models = new ArrayList<MediaModel>();
+            int i = 0;
+            for (FileItem item : filesByPath) {
+                MediaModel model = new MediaModel(item.getFile().getName(), item.getFile().getPath());
+                model.setPosition(i++);
+                models.add(model);
 
-            List<FileItem> filesByPath = FileItemProvider.getFilesByPath(currentPath);
-
-            MediaModels models = ModelsHelper.getModelsByFileItems(filesByPath);
-            for (MediaModel model : models.getItems()) {
-                if (model == null) {
-                    continue;
-                }
-                File file = new File(model.getPath());
                 try {
-                    MP3File f = (MP3File) AudioFileIO.read(file);
+                    MP3File f = (MP3File) AudioFileIO.read(item.getFile());
                     MP3AudioHeader audioHeader = f.getMP3AudioHeader();
                     model.setDuration(TimeUtil.durationSecToString(audioHeader.getTrackLength()));
 
-                    Tag tag = f.getTag();
-                    ID3v1Tag v1Tag = f.getID3v1Tag();
+                    Tag tag = f.getID3v2Tag();
+
                     if (tag != null) {
-                        model.setTitle("tag" + tag.getFirst(FieldKey.TITLE));
-                        model.setArtist("tag" + tag.getFirst(FieldKey.ARTIST));
-                    } else if (v1Tag != null) {
-                        model.setTitle("tag1" + v1Tag.getFirst(FieldKey.TITLE));
-                        model.setArtist("tag1" + v1Tag.getFirst(FieldKey.ARTIST));
+
+                        String title = tag.getFirst(FieldKey.TITLE);
+
+                        UniversalDetector detector = new UniversalDetector(null);
+                        detector.handleData(title.getBytes(), 0, title.length());
+                        detector.dataEnd();
+
+                        title = new String(tag.getFirst(FieldKey.TITLE).getBytes(detector.getDetectedCharset()),
+                                "utf-8");
+                        String artist = new String(tag.getFirst(FieldKey.ARTIST)
+                                .getBytes(detector.getDetectedCharset()), "utf-8");
+
+                        detector.getDetectedCharset();
+
+                        model.setTitle(StringUtils.getStringIfEmpty(title, item.getFile()
+                                .getName()));
+                        model.setArtist(StringUtils.getStringIfEmpty(artist, "Unknown Artist"));
+                    } else {
+                        model.setTitle(item.getFile().getName());
+                        model.setArtist("Unknown Artist");
                     }
 
-                } catch (CannotReadException e) {
-                } catch (IOException e) {
-                } catch (TagException e) {
-                } catch (ReadOnlyFileException e) {
-                } catch (InvalidAudioFrameException e) {
+                } catch (Exception e) {
+                    LOG.e("MP3 Tags fail", e);
                 }
-                // MP3AudioHeader audioHeader = f.getAudioHeader();
-                // audioHeader.getTrackLength();
-                // audioHeader.getSampleRateAsNumber();
-                // mp3AudioHeader.getChannels();
-                // mp3AudioHeader.isVariableBitRate();
             }
-
+            LOG.d("Models", filesByPath.size());
             Intent playlist = new Intent(this, PlaylistActivity.class);
-            playlist.putExtra(MediaModels.class.getName(), models);
+            playlist.putExtra(MediaModels.class.getName(), new MediaModels(models));
             startActivity(playlist);
         }
 
