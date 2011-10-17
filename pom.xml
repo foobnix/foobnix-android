@@ -14,8 +14,8 @@
   </modules>
   
   <properties>
-  	<!-- <sdk.path>/home/ivan/Downloads/android-sdk-linux_x86</sdk.path> -->
-  	<sdk.path>/home/iivanenko/Tools/android-sdk-linux_x86</sdk.path>
+  	 <sdk.path>/home/ivan/Downloads/android-sdk-linux_x86</sdk.path>
+<!--  	<sdk.path>/home/iivanenko/Tools/android-sdk-linux_x86</sdk.path> -->
   	<sdk.platform>8</sdk.platform>  
   </properties>
 </project>

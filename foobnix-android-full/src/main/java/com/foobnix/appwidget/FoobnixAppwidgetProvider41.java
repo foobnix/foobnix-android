@@ -16,7 +16,7 @@ import com.foobnix.engine.FServiceHelper;
 import com.foobnix.ui.activity.stars.FolderActivity;
 import com.foobnix.util.InfoTextHelper;
 
-public class FoobnixAppwidgetProvider extends AppWidgetProvider {
+public class FoobnixAppwidgetProvider41 extends AppWidgetProvider {
     public static String ACTION_WIDGET_PLAY_PAUSE = "ACTION_WIDGET_PLAY_PAUSE";
     public static String ACTION_WIDGET_NEXT = "ACTION_WIDGET_NEXT";
     public static String ACTION_WIDGET_MEDIA_MODEL = "ACTION_WIDGET_MEDIA_MODEL";
@@ -25,10 +25,10 @@ public class FoobnixAppwidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.appwidget);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.appwidget_4_1);
 
         // next
-        Intent intent = new Intent(context, FoobnixAppwidgetProvider.class);
+        Intent intent = new Intent(context, FoobnixAppwidgetProvider41.class);
         intent.setAction(ACTION_WIDGET_NEXT);
 
         PendingIntent nextPendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -40,7 +40,7 @@ public class FoobnixAppwidgetProvider extends AppWidgetProvider {
         remoteViews.setOnClickPendingIntent(R.id.image_foobnix, prevPendingIntent);
 
         // play_pause
-        intent = new Intent(context, FoobnixAppwidgetProvider.class);
+        intent = new Intent(context, FoobnixAppwidgetProvider41.class);
         intent.setAction(ACTION_WIDGET_PLAY_PAUSE);
 
         PendingIntent playPendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -63,7 +63,7 @@ public class FoobnixAppwidgetProvider extends AppWidgetProvider {
 
             if (fmodel != null) {
                 LOG.d("Recive fmodel", fmodel.isPlaying(), fmodel);
-                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.appwidget);
+                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.appwidget_4_1);
                 remoteViews.setTextViewText(R.id.app_text_line, InfoTextHelper.infoLineStatus(fmodel));
                 remoteViews.setTextViewText(R.id.app_text_time, TimeUtil.durationToString(fmodel.getDuration()));
 
@@ -75,7 +75,7 @@ public class FoobnixAppwidgetProvider extends AppWidgetProvider {
 
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
                 ComponentName thisAppWidget = new ComponentName(context.getPackageName(),
-                        FoobnixAppwidgetProvider.class.getName());
+                        FoobnixAppwidgetProvider41.class.getName());
                 appWidgetManager.updateAppWidget(thisAppWidget, remoteViews);
             }
         }

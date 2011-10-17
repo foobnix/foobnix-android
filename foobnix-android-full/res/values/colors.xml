@@ -2,4 +2,5 @@
 <resources>
     <color name="alpa_10">#10000000</color> 
     <color name="alpa_40">#40000000</color>
+    <color name="alpa_blue">#990000cd</color>
 </resources>

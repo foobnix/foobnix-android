@@ -48,17 +48,13 @@ import com.foobnix.ui.activity.other.DownloadActitivy;
 import com.foobnix.ui.activity.other.VkCheckActivity;
 import com.foobnix.ui.activity.stars.AboutArtistActivity;
 import com.foobnix.ui.activity.stars.FolderActivity;
-import com.foobnix.ui.activity.stars.LastWithVKActivity;
 import com.foobnix.ui.activity.stars.PlaylistActivity;
-import com.foobnix.ui.activity.stars.SearchActivity;
 import com.foobnix.ui.adapter.NavigationAdapter;
 import com.foobnix.ui.adapter.PlaylistAdapter;
 import com.foobnix.ui.widget.RunnableDialog;
-import com.foobnix.ui.widget.StarTab;
 import com.foobnix.util.ActivityHelper;
 import com.foobnix.util.LOG;
 import com.foobnix.util.SongUtil;
-import com.foobnix.util.StarTabHelper;
 import com.foobnix.util.pref.Pref;
 import com.foobnix.util.pref.Prefs;
 
@@ -124,20 +120,22 @@ public abstract class TabActivity extends MenuActivity {
 		ActivityHelper.bindOnClick(this, R.id.homeFolderTop, FolderActivity.class);
 		ActivityHelper.bindOnClick(this, R.id.homeInfoTop, AboutArtistActivity.class);
 
-		StarTab pl = StarTabHelper.bindStarTab(this, context, R.id.playlistStartTab, PlaylistActivity.class,
-		        R.string.Playlist);
-		if (pl == null) {
-			return;
-		}
-		pl.setOnLongClickListener(onLongPl);
-
-		StarTabHelper.bindStarTab(this, context, R.id.folderStartTab, FolderActivity.class, R.string.Folders);
-		StarTabHelper.bindStarTab(this, context, R.id.onlineStartTab, SearchActivity.class, R.string.Search);
-		StarTabHelper.bindStarTab(this, context, R.id.lastfmStartTab, LastWithVKActivity.class, R.string.Last_fm_VK);
-
-		StarTab dm = StarTabHelper.bindStarTab(this, context, R.id.dmStartTab, DownloadActitivy.class, R.string.DM);
-		dm.setOnLongClickListener(onLongDm);
-
+        /*
+         * StarTab pl = StarTabHelper.bindStarTab(this, context,
+         * R.id.playlistStartTab, PlaylistActivity.class, R.string.Playlist); if
+         * (pl == null) { return; } pl.setOnLongClickListener(onLongPl);
+         * 
+         * StarTabHelper.bindStarTab(this, context, R.id.folderStartTab,
+         * FolderActivity.class, R.string.Folders);
+         * StarTabHelper.bindStarTab(this, context, R.id.onlineStartTab,
+         * SearchActivity.class, R.string.Search);
+         * StarTabHelper.bindStarTab(this, context, R.id.lastfmStartTab,
+         * LastWithVKActivity.class, R.string.Last_fm_VK);
+         * 
+         * StarTab dm = StarTabHelper.bindStarTab(this, context,
+         * R.id.dmStartTab, DownloadActitivy.class, R.string.DM);
+         * dm.setOnLongClickListener(onLongDm);
+         */
 
 
 	}

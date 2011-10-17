@@ -15,7 +15,7 @@
 		android:icon="@drawable/foobnix"
 		android:name=".engine.FoobnixApplication">
 
-		<receiver android:name=".appwidget.FoobnixAppwidgetProvider">
+		<receiver android:name=".appwidget.FoobnixAppwidgetProvider41" android:label="Foobnix 4x1">
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
 				
@@ -25,7 +25,18 @@
 			</intent-filter>
 			
 			<meta-data android:name="android.appwidget.provider"
-				android:resource="@xml/foobnix_widget_provider" />
+				android:resource="@xml/foobnix_widget_4_1" />
+		</receiver>
+		
+		<receiver android:name=".appwidget.FoobnixAppwidgetProvider11" android:label="Foobnix 1x1">
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+				<action android:name="com.foobnix.appwidget.FoobnixAppwidgetProvider.ACTION_WIDGET_PLAY_PAUSE" />
+				<action android:name="com.foobnix.appwidget.FoobnixAppwidgetProvider.ACTION_WIDGET_MEDIA_MODEL" />
+			</intent-filter>
+			
+			<meta-data android:name="android.appwidget.provider"
+				android:resource="@xml/foobnix_widget_1_1" />
 		</receiver>
 
 		<activity
