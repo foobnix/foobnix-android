@@ -25,6 +25,7 @@ public abstract class GeneralListActivity<T> extends TopBarActivity implements O
         adapter = null;
 
         try {
+            items.addAll(getInitItems());
             adapter = getAdapter().getDeclaredConstructor(Activity.class, List.class).newInstance(activity, items);
         } catch (Exception e) {
             LOG.e(e);
@@ -34,6 +35,8 @@ public abstract class GeneralListActivity<T> extends TopBarActivity implements O
         adapter.setOnModelClickListener(this);
         listView.setAdapter(adapter);
     }
+
+    public abstract List<T> getInitItems();
 
     public void addItems(List<T> addItems) {
         items.addAll(addItems);

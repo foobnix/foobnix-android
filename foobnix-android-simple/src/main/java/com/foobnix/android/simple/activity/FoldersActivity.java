@@ -1,6 +1,7 @@
 package com.foobnix.android.simple.activity;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -10,8 +11,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +24,6 @@ import com.foobnix.android.simple.core.ModelListAdapter;
 import com.foobnix.commons.LOG;
 import com.foobnix.commons.RecurciveFiles;
 import com.foobnix.commons.StringUtils;
-import com.foobnix.commons.ViewBinder;
 import com.foobnix.mediaengine.MediaModel;
 import com.foobnix.mediaengine.MediaModels;
 import com.foobnix.util.pref.Pref;
@@ -33,7 +33,7 @@ public class FoldersActivity extends GeneralListActivity<FileItem> {
     final File ROOT_PATH = Environment.getExternalStorageDirectory();
     private TextView path;
     private File currentPath;
-    private boolean isSettingsVisible = false;
+
 
     @Override
     public Class<? extends ModelListAdapter<FileItem>> getAdapter() {
@@ -53,37 +53,25 @@ public class FoldersActivity extends GeneralListActivity<FileItem> {
         path.setText(currentPath.getPath());
         addItems(FileItemProvider.getFilesAndFoldersWithRoot(currentPath));
 
-        ViewBinder.onClick(this, R.id.fileDelete, onDelete);
-        ViewBinder.onClick(this, R.id.fileCreate, onCreate);
+            
+        Button btnCreateFolder = new Button(this, null, android.R.attr.buttonStyleSmall);
+        btnCreateFolder.setText("Create Folder");
+        btnCreateFolder.setOnClickListener(onCreate);
 
-        settinsImage = (ImageView) findViewById(R.id.fileSettings);
-        settinsImage.setOnClickListener(onOpenSettigns);
+        Button btnDeleteFolder = new Button(this, null, android.R.attr.buttonStyleSmall);
+        btnDeleteFolder.setText("Delete Folder");
+        btnDeleteFolder.setOnClickListener(onDelete);
 
-        settinsLayout = findViewById(R.id.fileSettinsLayout);
-
-        hideShowSettinsLine(isSettingsVisible);
+        addSettingView(btnDeleteFolder);
+        addSettingView(btnCreateFolder);
 
     }
 
-    public void hideShowSettinsLine(boolean flag) {
-        if (flag) {
-            settinsLayout.setVisibility(View.VISIBLE);
-            settinsImage.setImageResource(android.R.drawable.arrow_up_float);
-        } else {
-            settinsLayout.setVisibility(View.GONE);
-            settinsImage.setImageResource(android.R.drawable.arrow_down_float);
-        }
+    @Override
+    public List<FileItem> getInitItems() {
+        return Collections.emptyList();
     }
 
-    OnClickListener onOpenSettigns = new OnClickListener() {
-
-        @Override
-        public void onClick(View arg0) {
-            isSettingsVisible = !isSettingsVisible;
-            hideShowSettinsLine(isSettingsVisible);
-
-        }
-    };
 
     OnClickListener onDelete = new OnClickListener() {
 
@@ -137,8 +125,6 @@ public class FoldersActivity extends GeneralListActivity<FileItem> {
 
     }
 
-    private View settinsLayout;
-    private ImageView settinsImage;
 
     @Override
     public void onModelItemClickListener(FileItem fileItem) {

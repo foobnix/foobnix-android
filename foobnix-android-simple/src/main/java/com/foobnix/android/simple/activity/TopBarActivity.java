@@ -3,10 +3,12 @@ package com.foobnix.android.simple.activity;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +21,9 @@ public class TopBarActivity extends MenuActivity {
     private LinearLayout menuLayout;
     private boolean isMenuVisible = true;
     private TextView infoLine;
+    private LinearLayout settinsLayout;
+    private ImageView settinsImage;
+    private boolean isSettingsVisible = false;
 
     @Override
     public void onActivate(Activity activity) {
@@ -39,6 +44,41 @@ public class TopBarActivity extends MenuActivity {
 
         menuLayout = (LinearLayout) activity.findViewById(R.id.menuLayout);
         infoLine = (TextView) activity.findViewById(R.id.info_bar_line);
+
+        settinsLayout = (LinearLayout) findViewById(R.id.fileSettinsLayout);
+        settinsImage = (ImageView) findViewById(R.id.fileSettings);
+        settinsImage.setOnClickListener(onOpenSettigns);
+
+        hideShowSettinsLine(isSettingsVisible);
+    }
+
+    public void disableSettingButton() {
+        settinsLayout.setVisibility(View.GONE);
+    }
+
+    public View addSettingView(View view){
+        settinsLayout.addView(view);
+        return view;
+    }
+
+    OnClickListener onOpenSettigns = new OnClickListener() {
+
+        @Override
+        public void onClick(View arg0) {
+            isSettingsVisible = !isSettingsVisible;
+            hideShowSettinsLine(isSettingsVisible);
+
+        }
+    };
+
+    public void hideShowSettinsLine(boolean flag) {
+        if (flag) {
+            settinsLayout.setVisibility(View.VISIBLE);
+            settinsImage.setImageResource(android.R.drawable.arrow_up_float);
+        } else {
+            settinsLayout.setVisibility(View.GONE);
+            settinsImage.setImageResource(android.R.drawable.arrow_down_float);
+        }
     }
 
     public void setInfoLineText(String text) {

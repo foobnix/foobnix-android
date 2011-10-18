@@ -1,6 +1,7 @@
 package com.foobnix.android.simple.activity;
 
 import java.util.Collections;
+import java.util.List;
 
 import android.os.Bundle;
 
@@ -26,14 +27,21 @@ public class PlaylistActivity extends GeneralListActivity<MediaModel> {
         onActivate(this);
 
         models = (MediaModels) getIntent().getSerializableExtra(MediaModels.class.getName());
-        if (models == null) {
-            models = new MediaModels(Collections.EMPTY_LIST);
+
+        if (models != null) {
+            addItems(models.getItems());
+            MediaService.setPlaylist(models);
+        } else {
+            MediaService.setPlaylist(MediaModels.empty());
         }
 
-        addItems(models.getItems());
+        disableSettingButton();
 
-        MediaService.setPlaylist(models);
+    }
 
+    @Override
+    public List<MediaModel> getInitItems() {
+        return Collections.emptyList();
     }
 
     @Override
