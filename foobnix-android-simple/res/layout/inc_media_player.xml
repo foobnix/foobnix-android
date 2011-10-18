@@ -1,57 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
-	android:layout_width="match_parent"
-	android:background="@drawable/gradient_header"
-	android:layout_height="match_parent">
-
-	<include
-		layout="@layout/top_media_bar"
-		android:layout_height="wrap_content"
-		android:layout_width="match_parent" />
-
-	<LinearLayout
-		android:id="@+id/linearLayout1"
-		android:paddingTop="2dip"
-		android:paddingBottom="2dip"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:gravity="center_vertical">
-
-		<TextView
-			android:textColor="#ffffff"
-			android:text="Foobnix Playlist"
-			android:textStyle="bold"
-			android:layout_marginLeft="5dip"
-			android:textSize="14dip"
-			android:id="@+id/playlist_info_line"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1" />
-
-		<ImageView
-			android:background="@drawable/select_image"
-			android:layout_width="wrap_content"
-			android:layout_marginRight="3dip"
-			android:paddingLeft="15dip"
-			android:paddingRight="15dip"
-			android:src="@android:drawable/arrow_down_float"
-			android:layout_height="match_parent"
-			android:id="@+id/fileSettings"
-			android:layout_weight="0" />
-
-	</LinearLayout>
-
-
-	<ListView
-		android:id="@+id/listView"
-		android:layout_height="match_parent"
-		android:layout_weight="1"
-		android:layout_width="match_parent">
-	</ListView>
-
-	<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/menuLayout"
 		android:padding="2dip"
 		android:layout_width="match_parent"
 		android:layout_weight="0"
@@ -69,19 +19,19 @@
 
 
 			<ImageView
+				android:visibility="gone"
 				android:layout_weight="0"
 				android:padding="1dip"
 				android:layout_margin="1dip"
-				android:background="@drawable/select_image"
+				android:background="@drawable/bg_button"
 				android:layout_width="wrap_content"
 				android:id="@+id/playlistAdd"
-				android:visibility="visible"
 				android:layout_height="wrap_content"
 				android:src="@android:drawable/ic_menu_info_details" />
 
 				
 			<ImageView
-				android:background="@drawable/select_image"
+				android:background="@drawable/bg_button"
 				android:padding="10dip"
 				android:layout_margin="2dip"
 				android:id="@+id/playlist_prev"
@@ -91,7 +41,7 @@
 				android:layout_weight="1" />
 				
 			<ImageView
-				android:background="@drawable/select_image"
+				android:background="@drawable/bg_button"
 				android:padding="10dip"
 				android:layout_margin="2dip"
 				android:id="@+id/playlist_play_pause"
@@ -101,7 +51,7 @@
 				android:layout_weight="1" />
 				
 			<ImageView
-				android:background="@drawable/select_image"
+				android:background="@drawable/bg_button"
 				android:padding="10dip"
 				android:layout_margin="2dip"
 				android:id="@+id/playlist_next"
@@ -111,13 +61,13 @@
 				android:layout_weight="1" />
 
 			<ImageView
+				android:visibility="gone"
 				android:layout_weight="0"
 				android:padding="1dip"
 				android:layout_margin="1dip"
-				android:background="@drawable/select_image"
+				android:background="@drawable/bg_button"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:visibility="visible"
 				android:src="@android:drawable/ic_menu_preferences"
 				android:id="@+id/playlist_preferences" />
 
@@ -138,6 +88,7 @@
 			<TextView
 				android:padding="1dip"
 				android:text="00:00"
+				android:textColor="@color/white"
 				android:id="@+id/playlist_track_time"
 				android:layout_width="wrap_content"
 				android:layout_height="match_parent"
@@ -149,12 +100,15 @@
 				android:layout_width="match_parent"
 				android:layout_marginLeft="5dip"
 				android:layout_marginRight="5dip"
-				android:thumb="@drawable/none"
 				android:paddingLeft="3px"
+				android:progress="0"
+				android:thumb="@drawable/none"
+				android:background="#00000000"
 				android:paddingRight="3px"
 				android:layout_weight="1"
 				android:gravity="center_vertical"></SeekBar>
 			<TextView
+				android:textColor="@color/white"
 				android:padding="1dip"
 				android:text="00:00"
 				android:id="@+id/playlist_track_duration"
@@ -163,9 +117,4 @@
 				android:layout_height="match_parent"
 				android:gravity="center_vertical"></TextView>
 		</LinearLayout>
-
-
-
-
 	</LinearLayout>
-</LinearLayout>

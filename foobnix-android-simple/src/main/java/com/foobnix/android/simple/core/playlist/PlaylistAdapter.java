@@ -29,7 +29,7 @@ public class PlaylistAdapter extends ModelListAdapter<MediaModel> {
         View newView;
         if (convertView == null) {
             LayoutInflater inflater = context.getLayoutInflater();
-            newView = inflater.inflate(R.layout.playlist_item, null);
+            newView = inflater.inflate(R.layout.item_playlist, null);
         } else {
             newView = convertView;
         }

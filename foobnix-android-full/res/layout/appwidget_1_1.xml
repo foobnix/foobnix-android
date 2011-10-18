@@ -13,7 +13,7 @@
 
 
 	<ImageView
-		android:background="@drawable/select_widget_image"
+		android:background="@drawable/bg_button"
 		android:padding="10dip"
 		android:layout_margin="1dip"
 		android:id="@+id/app_button_play_pause"

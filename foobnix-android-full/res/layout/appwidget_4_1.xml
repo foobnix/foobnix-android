@@ -7,9 +7,8 @@
 	android:focusable="true"
 	android:orientation="horizontal"
 	android:layout_margin="1dip"
-	android:padding="1dip"
-	android:background="@drawable/gradient_widget"
-	android:layout_height="wrap_content">
+	android:padding="3dip"
+	android:background="#99000080" android:layout_height="wrap_content">
 
 	<ImageView
 		android:layout_margin="1dip"
@@ -30,8 +29,6 @@
 		android:id="@+id/linearLayout1"
 		android:orientation="vertical"
 		android:layout_height="match_parent">
-
-
 
 		<LinearLayout
 			android:layout_weight="0"
@@ -74,7 +71,7 @@
 			android:layout_height="match_parent">
 
 			<ImageView
-			android:background="@drawable/select_image"
+			android:background="@drawable/bg_button"
 				android:padding="8dip"
 				android:layout_margin="2dip"
 				android:id="@+id/app_button_play_pause"
@@ -85,7 +82,7 @@
 
 
 			<ImageView
-			android:background="@drawable/select_image"
+			android:background="@drawable/bg_button"
 				android:padding="8dip"
 				android:layout_margin="2dip"
 				android:id="@+id/app_button_next"

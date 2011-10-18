@@ -1,21 +1,24 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>foobnix</groupId>
-  <artifactId>foobnix-parent</artifactId>
-  <version>1.0.0</version>
-  <packaging>pom</packaging>
-  <name>Foobnix Parent</name>
-  <description>Foobnix Parent Project</description>
-  <modules>
-  	<module>foobnix-commons</module>
-  	<module>foobnix-media-engine</module>
-  	<module>foobnix-android-simple</module>
-  	<module>foobnix-android-full</module>
-  </modules>
-  
-  <properties>
-  	 <sdk.path>/home/ivan/Downloads/android-sdk-linux_x86</sdk.path>
-<!--  	<sdk.path>/home/iivanenko/Tools/android-sdk-linux_x86</sdk.path> -->
-  	<sdk.platform>8</sdk.platform>  
-  </properties>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>foobnix</groupId>
+	<artifactId>foobnix-parent</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	<name>Foobnix Parent</name>
+	<description>Foobnix Parent Project</description>
+	<modules>
+		<module>foobnix-commons</module>
+		<module>foobnix-media-engine</module>
+		<module>foobnix-android-simple</module>
+		<module>foobnix-android-full</module>
+	</modules>
+
+	<properties>
+		<!-- <sdk.path>/home/ivan/Downloads/android-sdk-linux_x86</sdk.path> -->
+		<sdk.path>/home/iivanenko/Tools/android-sdk-linux_x86</sdk.path>
+		<sdk.platform>8</sdk.platform>
+	</properties>
 </project>

@@ -41,7 +41,7 @@ public class ModelListAdapter<T> extends ArrayAdapter<T> {
         @Override
         public void onClick(View v) {
             if (onModelClickListener != null) {
-                onModelClickListener.onClick(item);
+                onModelClickListener.onModelItemClickListener(item);
                 notifyDataSetChanged();
             }
 

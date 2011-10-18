@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:typeface="monospace"
 	android:orientation="vertical"
-	android:id="@+id/menuLinearLayout"
+	android:layout_width="match_parent"
 	android:background="@drawable/gradient_header"
 	android:layout_height="match_parent">
-
-
+	
 	<include
-		layout="@layout/top_media_bar"
+		layout="@layout/inc_media_bar"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent" />
+	
 
-
-	<LinearLayout
+<LinearLayout
 		android:id="@+id/linearLayout1"
 		android:paddingTop="2dip"
 		android:layout_width="match_parent"
@@ -29,14 +26,14 @@
 			android:textStyle="bold"
 			android:textSize="14dip"
 			android:singleLine="true"
-			android:id="@+id/fileCurrentPath"
+			android:id="@+id/info_bar_line"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1" />
 
 
 		<ImageView
-			android:background="@drawable/select_image"
+			android:background="@drawable/bg_button"
 			android:layout_width="wrap_content"
 			android:paddingLeft="15dip"
 			android:paddingRight="15dip"
@@ -74,10 +71,19 @@
 	</LinearLayout>
 
 	<ListView
+		android:background="#000080"
 		android:id="@+id/listView"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
+		android:layout_width="match_parent">
+	</ListView>
+
+
+	<include
+		layout="@layout/inc_media_player"
+		android:layout_height="wrap_content"
 		android:layout_width="match_parent" />
-
-
+	
+	
+	
 </LinearLayout>

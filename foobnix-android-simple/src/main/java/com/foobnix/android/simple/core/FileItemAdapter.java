@@ -26,7 +26,7 @@ public class FileItemAdapter extends ModelListAdapter<FileItem> {
         View newView;
         if (convertView == null) {
             LayoutInflater inflater = context.getLayoutInflater();
-            newView = inflater.inflate(R.layout.file_item, null);
+            newView = inflater.inflate(R.layout.item_file, null);
         } else {
             newView = convertView;
         }

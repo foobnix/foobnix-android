@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/linearLayout1"
+	android:layout_width="match_parent"
+	android:orientation="vertical"
+	android:layout_height="match_parent">
+
+	<HorizontalScrollView
+		android:id="@+id/scrollView1"
+		android:scrollbars="none"
+		android:layout_height="match_parent"
+		android:layout_width="wrap_content">
+
+		<LinearLayout
+			
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:layout_height="wrap_content">
+
+			<LinearLayout
+				android:id="@+id/topbarPlaylist"
+				style="@style/topBarItem">
+
+				<ImageView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:src="@drawable/playlist" />
+
+				<TextView
+					android:text="Playlist"
+					style="@style/topBarText"
+					 />
+			</LinearLayout>
+
+
+			<LinearLayout
+				android:id="@+id/topbarFolders"
+				style="@style/topBarItem">
+
+				<ImageView
+					android:layout_width="wrap_content"
+					android:id="@+id/starImage"
+					android:layout_height="wrap_content"
+					android:src="@drawable/folder"
+					android:layout_weight="1" />
+
+				<TextView
+					android:text="Folders"
+					style="@style/topBarText" />
+			</LinearLayout>
+
+
+			<LinearLayout
+				style="@style/topBarItem">
+
+				<ImageView
+					android:layout_width="wrap_content"
+					android:id="@+id/starImage"
+					android:layout_height="wrap_content"
+					android:src="@drawable/find"
+					android:layout_weight="1" />
+
+				<TextView
+					style="@style/topBarText"
+					android:text="Search" />
+			</LinearLayout>
+			<LinearLayout
+				style="@style/topBarItem">
+
+				<ImageView
+					android:layout_width="wrap_content"
+					android:id="@+id/starImage"
+					android:layout_height="wrap_content"
+					android:src="@drawable/lastvk"
+					android:layout_weight="1" />
+
+				<TextView
+					android:text="Last.FM"
+					style="@style/topBarText" />
+			</LinearLayout>
+
+			<LinearLayout
+				style="@style/topBarItem">
+
+				<ImageView
+					android:layout_width="wrap_content"
+					android:id="@+id/starImage"
+					android:layout_height="wrap_content"
+					android:src="@drawable/lastvk"
+					android:layout_weight="1" />
+
+				<TextView
+					android:text="Vkontanke"
+					style="@style/topBarText" />
+			</LinearLayout>
+
+			<LinearLayout
+				style="@style/topBarItem">
+				<ImageView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:src="@drawable/down" />
+
+				<TextView
+					android:text="DM"
+					style="@style/topBarText" />
+			</LinearLayout>
+			
+			<LinearLayout
+				style="@style/topBarItem">
+				<ImageView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:src="@android:drawable/ic_menu_info_details" />
+
+				<TextView
+					android:text="Info"
+					style="@style/topBarText" />
+			</LinearLayout>
+			
+			<LinearLayout
+				style="@style/topBarItem">
+				<ImageView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:src="@android:drawable/ic_menu_preferences" />
+
+				<TextView
+					android:text="Settings"
+					style="@style/topBarText" />
+			</LinearLayout>
+		</LinearLayout>
+	</HorizontalScrollView>
+
+</LinearLayout>

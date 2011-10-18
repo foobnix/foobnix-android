@@ -1,7 +1,6 @@
 package com.foobnix.android.simple.activity;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +19,7 @@ import com.foobnix.android.simple.R;
 import com.foobnix.android.simple.core.FileItem;
 import com.foobnix.android.simple.core.FileItemAdapter;
 import com.foobnix.android.simple.core.FileItemProvider;
-import com.foobnix.android.simple.core.OnModelClickListener;
+import com.foobnix.android.simple.core.ModelListAdapter;
 import com.foobnix.commons.LOG;
 import com.foobnix.commons.RecurciveFiles;
 import com.foobnix.commons.StringUtils;
@@ -30,32 +28,30 @@ import com.foobnix.mediaengine.MediaModel;
 import com.foobnix.mediaengine.MediaModels;
 import com.foobnix.util.pref.Pref;
 
-public class FoldersActivity extends AppActivity implements OnModelClickListener<FileItem> {
+public class FoldersActivity extends GeneralListActivity<FileItem> {
     private static final String FOLDER_PATH = "FOLDER_PATH";
-    final List<FileItem> items = new ArrayList<FileItem>();
     final File ROOT_PATH = Environment.getExternalStorageDirectory();
     private TextView path;
     private File currentPath;
     private boolean isSettingsVisible = false;
 
     @Override
+    public Class<? extends ModelListAdapter<FileItem>> getAdapter() {
+        return FileItemAdapter.class;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.folderes);
+        onActivate(this);
 
-        path = (TextView) findViewById(R.id.fileCurrentPath);
-
-        ListView listView = (ListView) findViewById(R.id.listView);
+        path = (TextView) findViewById(R.id.info_bar_line);
 
         String initPath = Pref.getStr(this, FOLDER_PATH, Environment.getExternalStorageDirectory().getPath());
         currentPath = new File(initPath);
 
         path.setText(currentPath.getPath());
-        items.addAll(FileItemProvider.getFilesAndFoldersWithRoot(currentPath));
-
-        adapter = new FileItemAdapter(this, items);
-        adapter.setOnModelClickListener(this);
-        listView.setAdapter(adapter);
+        addItems(FileItemProvider.getFilesAndFoldersWithRoot(currentPath));
 
         ViewBinder.onClick(this, R.id.fileDelete, onDelete);
         ViewBinder.onClick(this, R.id.fileCreate, onCreate);
@@ -93,7 +89,7 @@ public class FoldersActivity extends AppActivity implements OnModelClickListener
 
         @Override
         public void onClick(View arg0) {
-            for (FileItem item : items) {
+            for (FileItem item : getItems()) {
                 if (item.isChecked()) {
                     RecurciveFiles.deleteFileOrDir(item.getFile());
                     LOG.d("Delete", item.getFile().getPath());
@@ -127,8 +123,7 @@ public class FoldersActivity extends AppActivity implements OnModelClickListener
                             if (file.mkdir()) {
                                 adapter.notifyDataSetChanged();
                             } else {
-                                Toast.makeText(getApplicationContext(), "Can't create directory", Toast.LENGTH_LONG)
-                                        .show();
+                                Toast.makeText(getApplicationContext(), "Can't create directory", Toast.LENGTH_LONG).show();
                             }
                         }
 
@@ -142,12 +137,11 @@ public class FoldersActivity extends AppActivity implements OnModelClickListener
 
     }
 
-    private FileItemAdapter adapter;
     private View settinsLayout;
     private ImageView settinsImage;
 
     @Override
-    public void onClick(FileItem fileItem) {
+    public void onModelItemClickListener(FileItem fileItem) {
         if (fileItem.getFile().isDirectory()) {
             currentPath = fileItem.getFile();
 
@@ -155,9 +149,9 @@ public class FoldersActivity extends AppActivity implements OnModelClickListener
 
             path.setText(currentPath.getPath());
 
-            items.clear();
+            getItems().clear();
 
-            items.addAll(FileItemProvider.getFilesAndFoldersWithRoot(currentPath));
+            getItems().addAll(FileItemProvider.getFilesAndFoldersWithRoot(currentPath));
             adapter.notifyDataSetChanged();
         } else {
             List<FileItem> filesByPath = FileItemProvider.getFilesByPath(currentPath);
