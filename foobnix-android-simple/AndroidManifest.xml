@@ -9,7 +9,7 @@
 	<application
 		android:icon="@drawable/icon"
 		android:label="@string/app_name"
-		android:name="com.foobnix.android.simple.FoobnixFolderPlayerApplication"
+		android:name=".FoobnixApplication"
 		android:theme="@android:style/Theme.Black.NoTitleBar">
 
 		<activity

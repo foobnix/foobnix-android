@@ -17,14 +17,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.foobnix.android.simple.R;
+import com.foobnix.android.simple.activity.hierarchy.GeneralListActivity;
+import com.foobnix.android.simple.activity.util.ModelsHelper;
+import com.foobnix.android.simple.adapter.FileItemAdapter;
+import com.foobnix.android.simple.adapter.ModelListAdapter;
 import com.foobnix.android.simple.core.FileItem;
-import com.foobnix.android.simple.core.FileItemAdapter;
 import com.foobnix.android.simple.core.FileItemProvider;
-import com.foobnix.android.simple.core.ModelListAdapter;
 import com.foobnix.commons.LOG;
 import com.foobnix.commons.RecurciveFiles;
 import com.foobnix.commons.StringUtils;
-import com.foobnix.mediaengine.MediaModel;
 import com.foobnix.mediaengine.MediaModels;
 import com.foobnix.util.pref.Pref;
 
@@ -43,6 +44,7 @@ public class FoldersActivity extends GeneralListActivity<FileItem> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.general);
         onActivate(this);
 
         path = (TextView) findViewById(R.id.info_bar_line);
@@ -143,15 +145,9 @@ public class FoldersActivity extends GeneralListActivity<FileItem> {
             List<FileItem> filesByPath = FileItemProvider.getFilesByPath(currentPath);
 
             MediaModels models = ModelsHelper.getModelsByFileItems(filesByPath);
-            for (MediaModel model : models.getItems()) {
-                if (model == null) {
-                    continue;
-                }
-            }
-            LOG.d("Models", filesByPath.size());
-            Intent playlist = new Intent(this, PlaylistActivity.class);
-            playlist.putExtra(MediaModels.class.getName(), models);
-            startActivity(playlist);
+
+            app.getPlaylist().setPlaylist(models.getItems());
+            startActivity(new Intent(this, PlaylistActivity.class));
         }
 
     }

@@ -12,7 +12,9 @@ import com.foobnix.commons.TimeUtil;
 
 public class MediaPlayerCore extends MediaPlayerFeatures implements MediaPlayer.OnCompletionListener {
     private final PlayListController playlistCtr;
+
     private final Handler handler = new Handler();
+
     public MediaPlayerCore(Context context) {
         super(context);
         playlistCtr = new PlayListController();

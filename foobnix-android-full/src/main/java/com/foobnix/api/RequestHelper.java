@@ -135,7 +135,7 @@ public class RequestHelper {
 		return httpRequest(request);
 	}
 
-	private String httpRequest(HttpRequestBase request) {
+    private synchronized String httpRequest(HttpRequestBase request) {
 		client = null;
 		client = createNewClient();
 		String strResponse = "";

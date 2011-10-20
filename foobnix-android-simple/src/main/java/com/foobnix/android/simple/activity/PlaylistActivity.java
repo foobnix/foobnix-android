@@ -1,20 +1,18 @@
 package com.foobnix.android.simple.activity;
 
-import java.util.Collections;
 import java.util.List;
 
 import android.os.Bundle;
 
-import com.foobnix.android.simple.core.ModelListAdapter;
-import com.foobnix.android.simple.core.playlist.PlaylistAdapter;
-import com.foobnix.commons.LOG;
+import com.foobnix.android.simple.R;
+import com.foobnix.android.simple.activity.hierarchy.GeneralListActivity;
+import com.foobnix.android.simple.adapter.ModelListAdapter;
+import com.foobnix.android.simple.adapter.PlaylistAdapter;
 import com.foobnix.mediaengine.MediaEngineState;
 import com.foobnix.mediaengine.MediaModel;
-import com.foobnix.mediaengine.MediaModels;
 import com.foobnix.mediaengine.MediaService;
 
 public class PlaylistActivity extends GeneralListActivity<MediaModel> {
-    private MediaModels models;
 
     @Override
     public Class<? extends ModelListAdapter<MediaModel>> getAdapter() {
@@ -24,29 +22,20 @@ public class PlaylistActivity extends GeneralListActivity<MediaModel> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.general);
         onActivate(this);
-
-        models = (MediaModels) getIntent().getSerializableExtra(MediaModels.class.getName());
-
-        if (models != null) {
-            addItems(models.getItems());
-            MediaService.setPlaylist(models);
-        } else {
-            MediaService.setPlaylist(MediaModels.empty());
-        }
-
         disableSettingButton();
+        MediaService.playAtPos(0);
 
     }
 
     @Override
     public List<MediaModel> getInitItems() {
-        return Collections.emptyList();
+        return app.getPlaylist().getPlayList();
     }
 
     @Override
     public void onModelItemClickListener(MediaModel model) {
-        LOG.d(model.getPath(), model.getPosition());
         MediaService.playAtPos(model.getPosition());
     }
 

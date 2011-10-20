@@ -28,14 +28,6 @@
 			<artifactId>foobnix-commons</artifactId>
 			<version>1.0.1</version>
 			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>foobnix</groupId>
-			<artifactId>foobnix-media-engine</artifactId>
-			<version>1.0.0</version>
-			<type>jar</type>
-			<scope>compile</scope>
 		</dependency>
 		<!-- 
 		<dependency>
@@ -50,6 +42,16 @@
 		</dependency>
 		 -->
 		
+		<dependency>
+			<groupId>foobnix</groupId>
+			<artifactId>foobnix-vkontakte</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>foobnix</groupId>
+			<artifactId>foobnix-lastfm</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
