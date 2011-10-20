@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="VK_APP_ID">2234333</string>
+	<string name="VK_SECRET">0kCUFX5mK3McLmkxPHHB</string>
+	
+	<string name="LAST_FM_API_KEY">bca6866edc9bdcec8d5e8c32f709bea1</string>
+	<string name="LAST_FM_API_SECRET">800adaf46e237805a4ec2a81404b3ff2</string>
+</resources>
