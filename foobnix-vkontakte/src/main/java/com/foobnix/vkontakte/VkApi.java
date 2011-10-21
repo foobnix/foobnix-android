@@ -33,6 +33,7 @@ public class VkApi implements VkApiCalls {
 
 	public VkApi(String token) {
 		requestHelper = new RequestHelper(API_URL);
+        setToken(token);
 	}
 
 	@Override
