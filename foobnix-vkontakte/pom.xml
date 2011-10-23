@@ -18,23 +18,9 @@
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
-  		<groupId>foobnix-http</groupId>
+  		<groupId>foobnix</groupId>
   		<artifactId>foobnix-http</artifactId>
   		<version>1.0.0</version>
-  		<type>jar</type>
-  		<scope>compile</scope>
-  	</dependency>
-  	<dependency>
-    <groupId>org.apache.httpcomponents</groupId>
-    <artifactId>httpclient</artifactId>
-    <version>4.1.2</version>
-    <type>jar</type>
-  		<scope>compile</scope>
-</dependency>
-  	<dependency>
-  		<groupId>foobnix</groupId>
-  		<artifactId>foobnix-commons</artifactId>
-  		<version>1.0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
@@ -50,7 +36,21 @@
   		<artifactId>junit</artifactId>
   		<version>4.10</version>
   		<type>jar</type>
+  		<scope>test</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>foobnix</groupId>
+  		<artifactId>foobnix-commons</artifactId>
+  		<version>1.0.0</version>
+  		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
+  	<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.1.2</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
   </dependencies>
 </project>

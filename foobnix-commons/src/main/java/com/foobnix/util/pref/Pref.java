@@ -26,7 +26,7 @@ import android.content.SharedPreferences.Editor;
 import com.foobnix.commons.LOG;
 
 
-public class Pref implements Prefs {
+public class Pref {
 
 	private final static String KEY = "FOOBNIX";
 	private final static int MODE = Context.MODE_PRIVATE;

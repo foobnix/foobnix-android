@@ -31,6 +31,16 @@ public class ViewBinder {
             }
         };
     }
+
+    public static OnClickListener onClickActivity(final Activity c, final Class<?> clazz, final int flag) {
+        return new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(c, clazz);
+                intent.setFlags(flag);
+                c.startActivity(intent);
+            }
+        };
+    }
     
 
 

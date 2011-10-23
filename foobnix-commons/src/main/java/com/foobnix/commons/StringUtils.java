@@ -3,10 +3,14 @@ package com.foobnix.commons;
 public class StringUtils {
 
     public static boolean isEmpty(String str) {
-        if (str != null && !"".equals(str.trim())) {
-            return false;
+        if (str == null || "".equals(str.trim())) {
+            return true;
         }
-        return true;
+        return false;
+    }
+
+    public static boolean isNotEmpty(String str) {
+        return !isEmpty(str);
     }
 
     public static String getStringIfEmpty(String result, String value) {

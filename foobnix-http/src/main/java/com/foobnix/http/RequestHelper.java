@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
@@ -33,7 +35,9 @@ import org.apache.http.util.EntityUtils;
  * 
  */
 public class RequestHelper {
-	protected final String apiUrl;
+    private Log log = LogFactory.getLog(RequestHelper.class);
+
+    protected String apiUrl;
 	protected DefaultHttpClient client;
 	private CookieStore cookieStore;
 	private BasicNameValuePair defaultParam;
@@ -43,6 +47,11 @@ public class RequestHelper {
 		client = createNewClient();
 		this.apiUrl = apiUrl;
 	}
+
+    public RequestHelper() {
+        cookieStore = new BasicCookieStore();
+        client = createNewClient();
+    }
 
 	public DefaultHttpClient createNewClient() {
 		HttpParams params = new BasicHttpParams();
@@ -55,7 +64,7 @@ public class RequestHelper {
 	}
 
 	public void setCookie(Cookie cookie) {
-		client.getParams().setParameter(ClientPNames.COOKIE_POLICY, CookiePolicy.RFC_2109);
+        client.getParams().setParameter(ClientPNames.COOKIE_POLICY, CookiePolicy.BEST_MATCH);
 
 		client.setCookieStore(cookieStore);
 		if (!cookieStore.getCookies().contains(cookie)) {
@@ -110,6 +119,12 @@ public class RequestHelper {
 		return httpRequest(request);
 	}
 
+    public String getPostUrl(String url) {
+        HttpPost request = new HttpPost(url);
+        log.debug("getPostUrl" + url);
+        return httpRequest(request);
+    }
+
 	public String post(String method, NameValuePair... params) {
 		HttpPost request = null;
 		if (params != null) {
@@ -140,7 +155,7 @@ public class RequestHelper {
 		} catch (Exception e) {
             e.printStackTrace();
 		}
-
+        log.debug("Http Response" + strResponse);
 		return strResponse;
 	}
 
@@ -155,5 +170,6 @@ public class RequestHelper {
 	public BasicNameValuePair getDefaultParam() {
 		return defaultParam;
 	}
+
 
 }

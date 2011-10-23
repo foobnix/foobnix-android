@@ -10,19 +10,23 @@
 	<name>Foobnix Parent</name>
 	<description>Foobnix Parent Project</description>
 	<modules>
-		<module>foobnix-commons</module>
-		<module>foobnix-media-engine</module>
-		<module>foobnix-android-simple</module>
-		<module>foobnix-android-full</module>
-		<module>foobnix-vkontakte</module>
-		<module>foobnix-http</module>
 		<module>foobnix-memcache</module>
+		<module>foobnix-http</module>
+		<module>foobnix-commons</module>
 		<module>foobnix-lastfm</module>
+		<module>foobnix-vkontakte</module>
+		<!-- 
+		<module>foobnix-media-engine</module>
+		 -->
+		<module>foobnix-android-simple</module>
+		<!-- 
+		<module>foobnix-android-full</module>
+		 -->
 	</modules>
 
 	<properties>
-		<!-- <sdk.path>/home/ivan/Downloads/android-sdk-linux_x86</sdk.path> -->
-		<sdk.path>/home/iivanenko/Tools/android-sdk-linux_x86</sdk.path>
+		<sdk.path>/home/ivan/Downloads/android-sdk-linux_x86</sdk.path> 
+		<!-- <sdk.path>/home/iivanenko/Tools/android-sdk-linux_x86</sdk.path>-->
 		<sdk.platform>8</sdk.platform>
 	</properties>
 	

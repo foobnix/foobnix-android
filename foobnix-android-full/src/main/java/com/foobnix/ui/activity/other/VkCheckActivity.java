@@ -39,6 +39,7 @@ import com.foobnix.util.pref.Pref;
 import com.foobnix.util.pref.Prefs;
 
 public class VkCheckActivity extends AppActivity {
+    // http://api.vkontakte.ru
 	private final static String REDIRECT_URL = "http://android.foobnix.com/vk";
 	private final static String API_URL = "http://api.vkontakte.ru";
 	private String OAUTH_URL = "";

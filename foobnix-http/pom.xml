@@ -8,7 +8,7 @@
 		<groupId>foobnix</groupId>
 		<version>1.0.0</version>
 	</parent>
-	<groupId>foobnix-http</groupId>
+	<groupId>foobnix</groupId>
 	<artifactId>foobnix-http</artifactId>
 	<version>1.0.0</version>
 	<name>foobnix http helper</name>
@@ -18,7 +18,28 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.1.2</version>
 			<type>jar</type>
-			<scope>compile</scope>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+			<type>jar</type>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

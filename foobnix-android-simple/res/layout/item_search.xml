@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="horizontal"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:gravity="center_vertical">
+
+	<LinearLayout
+		android:layout_weight="1"
+		android:id="@+id/fileClickable"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:gravity="center_vertical">
+
+		<ImageView
+			android:layout_width="wrap_content"
+			android:layout_weight="0"
+			android:layout_height="wrap_content"
+			android:src="@drawable/icon"
+			android:id="@+id/fileImage"
+			android:layout_margin="5dip" />
+
+		<TextView
+			android:layout_weight="1"
+			android:layout_width="wrap_content"
+			android:id="@+id/fileName"
+			android:textStyle="bold"
+			android:textSize="20dip"
+			android:layout_height="wrap_content"
+			android:maxLines="2"
+			android:text="Music" />
+	</LinearLayout>
+</LinearLayout>

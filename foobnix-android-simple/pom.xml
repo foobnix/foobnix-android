@@ -25,15 +25,6 @@
 
 		<dependency>
 			<groupId>foobnix</groupId>
-			<artifactId>foobnix-commons</artifactId>
-			<version>1.0.1</version>
-			<type>jar</type>
-		</dependency>
-		<!-- <dependency> <groupId>org</groupId> <artifactId>jaudiotagger</artifactId> <version>2.0.3</version> </dependency> <dependency> 
-			<groupId>com.google.guava</groupId> <artifactId>guava</artifactId> <version>10.0</version> </dependency> -->
-
-		<dependency>
-			<groupId>foobnix</groupId>
 			<artifactId>foobnix-vkontakte</artifactId>
 			<version>1.0.0</version>
 		</dependency>
@@ -42,44 +33,28 @@
 			<artifactId>foobnix-lastfm</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>foobnix</groupId>
+			<artifactId>foobnix-commons</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>false</downloadJavadocs>
-					<additionalProjectnatures>
-						<projectnature>com.android.ide.eclipse.adt.AndroidNature</projectnature>
-					</additionalProjectnatures>
-					<additionalBuildcommands>
-						<buildcommand>com.android.ide.eclipse.adt.ResourceManagerBuilder</buildcommand>
-						<buildcommand>com.android.ide.eclipse.adt.PreCompilerBuilder</buildcommand>
-						<buildcommand>com.android.ide.eclipse.adt.ApkBuilder</buildcommand>
-					</additionalBuildcommands>
-					<!-- This is a workaround : we do not want JRE_CONTAINER, however if we remove it, it will be automatically added, and 
-						placed first. So we add it in the second position, so that the project is recognized as an Android project. -->
-					<classpathContainers>
-						<classpathContainer>com.android.ide.eclipse.adt.ANDROID_FRAMEWORK</classpathContainer>
-						<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
-					</classpathContainers>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 				<artifactId>maven-android-plugin</artifactId>
-				<version>2.9.0-beta-5</version>
-
-				<configuration>
+					<version>2.9.0-beta-5</version>
+					<configuration>
+					
+				<!-- 
+					<extractDuplicates>true</extractDuplicates>
+					 --> 
 					<androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
 					<assetsDirectory>${project.basedir}/assets</assetsDirectory>
 					<resourceDirectory>${project.basedir}/res</resourceDirectory>
 					<nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
-					<undeployBeforeDeploy>true</undeployBeforeDeploy>
 					<sdk>
 						<path>${sdk.path}</path>
 						<platform>${sdk.platform}</platform>

@@ -7,7 +7,7 @@
 	android:layout_height="match_parent">
 
 	<HorizontalScrollView
-		android:id="@+id/scrollView1"
+		android:id="@+id/horizontalScrollView"
 		android:scrollbars="none"
 		android:layout_height="match_parent"
 		android:layout_width="wrap_content">
@@ -52,6 +52,7 @@
 
 
 			<LinearLayout
+				android:id="@+id/topbarSearch"
 				style="@style/topBarItem">
 
 				<ImageView
@@ -66,13 +67,14 @@
 					android:text="Search" />
 			</LinearLayout>
 			<LinearLayout
+			android:id="@+id/topbarLastfm"
 				style="@style/topBarItem">
-
+				
 				<ImageView
 					android:layout_width="wrap_content"
 					android:id="@+id/starImage"
 					android:layout_height="wrap_content"
-					android:src="@drawable/lastvk"
+					android:src="@drawable/lastfm"
 					android:layout_weight="1" />
 
 				<TextView
@@ -81,13 +83,14 @@
 			</LinearLayout>
 
 			<LinearLayout
+				android:id="@+id/topbarVkontakte"
 				style="@style/topBarItem">
 
 				<ImageView
 					android:layout_width="wrap_content"
 					android:id="@+id/starImage"
 					android:layout_height="wrap_content"
-					android:src="@drawable/lastvk"
+					android:src="@drawable/vk"
 					android:layout_weight="1" />
 
 				<TextView
@@ -96,6 +99,7 @@
 			</LinearLayout>
 
 			<LinearLayout
+				android:id="@+id/topbarDownloads"
 				style="@style/topBarItem">
 				<ImageView
 					android:layout_height="wrap_content"
@@ -108,6 +112,7 @@
 			</LinearLayout>
 			
 			<LinearLayout
+				android:id="@+id/topbarInfo"
 				style="@style/topBarItem">
 				<ImageView
 					android:layout_height="wrap_content"
@@ -120,6 +125,7 @@
 			</LinearLayout>
 			
 			<LinearLayout
+				android:id="@+id/topbarPreferences"
 				style="@style/topBarItem">
 				<ImageView
 					android:layout_height="wrap_content"

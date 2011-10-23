@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content"
+	android:layout_width="match_parent"
+	android:id="@+id/scrollView1">
+	<LinearLayout
+
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:padding="5dip">
+		<ImageView
+			android:gravity="center"
+			android:src="@drawable/vk_logo"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:id="@+id/imageLogo"></ImageView>
+		<RelativeLayout
+
+			android:layout_marginTop="10dip"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:id="@+id/relativeLayout1">
+
+			<EditText
+				android:editable="false"
+				android:focusable="false"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:id="@+id/loginLabel"
+				android:hint="Login:"></EditText>
+			<EditText
+				android:inputType="textEmailAddress"
+				android:singleLine="true"
+				android:layout_centerVertical="true"
+				android:background="#00000000"
+				android:layout_marginLeft="65dip"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:id="@+id/login"
+				
+				android:text="ivan.ivanenko@gmail.com"></EditText>
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:id="@+id/relativeLayout1">
+
+			<EditText
+				android:focusable="false"
+				android:editable="false"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:id="@+id/passwordLabel"
+				android:hint="Password:"></EditText>
+			<EditText
+				android:singleLine="true"
+				android:layout_centerVertical="true"
+				android:background="#00000000"
+				android:password="true"
+				android:layout_marginLeft="100dip"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:id="@+id/password"
+				android:text="++++++++++++"></EditText>
+		</RelativeLayout>
+
+		<Button
+			android:text="Sign In"
+			android:id="@+id/signIn"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"></Button>
+
+
+	</LinearLayout>
+</ScrollView>

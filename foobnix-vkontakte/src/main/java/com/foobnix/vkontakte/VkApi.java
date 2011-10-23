@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.apache.http.message.BasicNameValuePair;
 
-import com.foobnix.commons.StringUtils;
 import com.foobnix.exception.VkErrorException;
 import com.foobnix.http.RequestHelper;
 
@@ -38,11 +37,6 @@ public class VkApi implements VkApiCalls {
 
 	@Override
 	public void setToken(String token) {
-
-		if (StringUtils.isEmpty(token)) {
-			throw new IllegalArgumentException("Empty token");
-		}
-
 		requestHelper.setDefaultParam(new BasicNameValuePair("access_token", token));
 	}
 
