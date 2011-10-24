@@ -12,7 +12,7 @@
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent" />
 
-	<com.foobnizz.android.simple.widgets.LoginWidget
+	<com.foobnix.widgets.LoginWidget
 		android:layout_weight="1"
 		android:id="@+id/loginWidget"
 		android:layout_height="wrap_content"

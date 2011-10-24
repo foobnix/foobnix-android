@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello foobnix-android-simple!</string>
-    <string name="app_name">foobnix-android-simple</string>
+    <string name="app_name">Foobnix</string>
 </resources>

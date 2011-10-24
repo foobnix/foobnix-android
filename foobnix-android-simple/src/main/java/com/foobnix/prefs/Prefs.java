@@ -1,0 +1,21 @@
+package com.foobnix.prefs;
+public interface Prefs {
+    String VKONTAKTE_EMAIL = "VKONTAKTE_EMAIL";
+    String VKONTAKTE_PASS = "VKONTAKTE_PASS";
+
+    String VKONTAKTE_TOKEN = "VKONTAKTE_TOKEN";
+    String VKONTAKTE_USER_ID = "VKONTAKTE_USER_ID";
+
+    String LASTFM_USER = "LASTFM_EMAIL";
+    String LASTFM_PASS = "LASTFM_PASS";
+    String LASTFM_ENABLE = "LASTFM_ENABLE";
+
+    String ACTIVE_MEDIA_ACTIVITY = "ACTIVE_MEDIA_ACTIVITY";
+    String FOLDER_PREV_PATH = "FOLDER_PREV_PATH";
+    String DOWNLOAD_TO = "DOWNLOAD_TO";
+    String IS_BACKGROUND = "IS_BACKGRPOND";
+    String IS_SKIP_ERRORS = "IS_SKIP_ERRORS";
+    String NULL_TOKEN = "NULL_TOKEN";
+
+    String RANDOM = "RANDOM";
+}
