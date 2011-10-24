@@ -40,7 +40,9 @@ public abstract class ModelListAdapter<T> extends ArrayAdapter<T> {
         }
 
         getView(item, newView);
-
+        
+        newView.setOnLongClickListener(new OnModelLongClick(item));
+        newView.setOnClickListener(new OnModelClick(item));
         return newView;
     }
 
@@ -69,6 +71,24 @@ public abstract class ModelListAdapter<T> extends ArrayAdapter<T> {
                 onModelClickListener.onModelItemClickListener(item);
                 notifyDataSetChanged();
             }
+
+        }
+    }
+
+    public class OnModelLongClick implements View.OnLongClickListener {
+        T item;
+
+        public OnModelLongClick(T item) {
+            this.item = item;
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            if (onModelClickListener != null) {
+                onModelClickListener.onModelItemLongClickListener(item);
+                notifyDataSetChanged();
+            }
+            return true;
 
         }
     }

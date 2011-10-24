@@ -62,6 +62,9 @@ public class MediaService extends MediaServiceControls {
         case PAUSE:
             mediaCore.pause();
             break;
+        case PLAY:
+            mediaCore.start();
+            break;
         case NEXT:
             mediaCore.next();
             break;
@@ -78,6 +81,7 @@ public class MediaService extends MediaServiceControls {
     public MediaPlayerCore getMediaCore() {
         return mediaCore;
     }
+
 }
 
 

@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.foobnizz.android.simple.R;
 import com.foobnizz.android.simple.activity.auth.LastfmLoginActivity;
@@ -42,9 +41,6 @@ public class SettingsActivity extends GeneralListActivity<PrefItem> {
         onActivate(this);
         disableSecondTopLine();
         disablePlayerMenu();
-        TextView text = new TextView(this);
-        text.setText("Others");
-        listView.addView(text);
     }
 
     @Override

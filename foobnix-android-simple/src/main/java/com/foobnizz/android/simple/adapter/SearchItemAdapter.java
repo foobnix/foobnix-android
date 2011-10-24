@@ -36,8 +36,5 @@ public class SearchItemAdapter extends ModelListAdapter<MediaModel> {
             image.setImageResource(R.drawable.music_folder1);
             name.setTypeface(null, Typeface.BOLD);
         }
-
-        View clickable = (View) newView.findViewById(R.id.fileClickable);
-        clickable.setOnClickListener(new OnModelClick(item));
     }
 }

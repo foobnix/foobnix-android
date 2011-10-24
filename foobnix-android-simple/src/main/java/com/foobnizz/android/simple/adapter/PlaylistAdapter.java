@@ -44,10 +44,9 @@ public class PlaylistAdapter extends ModelListAdapter<MediaModel> {
         if (item.equals(current)) {
             layout.setBackgroundColor(Color.argb(200, 0, 0, 255));
         } else {
-            layout.setBackgroundColor(Color.TRANSPARENT);
+            // layout.setBackgroundColor(Color.TRANSPARENT);
+            layout.setBackgroundColor(Color.rgb(0, 0, 80));
         }
-
-        layout.setOnClickListener(new OnModelClick(item));
 
     }
 

@@ -34,8 +34,10 @@ public class PlayMenuActivity extends TopSecondLineActivity {
         super.onActivate(activity);
         ViewBinder.onClick(activity, R.id.playlist_next, onNext);
         ViewBinder.onClick(activity, R.id.playlist_prev, onPrev);
+        ViewBinder.onClick(activity, R.id.playlist_pause, onPause);
+        ViewBinder.onClick(activity, R.id.playlist_play, onPlay);
 
-        playPause = (ImageView) activity.findViewById(R.id.playlist_play_pause);
+        playPause = (ImageView) activity.findViewById(R.id.playlist_pause);
         playPause.setOnClickListener(onPlayPause);
 
         seekBar = (SeekBar) activity.findViewById(R.id.playilst_seek);
@@ -136,6 +138,20 @@ public class PlayMenuActivity extends TopSecondLineActivity {
 
         }
     };
+    View.OnClickListener onPause = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            MediaService.puase();
+        }
+    };
+    View.OnClickListener onPlay = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            MediaService.play();
+        }
+    };
 
     @Override
     public void onUpdateUIListener(MediaEngineState state) {
@@ -153,9 +169,9 @@ public class PlayMenuActivity extends TopSecondLineActivity {
         }
 
         if (state.isPlaying()) {
-            playPause.setImageResource(android.R.drawable.ic_media_pause);
+            // playPause.setImageResource(android.R.drawable.ic_media_pause);
         } else {
-            playPause.setImageResource(android.R.drawable.ic_media_play);
+            // playPause.setImageResource(android.R.drawable.ic_media_play);
         }
     }
 

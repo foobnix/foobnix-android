@@ -16,11 +16,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.foobnizz.android.simple.R;
 import com.foobnix.commons.LOG;
 import com.foobnix.commons.RecurciveFiles;
 import com.foobnix.commons.StringUtils;
 import com.foobnix.util.pref.Pref;
+import com.foobnizz.android.simple.R;
 import com.foobnizz.android.simple.activity.hierarchy.GeneralListActivity;
 import com.foobnizz.android.simple.activity.util.ModelsHelper;
 import com.foobnizz.android.simple.adapter.FileItemAdapter;
@@ -28,13 +28,13 @@ import com.foobnizz.android.simple.adapter.ModelListAdapter;
 import com.foobnizz.android.simple.core.FileItem;
 import com.foobnizz.android.simple.core.FileItemProvider;
 import com.foobnizz.android.simple.mediaengine.MediaModels;
+import com.foobnizz.android.simple.widgets.RunnableDialog;
 
 public class FoldersActivity extends GeneralListActivity<FileItem> {
     private static final String FOLDER_PATH = "FOLDER_PATH";
     final File ROOT_PATH = Environment.getExternalStorageDirectory();
     private TextView path;
     private File currentPath;
-
 
     @Override
     public Class<? extends ModelListAdapter<FileItem>> getAdapter() {
@@ -55,25 +55,54 @@ public class FoldersActivity extends GeneralListActivity<FileItem> {
         path.setText(currentPath.getPath());
         addItems(FileItemProvider.getFilesAndFoldersWithRoot(currentPath));
 
-            
         Button btnCreateFolder = new Button(this, null, android.R.attr.buttonStyleSmall);
-        btnCreateFolder.setText("Create Folder");
+        btnCreateFolder.setText("Create a Download Directory");
         btnCreateFolder.setOnClickListener(onCreate);
 
-        Button btnDeleteFolder = new Button(this, null, android.R.attr.buttonStyleSmall);
-        btnDeleteFolder.setText("Delete Folder");
-        btnDeleteFolder.setOnClickListener(onDelete);
-
-        addSettingView(btnDeleteFolder);
         addSettingView(btnCreateFolder);
 
     }
 
     @Override
+    public void onModelItemLongClickListener(FileItem model) {
+        new RunnableDialog(this, "Action on " + model.getFile().getName())//
+
+                .Action("Set As Playlist", new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                    }
+                })//
+
+                .Action("Add To Playlist", new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }, model != null)//
+
+                .Action("Delete", new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                    }
+                }, model != null)//
+
+                .Action("Set Download Location", new Runnable() {
+                    @Override
+                    public void run() {
+                    }
+                }, model.getFile().isDirectory())//
+                .show();
+
+    };
+
+    @Override
     public List<FileItem> getInitItems() {
         return Collections.emptyList();
     }
-
 
     OnClickListener onDelete = new OnClickListener() {
 
@@ -126,7 +155,6 @@ public class FoldersActivity extends GeneralListActivity<FileItem> {
                 }).show();
 
     }
-
 
     @Override
     public void onModelItemClickListener(FileItem fileItem) {

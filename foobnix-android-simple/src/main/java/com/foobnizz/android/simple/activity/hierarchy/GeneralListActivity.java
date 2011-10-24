@@ -37,6 +37,12 @@ public abstract class GeneralListActivity<T> extends PlayMenuActivity implements
         listView.setAdapter(adapter);
     }
 
+    
+    @Override
+    public void onModelItemLongClickListener(T model) {
+    };
+    
+
     public void hideList() {
         listView.setVisibility(View.GONE);
     }
@@ -64,7 +70,5 @@ public abstract class GeneralListActivity<T> extends PlayMenuActivity implements
     }
 
     public abstract Class<? extends ModelListAdapter<T>> getAdapter();
-
-
 
 }

@@ -38,12 +38,22 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:layout_weight="1" />
+			
+		<ImageView
+			android:background="@drawable/bg_button"
+			android:padding="10dip"
+			android:layout_margin="2dip"
+			android:id="@+id/playlist_pause"
+			android:src="@android:drawable/ic_media_pause"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_weight="1" />
 
 		<ImageView
 			android:background="@drawable/bg_button"
 			android:padding="10dip"
 			android:layout_margin="2dip"
-			android:id="@+id/playlist_play_pause"
+			android:id="@+id/playlist_play"
 			android:src="@android:drawable/ic_media_play"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"

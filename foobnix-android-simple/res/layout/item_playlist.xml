@@ -4,7 +4,7 @@
 	android:layout_height="wrap_content"
 	android:layout_width="match_parent"
 	android:orientation="horizontal"
-	android:background="#00000000"
+	android:background="#000080"
 	android:id="@+id/playlist_item_layout">
 
 
@@ -13,10 +13,10 @@
 		android:id="@+id/playlist_track_pos"
 		android:layout_height="match_parent"
 		android:layout_width="wrap_content"
-		android:textSize="15dip"
 		android:textStyle="bold"
+		android:textAppearance="?android:attr/textAppearanceSmall"
 		android:gravity="center_vertical"
-		android:paddingRight="5dip">
+		android:padding="3dip">
 	</TextView>
 
 	<LinearLayout
@@ -34,43 +34,34 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:textStyle="bold"
-			android:textSize="20dip"
+			android:textAppearance="?android:attr/textAppearanceLarge"
 			android:scrollHorizontally="true" />
 
-		<TextView
-			android:text="Artist"
-			android:id="@+id/playlist_artist"
+		<LinearLayout
 			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:scrollHorizontally="true"
-			android:textSize="15dip" />
-	</LinearLayout>
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:gravity="center_vertical">
+			<TextView
+				android:text="Artist"
+				android:id="@+id/playlist_artist"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:scrollHorizontally="true"
+				android:layout_weight="1"
+				android:singleLine="true"
+				android:textAppearance="?android:attr/textAppearanceSmall" />
+			<TextView
+				android:text="00:00"
+				android:padding="1dip"
+				android:id="@+id/playlist_time"
+				android:layout_weight="0"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:scrollHorizontally="true"
+				android:textAppearance="?android:attr/textAppearanceSmall" />
 
-	<LinearLayout
-		android:layout_height="match_parent"
-		android:orientation="vertical"
-		android:layout_width="wrap_content"
-		android:gravity="center_vertical|right"
-		android:id="@+id/linearLayout2"
-		android:layout_weight="0"
-		android:paddingLeft="5dip">
-
-		<TextView
-			android:text="00:00"
-			android:id="@+id/playlist_time"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:gravity="center_vertical|right"
-			android:textSize="15dip" />
-
-		<TextView
-			android:text=""
-			android:id="@+id/pItemState"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:gravity="center_vertical|right"
-			android:textSize="12dip"
-			android:textColor="#CC0000" />
+		</LinearLayout>
 	</LinearLayout>
 
 </LinearLayout>

@@ -44,9 +44,6 @@ public class FileItemAdapter extends ModelListAdapter<FileItem> {
             image.setImageResource(R.drawable.music_folder);
         }
 
-        View clickable = (View) newView.findViewById(R.id.fileClickable);
-        clickable.setOnClickListener(new OnModelClick(item));
-
         CheckBox checkBox = (CheckBox) newView.findViewById(R.id.fileCheckbox);
         if (item instanceof TopFileItem) {
             checkBox.setVisibility(View.GONE);

@@ -2,6 +2,8 @@ package com.foobnix.mediaengine;
 
 import java.io.Serializable;
 
+import com.foobnix.commons.TimeUtil;
+
 public class MediaEngineState implements Serializable {
 
     private MediaModel model;
@@ -13,7 +15,9 @@ public class MediaEngineState implements Serializable {
 
     public static MediaEngineState build(MediaPlayerCore core) {
         MediaEngineState state = new MediaEngineState();
-        state.setModel(core.getPlaylistCtr().getCurrentModel());
+        MediaModel currentModel = core.getPlaylistCtr().getCurrentModel();
+        currentModel.setDuration(TimeUtil.durationSecToString(core.getDuration()));
+        state.setModel(currentModel);
         state.setCurrentPosition(core.getCurrentPosition());
         state.setDuration(core.getDuration());
         state.setPlaying(core.isPlaying());

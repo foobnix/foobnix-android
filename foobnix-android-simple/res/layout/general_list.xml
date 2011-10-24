@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
-	android:background="@drawable/gradient_header"
+	android:background="#000080"
 	android:layout_height="match_parent">
 
 	<include
@@ -19,6 +19,7 @@
 	<ListView
 		android:id="@+id/listView"
 		android:layout_weight="1"
+		android:background="@android:color/transparent"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent" />
 

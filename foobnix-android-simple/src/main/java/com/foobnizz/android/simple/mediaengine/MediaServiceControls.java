@@ -9,7 +9,7 @@ public abstract class MediaServiceControls extends Service {
     private static Context context;
 
     public enum MediaAction {
-        PLAY_PAHT, PAUSE, NEXT, PREV, SET_PLAYLIST, PLAY_PAUSE, SEEK_TO, PLAY_AT_POS
+        PLAY_PAHT, PAUSE, NEXT, PREV, SET_PLAYLIST, PLAY_PAUSE, SEEK_TO, PLAY_AT_POS, PLAY
 	}
 
     // any action without extra
@@ -23,6 +23,10 @@ public abstract class MediaServiceControls extends Service {
 
     public static void puase() {
         simpleServiceAction(MediaAction.PAUSE);
+    }
+
+    public static void play() {
+        simpleServiceAction(MediaAction.PLAY);
     }
 
     public static void playPause() {

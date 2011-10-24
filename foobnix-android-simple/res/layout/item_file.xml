@@ -4,6 +4,8 @@
 	android:orientation="horizontal"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
+	android:minHeight="?android:attr/listPreferredItemHeight"
+	android:background="#000080"
 	android:gravity="center_vertical">
 
 	<LinearLayout
@@ -27,7 +29,7 @@
 			android:layout_width="wrap_content"
 			android:id="@+id/fileName"
 			android:textStyle="bold"
-			android:textSize="20dip"
+			android:textAppearance="?android:attr/textAppearanceLarge"
 			android:layout_height="wrap_content"
 			android:maxLines="2"
 			android:text="Music" />
