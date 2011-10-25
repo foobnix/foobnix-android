@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
+import com.foobnix.R;
 import com.foobnix.activity.DownloadsActivity;
 import com.foobnix.activity.FoldersActivity;
 import com.foobnix.activity.InfoActivity;
@@ -19,9 +20,8 @@ import com.foobnix.activity.PlaylistActivity;
 import com.foobnix.activity.SearchActivity;
 import com.foobnix.activity.SettingsActivity;
 import com.foobnix.activity.VkontakteActivity;
-import com.foobnix.commons.LOG;
 import com.foobnix.mediaengine.MediaEngineState;
-import com.foobnix.R;
+import com.foobnix.util.pref.Pref;
 
 public class TopBarActivity extends AppActivity {
     private static Map<Integer, Class<?>> bindTabs = new LinkedHashMap<Integer, Class<?>>();
@@ -37,9 +37,6 @@ public class TopBarActivity extends AppActivity {
         bindTabs.put(R.id.topbarPreferences, SettingsActivity.class);
 
     }
-
-
-
 
     public void onActivate(final Activity activity) {
         final Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -69,22 +66,19 @@ public class TopBarActivity extends AppActivity {
         scroll.post(new Runnable() {
             @Override
             public void run() {
-                LOG.d("on scroll TO", app.getScrollX(), app.getScrollY());
-                scroll.scrollTo(app.getScrollX(), app.getScrollY());
+                int x = Pref.getInt(getApplicationContext(), "ScrollX");
+                int y = Pref.getInt(getApplicationContext(), "ScrollY");
+                scroll.scrollTo(x, y);
             }
         });
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();
-        app.setScrollX(scroll.getScrollX());
-        app.setScrollY(scroll.getScrollY());
-        LOG.d("on pause scroll", scroll.getScrollX(), scroll.getScrollY());
+        Pref.putInt(getApplicationContext(), "ScrollX", scroll.getScrollX());
+        Pref.putInt(getApplicationContext(), "ScrollY", scroll.getScrollY());
     }
-
-
 
     @Override
     public void onUpdateUIListener(MediaEngineState state) {

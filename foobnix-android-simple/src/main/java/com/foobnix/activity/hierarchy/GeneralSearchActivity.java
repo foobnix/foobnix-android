@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.foobnix.R;
+import com.foobnix.activity.PlaylistActivity;
 import com.foobnix.activity.auth.VkLoginActivity;
 import com.foobnix.adapter.ModelListAdapter;
 import com.foobnix.adapter.SearchItemAdapter;
@@ -27,6 +28,7 @@ import com.foobnix.util.pref.Pref;
 import com.foobnix.util.pref.Res;
 import com.foobnix.vkontakte.VkAudio;
 import com.foobnix.widgets.AsyncDialog;
+import com.foobnix.widgets.RunnableDialog;
 
 public abstract class GeneralSearchActivity extends GeneralListActivity<MediaModel> {
     protected IntegrationsQueryManager queryManager;
@@ -60,6 +62,48 @@ public abstract class GeneralSearchActivity extends GeneralListActivity<MediaMod
     protected void onResume() {
         super.onResume();
         vkAdapter.setToken(Pref.getStr(this, Prefs.VKONTAKTE_TOKEN));
+    };
+
+    @Override
+    public void onModelItemLongClickListener(MediaModel model) {
+        if (!model.isFile()) {
+            LOG.d("model is directory");
+            return;
+        }
+        new RunnableDialog(this, "Action")//
+
+                .Action("Set All As Playlist", new Runnable() {
+
+                    @Override
+                    public void run() {
+                        app.getPlaylist().setPlaylist(getItems());
+                        startActivity(new Intent(getApplicationContext(), PlaylistActivity.class));
+                    }
+                }, model.isFile())//
+
+                .Action("Add All To Playlist", new Runnable() {
+                    @Override
+                    public void run() {
+                        app.getPlaylist().addToPlaylist(getItems());
+                        startActivity(new Intent(getApplicationContext(), PlaylistActivity.class));
+
+                    }
+                }, model.isFile())//
+                .Action("Download", new Runnable() {
+                    @Override
+                    public void run() {
+                        // app.getPlaylist().addToPlaylist(getItems());
+
+                    }
+                }, model != null)//
+                .Action("Download All", new Runnable() {
+                    @Override
+                    public void run() {
+                        // app.getPlaylist().addToPlaylist(getItems());
+                    }
+                }, model != null)//
+                .show();
+
     };
 
 
