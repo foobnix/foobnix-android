@@ -1,4 +1,4 @@
-package com.foobnix.commons;
+package com.foobnix.commons.string;
 
 public class StringUtils {
 

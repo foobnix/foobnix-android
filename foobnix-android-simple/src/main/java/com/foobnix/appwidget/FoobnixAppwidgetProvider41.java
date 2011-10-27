@@ -10,8 +10,8 @@ import android.widget.RemoteViews;
 
 import com.foobnix.R;
 import com.foobnix.activity.PlaylistActivity;
-import com.foobnix.commons.LOG;
 import com.foobnix.commons.TimeUtil;
+import com.foobnix.commons.log.LOG;
 import com.foobnix.mediaengine.MediaEngineState;
 import com.foobnix.mediaengine.MediaService;
 

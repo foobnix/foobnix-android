@@ -21,8 +21,8 @@ package com.foobnix.integrations;
 
 import java.util.List;
 
-import com.foobnix.commons.LOG;
 import com.foobnix.commons.TimeUtil;
+import com.foobnix.commons.log.LOG;
 import com.foobnix.mediaengine.MediaModel;
 
 import de.umass.lastfm.Album;

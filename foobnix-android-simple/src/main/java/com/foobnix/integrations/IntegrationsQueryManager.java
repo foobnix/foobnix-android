@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.foobnix.commons.LOG;
+import com.foobnix.commons.log.LOG;
 import com.foobnix.exception.VkErrorException;
 import com.foobnix.mediaengine.MediaModel;
 import com.foobnix.vkontakte.VKUser;

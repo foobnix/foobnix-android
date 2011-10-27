@@ -29,7 +29,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.IBinder;
 
-import com.foobnix.commons.LOG;
+import com.foobnix.commons.log.LOG;
 import com.foobnix.mediaengine.MediaModel;
 
 

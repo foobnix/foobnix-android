@@ -2,7 +2,7 @@ package com.foobnix.mediaengine;
 
 import java.io.Serializable;
 
-import com.foobnix.commons.StringUtils;
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.integrations.SearchQuery;
 
 public class MediaModel implements Serializable {

@@ -1,4 +1,6 @@
-package com.foobnix.commons;
+package com.foobnix.commons.view;
+
+import com.foobnix.commons.string.StringUtils;
 
 import android.app.Activity;
 import android.content.Intent;

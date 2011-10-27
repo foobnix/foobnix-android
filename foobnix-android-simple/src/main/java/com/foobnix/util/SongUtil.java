@@ -23,7 +23,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
-import com.foobnix.commons.StringUtils;
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.mediaengine.MediaModel;
 
 /**

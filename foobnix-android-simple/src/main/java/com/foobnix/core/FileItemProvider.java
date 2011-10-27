@@ -8,7 +8,7 @@ import java.util.List;
 
 import android.os.Environment;
 
-import com.foobnix.commons.LOG;
+import com.foobnix.commons.log.LOG;
 
 public class FileItemProvider {
     private final static File ROOT_PATH = Environment.getExternalStorageDirectory();

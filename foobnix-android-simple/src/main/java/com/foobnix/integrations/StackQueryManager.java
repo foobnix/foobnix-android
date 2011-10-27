@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
-import com.foobnix.commons.LOG;
+import com.foobnix.commons.log.LOG;
 import com.foobnix.exception.VkErrorException;
 import com.foobnix.mediaengine.MediaModel;
 

@@ -13,6 +13,7 @@
 	<version>1.0.0</version>
 	<name>foobnix http helper</name>
 	<dependencies>
+	
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>

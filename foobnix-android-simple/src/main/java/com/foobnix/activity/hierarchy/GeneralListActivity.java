@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.foobnix.adapter.ModelListAdapter;
-import com.foobnix.commons.LOG;
+import com.foobnix.commons.log.LOG;
 import com.foobnix.core.OnModelClickListener;
 import com.foobnix.R;
 

@@ -13,9 +13,9 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import com.foobnix.commons.LOG;
 import com.foobnix.commons.TimeUtil;
-import com.foobnix.commons.ViewBinder;
+import com.foobnix.commons.log.LOG;
+import com.foobnix.commons.view.ViewBinder;
 import com.foobnix.mediaengine.MediaEngineState;
 import com.foobnix.mediaengine.MediaService;
 import com.foobnix.R;

@@ -22,8 +22,8 @@ package com.foobnix.vkontakte;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.foobnix.commons.LOG;
-import com.foobnix.commons.StringUtils;
+import com.foobnix.commons.log.LOG;
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.exception.VkErrorException;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

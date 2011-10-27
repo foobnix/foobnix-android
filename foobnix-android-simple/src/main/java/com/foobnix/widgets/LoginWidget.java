@@ -8,8 +8,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.foobnix.commons.LOG;
-import com.foobnix.commons.ViewBinder;
+import com.foobnix.commons.log.LOG;
+import com.foobnix.commons.view.ViewBinder;
 import com.foobnix.R;
 
 public class LoginWidget extends LinearLayout {

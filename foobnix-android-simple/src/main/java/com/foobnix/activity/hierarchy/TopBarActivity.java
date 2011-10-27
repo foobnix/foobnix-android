@@ -20,8 +20,8 @@ import com.foobnix.activity.PlaylistActivity;
 import com.foobnix.activity.SearchActivity;
 import com.foobnix.activity.SettingsActivity;
 import com.foobnix.activity.VkontakteActivity;
+import com.foobnix.commons.pref.Pref;
 import com.foobnix.mediaengine.MediaEngineState;
-import com.foobnix.util.pref.Pref;
 
 public class TopBarActivity extends AppActivity {
     private static Map<Integer, Class<?>> bindTabs = new LinkedHashMap<Integer, Class<?>>();

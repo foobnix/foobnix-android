@@ -10,10 +10,10 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.foobnix.activity.hierarchy.TopBarActivity;
-import com.foobnix.commons.LOG;
+import com.foobnix.commons.log.LOG;
+import com.foobnix.commons.pref.Pref;
+import com.foobnix.commons.pref.Res;
 import com.foobnix.prefs.Prefs;
-import com.foobnix.util.pref.Pref;
-import com.foobnix.util.pref.Res;
 import com.foobnix.R;
 
 public class VkWebActivity extends TopBarActivity {

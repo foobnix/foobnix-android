@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.foobnix.commons.StringUtils;
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.R;
 
 public abstract class TopSecondLineActivity extends TopBarActivity {

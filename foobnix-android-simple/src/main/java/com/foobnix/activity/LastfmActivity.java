@@ -6,13 +6,13 @@ import java.util.List;
 import android.app.Activity;
 
 import com.foobnix.activity.hierarchy.GeneralSearchActivity;
-import com.foobnix.commons.LOG;
+import com.foobnix.commons.log.LOG;
+import com.foobnix.commons.pref.Pref;
 import com.foobnix.exception.VkErrorException;
 import com.foobnix.integrations.SearchBy;
 import com.foobnix.integrations.SearchQuery;
 import com.foobnix.mediaengine.MediaModel;
 import com.foobnix.prefs.Prefs;
-import com.foobnix.util.pref.Pref;
 
 public class LastfmActivity extends GeneralSearchActivity {
 

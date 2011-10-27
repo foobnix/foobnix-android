@@ -1,4 +1,4 @@
-package com.foobnix.commons;
+package com.foobnix.commons.log;
 
 import android.util.Log;
 

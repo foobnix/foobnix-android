@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.foobnix.activity.auth.VkLoginActivity;
 import com.foobnix.activity.hierarchy.GeneralSearchActivity;
-import com.foobnix.commons.StringUtils;
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.exception.VkErrorException;
 import com.foobnix.integrations.SearchBy;
 import com.foobnix.integrations.SearchQuery;
