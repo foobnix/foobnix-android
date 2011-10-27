@@ -14,5 +14,4 @@ public class FileItemComparator implements Comparator<FileItem> {
 		
 		return arg0.getFile().getPath().compareTo(arg1.getFile().getPath());
 	}
-
 }

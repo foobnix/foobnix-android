@@ -13,7 +13,7 @@ import com.foobnix.commons.LOG;
 public class FileItemProvider {
     private final static File ROOT_PATH = Environment.getExternalStorageDirectory();
     private final static FileItemComparator comparator = new FileItemComparator();
-    private final static Mp3FileNameFilter filter = new Mp3FileNameFilter();
+    private final static FileExtFilter filter = new FileExtFilter();
     
     public static List<FileItem> getFilesAndFoldersWithRoot(File rootPath) {
         List<FileItem> items = new ArrayList<FileItem>();
