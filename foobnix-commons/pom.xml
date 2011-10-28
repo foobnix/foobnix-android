@@ -28,11 +28,11 @@
 	<distributionManagement>
 		<repository>
 			<id>foobnix-android</id>
-			<url>file:/tmp/local-mvn</url>
+			<url>scm:git:git://github.com/foobnix/foobnix-mvn-repo.git</url>
 		</repository>
 		<snapshotRepository>
 			<id>foobnix-android</id>
-			<url>file:/tmp/local-mvn</url>
+			<url>scm:git:git://github.com/foobnix/foobnix-mvn-repo.git</url>
 		</snapshotRepository>
 	</distributionManagement>
 
