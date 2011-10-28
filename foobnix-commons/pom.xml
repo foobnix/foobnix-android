@@ -1,4 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>foobnix-parent</artifactId>
@@ -17,8 +20,14 @@
 		<developerConnection>scm:git:git://github.com/foobnix/foobnix-mvn-repo.git</developerConnection>
 	</scm>
 
-	<!-- <scm> <connection>scm:local:file:/tmp/mvn-release</connection> <url>scm:local:/tmp/mvn-release</url> <developerConnection>scm:local:/tmp/mvn-release</developerConnection> 
-		</scm> -->
+	<!-- 
+	<scm>
+		<connection>scm:local:/tmp/usr/modules:my_module</connection>
+		<url>scm:local:/tmp/usr/modules:my_module</url>
+		<developerConnection>scm:local:/tmp/usr/modules:my_module</developerConnection>
+	</scm>
+	-->
+
 	<distributionManagement>
 		<repository>
 			<id>foobnix-mvn-repo</id>
