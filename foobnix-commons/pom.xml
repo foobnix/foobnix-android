@@ -12,9 +12,9 @@
 	<packaging>jar</packaging>
 
 	<scm>
-		<connection>scm:git:git://github.com/foobnix/foobnix-mvn-repo.git</connection>
-		<url>scm:git:git://github.com/foobnix/foobnix-mvn-repo.git</url>
-		<developerConnection>scm:git:git://github.com/foobnix/foobnix-mvn-repo.git</developerConnection>
+		<connection>scm:git:git://github.com/foobnix/foobnix-android.git</connection>
+		<url>scm:git:git://github.com/foobnix/foobnix-android.git</url>
+		<developerConnection>scm:git:git://github.com/foobnix/foobnix-android.git</developerConnection>
 	</scm>
 
 	<!-- 
@@ -27,11 +27,11 @@
 
 	<distributionManagement>
 		<repository>
-			<id>foobnix-mvn-repo</id>
+			<id>foobnix-android</id>
 			<url>file:/tmp/local-mvn</url>
 		</repository>
 		<snapshotRepository>
-			<id>foobnix-mvn-repo</id>
+			<id>foobnix-android</id>
 			<url>file:/tmp/local-mvn</url>
 		</snapshotRepository>
 	</distributionManagement>
