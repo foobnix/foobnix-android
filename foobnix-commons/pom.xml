@@ -1,4 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>foobnix-parent</artifactId>
@@ -7,21 +10,18 @@
 	</parent>
 	<groupId>foobnix</groupId>
 	<artifactId>foobnix-commons</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>Fobonix Commons Libs</name>
 	<packaging>jar</packaging>
-	
-	<!-- 
+
 	<scm>
 		<connection>scm:git:git://github.com/foobnix/foobnix-mvn-repo.git</connection>
 		<url>scm:git:git://github.com/foobnix/foobnix-mvn-repo.git</url>
 		<developerConnection>scm:git:git://github.com/foobnix/foobnix-mvn-repo.git</developerConnection>
 	</scm>
-	 -->
-<scm>
-    <developerConnection>scm:file:/tmp/mvn-release</developerConnection>
-  </scm>
 
+	<!-- <scm> <connection>scm:local:file:/tmp/mvn-release</connection> <url>scm:local:/tmp/mvn-release</url> <developerConnection>scm:local:/tmp/mvn-release</developerConnection> 
+		</scm> -->
 	<distributionManagement>
 		<repository>
 			<id>foobnix-mvn-repo</id>
