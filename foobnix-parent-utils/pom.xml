@@ -10,9 +10,11 @@
 	<artifactId>foobnix-parent-utils</artifactId>
 	<packaging>pom</packaging>
 	<version>0.0.1-SNAPSHOT</version>
+	<name>foobnix-parent-utils</name>
 
 	<modules>
 		<module>foobnix-memcache</module>
+		<module>foobnix-http</module>
 		<module>foobnix-lastfm</module>
 		<module>foobnix-vkontakte</module>
 	</modules>

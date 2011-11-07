@@ -22,8 +22,9 @@ package com.foobnix.vkontakte;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.foobnix.commons.log.LOG;
-import com.foobnix.commons.string.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.foobnix.exception.VkErrorException;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -31,6 +32,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 public class VkGsonResponse {
+    private final static Log log = LogFactory.getLog(VkGsonResponse.class);
 
 	public static <T> List<T> toModels(String json, Class<T> clazz) throws VkErrorException {
 		return toModels(json, clazz, 1);
@@ -40,8 +42,8 @@ public class VkGsonResponse {
 	        throws VkErrorException {
 		List<T> result = new ArrayList<T>();
 
-		if (StringUtils.isEmpty(json) || json.trim().equalsIgnoreCase("{\"response\":{}}")) {
-			LOG.d("Recive an empty json", json);
+        if (json == null || json.trim().isEmpty() || json.trim().equalsIgnoreCase("{\"response\":{}}")) {
+            log.debug("Recive an empty json" + json);
 			return result;
 		}
 		if (json.trim().startsWith("{\"error\":")) {
