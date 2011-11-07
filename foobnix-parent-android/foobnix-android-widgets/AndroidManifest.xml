@@ -9,7 +9,6 @@
 	<application
 		android:icon="@drawable/icon"
 		android:label="widgets"
-		android:name=".FoobnixApplicationW"
 		android:theme="@android:style/Theme.Black.NoTitleBar">
 
 		<activity android:name=".navlist.NavigationActivity" >
