@@ -10,13 +10,16 @@
 	<artifactId>foobnix-parent-android</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	<name>Parent</name>
 
 	<modules>
+	<!-- 
 		<module>foobnix-android-commons</module>
 		<module>foobnix-media-engine</module>
 		<module>foobnix-android-simple</module>
 		<module>foobnix-samba-player</module>
 		<module>foobnix-android-full</module>
+		 -->
 		<module>foobnix-android-widgets</module>
 	</modules>
 

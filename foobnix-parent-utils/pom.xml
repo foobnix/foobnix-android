@@ -12,7 +12,14 @@
 	<artifactId>foobnix-parent-utils</artifactId>
 	<packaging>pom</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>foobnix-parent-utils</name>
+	<name>foobnix parent utils</name>
+	
+	
+	<scm>
+		<connection>scm:git:git://github.com/foobnix/foobnix-android.git</connection>
+		<url>scm:git:git://github.com/foobnix/foobnix-android.git</url>
+		<developerConnection>scm:git:git://github.com/foobnix/foobnix-android.git</developerConnection>
+	</scm>
 
 	<modules>
 		<module>foobnix-memcache</module>
@@ -20,13 +27,4 @@
 		<module>foobnix-lastfm</module>
 		<module>foobnix-vkontakte</module>
 	</modules>
-
-	<scm>
-		<connection>scm:git:git://github.com/foobnix/foobnix-android.git</connection>
-		<url>scm:git:git://github.com:foobnix/foobnix-android.git</url>
-		<developerConnection>scm:git:git://github.com:foobnix/foobnix-android.git</developerConnection>
-	</scm>
-
-	<!-- <scm> <connection>scm:file:/tmp/mvn</connection> <url>scm:file:/tmp/mvn</url> 
-		<developerConnection>scm:file:/tmp/mvn</developerConnection> </scm> -->
 </project>

@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>foobnix</groupId>
@@ -7,17 +9,18 @@
 	<packaging>pom</packaging>
 	<name>Foobnix Parent</name>
 	<description>Foobnix Parent Project</description>
-	
+
 	<modules>
 		<module>foobnix-parent-utils</module>
 		<module>foobnix-parent-android</module>
 	</modules>
-	
+
 	<properties>
 		<!-- <sdk.path>/home/ivan/Downloads/android-sdk-linux_x86</sdk.path> -->
 		<sdk.path>/home/iivanenko/Tools/android-sdk-linux_x86</sdk.path>
 		<sdk.platform>8</sdk.platform>
 	</properties>
+	
 
 	<build>
 		<plugins>
@@ -28,6 +31,10 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
+			</plugin>
+			<plugin>
+  				<groupId>org.apache.maven.plugins</groupId>
+  				<artifactId>maven-release-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
