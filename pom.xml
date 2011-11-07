@@ -14,6 +14,12 @@
 		<module>foobnix-parent-utils</module>
 		<module>foobnix-parent-android</module>
 	</modules>
+	
+	<scm>
+		<connection>scm:git:git://github.com/foobnix/foobnix-android.git</connection>
+		<url>scm:git:git://github.com/foobnix/foobnix-android.git</url>
+		<developerConnection>scm:git:git://github.com/foobnix/foobnix-android.git</developerConnection>
+	</scm>
 
 	<properties>
 		<!-- <sdk.path>/home/ivan/Downloads/android-sdk-linux_x86</sdk.path> -->

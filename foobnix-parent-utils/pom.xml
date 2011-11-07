@@ -15,11 +15,6 @@
 	<name>foobnix parent utils</name>
 	
 	
-	<scm>
-		<connection>scm:git:git://github.com/foobnix/foobnix-android.git</connection>
-		<url>scm:git:git://github.com/foobnix/foobnix-android.git</url>
-		<developerConnection>scm:git:git://github.com/foobnix/foobnix-android.git</developerConnection>
-	</scm>
 
 	<modules>
 		<module>foobnix-memcache</module>
