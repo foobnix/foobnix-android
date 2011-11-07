@@ -8,7 +8,7 @@
 	</parent>
 	<groupId>foobnix</groupId>
 	<artifactId>foobnix-android-widgets</artifactId>
-	<version>1.0.0</version>
+	<version>y</version>
 	<packaging>apk</packaging>
 	<name>foobnix-android-widgets</name>
 

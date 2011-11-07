@@ -7,7 +7,7 @@
   </parent>
   <groupId>foobnix</groupId>
   <artifactId>foobnix-vkontakte</artifactId>
-  <version>1.0.0-</version>
+  <version>y</version>
   <name>foobnix vkontakte</name>
   <dependencies>
   	<dependency>
@@ -20,14 +20,14 @@
   	<dependency>
   		<groupId>foobnix</groupId>
   		<artifactId>foobnix-http</artifactId>
-  		<version>1.0.0</version>
+  		<version>y</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
   		<groupId>foobnix</groupId>
   		<artifactId>foobnix-memcache</artifactId>
-  		<version>1.0.0</version>
+  		<version>y</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>

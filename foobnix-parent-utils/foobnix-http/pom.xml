@@ -7,7 +7,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>foobnix</groupId>
 	<artifactId>foobnix-http</artifactId>
-	<version>1.0.0</version>
+	<version>y</version>
 	<name>foobnix http</name>
 
 	<dependencies>

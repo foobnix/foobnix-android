@@ -7,7 +7,7 @@
   </parent>
   <groupId>foobnix</groupId>
   <artifactId>foobnix-lastfm</artifactId>
-  <version>1.0.0</version>
+  <version>y</version>
   <name>foobnix lastfm</name>
   <dependencies>
   </dependencies>

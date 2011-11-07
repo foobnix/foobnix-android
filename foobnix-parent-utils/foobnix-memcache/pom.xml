@@ -7,6 +7,6 @@
 	<modelVersion>4.0.0</modelVersion>
   <groupId>foobnix</groupId>
   <artifactId>foobnix-memcache</artifactId>
-  <version>1.0.0</version>
+  <version>y</version>
   <name>foobnix memcache</name>
 </project>
