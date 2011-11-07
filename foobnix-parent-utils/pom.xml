@@ -1,9 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<artifactId>foobnix-parent</artifactId>
 		<groupId>foobnix</groupId>
-		<version>1.0.0</version>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>foobnix</groupId>
@@ -18,4 +20,13 @@
 		<module>foobnix-lastfm</module>
 		<module>foobnix-vkontakte</module>
 	</modules>
+
+	<scm>
+		<connection>scm:git:git://github.com/foobnix/foobnix-android.git</connection>
+		<url>scm:git:git://github.com:foobnix/foobnix-android.git</url>
+		<developerConnection>scm:git:git://github.com:foobnix/foobnix-android.git</developerConnection>
+	</scm>
+
+	<!-- <scm> <connection>scm:file:/tmp/mvn</connection> <url>scm:file:/tmp/mvn</url> 
+		<developerConnection>scm:file:/tmp/mvn</developerConnection> </scm> -->
 </project>

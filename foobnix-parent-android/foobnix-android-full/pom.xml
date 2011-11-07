@@ -23,13 +23,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>foobnix</groupId>
-			<artifactId>foobnix-commons</artifactId>
-			<version>1.0.1</version>
-			<type>jar</type>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>1.7.2</version>

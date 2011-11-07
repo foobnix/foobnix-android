@@ -43,6 +43,7 @@ public class NavigationList extends LinearLayout implements OnModelClickListener
         items.add(new NavigationItem(R.drawable.icon, null, "summary3"));
         items.add(new NavigationItem(R.drawable.icon, "title4", "summary4"));
 
+
         adapter.notifyDataSetChanged();
 
     }

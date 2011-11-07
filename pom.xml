@@ -3,10 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>foobnix</groupId>
 	<artifactId>foobnix-parent</artifactId>
-	<version>1.0.0</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Foobnix Parent</name>
 	<description>Foobnix Parent Project</description>
+	
 	<modules>
 		<module>foobnix-parent-utils</module>
 		<module>foobnix-parent-android</module>

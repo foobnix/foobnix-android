@@ -18,13 +18,6 @@
 			<version>2.2.1</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>foobnix</groupId>
-			<artifactId>foobnix-commons</artifactId>
-			<version>1.0.1</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
   </dependencies>
   
 </project>
