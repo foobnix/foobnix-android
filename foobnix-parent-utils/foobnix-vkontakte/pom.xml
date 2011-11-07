@@ -3,7 +3,7 @@
   <parent>
     <artifactId>foobnix-parent</artifactId>
     <groupId>foobnix</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>y</version>
   </parent>
   <groupId>foobnix</groupId>
   <artifactId>foobnix-vkontakte</artifactId>
