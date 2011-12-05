@@ -23,15 +23,12 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
-
 import android.os.Environment;
 
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModelBuilder;
 
@@ -128,19 +125,19 @@ public class FolderUtil {
 	public static List<FModel> getAllFilesRecursive(String path) {
 		List<FModel> result = new ArrayList<FModel>();
 		String[] extensions = {"mp3", "ogg"};
-		Collection<File> listFiles = FileUtils.listFiles(new File(path), extensions, true);
-
-		for (File file : listFiles) {
-			String fileName = file.getName();
-			String cutName = fileName.substring(0, fileName.length() - 4);
-			FModel navItem = FModelBuilder//
-			        .PatternText(cutName)//
-			        .addPath(file.getPath())//
-			        .addExt(getExt(fileName))//
-			        .addSize(getSizeMb(file));
-			result.add(navItem);
-		}
-
+        if (true) {
+            throw new RuntimeException("not implemented");
+        }
+        /*
+         * Collection<File> listFiles = FileUtils.listFiles(new File(path),
+         * extensions, true);
+         * 
+         * for (File file : listFiles) { String fileName = file.getName();
+         * String cutName = fileName.substring(0, fileName.length() - 4); FModel
+         * navItem = FModelBuilder// .PatternText(cutName)//
+         * .addPath(file.getPath())// .addExt(getExt(fileName))//
+         * .addSize(getSizeMb(file)); result.add(navItem); }
+         */
 		return result;
 		
 	}

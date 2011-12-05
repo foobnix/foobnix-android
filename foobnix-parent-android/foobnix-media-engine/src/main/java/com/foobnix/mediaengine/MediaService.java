@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 
-import com.foobnix.commons.LOG;
+import com.foobnix.commons.log.LOG;
+
 
 public class MediaService extends MediaServiceControls {
     private MediaPlayerCore mediaCore;

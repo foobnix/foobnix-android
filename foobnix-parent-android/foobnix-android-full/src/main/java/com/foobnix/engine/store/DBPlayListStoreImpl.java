@@ -22,8 +22,6 @@ package com.foobnix.engine.store;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -31,6 +29,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModelBuilder;
 import com.foobnix.util.LOG;

@@ -19,8 +19,6 @@
  * THE SOFTWARE. */
 package com.foobnix.ui.activity.pref;
 
-import org.apache.commons.lang.StringUtils;
-
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
@@ -29,6 +27,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceScreen;
 
 import com.foobnix.R;
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.util.pref.Pref;
 
 public class LastFmAccountPreferences extends PrefMenuActivity {

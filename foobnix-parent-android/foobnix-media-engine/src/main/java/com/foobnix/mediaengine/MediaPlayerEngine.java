@@ -6,7 +6,8 @@ import java.io.IOException;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 
-import com.foobnix.commons.LOG;
+import com.foobnix.commons.log.LOG;
+
 
 public class MediaPlayerEngine extends MediaPlayer {
     private int buffering;

@@ -26,13 +26,11 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang.StringUtils;
-
 import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
 
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.engine.FoobnixApplication;
 import com.foobnix.exception.VKSongNotFoundException;
 import com.foobnix.exception.VkErrorException;
@@ -107,7 +105,8 @@ public class DownloadManager {
 
 	public static String getFMoldelDownloadFile(Context context, FModel item) {
 		String forlder = getFModelDownloadFolder(context, item);
-		String text = FilenameUtils.normalizeNoEndSeparator(item.getText());
+        // String text = FilenameUtils.normalizeNoEndSeparator(item.getText());
+        String text = item.getText();
 		String name = String.format("%s - %s.mp3", ((FModelBuilder) item).getNomilizedTrackNum(), text);
 		return new File(forlder, name).getPath();
 

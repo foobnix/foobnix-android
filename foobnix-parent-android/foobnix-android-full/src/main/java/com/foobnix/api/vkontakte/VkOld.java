@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -41,6 +40,7 @@ import org.json.JSONException;
 
 import android.content.Context;
 
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.exception.VKAuthorizationException;
 import com.foobnix.exception.VKSongNotFoundException;
 import com.foobnix.model.FModel;

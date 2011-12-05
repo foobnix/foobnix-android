@@ -3,11 +3,11 @@
   <parent>
     <artifactId>foobnix-parent</artifactId>
     <groupId>foobnix</groupId>
-    <version>y</version>
+    <version>1.0.0</version>
   </parent>
   <groupId>foobnix</groupId>
   <artifactId>foobnix-vkontakte</artifactId>
-  <version>y</version>
+  <version>1.0.0</version>
   <name>foobnix vkontakte</name>
   <dependencies>
   	<dependency>
@@ -19,15 +19,8 @@
   	</dependency>
   	<dependency>
   		<groupId>foobnix</groupId>
-  		<artifactId>foobnix-http</artifactId>
-  		<version>y</version>
-  		<type>jar</type>
-  		<scope>compile</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>foobnix</groupId>
   		<artifactId>foobnix-memcache</artifactId>
-  		<version>y</version>
+  		<version>1.0.0</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
@@ -52,6 +45,11 @@
   		<version>1.1.1</version>
   		<type>jar</type>
   		<scope>provided</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>foobnix</groupId>
+  		<artifactId>foobnix-http</artifactId>
+  		<version>1.0.0</version>
   	</dependency>
   </dependencies>
 </project>

@@ -7,7 +7,8 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Handler;
 
-import com.foobnix.commons.LOG;
+import com.foobnix.commons.log.LOG;
+
 
 public class MediaPlayerCore extends MediaPlayerFeatures implements MediaPlayer.OnCompletionListener {
     private final PlayListController playlistCtr;

@@ -21,10 +21,10 @@ package com.foobnix.api.vkontakte;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.foobnix.api.RequestHelper;
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.exception.VkErrorException;
 import com.foobnix.model.VKUser;
 import com.foobnix.model.VkAudio;

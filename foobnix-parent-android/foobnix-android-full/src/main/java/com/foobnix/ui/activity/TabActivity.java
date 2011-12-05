@@ -22,8 +22,6 @@ package com.foobnix.ui.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -40,6 +38,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
 import com.foobnix.R;
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.engine.FServiceHelper;
 import com.foobnix.engine.PlaylistManager;
 import com.foobnix.model.FModel;

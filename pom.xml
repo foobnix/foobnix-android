@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>foobnix</groupId>
 	<artifactId>foobnix-parent</artifactId>
-	<version>y</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 	<name>Foobnix Parent</name>
 	<description>Foobnix Parent Project</description>
@@ -12,19 +12,16 @@
 		<module>foobnix-parent-android</module>
 	</modules>
 	
-	<scm>
-		<connection>scm:git:git://github.com/foobnix/foobnix-android.git</connection>
-		<url>scm:git:git://github.com/foobnix/foobnix-android.git</url>
-		<developerConnection>scm:git:git://github.com/foobnix/foobnix-android.git</developerConnection>
-	</scm>
-
-	<properties>
-		<!-- <sdk.path>/home/ivan/Downloads/android-sdk-linux_x86</sdk.path> -->
-		<sdk.path>/home/iivanenko/Tools/android-sdk-linux_x86</sdk.path>
-		<sdk.platform>8</sdk.platform>
-	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 	
-
 	<build>
 		<plugins>
 			<plugin>

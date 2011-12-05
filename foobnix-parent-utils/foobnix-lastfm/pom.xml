@@ -3,11 +3,11 @@
   <parent>
     <artifactId>foobnix-parent-utils</artifactId>
     <groupId>foobnix</groupId>
-    <version>y</version>
+    <version>1.0.0</version>
   </parent>
   <groupId>foobnix</groupId>
   <artifactId>foobnix-lastfm</artifactId>
-  <version>y</version>
+  <version>1.0.0</version>
   <name>foobnix lastfm</name>
   <dependencies>
   </dependencies>

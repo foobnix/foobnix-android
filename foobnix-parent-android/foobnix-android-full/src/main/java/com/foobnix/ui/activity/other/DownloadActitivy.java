@@ -21,8 +21,6 @@ package com.foobnix.ui.activity.other;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -36,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.foobnix.R;
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.DOWNLOAD_STATUS;
 import com.foobnix.ui.activity.TabActivity;

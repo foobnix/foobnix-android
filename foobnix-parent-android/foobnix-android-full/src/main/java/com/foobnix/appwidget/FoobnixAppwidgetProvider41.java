@@ -10,8 +10,8 @@ import android.widget.RemoteViews;
 
 import com.foobnix.R;
 import com.foobnix.broadcast.model.UIBroadcast;
-import com.foobnix.commons.LOG;
 import com.foobnix.commons.TimeUtil;
+import com.foobnix.commons.log.LOG;
 import com.foobnix.engine.FServiceHelper;
 import com.foobnix.ui.activity.stars.FolderActivity;
 import com.foobnix.util.InfoTextHelper;

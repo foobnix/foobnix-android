@@ -11,7 +11,8 @@ import android.os.Handler;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
-import com.foobnix.commons.LOG;
+import com.foobnix.commons.log.LOG;
+
 
 public class MediaPlayerFeatures extends MediaPlayerEngine {
     IntentFilter filter;

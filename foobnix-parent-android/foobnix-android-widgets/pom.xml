@@ -4,11 +4,11 @@
 	<parent>
 		<artifactId>foobnix-parent-android</artifactId>
 		<groupId>foobnix</groupId>
-		<version>y</version>
+		<version>1.0.0</version>
 	</parent>
 	<groupId>foobnix</groupId>
 	<artifactId>foobnix-android-widgets</artifactId>
-	<version>y</version>
+	<version>1.0.0</version>
 	<packaging>apk</packaging>
 	<name>foobnix-android-widgets</name>
 

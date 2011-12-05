@@ -19,11 +19,11 @@
  * THE SOFTWARE. */
 package com.foobnix.service;
 
-import org.apache.commons.lang.StringUtils;
 
 import android.content.Context;
 
 import com.foobnix.R;
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.model.FModel;
 import com.foobnix.util.LOG;
 import com.foobnix.util.Res;

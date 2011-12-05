@@ -22,8 +22,6 @@ package com.foobnix.ui.activity.other;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.webkit.WebView;
@@ -32,6 +30,7 @@ import android.widget.Toast;
 
 import com.foobnix.R;
 import com.foobnix.api.vkontakte.VkOld;
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.ui.activity.AppActivity;
 import com.foobnix.util.LOG;
 import com.foobnix.util.Res;

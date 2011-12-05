@@ -25,8 +25,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.TYPE;
 

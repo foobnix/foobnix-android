@@ -21,8 +21,6 @@ package com.foobnix.ui.adapter;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -33,6 +31,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.foobnix.R;
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.engine.FoobnixApplication;
 import com.foobnix.model.FModel;
 

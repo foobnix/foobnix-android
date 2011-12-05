@@ -2,11 +2,11 @@
 	<parent>
 		<artifactId>foobnix-parent-utils</artifactId>
 		<groupId>foobnix</groupId>
-		<version>y</version>
+		<version>1.0.0</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
   <groupId>foobnix</groupId>
   <artifactId>foobnix-memcache</artifactId>
-  <version>y</version>
+  <version>1.0.0</version>
   <name>foobnix memcache</name>
 </project>

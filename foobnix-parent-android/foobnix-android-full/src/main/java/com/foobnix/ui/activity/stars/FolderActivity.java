@@ -23,8 +23,6 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -33,6 +31,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.foobnix.R;
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.engine.FServiceHelper;
 import com.foobnix.engine.PlaylistManager;
 import com.foobnix.model.FModel;

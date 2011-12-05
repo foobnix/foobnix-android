@@ -22,8 +22,6 @@ package com.foobnix.engine;
 import java.io.File;
 import java.util.Locale;
 
-import org.apache.commons.lang.StringUtils;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -36,6 +34,7 @@ import android.widget.Toast;
 import com.foobnix.R;
 import com.foobnix.broadcast.BroadCastManager;
 import com.foobnix.broadcast.model.UIBroadcast;
+import com.foobnix.commons.string.StringUtils;
 import com.foobnix.engine.media.MediaObserver;
 import com.foobnix.engine.media.MediaPlayerEngine;
 import com.foobnix.exception.VkErrorException;

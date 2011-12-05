@@ -21,8 +21,6 @@ package com.foobnix.ui.adapter;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,7 +74,8 @@ public class DMAdapter extends ArrayAdapter<FModel> {
 		title.setText(item.getText());
 		num.setText("" + (item.getPosition() + 1));
 		time.setText("" + item.getPercent() + "%");
-		state.setText(StringUtils.capitalize(item.getStatus().name().toLowerCase()));
+        // state.setText(StringUtils.capitalize(item.getStatus().name().toLowerCase()));
+        state.setText(item.getStatus().name().toLowerCase());
 	}
 
 	public void setItems(List<FModel> items) {

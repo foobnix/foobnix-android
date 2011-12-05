@@ -3,11 +3,11 @@
 	<parent>
 		<artifactId>foobnix-parent-android</artifactId>
 		<groupId>foobnix</groupId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 	<groupId>foobnix</groupId>
 	<artifactId>foobnix-android-commons</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Fobonix Commons Libs</name>
 	<packaging>jar</packaging>
 
