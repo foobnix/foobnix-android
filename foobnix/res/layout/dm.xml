@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" android:layout_height="match_parent"
+	android:orientation="vertical" android:id="@+id/baseView">
+
+	<LinearLayout android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1" android:layout_width="match_parent"
+		android:orientation="horizontal">
+
+		<TextView android:text="@string/Save_To:_" android:textStyle="bold"
+			android:id="@+id/dmTxtTo" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_weight="0"></TextView>
+
+		<TextView android:text="" android:id="@+id/dmDownloadTo"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_weight="1" android:scrollHorizontally="true"></TextView>
+
+		<Button android:text="@string/Choose_..." android:id="@+id/dmChoose"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+	</LinearLayout>
+
+	<LinearLayout android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1" android:layout_width="match_parent"
+		android:orientation="horizontal">
+
+		<TextView android:text="@string/Format:_"
+			android:textStyle="bold" android:id="@+id/dmTxtTo"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_weight="0"></TextView>
+
+		<Spinner android:id="@+id/saveFormatSpinner" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_weight="1"/>
+
+
+	</LinearLayout>
+
+	<LinearLayout android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1" android:layout_width="match_parent">
+		<TextView android:text="@string/Now:_" android:textStyle="bold"
+			android:id="@+id/dmTxtStat" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_weight="0"></TextView>
+
+		<TextView android:text="" android:id="@+id/dmSongTitle"
+			android:layout_weight="1" android:layout_width="wrap_content"
+			android:layout_height="wrap_content"></TextView>
+
+		<Button android:text="@string/Download" android:id="@+id/dmDowload"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+	</LinearLayout>
+
+	<LinearLayout android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1" android:layout_width="match_parent"
+		android:orientation="horizontal">
+		<TextView android:text="@string/Stat:_" android:textStyle="bold"
+			android:id="@+id/dmTxtStat" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_weight="0"></TextView>
+
+		<TextView android:text="" android:id="@+id/dmInfo"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_weight="1" android:scrollHorizontally="true"></TextView>
+
+		<Button android:text="@string/_Refresh_" android:id="@+id/dmRefresh"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+	</LinearLayout>
+
+
+
+	<ListView android:orientation="horizontal"
+		android:layout_height="0dip" android:layout_width="fill_parent"
+		android:layout_weight="1" android:id="@+id/dmList">
+	</ListView>
+	
+	<include
+      android:id="@+id/buttons_override"     
+      android:layout_width="fill_parent"
+      layout="@layout/nav_images"/>
+
+</LinearLayout>

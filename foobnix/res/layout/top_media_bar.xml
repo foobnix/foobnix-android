@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:myapp="http://schemas.android.com/apk/res/com.foobnix"
+    android:id="@+id/topBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:paddingBottom="2px"
+    android:typeface="monospace" >
+
+    <com.foobnix.ui.widget.StarTab
+        android:id="@+id/playlistStartTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        myapp:imageRes="@drawable/playlist"
+        android:orientation="vertical" />
+
+    <com.foobnix.ui.widget.StarTab
+        android:id="@+id/folderStartTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        myapp:imageRes="@drawable/folder"
+        android:orientation="vertical" />
+
+    <com.foobnix.ui.widget.StarTab
+        android:id="@+id/onlineStartTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        myapp:imageRes="@drawable/find"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" />
+
+    <com.foobnix.ui.widget.StarTab
+        android:id="@+id/lastfmStartTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        myapp:imageRes="@drawable/lastvk"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" />
+
+    <com.foobnix.ui.widget.StarTab
+        android:id="@+id/dmStartTab"
+        myapp:imageRes="@drawable/down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" />
+
+</LinearLayout>

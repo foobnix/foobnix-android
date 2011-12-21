@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" android:typeface="monospace"
+	android:orientation="vertical"
+	android:id="@+id/menuLinearLayout" android:layout_height="wrap_content" >
+
+	<TextView android:text="Foobnix.com Music Player" android:id="@+id/infoStatusLine" android:singleLine="true"
+			android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="14dip"
+			 android:gravity="center_horizontal" android:textStyle="bold" />
+	
+	<LinearLayout android:layout_width="match_parent" android:orientation="horizontal"
+		android:typeface="monospace" android:id="@+id/linearLayout1"
+		android:layout_height="wrap_content" android:gravity="center_horizontal|center_vertical">
+		
+		<ImageView android:layout_width="wrap_content"
+		 android:layout_height="wrap_content"
+		android:src="@android:drawable/ic_menu_info_details" android:id="@+id/imageInfo"/>
+		
+		
+		<ImageButton android:id="@+id/button_prev" android:typeface="monospace"
+			android:src="@android:drawable/ic_media_rew"
+			android:textSize="20sp" android:textStyle="bold" android:text="≪"
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:layout_weight="1"/>
+		<ImageButton android:id="@+id/button_play_pause" android:typeface="monospace"
+			android:src="@android:drawable/ic_media_play"
+			android:textSize="20sp" android:textStyle="bold" android:text=">"
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:layout_weight="1"/>
+		<ImageButton android:id="@+id/button_next" android:typeface="monospace"
+			android:textSize="20sp" android:textStyle="bold" android:text="≫"
+			android:src="@android:drawable/ic_media_ff"
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:layout_weight="1"/>
+		
+		<ImageView android:layout_width="wrap_content" android:id="@+id/imageSettins"
+			android:layout_height="wrap_content" android:src="@android:drawable/ic_menu_preferences"
+			 />
+		
+	</LinearLayout>
+	
+
+	<LinearLayout android:layout_width="match_parent" android:orientation="horizontal"
+		android:typeface="monospace" android:id="@+id/linearLayout2"
+		android:layout_height="wrap_content" android:gravity="center_vertical">
+		<TextView android:text="00:00" android:id="@+id/playerActiveTimer"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_weight="0" android:gravity="center_vertical"></TextView>
+		<SeekBar android:id="@+id/playerSeekBar"
+			android:layout_height="wrap_content" android:layout_width="match_parent"
+			android:thumb="@drawable/none" android:paddingLeft="3px"
+			android:paddingRight="3px" android:layout_weight="1" android:gravity="center_vertical"></SeekBar>
+		<TextView android:text="00:00" android:id="@+id/playerTrackTime"
+			android:layout_width="wrap_content" android:layout_weight="0"
+			android:layout_height="wrap_content" android:gravity="center_vertical"></TextView>
+	</LinearLayout>
+	
+	
+	
+
+</LinearLayout>

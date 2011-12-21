@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<item android:title="@string/Folders_Online" android:id="@+id/playerMedia" android:icon="@android:drawable/ic_menu_add" />
+	<item android:title="@string/Player_List" android:id="@+id/playerPlayer" android:icon="@android:drawable/ic_menu_agenda"></item>
+	<item android:title="@string/Downloads" android:id="@+id/playerDowload"  android:icon="@android:drawable/ic_menu_save"></item>
+
+	<item android:title="@string/Action" android:id="@+id/playerMore"/>
+	<item android:title="@string/Song_Info" android:id="@+id/playerInfo" />
+	<item android:title="@string/Settings" android:id="@+id/playerSettingsMenu" />
+	
+</menu>
