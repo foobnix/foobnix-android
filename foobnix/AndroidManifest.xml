@@ -48,6 +48,7 @@
 				
 				<action android:name="com.foobnix.appwidget.FoobnixAppwidgetProvider.ACTION_WIDGET_PLAY_PAUSE" />
 				<action android:name="com.foobnix.appwidget.FoobnixAppwidgetProvider.ACTION_WIDGET_NEXT" />
+				<action android:name="com.foobnix.appwidget.FoobnixAppwidgetProvider.ACTION_WIDGET_PREV" />
 				<action android:name="com.foobnix.appwidget.FoobnixAppwidgetProvider.ACTION_WIDGET_MEDIA_MODEL" />
 			</intent-filter>
 			

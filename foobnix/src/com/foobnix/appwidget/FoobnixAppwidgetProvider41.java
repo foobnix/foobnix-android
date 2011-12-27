@@ -20,6 +20,8 @@ import com.foobnix.util.TimeUtil;
 public class FoobnixAppwidgetProvider41 extends AppWidgetProvider {
     public static String ACTION_WIDGET_PLAY_PAUSE = "ACTION_WIDGET_PLAY_PAUSE";
     public static String ACTION_WIDGET_NEXT = "ACTION_WIDGET_NEXT";
+    public static String ACTION_WIDGET_PREV = "ACTION_WIDGET_PREV";
+    public static String ACTION_WIDGET_OPEN = "ACTION_WIDGET_OPEN";
     public static String ACTION_WIDGET_MEDIA_MODEL = "ACTION_WIDGET_MEDIA_MODEL";
 
     @Override
@@ -35,12 +37,19 @@ public class FoobnixAppwidgetProvider41 extends AppWidgetProvider {
         PendingIntent nextPendingIntent = PendingIntent.getBroadcast(context, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.app_button_next, nextPendingIntent);
+        //prev
+        intent = new Intent(context, FoobnixAppwidgetProvider41.class);
+        intent.setAction(ACTION_WIDGET_PREV);
+
+        PendingIntent prevPendingIntent = PendingIntent.getBroadcast(context, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.app_button_prev, prevPendingIntent);
 
         // open foobnix
         intent = new Intent(context, PlaylistActivity.class);
-        PendingIntent prevPendingIntent = PendingIntent.getActivity(context, 0, intent,
+        PendingIntent openPendingIntent = PendingIntent.getActivity(context, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(R.id.image_foobnix, prevPendingIntent);
+        remoteViews.setOnClickPendingIntent(R.id.image_foobnix, openPendingIntent);
 
         // play_pause
         intent = new Intent(context, FoobnixAppwidgetProvider41.class);
@@ -58,7 +67,9 @@ public class FoobnixAppwidgetProvider41 extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
         String action = intent.getAction();
-        if (action.equals(ACTION_WIDGET_NEXT)) {
+        if (action.equals(ACTION_WIDGET_PREV)) {
+        	FServiceHelper.getInstance().prev(context);
+        }else if (action.equals(ACTION_WIDGET_NEXT)) {
             FServiceHelper.getInstance().next(context);
         } else if (action.equals(ACTION_WIDGET_PLAY_PAUSE)) {
             FServiceHelper.getInstance().playPause(context);

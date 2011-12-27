@@ -71,9 +71,19 @@
 			android:gravity="center_vertical"
 			android:orientation="horizontal"
 			android:layout_height="match_parent">
+			
+		    <ImageView
+		        android:background="@drawable/bg_button"
+				android:padding="8dip"
+				android:layout_margin="2dip"
+				android:id="@+id/app_button_prev"
+				android:src="@android:drawable/ic_media_rew"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_weight="1" />
 
 			<ImageView
-			android:background="@drawable/bg_button"
+				android:background="@drawable/bg_button"
 				android:padding="8dip"
 				android:layout_margin="2dip"
 				android:id="@+id/app_button_play_pause"
