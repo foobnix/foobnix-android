@@ -44,7 +44,8 @@ public class StarTabHelper {
 				Intent intent = new Intent(context, activityClazz);
 				// intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
 				// Intent.FLAG_ACTIVITY_NEW_TASK);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				context.startActivity(intent);
 				
 			}

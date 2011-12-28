@@ -179,7 +179,9 @@ public class FoobnixMediaCore {
 					song.setPath(mostRelevantSong.getUrl());
 				} else {
 					if (Pref.getBool(context, Pref.IS_SKIP_ERRORS, false)) {
-						playNext();
+						//playNext();
+					    FModel nextFModel = playListController.getNextFModel();
+			            playFModel(nextFModel);
 					}
 					Toast.makeText(context, R.string.Song_not_found_in_the_Internet_cantt_play, Toast.LENGTH_SHORT)
 					        .show();

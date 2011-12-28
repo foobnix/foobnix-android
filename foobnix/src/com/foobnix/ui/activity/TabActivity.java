@@ -97,7 +97,11 @@ public abstract class TabActivity extends MenuActivity {
 	@Override
 	protected void onStop() {
 		super.onStop();
-		unregisterReceiver(receiver);
+		try{
+		    unregisterReceiver(receiver);
+		}catch (IllegalArgumentException e) {
+		    LOG.e("Error unregister reciver",e);
+        }
 
 	}
 

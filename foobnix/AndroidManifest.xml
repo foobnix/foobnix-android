@@ -8,14 +8,14 @@
 
     <application android:label="@string/app_name" android:icon="@drawable/foobnix" android:name=".engine.FoobnixApplication" >
         
-        <activity android:name=".ui.activity.stars.PlaylistActivity" android:screenOrientation="portrait">
+        <activity android:name=".ui.activity.stars.PlaylistActivity">
         	<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".ui.activity.stars.FolderActivity"  android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.stars.FolderActivity" />
         <activity android:name=".ui.activity.pref.LastFmAccountPreferences" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.pref.VkPreferences" android:screenOrientation="portrait" />
         
@@ -24,11 +24,11 @@
         
         <activity android:name=".ui.activity.other.VkCheckActivity"  android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.InfoActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.stars.SearchActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.stars.LastWithVKActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.stars.SearchActivity" />
+        <activity android:name=".ui.activity.stars.LastWithVKActivity"  />
         <activity android:name=".ui.activity.VkontakteActivity" android:screenOrientation="portrait" />
         
-        <activity android:name=".ui.activity.other.DownloadActitivy" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.other.DownloadActitivy"  />
         <activity android:name=".ui.activity.info.LyricActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.stars.MoreActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.stars.AboutArtistActivity" android:screenOrientation="portrait" />
