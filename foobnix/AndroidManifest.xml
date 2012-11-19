@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.foobnix" android:installLocation="auto" 
-      android:versionCode="35"
-      android:versionName="3.0">
+      android:versionCode="38"
+      android:versionName="3.1.1">
 		
 	<instrumentation android:targetPackage="com.foobnix" android:name="android.test.InstrumentationTestRunner" />
 
@@ -35,7 +35,9 @@
         <activity android:name=".ui.activity.StarTabActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.MediaActivityChooser" android:screenOrientation="portrait" />
         
-        
+             <activity android:name="com.google.ads.AdActivity"
+              android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+             
         <service android:name=".service.FoobnixService"></service>
         <service android:name=".service.DMService"></service>
         
@@ -70,10 +72,10 @@
     </application>
     <supports-screens />
     
+	<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="8"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
 	<uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="8"/>
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
 	<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>

@@ -25,6 +25,7 @@ import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceScreen;
+import android.text.InputType;
 
 import com.foobnix.R;
 import com.foobnix.ui.activity.other.VkCheckActivity;
@@ -45,11 +46,13 @@ public class VkontakteAccountPreferences extends PrefMenuActivity {
 		login = new EditTextPreference(this);
 		login.setTitle(R.string.Login);
 		login.setKey(Pref.VKONTAKTE_EMAIL);
+		
 		root.addPreference(login);
 
 		pass = new EditTextPreference(this);
 		pass.getEditText().setInputType(android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
 		pass.setTitle(R.string.Password);
+		pass.getEditText().setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
 		pass.setKey(Pref.VKONTAKTE_PASS);
 		root.addPreference(pass);
 

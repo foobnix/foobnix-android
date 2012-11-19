@@ -20,6 +20,12 @@
 		android:layout_width="fill_parent" android:layout_weight="1"
 		android:id="@+id/onlineListView">
 	</ListView>
+	 <FrameLayout
+            android:id="@+id/adFrame"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
 
 	<include android:id="@+id/buttons_override"
 		android:layout_width="fill_parent" layout="@layout/nav_images" />

@@ -69,18 +69,17 @@ public class FoobnixService extends Service {
 		mediaCore.justStop();
 		unregisterReceiver(headsetReciever);
 	}
-
+	
 	@Override
-	public void onStart(Intent intent, int startId) {
-		super.onStart(intent, startId);
+	public int onStartCommand(Intent intent, int flags, int startId) {
 		if (intent == null) {
-			return;
+			return START_STICKY;
 		}
 
 		String action = intent.getAction();
 
 		if (action == null) {
-			return;
+			return START_STICKY;
 		}
 
 		SERVICE_ACTION mode = SERVICE_ACTION.valueOf(action);
@@ -154,6 +153,7 @@ public class FoobnixService extends Service {
 		default:
 			Toast.makeText(FoobnixService.this, "Action not defined: " + action, Toast.LENGTH_SHORT).show();
 		}
+		return START_STICKY;
 	}
 
 	private PhoneStateListener phoneStateListener = new PhoneStateListener() {

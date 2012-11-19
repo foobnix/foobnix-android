@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,13 +40,23 @@ import com.foobnix.engine.FServiceHelper;
 import com.foobnix.ui.activity.pref.PlayerPreferences;
 import com.foobnix.ui.activity.stars.AboutArtistActivity;
 import com.foobnix.ui.activity.stars.PlaylistActivity;
+import com.foobnix.util.ADS;
 import com.foobnix.util.C;
 import com.foobnix.util.LOG;
+import com.google.ads.AdView;
 
 public abstract class MenuActivity extends SubCreateActivity {
 	private FoobnixUIUpdater foobnixUIUpdater;
 	protected View menuLyaout;
 	private BgImageBroadcast bgImageBroadcast;
+	AdView adView;
+	
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		ADS.activate(this, adView);
+	}
+	
 
 	public void hideShowMenu() {
 		app.setShowMenu(!app.isShowMenu());
@@ -84,12 +95,12 @@ public abstract class MenuActivity extends SubCreateActivity {
 		SeekBar seekBar = ((SeekBar) findViewById(R.id.playerSeekBar));
 		seekBar.setOnSeekBarChangeListener(seekLisner);
 
-
 		FServiceHelper.getInstance().activateShortTimer(this, true);
 
-
-		new ButtonImageBindActivity(context, R.id.imageInfo, AboutArtistActivity.class, false);
-		new ButtonImageBindActivity(context, R.id.imageSettins, PlayerPreferences.class, false);
+		new ButtonImageBindActivity(context, R.id.imageInfo,
+				AboutArtistActivity.class, false);
+		new ButtonImageBindActivity(context, R.id.imageSettins,
+				PlayerPreferences.class, false);
 
 		menuLyaout = (View) findViewById(R.id.buttons_override);
 
@@ -103,7 +114,8 @@ public abstract class MenuActivity extends SubCreateActivity {
 		private int progress;
 
 		@Override
-		public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+		public void onProgressChanged(SeekBar seekBar, int progress,
+				boolean fromUser) {
 			this.progress = progress;
 		}
 
@@ -143,8 +155,10 @@ public abstract class MenuActivity extends SubCreateActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		registerReceiver(bgImageBroadcast, new IntentFilter(BgImageBroadcast.class.getName()));
-		registerReceiver(foobnixUIUpdater, new UIBrodcastAction().getIntentFilter());
+		registerReceiver(bgImageBroadcast, new IntentFilter(
+				BgImageBroadcast.class.getName()));
+		registerReceiver(foobnixUIUpdater,
+				new UIBrodcastAction().getIntentFilter());
 
 		bgImageBroadcast.drawBackgound(app.getCache().getDiscCover());
 
@@ -161,8 +175,8 @@ public abstract class MenuActivity extends SubCreateActivity {
 	}
 
 	class ButtonImageBindActivity {
-		public ButtonImageBindActivity(final Context context, int buttonId, final Class activityClazz,
-		        final boolean isFinish) {
+		public ButtonImageBindActivity(final Context context, int buttonId,
+				final Class activityClazz, final boolean isFinish) {
 
 			if (context.getClass().equals(activityClazz)) {
 				return;
@@ -179,7 +193,8 @@ public abstract class MenuActivity extends SubCreateActivity {
 						LOG.d("Finish this activity");
 						finish();
 					}
-					startActivity(new Intent(context.getApplicationContext(), activityClazz));
+					startActivity(new Intent(context.getApplicationContext(),
+							activityClazz));
 				}
 			});
 			view.setOnTouchListener(new View.OnTouchListener() {
@@ -198,11 +213,13 @@ public abstract class MenuActivity extends SubCreateActivity {
 			});
 		}
 
-		public ButtonImageBindActivity(final Context context, int buttonId, final Class activityClazz) {
+		public ButtonImageBindActivity(final Context context, int buttonId,
+				final Class activityClazz) {
 			this(context, buttonId, activityClazz, true);
 		}
 
-		public ButtonImageBindActivity(final Context context, int buttonId, final View.OnClickListener onClickLisner) {
+		public ButtonImageBindActivity(final Context context, int buttonId,
+				final View.OnClickListener onClickLisner) {
 			View view = (View) findViewById(buttonId);
 
 			view.setOnClickListener(new View.OnClickListener() {
@@ -233,18 +250,26 @@ public abstract class MenuActivity extends SubCreateActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		try {
 		app.getAlarmSleepService().onLastActivation();
+		}catch (Exception e) {
+			LOG.e(e);
+		}
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		C.get().save(this);
+		try {
+			ADS.destory(adView);
+			C.get().save(this);
+		} catch (Exception e) {
+			LOG.d(e);
+		}
 	}
 
 	protected void showPlayer() {
 		startActivity(new Intent(this, PlaylistActivity.class));
 	}
-
 
 }

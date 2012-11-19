@@ -35,6 +35,7 @@ import com.foobnix.ui.activity.TabActivity;
 import com.foobnix.ui.activity.other.DownloadActitivy;
 import com.foobnix.ui.adapter.PlaylistAdapter;
 import com.foobnix.ui.widget.RunnableDialog;
+import com.foobnix.util.ADS;
 
 public class PlaylistActivity extends TabActivity {
 
@@ -46,6 +47,7 @@ public class PlaylistActivity extends TabActivity {
 		onCreateActivity(this, R.layout.search);
 		playlistAdapter = new PlaylistAdapter(this, app.getPlayListManager().getAll(), app);
 		listView.setAdapter(playlistAdapter);
+		ADS.gone(this);
 	}
 
 	public void onItemClick(AdapterView<?> adapterView, View v, int pos, long id) {

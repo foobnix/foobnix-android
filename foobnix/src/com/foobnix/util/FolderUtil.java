@@ -136,7 +136,7 @@ public class FolderUtil {
 		List<FModel> result = new ArrayList<FModel>();
 		String parent = new File(path).getParent();
 
-		if (parent.startsWith(ROOT_PATH)) {
+		if (!parent.equals("/")) {
 			result.add(FModelBuilder.Folder("..").addPath(parent));
 		}
 
