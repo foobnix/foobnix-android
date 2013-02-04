@@ -129,11 +129,6 @@ public class MediaPlayerEngine implements MediaEngine {
     }
 
     @Override
-    public String[] supportedExts() {
-		return new String[] { "mp3", "ogg" };
-    }
-
-    @Override
     public int getDuration() {
         return mediaPlayer.getDuration();
     }

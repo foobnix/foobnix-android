@@ -44,7 +44,6 @@ import com.foobnix.engine.FServiceHelper;
 import com.foobnix.engine.PlaylistManager;
 import com.foobnix.model.FModel;
 import com.foobnix.provider.IntegrationsQueryManager;
-import com.foobnix.ui.activity.other.DownloadActitivy;
 import com.foobnix.ui.activity.other.VkCheckActivity;
 import com.foobnix.ui.activity.stars.FolderActivity;
 import com.foobnix.ui.activity.stars.LastWithVKActivity;
@@ -135,8 +134,6 @@ public abstract class TabActivity extends MenuActivity {
 		StarTabHelper.bindStarTab(this, context, R.id.onlineStartTab, SearchActivity.class, R.string.Search);
 		StarTabHelper.bindStarTab(this, context, R.id.lastfmStartTab, LastWithVKActivity.class, R.string.Last_fm_VK);
 
-		StarTab dm = StarTabHelper.bindStarTab(this, context, R.id.dmStartTab, DownloadActitivy.class, R.string.DM);
-		dm.setOnLongClickListener(onLongDm);
 
 	}
 
@@ -275,26 +272,8 @@ public abstract class TabActivity extends MenuActivity {
 
 			        }
 
-		        }, SongUtil.isFileInList(items))//
+				}, SongUtil.isFileInList(items));
 
-		        .Action(getString(R.string.Download), new Runnable() {
-			        @Override
-			        public void run() {
-				        app.addToDownload(item);
-				        startActivity(new Intent(TabActivity.this, DownloadActitivy.class));
-			        }
-		        }, item != null && item.isFile())//
-
-		        .Action(getString(R.string.Download_All), new Runnable() {
-			        @Override
-			        public void run() {
-				        for (FModel current : items) {
-					        app.addToDownload(current);
-				        }
-				        startActivity(new Intent(TabActivity.this, DownloadActitivy.class));
-
-			        }
-		        }, SongUtil.isFileInList(items)).show();
 
 	}
 

@@ -32,13 +32,10 @@ import android.preference.PreferenceScreen;
 
 import com.foobnix.R;
 import com.foobnix.engine.FServiceHelper;
-import com.foobnix.service.DMService;
-import com.foobnix.service.FoobnixService;
 import com.foobnix.service.MODE;
 import com.foobnix.ui.activity.pref.base.BgImagePreferences;
 import com.foobnix.ui.activity.pref.base.NotificationIconPreference;
 import com.foobnix.ui.activity.pref.base.RandomModePreference;
-import com.foobnix.ui.activity.pref.base.StopTimerPreference;
 import com.foobnix.util.VersionHelper;
 
 public class PlayerPreferences extends PrefMenuActivity {
@@ -73,11 +70,6 @@ public class PlayerPreferences extends PrefMenuActivity {
 		lastFm.setOnPreferenceClickListener(onLastfm);
 		category.addPreference(lastFm);
 
-		PreferenceScreen vk = getPreferenceManager().createPreferenceScreen(this);
-		vk.setTitle("Vkontakte");
-		vk.setOnPreferenceClickListener(onVK);
-		category.addPreference(vk);
-
 		// Config
 		PreferenceCategory config = new PreferenceCategory(this);
 		config.setTitle(R.string.Functional);
@@ -85,7 +77,6 @@ public class PlayerPreferences extends PrefMenuActivity {
 
 		// config.addPreference(new AlarmPreference().Builder(this, app));
 		config.addPreference(new NotificationIconPreference().Builder(this, app));
-		config.addPreference(new StopTimerPreference().Builder(this, app));
 		config.addPreference(new RandomModePreference().Builder(this));
 		config.addPreference(new BgImagePreferences().Builder(this));
 		config.addPreference(new SkipSongErorrPreferences().Builder(this));
@@ -103,7 +94,7 @@ public class PlayerPreferences extends PrefMenuActivity {
 		PreferenceScreen web = getPreferenceManager().createPreferenceScreen(this);
 		web.setTitle(R.string.Site);
 
-		web.setSummary("http://android.foobnix.com");
+		web.setSummary("http://www.foobnix.com");
 		web.setOnPreferenceClickListener(onWeb);
 		other.addPreference(web);
 
@@ -133,7 +124,7 @@ public class PlayerPreferences extends PrefMenuActivity {
 			e.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			finish();
 			startActivity(e);
-			
+
 			Handler h = new Handler();
 			h.postDelayed(new Runnable() {
 				@Override
@@ -141,27 +132,17 @@ public class PlayerPreferences extends PrefMenuActivity {
 					app.getNotification().displayNotifcation(MODE.HIDE);
 				};
 			}, 1000);
-			
+
 			return true;
 		}
 	};
-	
 
 	OnPreferenceClickListener onWeb = new OnPreferenceClickListener() {
 
 		@Override
 		public boolean onPreferenceClick(Preference preference) {
 			Locale locale = Locale.getDefault();
-			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://android.foobnix.com/news?lang="
-			        + locale.getLanguage())));
-			return false;
-		}
-	};
-
-	OnPreferenceClickListener onVK = new OnPreferenceClickListener() {
-		@Override
-		public boolean onPreferenceClick(Preference preference) {
-			startActivity(new Intent(PlayerPreferences.this, VkontakteAccountPreferences.class));
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.foobnix.com/?lang=" + locale.getLanguage())));
 			return false;
 		}
 	};

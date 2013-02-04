@@ -38,8 +38,6 @@ public class C implements Serializable {
 	public boolean isRandom = false;
 	public MODE notificationMode = MODE.AUTO_CANCEL;
 
-	public String supportedExts[] = new String[] { "mp3", "ogg" };
-
 	public static C get() {
 		return instanse;
 	}

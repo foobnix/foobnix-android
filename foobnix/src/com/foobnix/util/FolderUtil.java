@@ -37,6 +37,7 @@ import com.foobnix.model.FModelBuilder;
 
 public class FolderUtil {
 	public final static String ROOT_PATH = Environment.getExternalStorageDirectory().getPath();
+	public final static String[] SUPPORTED_EXTENSIONS = { "mp3", "ogg", "flac" };
 
 	public static boolean createParentDir(String path, String name) {
 		File file = new File(path);
@@ -112,8 +113,8 @@ public class FolderUtil {
 
 	public static List<FModel> getAllFilesRecursive(String path) {
 		List<FModel> result = new ArrayList<FModel>();
-		String[] extensions = {"mp3", "ogg"};
-		Collection<File> listFiles = FileUtils.listFiles(new File(path), extensions, true);
+
+		Collection<File> listFiles = FileUtils.listFiles(new File(path), SUPPORTED_EXTENSIONS, true);
 
 		for (File file : listFiles) {
 			String fileName = file.getName();
@@ -215,7 +216,7 @@ public class FolderUtil {
 	}
 
 	private static boolean isSupportedExt(String name) {
-		for (String ext : C.get().supportedExts) {
+		for (String ext : SUPPORTED_EXTENSIONS) {
 			if (name.endsWith(ext)) {
 				return true;
 			}

@@ -23,8 +23,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.foobnix.model.FModel;
-import com.foobnix.service.DMService;
-import com.foobnix.service.DMService.DM_ACTION;
 import com.foobnix.service.FoobnixService;
 import com.foobnix.service.FoobnixService.SERVICE_ACTION;
 
@@ -33,13 +31,6 @@ public class FServiceHelper {
 	
 	public static FServiceHelper getInstance() {
 		return instance;
-	}
-
-	public void addDownload(Context context, FModel item) {
-		Intent service = new Intent(context, DMService.class);
-		service.setAction(DM_ACTION.ADD.toString());
-		service.putExtra(DM_ACTION.ADD.toString(), item);
-		context.startService(service);
 	}
 
 	public void waitTimerThraed(Context context) {

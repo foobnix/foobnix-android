@@ -19,9 +19,6 @@
  * THE SOFTWARE. */
 package com.foobnix.ui.activity.stars;
 
-import java.util.List;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -30,12 +27,9 @@ import android.widget.AdapterView;
 import com.foobnix.R;
 import com.foobnix.engine.FServiceHelper;
 import com.foobnix.model.FModel;
-import com.foobnix.model.FModel.TYPE;
 import com.foobnix.ui.activity.TabActivity;
-import com.foobnix.ui.activity.other.DownloadActitivy;
 import com.foobnix.ui.adapter.PlaylistAdapter;
 import com.foobnix.ui.widget.RunnableDialog;
-import com.foobnix.util.ADS;
 
 public class PlaylistActivity extends TabActivity {
 
@@ -47,7 +41,6 @@ public class PlaylistActivity extends TabActivity {
 		onCreateActivity(this, R.layout.search);
 		playlistAdapter = new PlaylistAdapter(this, app.getPlayListManager().getAll(), app);
 		listView.setAdapter(playlistAdapter);
-		ADS.gone(this);
 	}
 
 	public void onItemClick(AdapterView<?> adapterView, View v, int pos, long id) {
@@ -73,29 +66,9 @@ public class PlaylistActivity extends TabActivity {
 				        app.getPlayListManager().remove(item);
 				        playlistAdapter.remove(item);
 			        }
-		        }, item != null)//
+				}, item != null)//
 
-		        .Action(getString(R.string.Download), new Runnable() {
-
-			        @Override
-			        public void run() {
-				        app.addToDownload(item);
-				        startActivity(new Intent(PlaylistActivity.this, DownloadActitivy.class));
-			        }
-		        }, item != null && item.getType() == TYPE.ONLINE)//
-
-		        .Action(getString(R.string.Download_All), new Runnable() {
-			        @Override
-			        public void run() {
-				        List<FModel> items = app.getPlayListManager().getAll();
-				        for (FModel current : items) {
-					        app.addToDownload(current);
-				        }
-				        startActivity(new Intent(PlaylistActivity.this, DownloadActitivy.class));
-			        }
-		        })//
-
-		        .show();
+				.show();
 	}
 
 }

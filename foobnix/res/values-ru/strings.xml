@@ -96,4 +96,5 @@
   <string name="Player_Info_Line">Вы можете начать с Меню -&gt; Папки-Онлайн</string>
   <string name="Success_please_recheck_if_expired">Успешно (обновите если требуется)</string>
   <string name="Login_or_password_is_empty">Логин или пароль пустой</string>
+  <string name="vk_authorization">Вход ВКонтакте</string>
 </resources>

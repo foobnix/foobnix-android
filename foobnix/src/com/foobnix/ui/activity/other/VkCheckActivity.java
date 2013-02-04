@@ -22,8 +22,6 @@ package com.foobnix.ui.activity.other;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.webkit.WebView;
@@ -31,7 +29,6 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.foobnix.R;
-import com.foobnix.api.vkontakte.VkOld;
 import com.foobnix.ui.activity.AppActivity;
 import com.foobnix.util.LOG;
 import com.foobnix.util.Res;
@@ -44,19 +41,14 @@ public class VkCheckActivity extends AppActivity {
     public static final int OK_RESULT = 66;
 	private String OAUTH_URL = "";
 	private WebView webView;
-	private String email;
-	private String pass;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.web);
-		setTitle("Authorization Is Required For Music Search");
+		setTitle(R.string.vk_authorization);
 
 		OAUTH_URL = API_URL + "/oauth/authorize?client_id=" + Res.get(this, R.string.VK_APP_ID)
-		        + "&scope=audio,friends&redirect_uri=" + REDIRECT_URL + "&response_type=token&display=touch";
-
-		String LOGOUT_URL = API_URL + "/oauth/logout?client_id=" + Res.get(this, R.string.VK_APP_ID)
 		        + "&scope=audio,friends&redirect_uri=" + REDIRECT_URL + "&response_type=token&display=touch";
 
 		LOG.d(OAUTH_URL);
@@ -70,8 +62,6 @@ public class VkCheckActivity extends AppActivity {
 
 		webView.setWebViewClient(new VkontakteClient());
 
-		email = getIntent().getStringExtra(Pref.VKONTAKTE_EMAIL);
-		pass = getIntent().getStringExtra(Pref.VKONTAKTE_PASS);
 
 		webView.loadUrl(OAUTH_URL);
 
@@ -79,33 +69,6 @@ public class VkCheckActivity extends AppActivity {
 
 	Handler handler = new Handler();
 
-	Runnable task = new Runnable() {
-
-		@Override
-		public void run() {
-
-			if (StringUtils.isEmpty(email) || StringUtils.isEmpty(pass)) {
-				email = Pref.getStr(VkCheckActivity.this, Prefs.VKONTAKTE_EMAIL);
-				pass = Pref.getStr(VkCheckActivity.this, Prefs.VKONTAKTE_PASS);
-				if (StringUtils.isEmpty(email) || StringUtils.isEmpty(pass)) {
-					String[] userPass = VkOld.getVKUserPass(REDIRECT_URL);
-					if (userPass != null && userPass.length == 2) {
-						email = userPass[0];
-						pass = userPass[1];
-					}
-
-				}
-			}
-
-			webView.loadUrl(String.format(
-			        "javascript:(function() {document.getElementsByName('email')[0].value='%s'})()", email));
-			webView.loadUrl(String.format(
-			        "javascript:(function() {document.getElementsByName('pass')[0].value='%s'})()", pass));
-
-			// webView.loadUrl("javascript:(function() {document.getElementById('login_submit').submit()})()");
-
-		}
-	};
 
 	private class VkontakteClient extends WebViewClient {
 		@Override
@@ -119,9 +82,6 @@ public class VkCheckActivity extends AppActivity {
 					String token = m.group(1);
 					String userId = m.group(3);
 					LOG.d("Success Recive token and user", token, userId);
-
-					Pref.putStr(VkCheckActivity.this, Prefs.VKONTAKTE_EMAIL, email);
-					Pref.putStr(VkCheckActivity.this, Prefs.VKONTAKTE_PASS, pass);
 
 					Pref.putStr(VkCheckActivity.this, Prefs.VKONTAKTE_TOKEN, token);
 					Pref.putStr(VkCheckActivity.this, Prefs.VKONTAKTE_USER_ID, userId);
@@ -142,11 +102,5 @@ public class VkCheckActivity extends AppActivity {
 			return true;
 		}
 
-		@Override
-		public void onPageFinished(WebView view, String url) {
-			LOG.d("On Finished", url);
-			handler.removeCallbacks(task);
-			handler.postDelayed(task, 1000);
-		}
 	}
 }

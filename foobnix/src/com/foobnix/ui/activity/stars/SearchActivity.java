@@ -47,7 +47,7 @@ import com.foobnix.model.FModel.TYPE;
 import com.foobnix.model.SearchBy;
 import com.foobnix.model.SearchQuery;
 import com.foobnix.ui.activity.TabActivity;
-import com.foobnix.ui.activity.pref.VkontakteAccountPreferences;
+import com.foobnix.ui.activity.other.VkCheckActivity;
 import com.foobnix.util.LOG;
 import com.foobnix.util.SongUtil;
 import com.foobnix.util.pref.Pref;
@@ -70,7 +70,7 @@ public class SearchActivity extends TabActivity {
 		String token = Pref.getStr(this, Pref.VKONTAKTE_TOKEN, Pref.NULL_TOKEN);
 		if (token.equals(Pref.NULL_TOKEN)) {
 			finish();
-			startActivity(new Intent(this, VkontakteAccountPreferences.class));
+			startActivity(new Intent(this, VkCheckActivity.class));
 			return;
 		}
 

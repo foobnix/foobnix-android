@@ -84,17 +84,13 @@ public class FoobnixService extends Service {
 
 		SERVICE_ACTION mode = SERVICE_ACTION.valueOf(action);
 
-		if (mode != SERVICE_ACTION.STOP) {
-			mediaCore.onLastActivateWithMessage();
-		}
-		
 		switch (mode) {
 		case START:
-			mediaCore.play();
+			mediaCore.play(true);
 			break;
 
 		case PAUSE:
-			mediaCore.pause();
+			mediaCore.pause(true);
 			break;
 
 		case WAIT:
@@ -139,11 +135,11 @@ public class FoobnixService extends Service {
 			break;
 
 		case STOP:
-			mediaCore.stop();
+			mediaCore.stop(true);
 			break;
 
 		case PLAY_STATE:
-			mediaCore.play();
+			mediaCore.play(true);
 			break;
 
 		case PLAY_FIRST:
@@ -163,10 +159,10 @@ public class FoobnixService extends Service {
 		public void onCallStateChanged(int state, String incomingNumber) {
 			if (state == TelephonyManager.CALL_STATE_RINGING || state == TelephonyManager.CALL_STATE_OFFHOOK) {
 				needResume = app.isPlaying();
-				mediaCore.pause();
+				mediaCore.pause(false);
 			} else if (state == TelephonyManager.CALL_STATE_IDLE) {
 				if (needResume) {
-					mediaCore.play();
+					mediaCore.play(false);
 				}
 			}
 		}
@@ -185,7 +181,7 @@ public class FoobnixService extends Service {
 				}
 				needResume = app.isPlaying();
 				LOG.d("Headphone pause, isplaygin", needResume);
-				mediaCore.pause();
+				mediaCore.pause(false);
 				lock.set(true);
 				handler.postDelayed(new Runnable() {
 					@Override
@@ -196,7 +192,7 @@ public class FoobnixService extends Service {
 			} else if (isIntentHeadsetInserted(intent)) {
 				LOG.d("Headphone resume", needResume);
 				if (needResume) {
-					mediaCore.play();
+					mediaCore.play(false);
 				}
 			}
 		}

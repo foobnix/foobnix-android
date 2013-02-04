@@ -43,10 +43,9 @@ import com.foobnix.model.FModel;
 import com.foobnix.model.FModel.TYPE;
 import com.foobnix.model.FModelBuilder;
 import com.foobnix.model.VkAudio;
-import com.foobnix.service.AlarmSleepService;
 import com.foobnix.service.FoobnixNotification;
 import com.foobnix.service.LastFmService;
-import com.foobnix.ui.activity.pref.VkontakteAccountPreferences;
+import com.foobnix.ui.activity.other.VkCheckActivity;
 import com.foobnix.ui.activity.stars.PlaylistActivity;
 import com.foobnix.util.C;
 import com.foobnix.util.FolderUtil;
@@ -72,7 +71,6 @@ public class FoobnixMediaCore {
 	private FoobnixNotification notification;
 	private WifiLocker wifiLocker;
 	private Handler handler;
-	private AlarmSleepService alarmSleepService;
 	private boolean isActivate = true;
 
 	public FoobnixMediaCore(Context context) {
@@ -86,7 +84,6 @@ public class FoobnixMediaCore {
 		notification = app.getNotification();
 		broadCastManager = new BroadCastManager(context);
 		wifiLocker = new WifiLocker(context);
-		alarmSleepService = app.getAlarmSleepService();
 		handler = new Handler();
 
 		systemService = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -121,12 +118,14 @@ public class FoobnixMediaCore {
 		}
 	}
 
-	public void play() {
+	public void play(boolean isNotify) {
 		engineManager.play();
 		app.setPlaying(true);
 		handler.post(shortTask);
 		handler.postDelayed(longTask, 15000);
-		notification.displayNotifcation(true);
+		if (isNotify) {
+			notification.displayNotifcation(true);
+		}
 
 	}
 
@@ -137,10 +136,6 @@ public class FoobnixMediaCore {
 	public void playRandom() {
 		FModel nextFModel = playListController.getRandomFModel();
 		playFModel(nextFModel);
-	}
-
-	public void onLastActivateWithMessage() {
-		alarmSleepService.onLastActivation();
 	}
 
 	public void playAtPos(int pos) {
@@ -155,7 +150,7 @@ public class FoobnixMediaCore {
 		if (song == null) {
 			return;
 		}
-		pause();
+		pause(true);
 		LOG.d(song.getPath());
 
 		song.setScrobbled(false);
@@ -173,24 +168,20 @@ public class FoobnixMediaCore {
 
 			LOG.d("Search most relevant song");
 			try {
-				VkAudio mostRelevantSong = app.getIntegrationsQueryManager().getVkAdapter()
-				        .getMostRelevantSong(song.getText());
+				VkAudio mostRelevantSong = app.getIntegrationsQueryManager().getVkAdapter().getMostRelevantSong(song.getText());
 				if (mostRelevantSong != null) {
 					song.setPath(mostRelevantSong.getUrl());
 				} else {
 					if (Pref.getBool(context, Pref.IS_SKIP_ERRORS, false)) {
-						//playNext();
-					    FModel nextFModel = playListController.getNextFModel();
-			            playFModel(nextFModel);
+						// playNext();
+						FModel nextFModel = playListController.getNextFModel();
+						playFModel(nextFModel);
 					}
-					Toast.makeText(context, R.string.Song_not_found_in_the_Internet_cantt_play, Toast.LENGTH_SHORT)
-					        .show();
+					Toast.makeText(context, R.string.Song_not_found_in_the_Internet_cantt_play, Toast.LENGTH_SHORT).show();
 					return;
 				}
 			} catch (VkErrorException e) {
-				Intent intent = new Intent(context, VkontakteAccountPreferences.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				context.startActivity(intent);
+				context.startActivity(new Intent(context, VkCheckActivity.class));
 				return;
 			}
 
@@ -228,8 +219,7 @@ public class FoobnixMediaCore {
 		context.sendBroadcast(new Intent(PlaylistActivity.class.getName()));
 
 		if (bgAsyncTask == null || bgAsyncTask.getStatus() == Status.FINISHED) {
-			if (systemService.getActiveNetworkInfo() != null
-			        && systemService.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI) {
+			if (systemService.getActiveNetworkInfo() != null && systemService.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI) {
 				bgAsyncTask = new BgAsyncTask();
 				bgAsyncTask.execute();
 			}
@@ -248,8 +238,8 @@ public class FoobnixMediaCore {
 		if (!FModelBuilder.Empty().equals(model)) {
 			app.setPlaying(engineManager.isPlaying());
 
-			UIBroadcast stat = new UIBroadcast(model, engineManager.getCurrentPosition(), engineManager.getDuration(),
-			        engineManager.isPlaying(), engineManager.getBuffering(), app.getPlayListManager().getAll().size());
+			UIBroadcast stat = new UIBroadcast(model, engineManager.getCurrentPosition(), engineManager.getDuration(), engineManager.isPlaying(), engineManager.getBuffering(), app
+					.getPlayListManager().getAll().size());
 			if (engineManager.isError()) {
 				stat.setBuffering(-1);
 			}
@@ -261,8 +251,6 @@ public class FoobnixMediaCore {
 
 	public void longTimer() {
 		FModel model = app.getNowPlayingSong();
-
-		alarmSleepService.checkSleepAlarm(engineManager.isPlaying());
 
 		LOG.d(app.getNowPlayingSong().getType());
 		if (app.getNowPlayingSong().getType() == TYPE.ONLINE || !app.isDownloadFinished()) {
@@ -301,13 +289,15 @@ public class FoobnixMediaCore {
 	private ConnectivityManager systemService;
 	private NetworkInfo mobileInfo;
 
-	public void pause() {
+	public void pause(boolean isNofity) {
 		handler.removeCallbacks(shortTask);
 		handler.removeCallbacks(longTask);
 		engineManager.pause();
 		app.setPlaying(false);
 		shortTimer();
-		notification.displayNotifcation(false);
+		if (isNofity) {
+			notification.displayNotifcation(false);
+		}
 
 	}
 
@@ -315,10 +305,12 @@ public class FoobnixMediaCore {
 		engineManager.stop();
 	}
 
-	public void stop() {
-		pause();
+	public void stop(boolean isNofity) {
+		pause(isNofity);
 		engineManager.stop();
-		notification.displayNotifcation(false);
+		if (isNofity) {
+			notification.displayNotifcation(false);
+		}
 	}
 
 	/**
@@ -393,8 +385,7 @@ public class FoobnixMediaCore {
 			}
 		}
 
-		Artist info = Artist.getInfo(song.getArtist(), Locale.getDefault(), user,
-		        Res.get(context, R.string.LAST_FM_API_KEY));
+		Artist info = Artist.getInfo(song.getArtist(), Locale.getDefault(), user, Res.get(context, R.string.LAST_FM_API_KEY));
 		if (info != null) {
 			String imageURL = info.getImageURL(ImageSize.MEGA);
 			broadCastManager.sendBgImage(imageURL);

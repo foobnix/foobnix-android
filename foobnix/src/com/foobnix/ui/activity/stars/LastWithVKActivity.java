@@ -36,7 +36,7 @@ import com.foobnix.model.FModel.TYPE;
 import com.foobnix.model.SearchBy;
 import com.foobnix.model.SearchQuery;
 import com.foobnix.ui.activity.TabActivity;
-import com.foobnix.ui.activity.pref.VkontakteAccountPreferences;
+import com.foobnix.ui.activity.other.VkCheckActivity;
 import com.foobnix.util.LOG;
 import com.foobnix.util.SongUtil;
 import com.foobnix.util.pref.Pref;
@@ -55,20 +55,25 @@ public class LastWithVKActivity extends TabActivity {
 		}
 		String token = Pref.getStr(this, Pref.VKONTAKTE_TOKEN, Pref.NULL_TOKEN);
 		if (token.equals(Pref.NULL_TOKEN)) {
-			finish();
-			startActivity(new Intent(this, VkontakteAccountPreferences.class));
+			// startActivity(new Intent(this,
+			// VkontakteAccountPreferences.class));
+			startActivity(new Intent(this, VkCheckActivity.class));
 			return;
 		}
 
 		onCreateActivity(this, R.layout.search);
 		listView.setAdapter(navigationAdapter);
 
+		LOG.d("on create");
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
 		String lastUser = Pref.getStr(this, Pref.LASTFM_USER, "foobnix");
 		String vkUserId = Pref.getStr(this, Pref.VKONTAKTE_USER_ID, "not defined");
 		LOG.d("vkUserID", vkUserId);
 		items.addAll(queryManager.getSearchResult(new SearchQuery(SearchBy.ROOT, lastUser, vkUserId), true));
-
-		LOG.d("on create");
 	}
 
 

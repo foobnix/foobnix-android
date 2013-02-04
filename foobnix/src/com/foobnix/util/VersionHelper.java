@@ -22,18 +22,10 @@ package com.foobnix.util;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Environment;
 
 import com.foobnix.R;
-import com.foobnix.util.pref.Pref;
-import com.foobnix.util.pref.Prefs;
 
 public class VersionHelper {
-
-    public static String getDownloadTo(Context context) {
-		String def = Environment.getExternalStorageDirectory().getPath() + Res.get(context, R.string.DOWLOAD_TO);
-		return Pref.getStr(context, Prefs.DOWNLOAD_TO, def);
-    }
 
     public static String getFoobnixVersion(Context context) {
         try {

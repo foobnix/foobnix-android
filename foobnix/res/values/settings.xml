@@ -4,7 +4,5 @@
 	<string name="LAST_FM_API_SECRET">800adaf46e237805a4ec2a81404b3ff2</string>
 	<string name="VK_APP_ID">2234333</string>
 	<string name="VK_SECRET">0kCUFX5mK3McLmkxPHHB</string>
-	<string name="DOWLOAD_TO">/Music/Downloads</string>
-	<string name="SUPPORTED_FORMAT">mp3,ogg</string>
 	<string name="AD_UNIT_ID">a1500c13c645fce</string>
 </resources>

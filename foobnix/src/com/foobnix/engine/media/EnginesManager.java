@@ -50,11 +50,6 @@ public class EnginesManager implements MediaEngine {
     }
 
     @Override
-    public String[] supportedExts() {
-        return null;
-    }
-
-    @Override
     public void play(String path) throws Exception {
     }
 

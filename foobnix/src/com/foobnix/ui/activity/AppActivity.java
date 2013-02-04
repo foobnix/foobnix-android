@@ -34,7 +34,6 @@ public class AppActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		app = (FoobnixApplication) getApplication();
-		app.getAlarmSleepService().onLastActivation();
 
 		if (app.getNowPlayingSong().equals(FModelBuilder.Empty())) {
 			app.getNotification().displayNotifcation("Foobnix", C.get().sleepMins);

@@ -60,13 +60,6 @@ public class PrefMenuActivity extends PreferenceActivity implements OnSharedPref
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		app = (FoobnixApplication) getApplication();
-		app.getAlarmSleepService().onLastActivation();
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		app.getAlarmSleepService().onLastActivation();
 	}
 
 	@Override

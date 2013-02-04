@@ -20,7 +20,6 @@
 package com.foobnix.engine.media;
 
 public interface MediaEngine {
-	String[] supportedExts();
 
 	void play(String path) throws Exception;
 

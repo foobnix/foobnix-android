@@ -34,7 +34,7 @@ import com.foobnix.model.FModelBuilder;
 import com.foobnix.model.SearchBy;
 import com.foobnix.model.SearchQuery;
 import com.foobnix.model.VKUser;
-import com.foobnix.ui.activity.pref.VkontakteAccountPreferences;
+import com.foobnix.ui.activity.other.VkCheckActivity;
 import com.foobnix.util.LOG;
 import com.foobnix.util.Res;
 import com.foobnix.util.pref.Pref;
@@ -57,7 +57,7 @@ public class IntegrationsQueryManager extends StackQueryManager {
 			return getSearchResultProccessException(searchQuery);
 		} catch (VkErrorException e) {
 			Toast.makeText(context, R.string.Token_Expired, Toast.LENGTH_LONG).show();
-			Intent intent = new Intent(context, VkontakteAccountPreferences.class);
+			Intent intent = new Intent(context, VkCheckActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			context.startActivity(intent);
 			return Collections.EMPTY_LIST;

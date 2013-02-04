@@ -27,7 +27,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.foobnix.ui.activity.TabActivity;
-import com.foobnix.ui.activity.other.DownloadActitivy;
 import com.foobnix.util.pref.Pref;
 import com.foobnix.util.pref.Prefs;
 
@@ -37,8 +36,7 @@ public class AllStarTabsActivity extends Activity {
 	        PlaylistActivity.class,//
 	        FolderActivity.class,//
 	        SearchActivity.class, //
-	        LastWithVKActivity.class, //
-	        DownloadActitivy.class
+			LastWithVKActivity.class //
 	        );
 
 	@Override

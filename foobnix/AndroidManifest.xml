@@ -4,7 +4,13 @@
       android:versionCode="38"
       android:versionName="3.1.1">
 		
-	<instrumentation android:targetPackage="com.foobnix" android:name="android.test.InstrumentationTestRunner" />
+	<uses-sdk android:minSdkVersion="6" android:targetSdkVersion="17"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+	<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
 
     <application android:label="@string/app_name" android:icon="@drawable/foobnix" android:name=".engine.FoobnixApplication" >
         
@@ -39,10 +45,7 @@
               android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
              
         <service android:name=".service.FoobnixService"></service>
-        <service android:name=".service.DMService"></service>
         
-	<uses-library android:name="android.test.runner" />
-	
 	<!-- Widgets -->
 		<receiver android:name=".appwidget.FoobnixAppwidgetProvider41" android:label="Foobnix 4x1">
 			<intent-filter>
@@ -70,13 +73,5 @@
 		</receiver>
 	
     </application>
-    <supports-screens />
     
-	<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="8"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
-	<uses-permission android:name="android.permission.INTERNET"/>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
-	<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
 </manifest>
